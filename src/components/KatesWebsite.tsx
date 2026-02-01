@@ -320,7 +320,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofaCloud}
         alt="Bofa Cloud Project"
-        className="absolute left-[8%] top-[18%] w-[192px] h-[139px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[2%] md:left-[8%] top-[5%] md:top-[18%] w-[100px] md:w-[192px] h-[72px] md:h-[139px] opacity-80 cursor-pointer z-10"
         duration={5}
         delay={0}
         yOffset={10}
@@ -333,7 +333,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofAWorkplace}
         alt="BofA Workplace Project"
-        className="absolute left-[72%] top-[18%] w-[192px] h-[129px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[65%] md:left-[72%] top-[5%] md:top-[18%] w-[100px] md:w-[192px] h-[67px] md:h-[129px] opacity-80 cursor-pointer z-10"
         duration={6}
         delay={0.5}
         yOffset={14}
@@ -346,7 +346,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgPawpawStory}
         alt="Pawpaw Story Project"
-        className="absolute left-[8%] top-[30%] w-[192px] h-[109px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[2%] md:left-[8%] top-[75%] md:top-[30%] w-[100px] md:w-[192px] h-[57px] md:h-[109px] opacity-80 cursor-pointer z-10"
         duration={4.5}
         delay={1}
         yOffset={8}
@@ -359,7 +359,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgIOnboard}
         alt="iOnboard Project"
-        className="absolute left-[72%] top-[30%] w-[192px] h-[99px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[65%] md:left-[72%] top-[75%] md:top-[30%] w-[100px] md:w-[192px] h-[52px] md:h-[99px] opacity-80 cursor-pointer z-10"
         duration={5.5}
         delay={1.5}
         yOffset={12}
@@ -382,7 +382,7 @@ export default function KatesWebsite() {
 
       {/* Center Badge Card */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative w-[300px] bg-white border border-[#e5e7eb] rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden">
+        <div className="relative w-[240px] md:w-[300px] bg-white border border-[#e5e7eb] rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden">
           {/* Glassmorphism overlay */}
           <div 
             className="absolute inset-0 pointer-events-none"
@@ -393,18 +393,18 @@ export default function KatesWebsite() {
           <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
 
           {/* Clip/Hook at top */}
-          <div className="relative h-16 flex items-start justify-center pt-0">
+          <div className="relative h-12 md:h-16 flex items-start justify-center pt-0">
             {/* Hook loop - behind the clip slot */}
-            <div className="absolute -top-5 w-6 h-12 border-[6px] border-[#333] rounded-full z-0" />
+            <div className="absolute -top-4 md:-top-5 w-5 md:w-6 h-10 md:h-12 border-[5px] md:border-[6px] border-[#333] rounded-full z-0" />
             {/* Clip slot - in front of the hook */}
-            <div className="relative z-10 mt-4 w-20 h-6 bg-[#f5f5f5] border border-black/10 rounded-lg flex items-center justify-center shadow-sm">
-              <div className="w-12 h-1 bg-black/30 rounded-full" />
+            <div className="relative z-10 mt-3 md:mt-4 w-16 md:w-20 h-5 md:h-6 bg-[#f5f5f5] border border-black/10 rounded-lg flex items-center justify-center shadow-sm">
+              <div className="w-10 md:w-12 h-1 bg-black/30 rounded-full" />
             </div>
           </div>
 
           {/* Avatar */}
           <div className="flex justify-center -mt-2">
-            <div className="w-40 h-[117px] rounded-full bg-[#f3f4f6] border-[6px] border-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] overflow-hidden">
+            <div className="w-28 md:w-40 h-[82px] md:h-[117px] rounded-full bg-[#f3f4f6] border-[4px] md:border-[6px] border-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] overflow-hidden">
               <img
                 src={imgKateXu}
                 alt="Kate Xu"
@@ -414,8 +414,8 @@ export default function KatesWebsite() {
           </div>
 
           {/* Name */}
-          <div className="text-center mt-4">
-            <h1 className="text-4xl font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
+          <div className="text-center mt-3 md:mt-4">
+            <h1 className="text-2xl md:text-4xl font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
               Kate Xu
             </h1>
           </div>
@@ -429,22 +429,22 @@ export default function KatesWebsite() {
           </div>
 
           {/* Mission & Resume */}
-          <div className="px-6 pb-6 mt-6">
-            <div className="flex items-end justify-between gap-4 opacity-80">
+          <div className="px-4 md:px-6 pb-4 md:pb-6 mt-4 md:mt-6">
+            <div className="flex items-end justify-between gap-3 md:gap-4 opacity-80">
               {/* Mission */}
               <div className="flex-1">
-                <p className="text-[9px] font-bold text-[#99a1af] tracking-wider uppercase mb-1">
+                <p className="text-[8px] md:text-[9px] font-bold text-[#99a1af] tracking-wider uppercase mb-1">
                   Mission
                 </p>
-                <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-2">
-                  <p className="text-[10px] text-[#364153] tracking-wider uppercase leading-5">
+                <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5 md:p-2">
+                  <p className="text-[9px] md:text-[10px] text-[#364153] tracking-wider uppercase leading-4 md:leading-5">
                     Creating things fun and beautiful
                   </p>
                 </div>
               </div>
 
               {/* Resume Button */}
-              <button className="bg-black text-white px-5 py-2.5 rounded-[10px] text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors">
+              <button className="bg-black text-white px-3 md:px-5 py-2 md:py-2.5 rounded-[8px] md:rounded-[10px] text-[10px] md:text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors">
                 Resume
               </button>
             </div>
