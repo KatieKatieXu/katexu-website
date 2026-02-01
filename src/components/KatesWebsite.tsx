@@ -438,7 +438,7 @@ export default function KatesWebsite() {
                 </p>
                 <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5 md:p-2">
                   <p className="text-[9px] md:text-[10px] text-[#364153] tracking-wider uppercase leading-4 md:leading-5">
-                    Creating things fun and beautiful
+                    Build fun and beautiful things with imagination and expression
                   </p>
                 </div>
               </div>
