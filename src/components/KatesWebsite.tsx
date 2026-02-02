@@ -96,7 +96,7 @@ function SpecCard({ project, className, onMouseEnter, onMouseLeave }: SpecCardPr
       transition={{ duration: 0.2 }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`absolute w-[280px] rounded-xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] border border-white/40 overflow-hidden z-50 ${className}`}
+      className={`absolute w-[260px] md:w-[280px] rounded-xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] border border-white/40 overflow-hidden z-50 ${className}`}
       style={{
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
@@ -271,11 +271,12 @@ export default function KatesWebsite() {
   }
 
   // Fixed positions for each spec card (static, doesn't float)
+  // Mobile: centered, Desktop: positioned around the badge
   const cardPositions: Record<ProjectKey, string> = {
-    bofaCloud: "left-[22%] top-[5%]",
-    bofaWorkplace: "right-[22%] top-[18%]",
-    pawpawStory: "left-[28%] top-[38%]",
-    ionboard: "right-[28%] top-[48%]",
+    bofaCloud: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[22%] md:top-[5%]",
+    bofaWorkplace: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-auto md:right-[22%] md:top-[18%]",
+    pawpawStory: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[28%] md:top-[38%]",
+    ionboard: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-auto md:right-[28%] md:top-[48%]",
   };
 
   return (
@@ -320,7 +321,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofaCloud}
         alt="Bofa Cloud Project"
-        className="absolute left-[2%] md:left-[8%] top-[5%] md:top-[18%] w-[100px] md:w-[192px] h-[72px] md:h-[139px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[8%] md:left-[8%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[65px] md:h-[139px] opacity-80 cursor-pointer z-10"
         duration={5}
         delay={0}
         yOffset={10}
@@ -333,7 +334,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofAWorkplace}
         alt="BofA Workplace Project"
-        className="absolute left-[65%] md:left-[72%] top-[5%] md:top-[18%] w-[100px] md:w-[192px] h-[67px] md:h-[129px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[68%] md:left-[72%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[60px] md:h-[129px] opacity-80 cursor-pointer z-10"
         duration={6}
         delay={0.5}
         yOffset={14}
@@ -346,7 +347,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgPawpawStory}
         alt="Pawpaw Story Project"
-        className="absolute left-[2%] md:left-[8%] top-[75%] md:top-[30%] w-[100px] md:w-[192px] h-[57px] md:h-[109px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[18%] md:left-[8%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[51px] md:h-[109px] opacity-80 cursor-pointer z-10"
         duration={4.5}
         delay={1}
         yOffset={8}
@@ -359,7 +360,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgIOnboard}
         alt="iOnboard Project"
-        className="absolute left-[65%] md:left-[72%] top-[75%] md:top-[30%] w-[100px] md:w-[192px] h-[52px] md:h-[99px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[58%] md:left-[72%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[47px] md:h-[99px] opacity-80 cursor-pointer z-10"
         duration={5.5}
         delay={1.5}
         yOffset={12}
