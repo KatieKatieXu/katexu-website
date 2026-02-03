@@ -317,11 +317,11 @@ export default function KatesWebsite() {
       </div>
 
       {/* Project Spaceships - Floating in standby */}
-      {/* Top Left - Bofa Cloud */}
+      {/* Top Left - Bofa Cloud - closer to center */}
       <Spaceship
         src={imgBofaCloud}
         alt="Bofa Cloud Project"
-        className="absolute left-[8%] md:left-[8%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[65px] md:h-[139px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[18%] md:left-[12%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[65px] md:h-[139px] opacity-80 cursor-pointer z-10"
         duration={5}
         delay={0}
         yOffset={10}
@@ -334,7 +334,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofAWorkplace}
         alt="BofA Workplace Project"
-        className="absolute left-[68%] md:left-[72%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[60px] md:h-[129px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[58%] md:left-[72%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[60px] md:h-[129px] opacity-80 cursor-pointer z-10"
         duration={6}
         delay={0.5}
         yOffset={14}
@@ -343,11 +343,11 @@ export default function KatesWebsite() {
         onHoverEnd={() => setHoveredProject(null)}
       />
 
-      {/* Bottom Left - Pawpaw Story */}
+      {/* Bottom Left - Pawpaw Story - farther from center */}
       <Spaceship
         src={imgPawpawStory}
         alt="Pawpaw Story Project"
-        className="absolute left-[18%] md:left-[8%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[51px] md:h-[109px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[5%] md:left-[5%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[51px] md:h-[109px] opacity-80 cursor-pointer z-10"
         duration={4.5}
         delay={1}
         yOffset={8}
@@ -360,7 +360,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgIOnboard}
         alt="iOnboard Project"
-        className="absolute left-[58%] md:left-[72%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[47px] md:h-[99px] opacity-80 cursor-pointer z-10"
+        className="absolute left-[68%] md:left-[72%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[47px] md:h-[99px] opacity-80 cursor-pointer z-10"
         duration={5.5}
         delay={1.5}
         yOffset={12}
@@ -372,12 +372,23 @@ export default function KatesWebsite() {
       {/* Static Spec Cards - Rendered at fixed positions on hover */}
       <AnimatePresence>
         {hoveredProject && (
-          <SpecCard 
-            project={projects[hoveredProject]} 
-            className={cardPositions[hoveredProject]}
-            onMouseEnter={() => setHoveredProject(hoveredProject)}
-            onMouseLeave={() => setHoveredProject(null)}
-          />
+          <>
+            {/* Dark overlay for mobile - click to close */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden fixed inset-0 bg-black/40 z-40"
+              onClick={() => setHoveredProject(null)}
+            />
+            <SpecCard 
+              project={projects[hoveredProject]} 
+              className={cardPositions[hoveredProject]}
+              onMouseEnter={() => setHoveredProject(hoveredProject)}
+              onMouseLeave={() => setHoveredProject(null)}
+            />
+          </>
         )}
       </AnimatePresence>
 
