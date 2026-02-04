@@ -200,6 +200,7 @@ interface SpaceshipProps {
   glowColor?: string;
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
+  onTap?: () => void;
 }
 
 function Spaceship({ 
@@ -213,20 +214,39 @@ function Spaceship({
   glowColor = "rgba(74, 222, 128, 1)", // bright mint green by default
   onHoverStart,
   onHoverEnd,
+  onTap,
 }: SpaceshipProps) {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    // Detect touch device on mount
+    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
   return (
     <motion.div
       className={`${className} relative`}
       variants={floatingVariants}
       animate="float"
       custom={{ duration, delay, yOffset }}
-      whileHover={{ 
+      // Only apply hover animation on non-touch devices
+      whileHover={!isTouchDevice ? { 
         scale: 1.08, 
         opacity: 1,
         transition: { duration: 0.3 } 
+      } : undefined}
+      // Desktop only: hover to show/hide
+      onMouseEnter={() => {
+        if (!isTouchDevice) onHoverStart?.();
       }}
-      onMouseEnter={onHoverStart}
-      onMouseLeave={onHoverEnd}
+      onMouseLeave={() => {
+        if (!isTouchDevice) onHoverEnd?.();
+      }}
+      // Mobile only: tap to toggle
+      onClick={() => {
+        if (isTouchDevice) onTap?.();
+      }}
+      style={{ touchAction: 'manipulation' }}
     >
       {/* Background glow layer to fill transparent holes */}
       {isActive && (
@@ -280,7 +300,10 @@ export default function KatesWebsite() {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative">
+    <div 
+      className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0"
+      style={{ touchAction: 'none', overscrollBehavior: 'none' }}
+    >
       {/* Planetary Diagram Background */}
       <div className="absolute inset-0 flex items-center justify-center opacity-60">
         <img
@@ -328,6 +351,7 @@ export default function KatesWebsite() {
         isActive={hoveredProject === "bofaCloud"}
         onHoverStart={() => setHoveredProject("bofaCloud")}
         onHoverEnd={() => setHoveredProject(null)}
+        onTap={() => setHoveredProject(hoveredProject === "bofaCloud" ? null : "bofaCloud")}
       />
 
       {/* Top Right - BofA Workplace */}
@@ -341,6 +365,7 @@ export default function KatesWebsite() {
         isActive={hoveredProject === "bofaWorkplace"}
         onHoverStart={() => setHoveredProject("bofaWorkplace")}
         onHoverEnd={() => setHoveredProject(null)}
+        onTap={() => setHoveredProject(hoveredProject === "bofaWorkplace" ? null : "bofaWorkplace")}
       />
 
       {/* Bottom Left - Pawpaw Story - farther from center */}
@@ -354,6 +379,7 @@ export default function KatesWebsite() {
         isActive={hoveredProject === "pawpawStory"}
         onHoverStart={() => setHoveredProject("pawpawStory")}
         onHoverEnd={() => setHoveredProject(null)}
+        onTap={() => setHoveredProject(hoveredProject === "pawpawStory" ? null : "pawpawStory")}
       />
 
       {/* Bottom Right - iOnboard */}
@@ -367,6 +393,7 @@ export default function KatesWebsite() {
         isActive={hoveredProject === "ionboard"}
         onHoverStart={() => setHoveredProject("ionboard")}
         onHoverEnd={() => setHoveredProject(null)}
+        onTap={() => setHoveredProject(hoveredProject === "ionboard" ? null : "ionboard")}
       />
 
       {/* Static Spec Cards - Rendered at fixed positions on hover */}
