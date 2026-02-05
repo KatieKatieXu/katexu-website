@@ -83,8 +83,8 @@ const floatingVariants = {
 // Project routes mapping
 const projectRoutes: Record<ProjectKey, string | null> = {
   bofaCloud: "/projects/bofa-cloud",
-  bofaWorkplace: null, // Coming soon
-  pawpawStory: null, // Coming soon
+  bofaWorkplace: "/projects/bofa-workplace",
+  pawpawStory: "/projects/pawpaw-story",
   ionboard: "/projects/ionboard",
 };
 
