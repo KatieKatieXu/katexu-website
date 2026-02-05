@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 // Image assets
 const imgPlanetaryDiagram = "/planetary-diagram.png";
@@ -79,15 +80,25 @@ const floatingVariants = {
   }),
 };
 
+// Project routes mapping
+const projectRoutes: Record<ProjectKey, string | null> = {
+  bofaCloud: "/projects/bofa-cloud",
+  bofaWorkplace: null, // Coming soon
+  pawpawStory: null, // Coming soon
+  ionboard: "/projects/ionboard",
+};
+
 // Project Spec Card component - renders at fixed position
 interface SpecCardProps {
   project: typeof projects.bofaCloud;
+  projectKey: ProjectKey;
   className: string;
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }
 
-function SpecCard({ project, className, onMouseEnter, onMouseLeave }: SpecCardProps) {
+function SpecCard({ project, projectKey, className, onMouseEnter, onMouseLeave }: SpecCardProps) {
+  const projectRoute = projectRoutes[projectKey];
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -179,10 +190,21 @@ function SpecCard({ project, className, onMouseEnter, onMouseLeave }: SpecCardPr
         </div>
 
         {/* Read More Button */}
-        <button className="mt-4 w-full py-2.5 bg-white/50 border border-white/60 rounded-lg text-sm font-semibold text-emerald-600 hover:bg-white/70 transition-colors flex items-center justify-center gap-1 backdrop-blur-sm">
-          READ MORE
-          <span className="text-lg">›</span>
-        </button>
+        {projectRoute ? (
+          <Link href={projectRoute}>
+            <button className="mt-4 w-full py-2.5 bg-white/50 border border-white/60 rounded-lg text-sm font-semibold text-emerald-600 hover:bg-white/70 transition-colors flex items-center justify-center gap-1 backdrop-blur-sm">
+              READ MORE
+              <span className="text-lg">›</span>
+            </button>
+          </Link>
+        ) : (
+          <button 
+            className="mt-4 w-full py-2.5 bg-white/30 border border-white/40 rounded-lg text-sm font-semibold text-gray-400 cursor-not-allowed flex items-center justify-center gap-1 backdrop-blur-sm"
+            disabled
+          >
+            COMING SOON
+          </button>
+        )}
       </div>
     </motion.div>
   );
@@ -410,7 +432,8 @@ export default function KatesWebsite() {
               onClick={() => setHoveredProject(null)}
             />
             <SpecCard 
-              project={projects[hoveredProject]} 
+              project={projects[hoveredProject]}
+              projectKey={hoveredProject}
               className={cardPositions[hoveredProject]}
               onMouseEnter={() => setHoveredProject(hoveredProject)}
               onMouseLeave={() => setHoveredProject(null)}
