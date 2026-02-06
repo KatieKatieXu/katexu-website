@@ -16,50 +16,50 @@ const imgKateXu = "/kate-xu.png";
 const projects = {
   bofaCloud: {
     title: "BOFA CLOUD",
-    category: "WEB APP",
-    description: "An enterprise cloud management platform designed to streamline infrastructure provisioning and monitoring for global banking operations.",
+    category: "ENTERPRISE PLATFORM",
+    description: "Next-generation cloud infrastructure platform enabling self-service provisioning for 200K+ enterprise users across global banking operations.",
     timeline: "2023 – Present",
     role: "Lead Product Designer",
     highlights: [
-      "Reduced provisioning time by 40%",
-      "Unified dashboard analytics",
-      "Design System adoption",
+      "200K+ enterprise users",
+      "Self-service portal design",
+      "Cross-functional leadership",
     ],
   },
   bofaWorkplace: {
-    title: "BOFA WORKPLACE",
-    category: "MOBILE APP",
-    description: "Mobile application for employee resources, workspace booking, and internal communications.",
-    timeline: "2022 – 2023",
-    role: "UI/UX Designer",
+    title: "BOFA WORKIT",
+    category: "MOBILE ECOSYSTEM",
+    description: "Unified mobile workforce ecosystem that eliminated context-switching across 3+ platforms into a single Command Center.",
+    timeline: "1.5 Years",
+    role: "UX Researcher & Product Designer",
     highlights: [
-      "Mobile-first approach",
-      "Accessibility WCAG 2.1",
-      "Internal beta launch",
+      "Achieved NPS 10 (perfect)",
+      "91% workflow unification",
+      "Data-driven iteration",
     ],
   },
   pawpawStory: {
     title: "PAWPAWSTORY",
-    category: "SIDE PROJECT",
-    description: "A community-driven platform for pet adoption stories and connecting shelter animals with forever homes.",
-    timeline: "2021 – 2022",
-    role: "Solo Founder & Designer",
+    category: "AI PRODUCT",
+    description: "Personalized AI storytelling app for families — built zero-to-App Store in 4 weeks using Vibe Coding methodology.",
+    timeline: "4 Weeks",
+    role: "Solo Builder & Designer",
     highlights: [
-      "0 to 1 Product Design",
-      "Brand Identity System",
-      "React Native Prototype",
+      "Zero to App Store",
+      "Multi-agent AI workflow",
+      "Voice cloning integration",
     ],
   },
   ionboard: {
     title: "IONBOARD",
-    category: "E-SKATEBOARD",
-    description: "Companion app for electric skateboards providing real-time telemetry, ride tracking, and configuration.",
-    timeline: "2020 – 2021",
-    role: "Industrial & Digital Designer",
+    category: "STARTUP",
+    description: "Electric skateboard brand disrupting the commuter market — led design and marketing from Kickstarter to global e-commerce.",
+    timeline: "2019 – 2021",
+    role: "Design & Marketing Lead",
     highlights: [
-      "Hardware-software sync",
-      "Real-time data viz",
-      "Bluetooth interface",
+      "$57K+ Kickstarter (570%)",
+      "Global brand scaling",
+      "End-to-end ownership",
     ],
   },
 };
@@ -326,6 +326,13 @@ export default function KatesWebsite() {
       className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0"
       style={{ touchAction: 'none', overscrollBehavior: 'none' }}
     >
+      {/* Top Instruction */}
+      <div className="absolute top-8 left-0 right-0 text-center z-10">
+        <p className="text-xs text-black/30 tracking-[3.6px] uppercase opacity-60">
+          Choose a Spaceship to See Specs
+        </p>
+      </div>
+
       {/* Planetary Diagram Background */}
       <div className="absolute inset-0 flex items-center justify-center opacity-60">
         <img
@@ -483,30 +490,36 @@ export default function KatesWebsite() {
           </div>
 
           {/* Title */}
-          <div className="flex items-center justify-center gap-2 mt-2">
-            <div className="w-2 h-2 rounded-full bg-[#1e2939] opacity-60" />
-            <p className="text-xs font-bold text-[#6a7282] tracking-[3px] uppercase">
-              Product Designer
+          <div className="flex flex-col items-center mt-4">
+            <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase text-center leading-5">
+              Gen AI
             </p>
+            <div className="flex items-center justify-center gap-2 mt-1 md:mt-0">
+              <div className="w-2 h-2 rounded-full bg-[#00bc7d] flex-shrink-0 md:hidden" />
+              <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase">
+                <span className="hidden md:inline">Gen AI </span>Product Designer
+              </p>
+              <div className="w-2 h-2 rounded-full bg-[#00bc7d] flex-shrink-0 hidden md:block" />
+            </div>
           </div>
 
           {/* Mission & Resume */}
           <div className="px-4 md:px-6 pb-4 md:pb-6 mt-4 md:mt-6">
-            <div className="flex items-end justify-between gap-3 md:gap-4 opacity-80">
+            <div className="flex flex-col gap-3 md:gap-4 opacity-80">
               {/* Mission */}
-              <div className="flex-1">
+              <div>
                 <p className="text-[8px] md:text-[9px] font-bold text-[#99a1af] tracking-wider uppercase mb-1">
                   Mission
                 </p>
                 <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5 md:p-2">
                   <p className="text-[9px] md:text-[10px] text-[#364153] tracking-wider uppercase leading-4 md:leading-5">
-                    Build fun and beautiful things with imagination and expression
+                    <span className="whitespace-nowrap">Imagination + Expression</span> to Build Fun & Beautiful Things
                   </p>
                 </div>
               </div>
 
               {/* Resume Button */}
-              <button className="bg-black text-white px-3 md:px-5 py-2 md:py-2.5 rounded-[8px] md:rounded-[10px] text-[10px] md:text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors">
+              <button className="bg-black text-white px-4 md:px-5 py-2 md:py-2.5 rounded-[8px] md:rounded-[10px] text-[10px] md:text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
                 Resume
               </button>
             </div>
@@ -517,7 +530,7 @@ export default function KatesWebsite() {
       {/* Footer Instruction */}
       <div className="absolute bottom-12 left-0 right-0 text-center">
         <p className="text-xs text-black/30 tracking-[3.6px] uppercase opacity-60">
-          Drag Badge to Switch • Click Background to Enter
+          Choose a Spaceship to See Specs
         </p>
       </div>
     </div>
