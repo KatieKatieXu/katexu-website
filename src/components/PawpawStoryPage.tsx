@@ -30,49 +30,99 @@ const sections = {
     subtitle: "Project Detail: 01 — Methodology",
     content: (
       <div className="space-y-[32px]">
-        <p className="text-[18px] text-gray-700 leading-[1.7]">
-          <span className="font-semibold text-gray-900">&quot;Vibe Coding&quot;</span> is my methodology for modern product development. Instead of writing every line of syntax, I act as the <span className="font-semibold text-gray-900">Architect and Creative Director</span>, while AI agents handle the implementation.
-        </p>
-
         <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[33px]">
-          <p className="text-[20px] text-gray-800 font-medium leading-[1.6]">
-            This shift allows me to maintain <span className="font-bold text-[#00bc7d]">100% control</span> over the User Experience while executing at <span className="font-bold text-[#00bc7d]">10x speed</span>.
+          <p className="text-[24px] text-gray-900 font-bold leading-[1.4]">
+            My Workflow is a <span className="text-[#00bc7d]">&quot;Multi-Agent System Orchestrating&quot;</span>
+          </p>
+          <p className="text-[14px] text-gray-500 mt-[12px]">
+            my methodology solves the biggest problem with AI today: <span className="font-medium text-gray-700">&quot;Chaos&quot;</span> and <span className="font-medium text-gray-700">&quot;too much freedom&quot;</span>
           </p>
         </div>
 
         <div>
           <h3 className="text-[20px] font-bold text-gray-900 mb-[24px]">
-            Dual-Agent Workflow for PawpawStory
+            Inside of my agent box
           </h3>
-          <div className="grid grid-cols-2 gap-[24px]">
-            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
-              <div className="w-[48px] h-[48px] bg-gradient-to-br from-blue-500 to-purple-600 rounded-[12px] flex items-center justify-center mb-[16px]">
-                <span className="text-white text-[20px]">🧠</span>
+          
+          {/* Hub and Spoke Layout */}
+          <div className="relative">
+            {/* SVG for dotted connection lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+              {/* Line from ME to Gemini (top) */}
+              <line x1="50%" y1="170" x2="50%" y2="84" stroke="#00bc7d" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
+              {/* Line from ME to Cursor (bottom-left) */}
+              <line x1="50%" y1="230" x2="38%" y2="340" stroke="#00bc7d" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
+              {/* Line from ME to Figma (bottom-right) */}
+              <line x1="50%" y1="230" x2="62%" y2="340" stroke="#00bc7d" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
+            </svg>
+
+            {/* Top Row - Gemini */}
+            <div className="flex justify-center mb-[24px]">
+              <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[20px] w-[280px] relative z-10">
+                <div className="flex items-start gap-[16px]">
+                  <div className="w-[44px] h-[44px] bg-gradient-to-br from-blue-500 to-purple-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-[18px]">🧠</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold text-[#00bc7d] tracking-wider uppercase">Planner Agent</p>
+                    <h4 className="text-[16px] font-semibold text-gray-900">Gemini</h4>
+                    <p className="text-[12px] text-gray-500 leading-[1.5] mt-[4px]">Read-Only + Reasoning</p>
+                  </div>
+                </div>
               </div>
-              <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">
-                The Architect
-              </p>
-              <h4 className="text-[18px] font-semibold text-gray-900 mb-[8px]">
-                Google Gemini
-              </h4>
-              <p className="text-[14px] text-gray-600 leading-[1.6]">
-                High-level logic, system architecture, and &quot;Tutor-style&quot; prompt engineering.
-              </p>
             </div>
 
-            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
-              <div className="w-[48px] h-[48px] bg-gradient-to-br from-emerald-500 to-teal-600 rounded-[12px] flex items-center justify-center mb-[16px]">
-                <span className="text-white text-[20px]">⚡</span>
+            {/* Center - Me (The Orchestrator) */}
+            <div className="flex justify-center my-[32px]">
+              <div className="relative z-10">
+                <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex flex-col items-center justify-center shadow-lg border-4 border-white">
+                  <span className="text-[28px]">👤</span>
+                  <span className="text-white font-bold text-[14px] mt-[4px]">ME</span>
+                </div>
+                <p className="text-center text-[11px] text-gray-500 mt-[12px] font-medium">
+                  The Orchestrator
+                </p>
+                <p className="text-center text-[10px] text-gray-400 mt-[2px] max-w-[140px]">
+                  Human-in-the-loop
+                </p>
               </div>
-              <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">
-                The Builder
-              </p>
-              <h4 className="text-[18px] font-semibold text-gray-900 mb-[8px]">
-                Cursor + Figma MCP
-              </h4>
-              <p className="text-[14px] text-gray-600 leading-[1.6]">
-                Pixel-perfect UI implementation and rapid code generation.
-              </p>
+            </div>
+
+            {/* Bottom Row - Cursor and Figma */}
+            <div className="flex justify-center gap-[48px] mt-[24px]">
+              {/* Cursor */}
+              <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[20px] w-[240px] relative z-10">
+                <div className="flex items-start gap-[16px]">
+                  <div className="w-[44px] h-[44px] bg-gradient-to-br from-emerald-500 to-teal-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-[18px]">⚡</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold text-[#00bc7d] tracking-wider uppercase">Execution Agent</p>
+                    <h4 className="text-[16px] font-semibold text-gray-900">Cursor</h4>
+                    <p className="text-[12px] text-gray-500 leading-[1.5] mt-[4px]">Write Access + Tools</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Figma + MCP */}
+              <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[20px] w-[240px] relative z-10">
+                <div className="flex items-start gap-[16px]">
+                  <div className="w-[44px] h-[44px] bg-gradient-to-br from-pink-500 to-rose-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-[18px]">🎨</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold text-[#00bc7d] tracking-wider uppercase">Context Agent</p>
+                    <h4 className="text-[16px] font-semibold text-gray-900">Figma + MCP</h4>
+                    <p className="text-[12px] text-gray-500 leading-[1.5] mt-[4px]">RAG Source + Truth</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Labels for the connections */}
+            <div className="flex justify-center gap-[200px] mt-[20px] text-[10px] text-gray-400">
+              <span>Plans</span>
+              <span>Context</span>
             </div>
           </div>
         </div>
@@ -607,8 +657,62 @@ export default function PawpawStoryPage() {
                   PawpawStory
                 </h1>
                 <p className="text-[16px] text-gray-500 mt-[16px]">
-                  Zero-to-One Product Design via AI Vibe Coding
+                  Zero to App Store — one-person product building via AI Vibe Coding.
                 </p>
+                
+                {/* App Preview Card - Only show on Philosophy section */}
+                {activeSection === "philosophy" && (
+                  <div className="mt-[24px] flex items-start gap-[24px] p-[20px] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] rounded-[20px] border border-gray-200">
+                    {/* App Screenshot */}
+                    <div className="flex-shrink-0 w-[160px] rounded-[12px] overflow-hidden shadow-lg border border-gray-200">
+                      <img 
+                        src="/pawpaw-app-screenshot.png" 
+                        alt="PawpawStory App Screenshot" 
+                        className="w-full h-auto"
+                      />
+                    </div>
+                    
+                    {/* App Info & CTA */}
+                    <div className="flex-1 py-[8px]">
+                      <div className="flex items-center gap-[8px] mb-[8px]">
+                        <span className="text-[28px]">🎧</span>
+                        <div>
+                          <h4 className="text-[20px] font-bold text-gray-900">PawpawStory</h4>
+                          <p className="text-[12px] text-gray-500">Bedtime Stories in Your Voice</p>
+                        </div>
+                      </div>
+                      
+                      <p className="text-[14px] text-gray-600 leading-[1.6] mb-[16px]">
+                        Help your kids sleep by listening to classic stories narrated in your voice — even when you&apos;re away.
+                      </p>
+                      
+                      {/* Outline CTA Button */}
+                      <a 
+                        href="https://apps.apple.com/us/app/pawpawstory/id6757112694" 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-[10px] border-2 border-[#00bc7d] text-[#00bc7d] px-[20px] py-[10px] rounded-full hover:bg-[#00bc7d] hover:text-white transition-all duration-300 group font-semibold"
+                      >
+                        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
+                        <span>Download on App Store</span>
+                        <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                        </svg>
+                      </a>
+                      
+                      <div className="flex items-center gap-[16px] mt-[12px] text-[11px] text-gray-400">
+                        <span className="flex items-center gap-[4px]">
+                          <span className="text-yellow-500">★★★★★</span> 5.0
+                        </span>
+                        <span>Ages 4+</span>
+                        <span>Free</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                
                 <div className="w-[80px] h-[4px] bg-[#00bc7d] mt-[24px]" />
               </div>
 
@@ -673,7 +777,15 @@ export default function PawpawStoryPage() {
               PawpawStory
             </h1>
             <p className="text-[12px] text-gray-500 mt-2">
-              Zero-to-One Product Design via AI Vibe Coding
+              Zero to App Store — one-person product building via AI Vibe Coding.{" "}
+              <a 
+                href="https://apps.apple.com/us/app/pawpawstory/id6757112694" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-[#00bc7d] hover:underline"
+              >
+                Try it →
+              </a>
             </p>
             <div className="w-[60px] h-[3px] bg-[#00bc7d] mt-4 mb-8" />
 
