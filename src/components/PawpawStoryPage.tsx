@@ -746,7 +746,7 @@ export default function PawpawStoryPage() {
       </div>
 
       {/* Mobile Layout - with glassmorphism */}
-      <div className="md:hidden absolute inset-0 flex flex-col">
+      <div className="md:hidden absolute inset-0 flex flex-col overflow-x-hidden">
         {/* Header with glassmorphism */}
         <div className="h-[80px] bg-white/80 backdrop-blur-md border-b border-gray-200/50 flex items-center justify-between px-4">
           <Link href="/">
@@ -774,7 +774,7 @@ export default function PawpawStoryPage() {
         </div>
 
         {/* Content with glassmorphism */}
-        <div className="flex-1 overflow-y-auto pb-24">
+        <div className="flex-1 overflow-y-auto pb-32">
           <div className="bg-white/85 backdrop-blur-lg m-4 rounded-xl p-6 min-h-[calc(100vh-180px)]">
             {/* Title */}
             <h1 className="text-[36px] font-bold text-[#1a365d] font-[family-name:var(--font-tinos)] tracking-tight leading-[1.1]">
