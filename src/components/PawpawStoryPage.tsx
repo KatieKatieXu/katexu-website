@@ -774,7 +774,7 @@ export default function PawpawStoryPage() {
         </div>
 
         {/* Content with glassmorphism */}
-        <div className="flex-1 overflow-y-auto pb-32">
+        <div className="flex-1 overflow-y-auto pb-40">
           <div className="bg-white/85 backdrop-blur-lg m-4 rounded-xl p-6 min-h-[calc(100vh-180px)]">
             {/* Title */}
             <h1 className="text-[36px] font-bold text-[#1a365d] font-[family-name:var(--font-tinos)] tracking-tight leading-[1.1]">
@@ -841,20 +841,34 @@ export default function PawpawStoryPage() {
 
         {/* Bottom Navigation with glassmorphism */}
         <div 
-          className="fixed bottom-2 left-2 right-2 z-50 backdrop-blur-2xl border border-white/30 rounded-2xl px-2 py-2 safe-area-pb shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+          className="fixed bottom-2 left-2 right-2 z-50 backdrop-blur-2xl border border-white/40 rounded-xl px-1 py-1.5 safe-area-pb shadow-[0_4px_30px_rgba(0,0,0,0.1)] overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.35) 100%)",
+            background: "linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.35) 100%)",
           }}
         >
+          {/* High reflection shine overlay */}
+          <div 
+            className="absolute inset-0 pointer-events-none rounded-xl"
+            style={{
+              background: "linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 40%, transparent 100%)",
+              height: "50%",
+            }}
+          />
+          <div 
+            className="absolute inset-0 pointer-events-none rounded-xl"
+            style={{
+              background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.15) 50%, transparent 100%)",
+            }}
+          />
           <div className="flex justify-around">
             {(Object.keys(stones) as SectionKey[]).map((key) => (
               <button
                 key={key}
                 onClick={() => setActiveSection(key)}
-                className={`flex flex-col items-center p-1.5 transition-all rounded-lg ${activeSection === key ? 'opacity-100 bg-[#00bc7d]/10' : 'opacity-60'}`}
+                className={`flex flex-col items-center p-1 transition-all rounded-lg ${activeSection === key ? 'opacity-100 bg-[#00bc7d]/10' : 'opacity-60'}`}
               >
-                <img src={stones[key]} alt="" className="w-8 h-8 object-contain" />
-                <span className={`text-[10px] mt-1 font-semibold ${activeSection === key ? 'text-[#00bc7d]' : 'text-gray-600'}`}>
+                <img src={stones[key]} alt="" className="w-6 h-6 object-contain" />
+                <span className={`text-[9px] mt-0.5 font-semibold ${activeSection === key ? 'text-[#00bc7d]' : 'text-gray-600'}`}>
                   {key === "philosophy" ? "Core" : key === "techstack" ? "Stack" : key.charAt(0).toUpperCase() + key.slice(1)}
                 </span>
               </button>
