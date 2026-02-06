@@ -397,11 +397,12 @@ const sections = {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-[16px] p-[33px] text-white">
-          <p className="text-[12px] font-semibold text-emerald-400 tracking-wider uppercase mb-[12px]">
+        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-[16px] p-4 md:p-[33px] text-white">
+          <p className="text-[11px] md:text-[12px] font-semibold text-emerald-400 tracking-wider uppercase mb-[12px]">
             The Workflow Summary
           </p>
-          <div className="flex items-center justify-between gap-[16px]">
+          {/* Desktop: horizontal row */}
+          <div className="hidden md:flex items-center justify-between gap-[16px]">
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Architecture</p>
               <p className="text-[18px] font-bold mt-1">Gemini</p>
@@ -420,6 +421,25 @@ const sections = {
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Ship</p>
               <p className="text-[18px] font-bold mt-1">App Store</p>
+            </div>
+          </div>
+          {/* Mobile: 2x2 grid */}
+          <div className="md:hidden grid grid-cols-4 gap-2 text-center">
+            <div>
+              <p className="text-[10px] text-gray-400">Architecture</p>
+              <p className="text-[13px] font-bold">Gemini</p>
+            </div>
+            <div>
+              <p className="text-[10px] text-gray-400">Design</p>
+              <p className="text-[13px] font-bold">Figma</p>
+            </div>
+            <div>
+              <p className="text-[10px] text-gray-400">Code</p>
+              <p className="text-[13px] font-bold">Cursor</p>
+            </div>
+            <div>
+              <p className="text-[10px] text-gray-400">Ship</p>
+              <p className="text-[13px] font-bold">App Store</p>
             </div>
           </div>
         </div>
@@ -775,7 +795,7 @@ export default function PawpawStoryPage() {
 
         {/* Content with glassmorphism */}
         <div className="flex-1 overflow-y-auto pb-40">
-          <div className="bg-white/85 backdrop-blur-lg m-4 rounded-xl p-6 min-h-[calc(100vh-180px)]">
+          <div className="bg-white/85 backdrop-blur-lg mx-2 my-4 rounded-xl p-4 min-h-[calc(100vh-180px)]">
             {/* Title */}
             <h1 className="text-[36px] font-bold text-[#1a365d] font-[family-name:var(--font-tinos)] tracking-tight leading-[1.1]">
               PawpawStory

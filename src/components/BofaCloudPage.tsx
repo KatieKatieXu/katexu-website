@@ -510,7 +510,7 @@ export default function BofaCloudPage() {
 
         {/* Content with glassmorphism */}
         <div className="flex-1 overflow-y-auto pb-40">
-          <div className="bg-white/85 backdrop-blur-lg m-4 rounded-xl p-6 min-h-[calc(100vh-180px)]">
+          <div className="bg-white/85 backdrop-blur-lg mx-2 my-4 rounded-xl p-4 min-h-[calc(100vh-180px)]">
             {/* Title */}
             <h1 className="text-[36px] font-bold text-[#1a365d] font-[family-name:var(--font-tinos)] tracking-tight leading-[1.1]">
               Bofa Cloud
