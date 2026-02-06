@@ -585,12 +585,14 @@ export default function PawpawStoryPage() {
           <div className="p-[32px]">
             <Link href="/">
               <motion.button
-                className="w-[48px] h-[48px] bg-white rounded-full shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] flex items-center justify-center border border-[#e5e7eb]"
+                className="w-[48px] h-[48px] bg-white rounded-full shadow-[0px_1px_3px_0px_rgba(0,0,0,0.1),0px_1px_2px_0px_rgba(0,0,0,0.1)] flex items-center justify-center border border-[#e5e7eb] hover:border-[#00bc7d] transition-colors"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                aria-label="Go back to home"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00bc7d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 14L4 9l5-5" />
+                  <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
                 </svg>
               </motion.button>
             </Link>
@@ -749,11 +751,13 @@ export default function PawpawStoryPage() {
         <div className="h-[80px] bg-white/80 backdrop-blur-md border-b border-gray-200/50 flex items-center justify-between px-4">
           <Link href="/">
             <motion.button
-              className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center border border-gray-100"
+              className="w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full shadow-md flex items-center justify-center border border-gray-100 active:border-[#00bc7d]"
               whileTap={{ scale: 0.95 }}
+              aria-label="Go back to home"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M19 12H5M12 19l-7-7 7-7" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00bc7d" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 14L4 9l5-5" />
+                <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11" />
               </svg>
             </motion.button>
           </Link>
@@ -777,16 +781,37 @@ export default function PawpawStoryPage() {
               PawpawStory
             </h1>
             <p className="text-[12px] text-gray-500 mt-2">
-              Zero to App Store — one-person product building via AI Vibe Coding.{" "}
+              Zero to App Store — one-person product building via AI Vibe Coding.
+            </p>
+            
+            {/* Mobile App Preview Card - Compact */}
+            {activeSection === "philosophy" && (
               <a 
                 href="https://apps.apple.com/us/app/pawpawstory/id6757112694" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-[#00bc7d] hover:underline"
+                className="mt-4 flex items-center gap-3 p-3 bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] rounded-[12px] border border-gray-200"
               >
-                Try it →
+                <div className="flex-shrink-0 w-[50px] h-[50px] rounded-[8px] overflow-hidden border border-gray-200">
+                  <img 
+                    src="/pawpaw-app-screenshot.png" 
+                    alt="PawpawStory" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1">
+                    <span className="text-[14px]">🎧</span>
+                    <span className="text-[13px] font-bold text-gray-900">PawpawStory</span>
+                  </div>
+                  <p className="text-[10px] text-gray-500 truncate">Bedtime Stories in Your Voice</p>
+                </div>
+                <div className="flex-shrink-0 px-3 py-1.5 bg-[#00bc7d] text-white text-[10px] font-semibold rounded-full">
+                  GET
+                </div>
               </a>
-            </p>
+            )}
+            
             <div className="w-[60px] h-[3px] bg-[#00bc7d] mt-4 mb-8" />
 
             {/* Section Content */}
@@ -815,17 +840,22 @@ export default function PawpawStoryPage() {
         </div>
 
         {/* Bottom Navigation with glassmorphism */}
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-t border-gray-200/50 px-2 py-3 safe-area-pb">
+        <div 
+          className="fixed bottom-2 left-2 right-2 z-50 backdrop-blur-2xl border border-white/30 rounded-2xl px-2 py-2 safe-area-pb shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
+          style={{
+            background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.35) 100%)",
+          }}
+        >
           <div className="flex justify-around">
             {(Object.keys(stones) as SectionKey[]).map((key) => (
               <button
                 key={key}
                 onClick={() => setActiveSection(key)}
-                className={`flex flex-col items-center p-2 transition-all ${activeSection === key ? 'opacity-100 scale-110' : 'opacity-50'}`}
+                className={`flex flex-col items-center p-1.5 transition-all rounded-lg ${activeSection === key ? 'opacity-100 bg-[#00bc7d]/10' : 'opacity-60'}`}
               >
-                <img src={stones[key]} alt="" className="w-10 h-10 object-contain" />
-                <span className="text-[9px] mt-1 capitalize font-medium">
-                  {key === "techstack" ? "Stack" : key}
+                <img src={stones[key]} alt="" className="w-8 h-8 object-contain" />
+                <span className={`text-[10px] mt-1 font-semibold ${activeSection === key ? 'text-[#00bc7d]' : 'text-gray-600'}`}>
+                  {key === "philosophy" ? "Core" : key === "techstack" ? "Stack" : key.charAt(0).toUpperCase() + key.slice(1)}
                 </span>
               </button>
             ))}
