@@ -12,11 +12,18 @@ const imgPawpawStory = "/pawpaw-story.png";
 const imgIOnboard = "/ionboard.png";
 const imgKateXu = "/kate-xu.png";
 
+// WorkIT image assets
+const imgWorkitCover = "/workit-cover.png";
+const imgWorkitOldVsNew = "/workit-old-vs-new.gif";
+const imgWorkitQuickAction = "/workit-quick-action.gif";
+const imgWorkitQuickActionBefore = "/workit-quick-action-before.png";
+const imgWorkitWorkflow = "/workit-workflow.png";
+
 // Stone images for navigation
 const stones = {
-  challenge: "/stone-1.png",
-  research: "/stone-2.png",
-  design: "/stone-3.png",
+  highlights: "/stone-1.png",
+  challenge: "/stone-2.png",
+  research: "/stone-3.png",
   success: "/stone-4.png",
   reflections: "/stone-5.png",
 };
@@ -25,6 +32,131 @@ type SectionKey = keyof typeof stones;
 
 // Section content based on provided content
 const sections = {
+  highlights: {
+    title: null,
+    subtitle: null,
+    content: (
+      <div className="space-y-[32px]">
+        {/* Cover Image */}
+        <div className="rounded-[16px] overflow-hidden">
+          <img
+            src={imgWorkitCover}
+            alt="WorkIT Cover"
+            className="w-full h-auto object-cover rounded-[16px]"
+          />
+        </div>
+
+        {/* Workflow Map */}
+        <div>
+          <h3 className="text-[24px] font-bold text-gray-900 mb-[16px]">
+            Workflow Map
+          </h3>
+          <p className="text-[16px] text-gray-600 leading-[1.6] mb-[16px]">
+            How the work gets done — from problem discovery to development.
+          </p>
+          <div className="bg-white rounded-[16px] border border-[#f3f4f6] p-[24px]">
+            <img
+              src={imgWorkitWorkflow}
+              alt="WorkIT Workflow Map"
+              className="w-full h-auto object-contain"
+            />
+          </div>
+        </div>
+
+        <p className="text-[18px] text-gray-700 leading-[1.7]">
+          With limited budget and tight deadlines, I used a <span className="font-semibold text-gray-900">&quot;Rationally Push Forward&quot;</span> strategy, leveraging existing internal resources to prioritize high-value features.
+        </p>
+
+        <div>
+          <h3 className="text-[24px] font-bold text-gray-900 mb-[24px]">
+            A. Dashboard Transformation (The 80/20 Rule)
+          </h3>
+          <p className="text-[16px] text-gray-600 leading-[1.6] mb-[24px]">
+            Applying the 80/20 rule, I mapped out the 20% of vital features that drove 80% of user returns.
+          </p>
+          <p className="text-[14px] text-gray-400 italic mt-[8px] mb-[24px]">Request a demo to see details</p>
+
+          <div className="grid grid-cols-2 gap-[24px]">
+            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+              <p className="text-[12px] font-semibold text-gray-400 tracking-wider uppercase mb-[8px]">
+                Old vs. New
+              </p>
+              <p className="text-[14px] text-gray-600 leading-[1.6] mb-[16px]">
+                The original dashboard required excessive scrolling to see tasks. I evolved it into a <span className="font-medium">card-based UI</span> that provides a 360-degree view of all tickets in a single screen.
+              </p>
+              <div className="rounded-[12px] overflow-hidden h-[280px]">
+                <img
+                  src={imgWorkitOldVsNew}
+                  alt="Old vs New Dashboard"
+                  className="w-full h-full object-contain rounded-[12px]"
+                />
+              </div>
+              <p className="text-[12px] text-gray-400 italic text-center mt-[8px]">From left to right: old landing page to the new design</p>
+            </div>
+            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+              <p className="text-[12px] font-semibold text-gray-400 tracking-wider uppercase mb-[8px]">
+                Quick Action
+              </p>
+              <p className="text-[14px] text-gray-600 leading-[1.6] mb-[16px]">
+                I introduced a Quick Action section with <span className="font-medium">color-coded categories</span>, allowing users to &quot;Permit or Reject&quot; tickets instantly while avoiding accidental slips.
+              </p>
+              <div className="grid grid-cols-2 gap-[12px]">
+                <div className="flex flex-col items-center">
+                  <div className="rounded-[12px] overflow-hidden h-[260px] w-full">
+                    <img
+                      src={imgWorkitQuickActionBefore}
+                      alt="Quick Action Before"
+                      className="w-full h-full object-contain rounded-[12px]"
+                    />
+                  </div>
+                  <p className="text-[12px] font-semibold text-gray-400 tracking-wider uppercase mt-[8px]">Before</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="rounded-[12px] overflow-hidden h-[260px] w-full">
+                    <img
+                      src={imgWorkitQuickAction}
+                      alt="Quick Action After"
+                      className="w-full h-full object-contain rounded-[12px]"
+                    />
+                  </div>
+                  <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mt-[8px]">After</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-[24px] font-bold text-gray-900 mb-[24px]">
+            B. The Support Dashboard (Data-Led Pivot)
+          </h3>
+          <p className="text-[16px] text-gray-600 leading-[1.6] mb-[24px]">
+            Initial data showed that users frequently clicked &quot;My Approval&quot; and &quot;Assigned to me&quot; but ignored other sections.
+          </p>
+
+          <div className="space-y-[16px]">
+            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+              <div className="flex items-center gap-[16px] mb-[12px]">
+                <span className="text-[14px] font-semibold text-gray-400">Version 2</span>
+              </div>
+              <p className="text-[14px] text-gray-600 leading-[1.6]">
+                I pulled &quot;Recently Viewed&quot; into an independent section, but data showed it wasn&apos;t the primary driver.
+              </p>
+            </div>
+
+            <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
+              <div className="flex items-center gap-[16px] mb-[12px]">
+                <span className="text-[14px] font-semibold text-[#00bc7d]">Version 3 — The Breakthrough</span>
+              </div>
+              <p className="text-[14px] text-gray-700 leading-[1.6]">
+                I replaced it with the <span className="font-semibold">Quick Action section</span> and added a <span className="font-semibold">&quot;Plan for Day-Off&quot;</span> feature after detecting a frequent user need for easy leave-management. This version achieved a <span className="font-bold text-[#00bc7d]">perfect NPS of 10</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ),
+  },
   challenge: {
     title: "The Challenge: The \"Context-Switching\" Tax",
     subtitle: "Project Detail: 01 — Problem Discovery",
@@ -107,74 +239,6 @@ const sections = {
           <div className="bg-white border border-[#e5e7eb] rounded-[16px] p-[24px]">
             <p className="text-[36px] font-bold text-[#00bc7d]">1.5yr</p>
             <p className="text-[14px] text-gray-500 mt-2">Project timeline</p>
-          </div>
-        </div>
-      </div>
-    ),
-  },
-  design: {
-    title: "Design Evolution: Rational Iteration",
-    subtitle: "Project Detail: 03 — Strategic Design Process",
-    content: (
-      <div className="space-y-[32px]">
-        <p className="text-[18px] text-gray-700 leading-[1.7]">
-          With limited budget and tight deadlines, I used a <span className="font-semibold text-gray-900">&quot;Rationally Push Forward&quot;</span> strategy, leveraging existing internal resources to prioritize high-value features.
-        </p>
-
-        <div>
-          <h3 className="text-[24px] font-bold text-gray-900 mb-[24px]">
-            A. Dashboard Transformation (The 80/20 Rule)
-          </h3>
-          <p className="text-[16px] text-gray-600 leading-[1.6] mb-[24px]">
-            Applying the 80/20 rule, I mapped out the 20% of vital features that drove 80% of user returns.
-          </p>
-
-          <div className="grid grid-cols-2 gap-[24px]">
-            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
-              <p className="text-[12px] font-semibold text-gray-400 tracking-wider uppercase mb-[8px]">
-                Old vs. New
-              </p>
-              <p className="text-[14px] text-gray-600 leading-[1.6]">
-                The original dashboard required excessive scrolling to see tasks. I evolved it into a <span className="font-medium">card-based UI</span> that provides a 360-degree view of all tickets in a single screen.
-              </p>
-            </div>
-            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
-              <p className="text-[12px] font-semibold text-gray-400 tracking-wider uppercase mb-[8px]">
-                Quick Action
-              </p>
-              <p className="text-[14px] text-gray-600 leading-[1.6]">
-                I introduced a Quick Action section with <span className="font-medium">color-coded categories</span>, allowing users to &quot;Permit or Reject&quot; tickets instantly while avoiding accidental slips.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-[24px] font-bold text-gray-900 mb-[24px]">
-            B. The Support Dashboard (Data-Led Pivot)
-          </h3>
-          <p className="text-[16px] text-gray-600 leading-[1.6] mb-[24px]">
-            Initial data showed that users frequently clicked &quot;My Approval&quot; and &quot;Assigned to me&quot; but ignored other sections.
-          </p>
-
-          <div className="space-y-[16px]">
-            <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
-              <div className="flex items-center gap-[16px] mb-[12px]">
-                <span className="text-[14px] font-semibold text-gray-400">Version 2</span>
-              </div>
-              <p className="text-[14px] text-gray-600 leading-[1.6]">
-                I pulled &quot;Recently Viewed&quot; into an independent section, but data showed it wasn&apos;t the primary driver.
-              </p>
-            </div>
-
-            <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
-              <div className="flex items-center gap-[16px] mb-[12px]">
-                <span className="text-[14px] font-semibold text-[#00bc7d]">Version 3 — The Breakthrough</span>
-              </div>
-              <p className="text-[14px] text-gray-700 leading-[1.6]">
-                I replaced it with the <span className="font-semibold">Quick Action section</span> and added a <span className="font-semibold">&quot;Plan for Day-Off&quot;</span> feature after detecting a frequent user need for easy leave-management. This version achieved a <span className="font-bold text-[#00bc7d]">perfect NPS of 10</span>.
-              </p>
-            </div>
           </div>
         </div>
       </div>
@@ -336,7 +400,7 @@ function NavItem({ stoneImg, label, isActive, onClick }: NavItemProps) {
 
 export default function WorkITPage() {
   const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState<SectionKey>("challenge");
+  const [activeSection, setActiveSection] = useState<SectionKey>("highlights");
 
   useEffect(() => {
     setMounted(true);
@@ -467,6 +531,12 @@ export default function WorkITPage() {
           <div className="flex-1 flex flex-col justify-center pl-[32px]">
             <nav className="space-y-[32px]">
               <NavItem
+                stoneImg={stones.highlights}
+                label="Highlights"
+                isActive={activeSection === "highlights"}
+                onClick={() => setActiveSection("highlights")}
+              />
+              <NavItem
                 stoneImg={stones.challenge}
                 label="Challenge"
                 isActive={activeSection === "challenge"}
@@ -477,12 +547,6 @@ export default function WorkITPage() {
                 label="Research"
                 isActive={activeSection === "research"}
                 onClick={() => setActiveSection("research")}
-              />
-              <NavItem
-                stoneImg={stones.design}
-                label="Design"
-                isActive={activeSection === "design"}
-                onClick={() => setActiveSection("design")}
               />
               <NavItem
                 stoneImg={stones.success}
@@ -538,9 +602,11 @@ export default function WorkITPage() {
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h2 className="text-[36px] font-bold text-[#1a1a1a] font-[family-name:var(--font-tinos)] leading-[1.1]">
-                    {currentSection.title}
-                  </h2>
+                  {currentSection.title && (
+                    <h2 className="text-[36px] font-bold text-[#1a1a1a] font-[family-name:var(--font-tinos)] leading-[1.1]">
+                      {currentSection.title}
+                    </h2>
+                  )}
                   {currentSection.subtitle && (
                     <p className="text-[14px] text-gray-400 tracking-wide mt-[16px]">
                       {currentSection.subtitle}
@@ -605,9 +671,11 @@ export default function WorkITPage() {
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
               >
-                <h2 className="text-[24px] font-bold text-gray-900 leading-[1.3]">
-                  {currentSection.title}
-                </h2>
+                {currentSection.title && (
+                  <h2 className="text-[24px] font-bold text-gray-900 leading-[1.3]">
+                    {currentSection.title}
+                  </h2>
+                )}
                 {currentSection.subtitle && (
                   <p className="text-[12px] text-gray-400 tracking-wide mt-3">
                     {currentSection.subtitle}

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 // Image assets
+const imgCloudCover = "/cloud-cover.png";
 const imgPlanetaryDiagram = "/planetary-diagram.png";
 const imgBofaCloud = "/bofa-cloud.png";
 const imgBofAWorkplace = "/bofa-workplace.png";
@@ -30,6 +31,13 @@ const sections = {
     subtitle: null,
     content: (
       <div className="mt-[34px]">
+        <div className="rounded-[16px] overflow-hidden mb-[24px]">
+          <img
+            src={imgCloudCover}
+            alt="BofA Cloud Cover"
+            className="w-full h-auto object-cover rounded-[16px]"
+          />
+        </div>
         <div className="flex flex-col gap-[16px]">
           {[
             "Reduced provisioning time by 40%",
@@ -448,7 +456,7 @@ export default function BofaCloudPage() {
               {/* Title Section */}
               <div className="mb-[48px]">
                 <h1 className="text-[72px] font-bold text-[#1a1a1a] font-[family-name:var(--font-tinos)] tracking-tight leading-[1]">
-                  Bofa Cloud
+                  BofA Cloud
                 </h1>
                 <div className="w-[80px] h-[4px] bg-[#00bc7d] mt-[24px]" />
               </div>
@@ -513,7 +521,7 @@ export default function BofaCloudPage() {
           <div className="bg-white/85 backdrop-blur-lg mx-2 my-4 rounded-xl p-4 min-h-[calc(100vh-180px)]">
             {/* Title */}
             <h1 className="text-[36px] font-bold text-[#1a365d] font-[family-name:var(--font-tinos)] tracking-tight leading-[1.1]">
-              Bofa Cloud
+              BofA Cloud
             </h1>
             <div className="w-[60px] h-[3px] bg-[#00bc7d] mt-4 mb-8" />
 
