@@ -40,8 +40,8 @@ const projects = {
   pawpawStory: {
     title: "PAWPAWSTORY",
     category: "AI PRODUCT",
-    description: "AI storytelling app — zero to App Store in 4 weeks.",
-    previewImage: null,
+    description: "AI voice-cloning storytelling app for your kids.",
+    previewImage: "/pawpaw-cover.png",
     benchmarks: [
       "Zero to App Store in 4 weeks",
       "Multi-agent AI workflow",
@@ -52,7 +52,7 @@ const projects = {
     title: "IONBOARD",
     category: "STARTUP",
     description: "Electric skateboard brand — $57K+ Kickstarter (570%).",
-    previewImage: null,
+    previewImage: "/ionboard-cover.png",
     benchmarks: [
       "$57K+ Kickstarter (570% funded)",
       "Global e-commerce scaling",
@@ -123,11 +123,11 @@ function SpecCard({ project, projectKey, className, onMouseEnter, onMouseLeave }
 
       {/* Preview Image */}
       {project.previewImage && (
-        <div className="relative w-full h-[140px] overflow-hidden">
+        <div className="relative w-full h-[140px] overflow-hidden bg-[#f9fafb]">
           <img
             src={project.previewImage}
             alt={`${project.title} preview`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain p-2"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent" />
         </div>
