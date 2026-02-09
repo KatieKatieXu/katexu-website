@@ -98,95 +98,134 @@ function SpecCard({ project, projectKey, className, onMouseEnter, onMouseLeave }
   const projectRoute = projectRoutes[projectKey];
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
+      initial={{ opacity: 0, scale: 0.95, y: 8 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95, y: 8 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`absolute w-[260px] md:w-[280px] rounded-xl shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)] border border-white/40 overflow-hidden z-50 ${className}`}
-      style={{
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-      }}
+      className={`absolute w-[260px] md:w-[280px] z-50 ${className}`}
     >
-      {/* Glassmorphism shine overlay */}
-      <div 
-        className="absolute inset-0 pointer-events-none"
+      {/* Outer panel frame — liquid glass */}
+      <div
+        className="relative rounded-[12px] overflow-hidden"
         style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.4) 0%, transparent 50%, rgba(255,255,255,0.1) 100%)",
+          background: "rgba(255, 255, 255, 0.45)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.5)",
+          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.12), 0 8px 16px -6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
         }}
-      />
-      
-      {/* Green accent bracket */}
-      <div className="absolute left-0 top-4 bottom-4 w-1 bg-emerald-500 rounded-r" />
-
-      {/* Preview Image */}
-      {project.previewImage && (
-        <div className="relative w-full h-[140px] overflow-hidden bg-[#f9fafb]">
-          <img
-            src={project.previewImage}
-            alt={`${project.title} preview`}
-            className="w-full h-full object-contain p-2"
+      >
+        {/* Top notch/tab accent */}
+        <div className="flex justify-center">
+          <div
+            className="w-[60px] h-[6px] rounded-b-[4px] bg-[#00bc7d]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent" />
         </div>
-      )}
-      
-      {/* Title section */}
-      <div 
-        className="relative px-5 pt-4 pb-2 pl-6"
-        style={{
-          background: "rgba(255,255,255,0.15)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-        }}
-      >
-        <h3 className="text-lg font-bold text-gray-900 tracking-wide">
-          {project.title}
-        </h3>
-        <p className="text-xs font-semibold text-emerald-600 tracking-wider mt-0.5">
-          {project.category}
-        </p>
-      </div>
 
-      {/* Lower section */}
-      <div 
-        className="relative px-5 pt-3 pb-5 pl-6"
-        style={{
-          background: "rgba(255,255,255,0.85)",
-        }}
-      >
-        <p className="text-sm text-gray-600 leading-relaxed">
-          {project.description}
-        </p>
+        {/* Glass shine overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none rounded-[12px]"
+          style={{
+            backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.1) 70%, transparent 100%)",
+          }}
+        />
+        {/* Top edge highlight */}
+        <div className="absolute inset-x-0 top-0 h-[1px] pointer-events-none rounded-t-[12px]" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)" }} />
 
-        {/* Benchmarks */}
-        <ul className="mt-3 space-y-1">
-          {project.benchmarks.map((item, i) => (
-            <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        {/* Read More Button */}
-        {projectRoute ? (
-          <Link href={projectRoute}>
-            <button className="mt-4 w-full py-2.5 bg-white/50 border border-white/60 rounded-lg text-sm font-semibold text-emerald-600 hover:bg-white/70 transition-colors flex items-center justify-center gap-1 backdrop-blur-sm">
-              READ MORE
-              <span className="text-lg">›</span>
-            </button>
-          </Link>
-        ) : (
-          <button 
-            className="mt-4 w-full py-2.5 bg-white/30 border border-white/40 rounded-lg text-sm font-semibold text-gray-400 cursor-not-allowed flex items-center justify-center gap-1 backdrop-blur-sm"
-            disabled
-          >
-            COMING SOON
-          </button>
+        {/* Preview Image */}
+        {project.previewImage && (
+          <div className="relative w-full h-[120px] overflow-hidden mx-auto mt-2 px-3">
+            <div className="rounded-[8px] overflow-hidden h-full" style={{ border: "1px solid rgba(255,255,255,0.4)" }}>
+              <img
+                src={project.previewImage}
+                alt={`${project.title} preview`}
+                className="w-full h-full object-contain bg-white/50 p-1"
+              />
+            </div>
+          </div>
         )}
+
+        {/* Content area */}
+        <div className="relative px-5 pt-4 pb-3">
+          {/* Title */}
+          <h3 className="text-[16px] font-bold text-gray-900 tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
+            {project.title}
+          </h3>
+          <p className="text-[11px] font-semibold text-gray-600 tracking-widest mt-0.5 uppercase">
+            {project.category}
+          </p>
+
+          {/* Divider line */}
+          <div className="w-full h-[1px] mt-3 mb-3" style={{ background: "rgba(255,255,255,0.4)" }} />
+
+          {/* Description */}
+          <p className="text-[13px] text-gray-700 leading-relaxed">
+            {project.description}
+          </p>
+
+          {/* Benchmarks */}
+          <ul className="mt-3 space-y-1.5">
+            {project.benchmarks.map((item, i) => (
+              <li key={i} className="flex items-center gap-2 text-[12px] text-gray-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00bc7d] flex-shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Bottom plate — subtle separator */}
+        <div
+          className="relative mt-1"
+          style={{
+            borderTop: "1px solid rgba(255,255,255,0.35)",
+          }}
+        >
+          <div className="px-5 py-3">
+            {projectRoute ? (
+              <Link href={projectRoute}>
+                <div className="relative rounded-[6px] cursor-pointer group overflow-hidden"
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 100%)",
+                    backdropFilter: "blur(16px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(180%)",
+                    border: "1px solid rgba(255,255,255,0.5)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5)",
+                  }}
+                >
+                  {/* Hover glow */}
+                  <div
+                    className="absolute inset-0 pointer-events-none rounded-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{
+                      background: "radial-gradient(ellipse at center, rgba(0,188,125,0.08) 0%, transparent 70%)",
+                    }}
+                  />
+                  <div className="relative flex items-center justify-center gap-2 py-2.5 px-4">
+                    <span className="text-[12px] font-bold tracking-[3px] text-[#00bc7d] uppercase group-hover:text-[#4ade80] transition-colors drop-shadow-[0_0_4px_rgba(0,188,125,0.3)]">
+                      Read More
+                    </span>
+                    <span className="text-[#00bc7d] text-lg group-hover:translate-x-0.5 transition-transform group-hover:text-[#4ade80] drop-shadow-[0_0_4px_rgba(0,188,125,0.3)]">›</span>
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <div className="relative rounded-[6px] overflow-hidden"
+                style={{
+                  background: "rgba(255,255,255,0.25)",
+                  border: "1px solid rgba(255,255,255,0.4)",
+                }}
+              >
+                <div className="flex items-center justify-center gap-2 py-2.5 px-4">
+                  <span className="text-[12px] font-bold tracking-[3px] text-[#00bc7d]/30 uppercase">
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -424,13 +463,13 @@ export default function KatesWebsite() {
       <AnimatePresence>
         {hoveredProject && (
           <>
-            {/* Dark overlay for mobile - click to close */}
+            {/* Dim overlay - dims surroundings when card is shown */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="md:hidden fixed inset-0 bg-black/40 z-40"
+              className="fixed inset-0 bg-black/20 z-40 md:pointer-events-none"
               onClick={() => setHoveredProject(null)}
             />
             <SpecCard 
