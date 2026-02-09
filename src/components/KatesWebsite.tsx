@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Image assets
 const imgPlanetaryDiagram = "/planetary-diagram.png";
@@ -17,35 +18,32 @@ const projects = {
   bofaCloud: {
     title: "BOFA CLOUD",
     category: "ENTERPRISE PLATFORM",
-    description: "Next-generation cloud infrastructure platform enabling self-service provisioning for 200K+ enterprise users across global banking operations.",
-    timeline: "2023 – Present",
-    role: "Lead Product Designer",
-    highlights: [
-      "200K+ enterprise users",
-      "Self-service portal design",
-      "Cross-functional leadership",
+    description: "Cloud infrastructure platform for 200K+ enterprise users.",
+    previewImage: "/cloud-cover.png",
+    benchmarks: [
+      "200K+ enterprise users served",
+      "40% reduction in provisioning time",
+      "Unified design system adoption",
     ],
   },
   bofaWorkplace: {
     title: "BOFA WORKIT",
     category: "MOBILE ECOSYSTEM",
-    description: "Unified mobile workforce ecosystem that eliminated context-switching across 3+ platforms into a single Command Center.",
-    timeline: "1.5 Years",
-    role: "UX Researcher & Product Designer",
-    highlights: [
-      "Achieved NPS 10 (perfect)",
+    description: "Unified mobile Command Center — NPS 10.",
+    previewImage: "/workit-cover.png",
+    benchmarks: [
+      "Perfect NPS score of 10",
       "91% workflow unification",
-      "Data-driven iteration",
+      "3+ platforms consolidated into 1",
     ],
   },
   pawpawStory: {
     title: "PAWPAWSTORY",
     category: "AI PRODUCT",
-    description: "Personalized AI storytelling app for families — built zero-to-App Store in 4 weeks using Vibe Coding methodology.",
-    timeline: "4 Weeks",
-    role: "Solo Builder & Designer",
-    highlights: [
-      "Zero to App Store",
+    description: "AI storytelling app — zero to App Store in 4 weeks.",
+    previewImage: null,
+    benchmarks: [
+      "Zero to App Store in 4 weeks",
       "Multi-agent AI workflow",
       "Voice cloning integration",
     ],
@@ -53,13 +51,12 @@ const projects = {
   ionboard: {
     title: "IONBOARD",
     category: "STARTUP",
-    description: "Electric skateboard brand disrupting the commuter market — led design and marketing from Kickstarter to global e-commerce.",
-    timeline: "2019 – 2021",
-    role: "Design & Marketing Lead",
-    highlights: [
-      "$57K+ Kickstarter (570%)",
-      "Global brand scaling",
-      "End-to-end ownership",
+    description: "Electric skateboard brand — $57K+ Kickstarter (570%).",
+    previewImage: null,
+    benchmarks: [
+      "$57K+ Kickstarter (570% funded)",
+      "Global e-commerce scaling",
+      "End-to-end brand ownership",
     ],
   },
 };
@@ -90,7 +87,7 @@ const projectRoutes: Record<ProjectKey, string | null> = {
 
 // Project Spec Card component - renders at fixed position
 interface SpecCardProps {
-  project: typeof projects.bofaCloud;
+  project: { title: string; category: string; description: string; previewImage: string | null; benchmarks: string[] };
   projectKey: ProjectKey;
   className: string;
   onMouseEnter?: () => void;
@@ -123,17 +120,28 @@ function SpecCard({ project, projectKey, className, onMouseEnter, onMouseLeave }
       
       {/* Green accent bracket */}
       <div className="absolute left-0 top-4 bottom-4 w-1 bg-emerald-500 rounded-r" />
+
+      {/* Preview Image */}
+      {project.previewImage && (
+        <div className="relative w-full h-[140px] overflow-hidden">
+          <img
+            src={project.previewImage}
+            alt={`${project.title} preview`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/60 to-transparent" />
+        </div>
+      )}
       
-      {/* Title section - highly transparent */}
+      {/* Title section */}
       <div 
-        className="relative px-5 pt-5 pb-3 pl-6"
+        className="relative px-5 pt-4 pb-2 pl-6"
         style={{
           background: "rgba(255,255,255,0.15)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
         }}
       >
-        {/* Header */}
         <h3 className="text-lg font-bold text-gray-900 tracking-wide">
           {project.title}
         </h3>
@@ -142,52 +150,26 @@ function SpecCard({ project, projectKey, className, onMouseEnter, onMouseLeave }
         </p>
       </div>
 
-      {/* Lower section - more opaque */}
+      {/* Lower section */}
       <div 
-        className="relative px-5 pt-4 pb-5 pl-6"
+        className="relative px-5 pt-3 pb-5 pl-6"
         style={{
           background: "rgba(255,255,255,0.85)",
         }}
       >
-        {/* Description */}
         <p className="text-sm text-gray-600 leading-relaxed">
           {project.description}
         </p>
 
-        {/* Timeline & Role */}
-        <div className="flex gap-6 mt-4">
-          <div>
-            <p className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">
-              Timeline
-            </p>
-            <p className="text-sm font-semibold text-gray-800 mt-0.5">
-              {project.timeline}
-            </p>
-          </div>
-          <div>
-            <p className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">
-              Role
-            </p>
-            <p className="text-sm font-semibold text-gray-800 mt-0.5">
-              {project.role}
-            </p>
-          </div>
-        </div>
-
-        {/* Highlights */}
-        <div className="mt-4">
-          <p className="text-[10px] font-bold text-gray-400 tracking-wider uppercase">
-            Highlights
-          </p>
-          <ul className="mt-1.5 space-y-1">
-            {project.highlights.map((highlight, i) => (
-              <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
-                {highlight}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Benchmarks */}
+        <ul className="mt-3 space-y-1">
+          {project.benchmarks.map((item, i) => (
+            <li key={i} className="flex items-center gap-2 text-sm text-gray-700">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 flex-shrink-0" />
+              {item}
+            </li>
+          ))}
+        </ul>
 
         {/* Read More Button */}
         {projectRoute ? (
@@ -215,6 +197,7 @@ interface SpaceshipProps {
   src: string;
   alt: string;
   className: string;
+  projectKey: ProjectKey;
   duration?: number;
   delay?: number;
   yOffset?: number;
@@ -229,6 +212,7 @@ function Spaceship({
   src, 
   alt, 
   className, 
+  projectKey,
   duration = 4, 
   delay = 0, 
   yOffset = 12,
@@ -239,11 +223,21 @@ function Spaceship({
   onTap,
 }: SpaceshipProps) {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     // Detect touch device on mount
     setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
   }, []);
+
+  const handleClick = () => {
+    if (isTouchDevice) {
+      onTap?.();
+    } else {
+      const route = projectRoutes[projectKey];
+      if (route) router.push(route);
+    }
+  };
 
   return (
     <motion.div
@@ -264,10 +258,7 @@ function Spaceship({
       onMouseLeave={() => {
         if (!isTouchDevice) onHoverEnd?.();
       }}
-      // Mobile only: tap to toggle
-      onClick={() => {
-        if (isTouchDevice) onTap?.();
-      }}
+      onClick={handleClick}
       style={{ touchAction: 'manipulation' }}
     >
       {/* Background glow layer to fill transparent holes */}
@@ -373,6 +364,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofaCloud}
         alt="Bofa Cloud Project"
+        projectKey="bofaCloud"
         className="absolute left-[18%] md:left-[12%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[65px] md:h-[139px] opacity-80 cursor-pointer z-10"
         duration={5}
         delay={0}
@@ -387,6 +379,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgBofAWorkplace}
         alt="BofA Workplace Project"
+        projectKey="bofaWorkplace"
         className="absolute left-[58%] md:left-[72%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[60px] md:h-[129px] opacity-80 cursor-pointer z-10"
         duration={6}
         delay={0.5}
@@ -401,6 +394,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgPawpawStory}
         alt="Pawpaw Story Project"
+        projectKey="pawpawStory"
         className="absolute left-[5%] md:left-[5%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[51px] md:h-[109px] opacity-80 cursor-pointer z-10"
         duration={4.5}
         delay={1}
@@ -415,6 +409,7 @@ export default function KatesWebsite() {
       <Spaceship
         src={imgIOnboard}
         alt="iOnboard Project"
+        projectKey="ionboard"
         className="absolute left-[68%] md:left-[72%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[47px] md:h-[99px] opacity-80 cursor-pointer z-10"
         duration={5.5}
         delay={1.5}
