@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 // Image assets
+const imgPawpawCover = "/pawpaw-cover.png";
 const imgPlanetaryDiagram = "/planetary-diagram.png";
 const imgBofaCloud = "/bofa-cloud.png";
 const imgBofAWorkplace = "/bofa-workplace.png";
@@ -30,6 +31,15 @@ const sections = {
     subtitle: "Project Detail: 01 — Methodology",
     content: (
       <div className="space-y-[32px]">
+        {/* Cover Image */}
+        <div className="rounded-[16px] overflow-hidden">
+          <img
+            src={imgPawpawCover}
+            alt="PawPawStory Cover"
+            className="w-full h-auto object-cover rounded-[16px]"
+          />
+        </div>
+
         <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[33px]">
           <p className="text-[24px] text-gray-900 font-bold leading-[1.4]">
             My Workflow is a <span className="text-[#00bc7d]">&quot;Multi-Agent System Orchestrating&quot;</span>

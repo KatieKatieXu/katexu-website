@@ -5,6 +5,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 // Image assets
+const imgIonboardCover = "/ionboard-cover.png";
+const imgIonboardTimeline = "/ionboard-timeline.png";
+const imgIonboardCampus = "/ionboard-campus.png";
+const imgIonboardCes = "/ionboard-ces.png";
+const imgIonboardAlumni = "/ionboard-alumni.png";
+const imgIonboardPitch = "/ionboard-pitch.png";
+const imgIonboardTeam = "/ionboard-team.png";
 const imgPlanetaryDiagram = "/planetary-diagram.png";
 const imgBofaCloud = "/bofa-cloud.png";
 const imgBofAWorkplace = "/bofa-workplace.png";
@@ -30,6 +37,30 @@ const sections = {
     subtitle: "Project Detail: 01 — Market Disruption",
     content: (
       <div className="mt-[34px]">
+        {/* Kickstarter Link */}
+        <a
+          href="https://www.kickstarter.com/projects/1728725377/ionboard?ref=discovery&term=ionboard"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-[12px] bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[16px] mb-[24px] hover:border-[#00bc7d]/40 transition-colors group"
+        >
+          <span className="text-[24px]">🚀</span>
+          <div>
+            <p className="text-[14px] font-semibold text-[#00bc7d] group-hover:underline">View our Kickstarter Campaign</p>
+            <p className="text-[12px] text-gray-500">$57,132 raised — 570% of goal</p>
+          </div>
+          <span className="ml-auto text-[#00bc7d] text-[18px]">›</span>
+        </a>
+
+        {/* Cover Image */}
+        <div className="rounded-[16px] overflow-hidden mb-[32px]">
+          <img
+            src={imgIonboardCover}
+            alt="iOnboard Cover"
+            className="w-full h-auto object-cover rounded-[16px]"
+          />
+        </div>
+
         <p className="text-[18px] text-gray-700 leading-[1.7]">
           The electric travel market was polarized: users needed fast, portable solutions, but high-end boards cost over $1,000. As the Design Lead, I helped disrupt this space by positioning ionboard as a <span className="font-semibold text-gray-900">high-performance, customizable solution for under $500</span>, targeting the &quot;last-mile&quot; needs of students and urban commuters.
         </p>
@@ -59,6 +90,16 @@ const sections = {
         <p className="text-[18px] text-gray-700 leading-[1.7]">
           I utilized a <span className="font-semibold text-gray-900">User-Centered Design (UCD)</span> approach to bridge the gap between a student project and a global e-commerce brand.
         </p>
+
+        {/* Campus Community Photo */}
+        <div className="rounded-[16px] overflow-hidden">
+          <img
+            src={imgIonboardCampus}
+            alt="Community approach on campus"
+            className="w-full h-auto object-cover rounded-[16px]"
+          />
+          <p className="text-[12px] text-gray-400 italic text-center mt-[8px]">Our community-first approach started on campus at UCSD</p>
+        </div>
 
         <div className="space-y-[24px]">
           <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
@@ -99,6 +140,16 @@ const sections = {
         <p className="text-[18px] text-gray-700 leading-[1.7]">
           I owned the end-to-end visual and strategic touchpoints:
         </p>
+
+        {/* Workflow & Timeline Image */}
+        <div className="rounded-[16px] overflow-hidden">
+          <img
+            src={imgIonboardTimeline}
+            alt="Workflow and timeline of tasks"
+            className="w-full h-auto object-cover rounded-[16px]"
+          />
+          <p className="text-[12px] text-gray-400 italic text-center mt-[8px]">Workflow and timeline of execution tasks</p>
+        </div>
 
         <div className="grid grid-cols-2 gap-[24px]">
           <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
@@ -196,6 +247,31 @@ const sections = {
           <p className="text-[16px] text-gray-600 leading-[1.6]">
             Transformed a product into a platform, leveraging KOL (YouTube) partnerships and referral programs to build a self-sustaining fan base across three continents.
           </p>
+        </div>
+
+        {/* Success Moments Photo Gallery */}
+        <div>
+          <h4 className="text-[20px] font-semibold text-gray-900 mb-[16px]">
+            Success Moments
+          </h4>
+          <div className="grid grid-cols-2 gap-[16px]">
+            <div className="rounded-[12px] overflow-hidden">
+              <img src={imgIonboardCes} alt="CES Exhibition" className="w-full h-[200px] object-cover rounded-[12px]" />
+              <p className="text-[11px] text-gray-400 text-center mt-[6px]">CES Exhibition demo</p>
+            </div>
+            <div className="rounded-[12px] overflow-hidden">
+              <img src={imgIonboardAlumni} alt="UCSD Alumni event" className="w-full h-[200px] object-cover object-bottom rounded-[12px]" />
+              <p className="text-[11px] text-gray-400 text-center mt-[6px]">UCSD Alumni event</p>
+            </div>
+            <div className="rounded-[12px] overflow-hidden">
+              <img src={imgIonboardPitch} alt="Pitch presentation" className="w-full h-[200px] object-cover rounded-[12px]" />
+              <p className="text-[11px] text-gray-400 text-center mt-[6px]">Pitch presentation in San Diego</p>
+            </div>
+            <div className="rounded-[12px] overflow-hidden">
+              <img src={imgIonboardTeam} alt="Team at CES booth" className="w-full h-[200px] object-cover rounded-[12px]" />
+              <p className="text-[11px] text-gray-400 text-center mt-[6px]">The ionboard team at CES</p>
+            </div>
+          </div>
         </div>
       </div>
     ),
