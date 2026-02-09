@@ -491,15 +491,14 @@ export default function KatesWebsite() {
 
           {/* Title */}
           <div className="flex flex-col items-center mt-4">
-            <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase text-center leading-5">
+            <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase text-center">
               Gen AI
             </p>
-            <div className="flex items-center justify-center gap-2 mt-1 md:mt-0">
-              <div className="w-2 h-2 rounded-full bg-[#00bc7d] flex-shrink-0 md:hidden" />
+            <div className="flex items-center justify-center gap-2 mt-1">
               <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase">
-                <span className="hidden md:inline">Gen AI </span>Product Designer
+                Product Designer
               </p>
-              <div className="w-2 h-2 rounded-full bg-[#00bc7d] flex-shrink-0 hidden md:block" />
+              <div className="w-2 h-2 rounded-full bg-[#00bc7d] flex-shrink-0" />
             </div>
           </div>
 
@@ -519,9 +518,11 @@ export default function KatesWebsite() {
               </div>
 
               {/* Resume Button */}
-              <button className="bg-black text-white px-4 md:px-5 py-2 md:py-2.5 rounded-[8px] md:rounded-[10px] text-[10px] md:text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
-                Resume
-              </button>
+              <Link href="/resume" className="w-full">
+                <button className="bg-black text-white px-4 md:px-5 py-2 md:py-2.5 rounded-[8px] md:rounded-[10px] text-[10px] md:text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
+                  Resume
+                </button>
+              </Link>
             </div>
           </div>
         </div>
