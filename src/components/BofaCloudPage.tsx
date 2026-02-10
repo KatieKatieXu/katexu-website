@@ -6,6 +6,8 @@ import Link from "next/link";
 
 // Image assets
 const imgCloudCover = "/cloud-cover.png";
+const imgCloudSolution1 = "/cloud-solution1.png";
+const imgCloudSolution2 = "/cloud-solution2.png";
 const imgPlanetaryDiagram = "/planetary-diagram.png";
 const imgBofaCloud = "/bofa-cloud.png";
 const imgBofAWorkplace = "/bofa-workplace.png";
@@ -49,6 +51,27 @@ const sections = {
               <span className="text-[20px] text-[#364153] font-[family-name:var(--font-tinos)]">{item}</span>
             </div>
           ))}
+        </div>
+
+        {/* Design System Adoption — Solution Images */}
+        <div className="mt-[32px]">
+          <p className="text-[14px] text-gray-400 italic mb-[12px]">Request demo to see details</p>
+          <div className="flex flex-col gap-[16px]">
+            <div className="rounded-[16px] overflow-hidden">
+              <img
+                src={imgCloudSolution1}
+                alt="Design System Solution — Cloud Platform screens"
+                className="w-full h-auto object-cover rounded-[16px]"
+              />
+            </div>
+            <div className="rounded-[16px] overflow-hidden">
+              <img
+                src={imgCloudSolution2}
+                alt="Design System Solution — Component library"
+                className="w-full h-auto object-cover rounded-[16px]"
+              />
+            </div>
+          </div>
         </div>
       </div>
     ),
