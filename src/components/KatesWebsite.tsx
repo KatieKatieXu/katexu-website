@@ -358,7 +358,7 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
   }, []);
 
   const posClass = position === "top"
-    ? "absolute top-6 left-0 right-0 flex justify-center z-10"
+    ? "absolute top-14 left-0 right-0 flex justify-center z-10"
     : "absolute bottom-10 left-0 right-0 flex justify-center z-10";
 
   return (
@@ -448,9 +448,16 @@ export default function KatesWebsite() {
 
   return (
     <div 
-      className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0"
+      className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0 pt-6"
       style={{ touchAction: 'none', overscrollBehavior: 'none' }}
     >
+      {/* Credit line — very top, just above mission command */}
+      <div className="absolute top-6 left-0 right-0 text-center z-10 px-4">
+        <p className="text-[10px] text-black/40 tracking-wide">
+          🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
+        </p>
+      </div>
+
       {/* Mission Command Glass Panel */}
       <MissionCommand />
 
@@ -654,17 +661,6 @@ export default function KatesWebsite() {
       </div>
 
 
-      {/* Credit line — visible on mobile with safe area */}
-      <div
-        className="absolute left-0 right-0 text-center z-10 px-4"
-        style={{
-          bottom: "max(0.75rem, env(safe-area-inset-bottom, 12px))",
-        }}
-      >
-        <p className="text-[11px] md:text-[10px] text-black/40 tracking-wide">
-          🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
-        </p>
-      </div>
     </div>
   );
 }
