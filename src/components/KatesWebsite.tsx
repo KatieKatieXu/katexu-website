@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -326,6 +326,101 @@ function Spaceship({
   );
 }
 
+// Mission Command — typewriter on a glass sheet with green edges
+function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
+  const fullText = "CHOOSE A SPACESHIP TO SEE SPECS";
+  const [displayedText, setDisplayedText] = useState("");
+  const [showCursor, setShowCursor] = useState(true);
+  const [doneTyping, setDoneTyping] = useState(false);
+  const charIndex = useRef(0);
+
+  useEffect(() => {
+    // Small initial delay before typing starts
+    const startDelay = setTimeout(() => {
+      const interval = setInterval(() => {
+        if (charIndex.current < fullText.length) {
+          setDisplayedText(fullText.slice(0, charIndex.current + 1));
+          charIndex.current += 1;
+        } else {
+          clearInterval(interval);
+          setDoneTyping(true);
+        }
+      }, 60);
+      return () => clearInterval(interval);
+    }, position === "bottom" ? 800 : 400);
+    return () => clearTimeout(startDelay);
+  }, []);
+
+  // Blinking cursor
+  useEffect(() => {
+    const blink = setInterval(() => setShowCursor((v) => !v), 530);
+    return () => clearInterval(blink);
+  }, []);
+
+  const posClass = position === "top"
+    ? "absolute top-6 left-0 right-0 flex justify-center z-10"
+    : "absolute bottom-10 left-0 right-0 flex justify-center z-10";
+
+  return (
+    <motion.div
+      className={posClass}
+      initial={{ opacity: 0, y: position === "top" ? -10 : 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: position === "bottom" ? 0.3 : 0 }}
+    >
+      <div
+        className="relative px-6 py-3 rounded-[8px] overflow-hidden"
+        style={{
+          background: "rgba(255,255,255,0.35)",
+          backdropFilter: "blur(20px) saturate(160%)",
+          WebkitBackdropFilter: "blur(20px) saturate(160%)",
+          border: "1px solid rgba(0,188,125,0.4)",
+          boxShadow: "0 0 12px rgba(0,188,125,0.1), 0 4px 16px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5)",
+        }}
+      >
+        {/* Green corner accents */}
+        <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[8px]" />
+        <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[8px]" />
+        <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[8px]" />
+        <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[8px]" />
+
+        {/* Top edge glow */}
+        <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(0,188,125,0.5), transparent)" }} />
+        {/* Bottom edge glow */}
+        <div className="absolute inset-x-0 bottom-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(0,188,125,0.3), transparent)" }} />
+
+        {/* Typewriter text */}
+        <p className="text-[11px] md:text-[12px] font-mono font-semibold tracking-[3px] text-[#00915f]">
+          <span style={{ textShadow: "0 0 8px rgba(0,188,125,0.3)" }}>
+            {displayedText}
+          </span>
+          <span
+            className="inline-block w-[2px] h-[14px] ml-0.5 align-middle bg-[#00bc7d]"
+            style={{
+              opacity: showCursor ? 1 : 0,
+              boxShadow: "0 0 4px rgba(0,188,125,0.6)",
+              transition: "opacity 0.1s",
+            }}
+          />
+        </p>
+
+        {/* Subtle scan line effect */}
+        {!doneTyping && (
+          <motion.div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "linear-gradient(180deg, transparent 0%, rgba(0,188,125,0.03) 50%, transparent 100%)",
+              backgroundSize: "100% 8px",
+            }}
+            animate={{ y: [0, 8] }}
+            transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
+          />
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function KatesWebsite() {
   const [mounted, setMounted] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<ProjectKey | null>(null);
@@ -356,12 +451,8 @@ export default function KatesWebsite() {
       className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0"
       style={{ touchAction: 'none', overscrollBehavior: 'none' }}
     >
-      {/* Top Instruction */}
-      <div className="absolute top-8 left-0 right-0 text-center z-10">
-        <p className="text-xs text-black/30 tracking-[3.6px] uppercase opacity-60">
-          Choose a Spaceship to See Specs
-        </p>
-      </div>
+      {/* Mission Command Glass Panel */}
+      <MissionCommand />
 
       {/* Planetary Diagram Background */}
       <div className="absolute inset-0 flex items-center justify-center opacity-60">
@@ -562,12 +653,8 @@ export default function KatesWebsite() {
         </div>
       </div>
 
-      {/* Footer Instruction */}
-      <div className="absolute bottom-12 left-0 right-0 text-center">
-        <p className="text-xs text-black/30 tracking-[3.6px] uppercase opacity-60">
-          Choose a Spaceship to See Specs
-        </p>
-      </div>
+      {/* Footer — Mission Command repeated */}
+      <MissionCommand position="bottom" />
     </div>
   );
 }
