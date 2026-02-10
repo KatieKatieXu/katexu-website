@@ -655,6 +655,13 @@ export default function KatesWebsite() {
 
       {/* Footer — Mission Command repeated */}
       <MissionCommand position="bottom" />
+
+      {/* Credit line */}
+      <div className="absolute bottom-3 left-0 right-0 text-center">
+        <p className="text-[10px] text-black/25 tracking-wide">
+          🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
+        </p>
+      </div>
     </div>
   );
 }
