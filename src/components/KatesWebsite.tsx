@@ -654,9 +654,14 @@ export default function KatesWebsite() {
       </div>
 
 
-      {/* Credit line */}
-      <div className="absolute bottom-3 left-0 right-0 text-center">
-        <p className="text-[10px] text-black/25 tracking-wide">
+      {/* Credit line — visible on mobile with safe area */}
+      <div
+        className="absolute left-0 right-0 text-center z-10 px-4"
+        style={{
+          bottom: "max(0.75rem, env(safe-area-inset-bottom, 12px))",
+        }}
+      >
+        <p className="text-[11px] md:text-[10px] text-black/40 tracking-wide">
           🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
         </p>
       </div>
