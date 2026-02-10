@@ -653,8 +653,6 @@ export default function KatesWebsite() {
         </div>
       </div>
 
-      {/* Footer — Mission Command repeated */}
-      <MissionCommand position="bottom" />
 
       {/* Credit line */}
       <div className="absolute bottom-3 left-0 right-0 text-center">
