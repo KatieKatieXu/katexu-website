@@ -27,11 +27,11 @@ type SectionKey = keyof typeof stones;
 // Section content based on provided content
 const sections = {
   philosophy: {
-    title: "The Core Philosophy: How I \"Vibe Coding\"",
-    subtitle: "Project Detail: 01 — Methodology",
+    title: "Problem & Research: The Bedtime Dilemma",
+    subtitle: "Project Detail: 01 — Why PawpawStory",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover Image */}
+        {/* Cover Image / Screenshots */}
         <div className="rounded-[16px] overflow-hidden">
           <img
             src={imgPawpawCover}
@@ -40,33 +40,75 @@ const sections = {
           />
         </div>
 
-        <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[33px]">
-          <p className="text-[24px] text-gray-900 font-bold leading-[1.4]">
-            My Workflow is a <span className="text-[#00bc7d]">&quot;Multi-Agent System Orchestrating&quot;</span>
-          </p>
-          <p className="text-[14px] text-gray-500 mt-[12px]">
-            my methodology solves the biggest problem with AI today: <span className="font-medium text-gray-700">&quot;Chaos&quot;</span> and <span className="font-medium text-gray-700">&quot;too much freedom&quot;</span>
-          </p>
-        </div>
+        {/* Problem & Research Content */}
+        <div className="space-y-[28px]">
+          {/* The Spark — abstract */}
+          <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+            <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">The Spark</h4>
+            <p className="text-[16px] text-gray-700 leading-[1.6]">
+              <span className="font-semibold text-gray-900">Fading Memories at 8:00 PM</span> — Parents want to share classic tales but exhaustion leaves them scrolling or repeating the same books.
+            </p>
+          </div>
 
+          {/* The Gap — abstract keywords */}
+          <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+            <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[12px]">The Gap: Competitive Audit</h4>
+            <ul className="space-y-[10px] text-[15px] text-gray-700 leading-[1.6]">
+              <li><span className="font-medium text-gray-900">YouTube & EdTech:</span> High engagement, blue light disrupts sleep</li>
+              <li><span className="font-medium text-gray-900">Audiobooks & Podcasts:</span> Screen-free but passive, generic voices lack resonance</li>
+              <li><span className="font-medium text-gray-900">Standard AI:</span> Robotic output, lacks the &quot;magic&quot; of a human storyteller</li>
+            </ul>
+          </div>
+
+          {/* The Insight — Stanford study (full text) */}
+          <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
+            <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[12px]">The Insight: The Cognitive Power of the Parent&apos;s Voice</h4>
+            <p className="text-[16px] text-gray-700 leading-[1.6]">
+              With a background in Cognitive Science, I knew the solution wasn&apos;t just better stories, but a better delivery mechanism. Neuroscience reveals that a child&apos;s brain is uniquely tuned to their parent&apos;s voice.
+            </p>
+            <p className="text-[16px] text-gray-700 leading-[1.6] mt-[16px]">
+              Studies from Stanford University show that hearing a parent&apos;s voice activates a child&apos;s reward, emotion, and face-processing neural networks in a way that unfamiliar voices cannot. Furthermore, familiar voices trigger the release of oxytocin while lowering cortisol, providing the exact biological soothing mechanism required for sleep.
+            </p>
+          </div>
+
+          {/* The Product Thesis — abstract */}
+          <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+            <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">The Product Thesis</h4>
+            <p className="text-[16px] text-gray-700 leading-[1.6]">
+              AI-reconstructed classic tales + voice-cloning in parent&apos;s voice = <span className="font-semibold text-gray-900">screen-free, soothing, personalized</span> bedtime experience.
+            </p>
+          </div>
+        </div>
+      </div>
+    ),
+  },
+  process: {
+    title: "The Process: From Logic to Pixels",
+    subtitle: "Project Detail: 02 — Case Study Breakdown",
+    content: (
+      <div className="space-y-[40px]">
+        {/* Vibe Coding — moved from Philosophy */}
         <div>
+          <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[33px] mb-[32px]">
+            <p className="text-[24px] text-gray-900 font-bold leading-[1.4]">
+              My Workflow is a <span className="text-[#00bc7d]">&quot;Multi-Agent System Orchestrating&quot;</span>
+            </p>
+            <p className="text-[14px] text-gray-500 mt-[12px]">
+              my methodology solves the biggest problem with AI today: <span className="font-medium text-gray-700">&quot;Chaos&quot;</span> and <span className="font-medium text-gray-700">&quot;too much freedom&quot;</span>
+            </p>
+          </div>
+
           <h3 className="text-[20px] font-bold text-gray-900 mb-[24px]">
             Inside of my agent box
           </h3>
           
-          {/* Hub and Spoke Layout */}
-          <div className="relative">
-            {/* SVG for dotted connection lines */}
+          <div className="relative mb-[40px]">
             <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
-              {/* Line from ME to Gemini (top) */}
               <line x1="50%" y1="170" x2="50%" y2="84" stroke="#00bc7d" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
-              {/* Line from ME to Cursor (bottom-left) */}
               <line x1="50%" y1="230" x2="38%" y2="340" stroke="#00bc7d" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
-              {/* Line from ME to Figma (bottom-right) */}
               <line x1="50%" y1="230" x2="62%" y2="340" stroke="#00bc7d" strokeWidth="2" strokeDasharray="6 4" opacity="0.5" />
             </svg>
 
-            {/* Top Row - Gemini */}
             <div className="flex justify-center mb-[24px]">
               <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[20px] w-[280px] relative z-10">
                 <div className="flex items-start gap-[16px]">
@@ -82,25 +124,18 @@ const sections = {
               </div>
             </div>
 
-            {/* Center - Me (The Orchestrator) */}
             <div className="flex justify-center my-[32px]">
               <div className="relative z-10">
                 <div className="w-[120px] h-[120px] rounded-full bg-gradient-to-br from-amber-500 to-orange-600 flex flex-col items-center justify-center shadow-lg border-4 border-white">
                   <span className="text-[28px]">👤</span>
                   <span className="text-white font-bold text-[14px] mt-[4px]">ME</span>
                 </div>
-                <p className="text-center text-[11px] text-gray-500 mt-[12px] font-medium">
-                  The Orchestrator
-                </p>
-                <p className="text-center text-[10px] text-gray-400 mt-[2px] max-w-[140px]">
-                  Human-in-the-loop
-                </p>
+                <p className="text-center text-[11px] text-gray-500 mt-[12px] font-medium">The Orchestrator</p>
+                <p className="text-center text-[10px] text-gray-400 mt-[2px] max-w-[140px]">Human-in-the-loop</p>
               </div>
             </div>
 
-            {/* Bottom Row - Cursor and Figma */}
             <div className="flex justify-center gap-[48px] mt-[24px]">
-              {/* Cursor */}
               <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[20px] w-[240px] relative z-10">
                 <div className="flex items-start gap-[16px]">
                   <div className="w-[44px] h-[44px] bg-gradient-to-br from-emerald-500 to-teal-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
@@ -113,8 +148,6 @@ const sections = {
                   </div>
                 </div>
               </div>
-
-              {/* Figma + MCP */}
               <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[20px] w-[240px] relative z-10">
                 <div className="flex items-start gap-[16px]">
                   <div className="w-[44px] h-[44px] bg-gradient-to-br from-pink-500 to-rose-600 rounded-[10px] flex items-center justify-center flex-shrink-0">
@@ -129,21 +162,13 @@ const sections = {
               </div>
             </div>
 
-            {/* Labels for the connections */}
             <div className="flex justify-center gap-[200px] mt-[20px] text-[10px] text-gray-400">
               <span>Plans</span>
               <span>Context</span>
             </div>
           </div>
         </div>
-      </div>
-    ),
-  },
-  process: {
-    title: "The Process: From Logic to Pixels",
-    subtitle: "Project Detail: 02 — Case Study Breakdown",
-    content: (
-      <div className="space-y-[40px]">
+
         {/* Phase 1 */}
         <div>
           <div className="flex items-center gap-[16px] mb-[20px]">
