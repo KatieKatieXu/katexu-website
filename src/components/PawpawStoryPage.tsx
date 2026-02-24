@@ -15,7 +15,7 @@ const imgKateXu = "/kate-xu.png";
 
 // Stone images for navigation
 const stones = {
-  philosophy: "/stone-1.png",
+  highlights: "/stone-1.png",
   process: "/stone-2.png",
   build: "/stone-3.png",
   takeaways: "/stone-4.png",
@@ -26,7 +26,7 @@ type SectionKey = keyof typeof stones;
 
 // Section content based on provided content
 const sections = {
-  philosophy: {
+  highlights: {
     title: "Problem & Research: The Bedtime Dilemma",
     subtitle: "Project Detail: 01 — Why PawpawStory",
     content: (
@@ -526,7 +526,7 @@ function NavItem({ stoneImg, label, isActive, onClick }: NavItemProps) {
 
 export default function PawpawStoryPage() {
   const [mounted, setMounted] = useState(false);
-  const [activeSection, setActiveSection] = useState<SectionKey>("philosophy");
+  const [activeSection, setActiveSection] = useState<SectionKey>("highlights");
 
   useEffect(() => {
     setMounted(true);
@@ -657,10 +657,10 @@ export default function PawpawStoryPage() {
           <div className="flex-1 flex flex-col justify-center pl-[32px]">
             <nav className="space-y-[32px]">
               <NavItem
-                stoneImg={stones.philosophy}
-                label="Philosophy"
-                isActive={activeSection === "philosophy"}
-                onClick={() => setActiveSection("philosophy")}
+                stoneImg={stones.highlights}
+                label="Highlights"
+                isActive={activeSection === "highlights"}
+                onClick={() => setActiveSection("highlights")}
               />
               <NavItem
                 stoneImg={stones.process}
@@ -717,9 +717,11 @@ export default function PawpawStoryPage() {
                   Zero to App Store — one-person product building via AI Vibe Coding.
                 </p>
                 
-                {/* App Preview Card - Only show on Philosophy section */}
-                {activeSection === "philosophy" && (
-                  <div className="mt-[24px] flex items-start gap-[24px] p-[20px] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] rounded-[20px] border border-gray-200">
+                {/* Highlights section: Download card first, then Story demo + Code */}
+                {activeSection === "highlights" && (
+                  <div className="mt-[24px] space-y-[24px]">
+                    {/* App Preview / Download Card — first */}
+                    <div className="flex items-start gap-[24px] p-[20px] bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] rounded-[20px] border border-gray-200">
                     {/* App Screenshot */}
                     <div className="flex-shrink-0 w-[160px] rounded-[12px] overflow-hidden shadow-lg border border-gray-200">
                       <img 
@@ -765,6 +767,85 @@ export default function PawpawStoryPage() {
                         </span>
                         <span>Ages 4+</span>
                         <span>Free</span>
+                      </div>
+                    </div>
+                  </div>
+
+                    {/* Interaction — Story demo GIF + Code */}
+                    <div className="mt-[24px]">
+                      <div className="flex items-center gap-3 mb-[16px]">
+                        <div className="w-1 h-6 bg-[#00bc7d] rounded-full" />
+                        <div>
+                          <h3 className="text-[18px] font-bold text-gray-900 tracking-tight">
+                            Design System & Code
+                          </h3>
+                          <p className="text-[13px] text-gray-500 mt-0.5">
+                            StoryCard component — Figma variables to React Native
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-[20px]">
+                        {/* Story demo GIF */}
+                        <div className="rounded-[12px] overflow-hidden border border-gray-200/80 shadow-sm h-[280px] bg-[#fafafa] flex items-center justify-center">
+                          <img
+                            src="/pawpaw-storycard-demo.gif"
+                            alt="StoryCard design system — interactive component with toggleable properties"
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        {/* Code block with header */}
+                        <div className="rounded-[12px] overflow-hidden border border-gray-200/80 shadow-sm">
+                          <div className="flex items-center justify-between px-4 py-2.5 bg-[#2d2d2d] border-b border-gray-700/50">
+                            <span className="text-[12px] font-medium text-gray-400 font-[family-name:var(--font-geist-mono)]">
+                              StoryCard.tsx
+                            </span>
+                            <span className="text-[10px] text-gray-500 uppercase tracking-wider">React Native</span>
+                          </div>
+                          <pre className="overflow-auto h-[256px] bg-[#1e1e1e] p-5 text-[13px] leading-[1.7] font-[family-name:var(--font-geist-mono)] text-gray-300">
+{`<Image source={story.coverImage} className="w-24 h-24 rounded-lg" resizeMode="cover" />
+
+<View className="flex-1 p-3 justify-between">
+  {/* Text Block */}
+  <View>
+    <Text 
+      className={\`text-lg font-nunito-extrabold \${titleColor}\`} 
+      numberOfLines={1}
+    >
+      {story.title}
+    </Text>
+    <Text 
+      className={\`text-sm font-nunito-bold \${subtitleColor}\`} 
+      numberOfLines={1}
+    >
+      {story.subtitle}
+    </Text>
+  </View>
+
+  {/* Meta Footer */}
+  <View className="flex-row items-center justify-between">
+    {/* Left: Duration */}
+    <View className="flex-row items-center gap-1">
+      <Ionicons name="time-outline" size={12} color={iconColor} />
+      <Text className={\`text-xs font-nunito-regular \${subtitleColor}\`}>
+        {story.duration}
+      </Text>
+    </View>
+
+    {/* Middle: VoiceNarrator */}
+    <View className={\`rounded-full px-2 py-0.5 mr-2 \${narratorBadgeBg}\`}>
+      <Text className={\`text-[10px] font-nunito-regular \${subtitleColor}\`}>
+        {story.narrator}
+      </Text>
+    </View>
+
+    {/* Right: PlayButton */}
+    <View className={\`w-6 h-6 rounded-full items-center justify-center \${playBg}\`}>
+      <Ionicons name="play" size={12} color={playIcon} />
+    </View>
+  </View>
+</View>`}
+                          </pre>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -839,8 +920,8 @@ export default function PawpawStoryPage() {
               Zero to App Store — one-person product building via AI Vibe Coding.
             </p>
             
-            {/* Mobile App Preview Card - Compact */}
-            {activeSection === "philosophy" && (
+            {/* Mobile App Preview Card - Compact — first */}
+            {activeSection === "highlights" && (
               <a 
                 href="https://apps.apple.com/us/app/pawpawstory/id6757112694" 
                 target="_blank" 
@@ -865,6 +946,64 @@ export default function PawpawStoryPage() {
                   GET
                 </div>
               </a>
+            )}
+
+            {/* Interaction — Story demo GIF + Code - Mobile */}
+            {activeSection === "highlights" && (
+              <div className="mt-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1 h-4 bg-[#00bc7d] rounded-full" />
+                  <div>
+                    <h3 className="text-[16px] font-bold text-gray-900 tracking-tight">
+                      Design System & Code
+                    </h3>
+                    <p className="text-[11px] text-gray-500 mt-0.5">
+                      StoryCard component
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-col gap-3">
+                  <div className="rounded-[10px] overflow-hidden border border-gray-200/80 shadow-sm h-[180px] bg-[#fafafa] flex items-center justify-center">
+                    <img
+                      src="/pawpaw-storycard-demo.gif"
+                      alt="StoryCard design system"
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="rounded-[10px] overflow-hidden border border-gray-200/80 shadow-sm">
+                    <div className="flex items-center justify-between px-3 py-2 bg-[#2d2d2d] border-b border-gray-700/50">
+                      <span className="text-[10px] font-medium text-gray-400 font-[family-name:var(--font-geist-mono)]">
+                        StoryCard.tsx
+                      </span>
+                    </div>
+                    <pre className="overflow-auto h-[156px] bg-[#1e1e1e] p-3 text-[11px] leading-[1.6] font-[family-name:var(--font-geist-mono)] text-gray-300">
+{`<Image source={story.coverImage} className="w-24 h-24 rounded-lg" resizeMode="cover" />
+<View className="flex-1 p-3 justify-between">
+  <View>
+    <Text className={\`text-lg font-nunito-extrabold \${titleColor}\`} numberOfLines={1}>
+      {story.title}
+    </Text>
+    <Text className={\`text-sm font-nunito-bold \${subtitleColor}\`} numberOfLines={1}>
+      {story.subtitle}
+    </Text>
+  </View>
+  <View className="flex-row items-center justify-between">
+    <View className="flex-row items-center gap-1">
+      <Ionicons name="time-outline" size={12} color={iconColor} />
+      <Text className={\`text-xs font-nunito-regular \${subtitleColor}\`}>{story.duration}</Text>
+    </View>
+    <View className={\`rounded-full px-2 py-0.5 mr-2 \${narratorBadgeBg}\`}>
+      <Text className={\`text-[10px] font-nunito-regular \${subtitleColor}\`}>{story.narrator}</Text>
+    </View>
+    <View className={\`w-6 h-6 rounded-full items-center justify-center \${playBg}\`}>
+      <Ionicons name="play" size={12} color={playIcon} />
+    </View>
+  </View>
+</View>`}
+                    </pre>
+                  </div>
+                </div>
+              </div>
             )}
             
             <div className="w-[60px] h-[3px] bg-[#00bc7d] mt-4 mb-8" />
@@ -924,7 +1063,7 @@ export default function PawpawStoryPage() {
               >
                 <img src={stones[key]} alt="" className="w-6 h-6 object-contain" />
                 <span className={`text-[9px] mt-0.5 font-semibold ${activeSection === key ? 'text-[#00bc7d]' : 'text-gray-600'}`}>
-                  {key === "philosophy" ? "Core" : key === "techstack" ? "Stack" : key.charAt(0).toUpperCase() + key.slice(1)}
+                  {key === "highlights" ? "Highlights" : key === "techstack" ? "Stack" : key.charAt(0).toUpperCase() + key.slice(1)}
                 </span>
               </button>
             ))}

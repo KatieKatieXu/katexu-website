@@ -149,7 +149,7 @@ const sections = {
                 <span className="text-[14px] font-semibold text-[#00bc7d]">Version 3 — The Breakthrough</span>
               </div>
               <p className="text-[14px] text-gray-700 leading-[1.6]">
-                I replaced it with the <span className="font-semibold">Quick Action section</span> and added a <span className="font-semibold">&quot;Plan for Day-Off&quot;</span> feature after detecting a frequent user need for easy leave-management. This version achieved a <span className="font-bold text-[#00bc7d]">perfect NPS of 10</span>.
+                I replaced it with the <span className="font-semibold">Quick Action section</span> and added a <span className="font-semibold">&quot;Plan for Day-Off&quot;</span> feature after detecting a frequent user need for easy leave-management. This version reached <span className="font-bold text-[#00bc7d]">NPS score as 36</span>.
               </p>
             </div>
           </div>
@@ -191,7 +191,7 @@ const sections = {
             <p className="text-[14px] text-gray-500 mt-[12px]">Platforms per workflow</p>
           </div>
           <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px] text-center">
-            <p className="text-[48px] font-bold text-[#00bc7d] leading-none">NPS 10</p>
+            <p className="text-[48px] font-bold text-[#00bc7d] leading-none">NPS 36</p>
             <p className="text-[14px] text-gray-500 mt-[12px]">Final achievement</p>
           </div>
         </div>
@@ -283,7 +283,7 @@ const sections = {
           <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[16px]">
             Final Result
           </p>
-          <p className="text-[72px] font-bold text-[#00bc7d] leading-none">NPS 10</p>
+          <p className="text-[72px] font-bold text-[#00bc7d] leading-none">NPS 36</p>
           <p className="text-[16px] text-gray-600 mt-[16px]">
             Unified fragmented workflows into a high-performance &quot;Command Center&quot;
           </p>
