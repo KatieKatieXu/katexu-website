@@ -30,7 +30,7 @@ export default function ResumePage() {
         </h1>
         
         <a 
-          href="/KateXuResume.pdf" 
+          href="/KateXuResume1.pdf" 
           download="KateXu_Resume.pdf"
           className="px-4 py-2 bg-[#00bc7d] text-white text-sm font-semibold rounded-full hover:bg-[#00a86b] transition-colors flex items-center gap-2"
         >
@@ -46,7 +46,7 @@ export default function ResumePage() {
       {/* Desktop: iframe PDF viewer fills remaining space */}
       <div className="hidden md:flex flex-1 w-full">
         <iframe
-          src="/KateXuResume.pdf"
+          src="/KateXuResume1.pdf"
           className="w-full h-full border-0"
           style={{ minHeight: "calc(100vh - 80px)" }}
           title="Kate Xu Resume"
@@ -74,7 +74,7 @@ export default function ResumePage() {
             </div>
           )}
           <iframe
-            src="/KateXuResume.pdf#view=FitH"
+            src="/KateXuResume1.pdf#view=FitH"
             className="w-full h-full border-0"
             title="Kate Xu Resume"
             onLoad={() => setIframeLoaded(true)}
@@ -84,7 +84,7 @@ export default function ResumePage() {
 
         {/* Tap to open full PDF — fallback for mobile browsers that don't render iframe PDFs well */}
         <a
-          href="/KateXuResume.pdf"
+          href="/KateXuResume1.pdf"
           target="_blank"
           rel="noopener noreferrer"
           className="mt-4 mb-6 px-5 py-2.5 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 hover:text-[#00bc7d] hover:border-[#00bc7d] transition-colors shadow-sm flex items-center gap-2"
