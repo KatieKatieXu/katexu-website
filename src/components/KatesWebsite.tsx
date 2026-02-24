@@ -17,32 +17,33 @@ const imgKateXu = "/kate-xu.png";
 const projects = {
   bofaCloud: {
     title: "BOFA CLOUD",
-    category: "ENTERPRISE PLATFORM",
+    category: "DESIGN LEAD IN THE TEAM OF 35",
     description: "Cloud infrastructure platform for 200K+ enterprise users.",
     previewImage: "/cloud-cover.png",
     benchmarks: [
-      "200K+ enterprise users served",
-      "40% reduction in provisioning time",
+      "20% decrease in support tickets",
+      "Reduced Task Completion Time by 40%",
       "Unified design system adoption",
     ],
   },
   bofaWorkplace: {
     title: "BOFA WORKIT",
-    category: "MOBILE ECOSYSTEM",
-    description: "Unified mobile Command Center — NPS 10.",
+    category: "SOLO DESIGNER IN THE TEAM OF 3 (MOBILE WORKPLACE TOOL)",
+    description: "Unified mobile Command Center — reached NPS score as 36.",
     previewImage: "/workit-cover.png",
     benchmarks: [
-      "Perfect NPS score of 10",
+      "Reached NPS score as 36",
       "91% workflow unification",
       "3+ platforms consolidated into 1",
     ],
   },
   pawpawStory: {
     title: "PAWPAWSTORY",
-    category: "AI PRODUCT",
+    category: "SOLO AI PRODUCT BUILDER",
     description: "AI voice-cloning storytelling app for your kids.",
     previewImage: "/pawpaw-cover.png",
     benchmarks: [
+      "Design system with Figma variables",
       "Zero to App Store in 4 weeks",
       "Multi-agent AI workflow",
       "Voice cloning integration",
@@ -50,13 +51,13 @@ const projects = {
   },
   ionboard: {
     title: "IONBOARD",
-    category: "STARTUP",
+    category: "DESIGN AND MARKETING",
     description: "Electric skateboard brand — $57K+ Kickstarter (570%).",
     previewImage: "/ionboard-cover.png",
     benchmarks: [
       "$57K+ Kickstarter (570% funded)",
-      "Global e-commerce scaling",
-      "End-to-end brand ownership",
+      "Global e-commerce marketing",
+      "End-to-end brand design",
     ],
   },
 };
