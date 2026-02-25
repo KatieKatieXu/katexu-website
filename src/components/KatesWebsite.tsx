@@ -18,7 +18,7 @@ const projects = {
   bofaCloud: {
     title: "BOFA CLOUD",
     category: "DESIGN LEAD IN THE TEAM OF 35",
-    description: "Cloud infrastructure platform for 200K+ enterprise users.",
+    description: "Cloud infrastructure platform supporting over 4K internal applications.",
     previewImage: "/cloud-cover.png",
     benchmarks: [
       "20% decrease in support tickets",
