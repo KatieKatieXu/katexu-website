@@ -716,7 +716,18 @@ export default function PawpawStoryPage() {
                 <p className="text-[16px] text-gray-500 mt-[16px]">
                   Zero to App Store — one-person product building via AI Vibe Coding.
                 </p>
-                
+                {activeSection === "highlights" && (
+                  <Link
+                    href="/projects/pawpaw-story/deck"
+                    className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-[#00bc7d] text-white rounded-full font-semibold hover:bg-[#00a36a] transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                    </svg>
+                    Presentation Deck
+                  </Link>
+                )}
+
                 {/* Highlights section: Download card first, then Story demo + Code */}
                 {activeSection === "highlights" && (
                   <div className="mt-[24px] space-y-[24px]">
@@ -919,7 +930,18 @@ export default function PawpawStoryPage() {
             <p className="text-[12px] text-gray-500 mt-2">
               Zero to App Store — one-person product building via AI Vibe Coding.
             </p>
-            
+            {activeSection === "highlights" && (
+              <Link
+                href="/projects/pawpaw-story/deck"
+                className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#00bc7d] text-white rounded-full text-sm font-semibold"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                </svg>
+                Presentation Deck
+              </Link>
+            )}
+
             {/* Mobile App Preview Card - Compact — first */}
             {activeSection === "highlights" && (
               <a 
