@@ -42,7 +42,8 @@ const sections = {
         </div>
         <div className="flex flex-col gap-[16px]">
           {[
-            "Reduced provisioning time by 40%",
+            "20% decrease in support tickets",
+            "Reduced Task Completion Time by 40%",
             "Unified dashboard analytics",
             "Design System adoption",
           ].map((item, i) => (
@@ -131,6 +132,20 @@ const sections = {
     subtitle: null,
     content: (
       <div className="space-y-[32px]">
+        {/* Key metrics from spec card */}
+        <div className="grid grid-cols-2 gap-[16px]">
+          <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
+            <p className="text-[14px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">Support Efficiency</p>
+            <p className="text-[24px] font-bold text-gray-900">20%</p>
+            <p className="text-[14px] text-gray-600">decrease in support tickets</p>
+          </div>
+          <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
+            <p className="text-[14px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">Task Completion</p>
+            <p className="text-[24px] font-bold text-gray-900">40%</p>
+            <p className="text-[14px] text-gray-600">reduction in task completion time</p>
+          </div>
+        </div>
+
         <p className="text-[18px] text-gray-700 leading-[1.6]">
           To gain granular visibility into the user journey, I integrated Glassbox session analytics into our success metrics.
         </p>
