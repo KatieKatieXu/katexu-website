@@ -60,6 +60,18 @@ const projects = {
       "End-to-end brand design",
     ],
   },
+  jobpilot: {
+    title: "JOBPILOT",
+    category: "SOLO AI PRODUCT BUILDER",
+    description: "AI-powered job hunting tool — built as User #1.",
+    previewImage: "/jobpilot-cover.png",
+    benchmarks: [
+      "AI resume analysis & revision",
+      "Job matching by interview probability",
+      "Form auto-fill assist panel",
+      "Figma MCP → Cursor → Claude API workflow",
+    ],
+  },
 };
 
 type ProjectKey = keyof typeof projects;
@@ -84,6 +96,7 @@ const projectRoutes: Record<ProjectKey, string | null> = {
   bofaWorkplace: "/projects/bofa-workplace",
   pawpawStory: "/projects/pawpaw-story",
   ionboard: "/projects/ionboard",
+  jobpilot: "/projects/jobpilot",
 };
 
 // Project Spec Card component - renders at fixed position
@@ -445,6 +458,7 @@ export default function KatesWebsite() {
     bofaWorkplace: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-auto md:right-[22%] md:top-[18%]",
     pawpawStory: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[28%] md:top-[38%]",
     ionboard: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-auto md:right-[28%] md:top-[48%]",
+    jobpilot: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[18%] md:top-[62%]",
   };
 
   return (
