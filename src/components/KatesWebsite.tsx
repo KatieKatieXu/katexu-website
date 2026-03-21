@@ -593,7 +593,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section separator + Read More button */}
-          <div style={{ borderTop: "1px solid rgba(200,200,200,0.4)", marginTop: "auto", paddingTop: "14px", display: "flex", justifyContent: "center" }}>
+          <div style={{ marginTop: "auto", paddingTop: "28px", display: "flex", justifyContent: "center" }}>
             {route ? (
               <Link href={route}>
                 <div
