@@ -1087,23 +1087,23 @@ export default function KatesWebsite() {
               transition={{ duration: 0.5, delay: 0.4 }}
               style={{
                 marginTop: "24px",
-                width: "100%",
-                maxWidth: "800px",
-                padding: "16px 24px",
+                width: "100vw",
+                maxWidth: "100vw",
+                padding: "16px 0",
                 background: "rgba(255, 255, 255, 0.45)",
                 backdropFilter: "blur(24px) saturate(180%)",
                 WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                border: "1px solid rgba(255, 255, 255, 0.5)",
-                borderRadius: "12px",
-                boxShadow: "0 20px 40px -10px rgba(0,0,0,0.12), 0 8px 16px -6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
+                borderTop: "1px solid rgba(255, 255, 255, 0.5)",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
+                boxShadow: "0 8px 32px -4px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
                 position: "relative",
-                overflow: "hidden",
+                overflow: "visible",
               }}
             >
               {/* Glass shine overlay */}
-              <div style={{ position: "absolute", inset: 0, pointerEvents: "none", borderRadius: "12px", backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.1) 70%, transparent 100%)" }} />
+              <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
               {/* Top edge highlight */}
-              <div style={{ position: "absolute", inset: "0 0 auto 0", height: "1px", pointerEvents: "none", background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)" }} />
+              <div style={{ position: "absolute", inset: "0 0 auto 0", height: "1px", pointerEvents: "none", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, transparent 100%)" }} />
               <ThumbnailRow
                 ships={spaceships}
                 selectedIndex={selectedIndex}
