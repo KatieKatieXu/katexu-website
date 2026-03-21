@@ -362,7 +362,7 @@ function DesktopNavButton({ direction, onClick, disabled, showcaseHeight }: Desk
         width: "52px",
         height: showcaseHeight,
         borderRadius: direction === "left" ? "12px 0 0 12px" : "0 12px 12px 0",
-        background: disabled ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.55)",
+        background: disabled ? "rgba(255,255,255,0.35)" : "rgba(0,188,125,0.08)",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
         border: "1px solid rgba(0,188,125,0.25)",
@@ -377,7 +377,7 @@ function DesktopNavButton({ direction, onClick, disabled, showcaseHeight }: Desk
         }
       }}
       onMouseLeave={(e) => {
-        e.currentTarget.style.background = disabled ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.55)";
+        e.currentTarget.style.background = disabled ? "rgba(255,255,255,0.35)" : "rgba(0,188,125,0.08)";
       }}
     >
       <span
