@@ -508,8 +508,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               fontSize: "17px",
               fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
               color: "#1d1d1f",
-              fontWeight: 700,
-              lineHeight: "1.35",
+              fontWeight: 400,
+              lineHeight: "1.3",
               marginBottom: "10px",
               marginTop: "0",
             }}
@@ -593,7 +593,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section separator + Read More button */}
-          <div style={{ borderTop: "1px solid rgba(200,200,200,0.4)", marginTop: "16px", paddingTop: "14px", display: "flex", justifyContent: "center" }}>
+          <div style={{ borderTop: "1px solid rgba(200,200,200,0.4)", marginTop: "auto", paddingTop: "14px", display: "flex", justifyContent: "center" }}>
             {route ? (
               <Link href={route}>
                 <div
