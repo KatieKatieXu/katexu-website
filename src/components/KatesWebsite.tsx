@@ -463,7 +463,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         />
 
         {/* Inner content area with consistent padding */}
-        <div style={{ padding: "0 28px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ padding: "0 28px 32px", display: "flex", flexDirection: "column", flex: 1 }}>
           {/* Top bar: Project title left-aligned */}
           <div style={{ paddingRight: isMobile ? "80px" : "120px", marginTop: "16px" }}>
             <p
