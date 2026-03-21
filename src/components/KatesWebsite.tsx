@@ -106,7 +106,7 @@ const projectRoutes: Record<ProjectKey, string | null> = {
   pawpawStory: "/projects/pawpaw-story",
   ionboard: "/projects/ionboard",
   jobpilot: "/projects/jobpilot",
-  oneco: null, // coming soon
+  oneco: "/projects/oneco",
 };
 
 // Floating animation variants for spaceships
@@ -799,112 +799,117 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
   );
 }
 
-// Badge card component
+// Nameplate component — full badge in intro, slim horizontal strip in specs
 function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
   const isIntro = phase === "intro";
 
   return (
-    <motion.div
-      className="absolute z-20"
-      initial={{
-        left: "50%",
-        top: "50%",
-        x: "-50%",
-        y: "-50%",
-        scale: 1,
-      }}
-      animate={{
-        left: isIntro ? "50%" : "24px",
-        top: isIntro ? "50%" : "24px",
-        x: isIntro ? "-50%" : "0%",
-        y: isIntro ? "-50%" : "0%",
-        scale: isIntro ? 1 : 0.8,
-      }}
-      transition={springTransition}
-    >
-      <div 
-        className="relative bg-white border border-[#e5e7eb] rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden"
-        style={{ width: isIntro ? "280px" : "220px" }}
-      >
-        {/* Glassmorphism overlay */}
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{ 
-            backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)" 
-          }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-
-        {/* Clip/Hook at top */}
-        <div className="relative h-12 flex items-start justify-center pt-0">
-          <div className="absolute -top-4 w-5 h-10 border-[5px] border-[#333] rounded-full z-0" />
-          <div className="relative z-10 mt-3 w-16 h-5 bg-[#f5f5f5] border border-black/10 rounded-lg flex items-center justify-center shadow-sm">
-            <div className="w-10 h-1 bg-black/30 rounded-full" />
-          </div>
-        </div>
-
-        {/* Avatar */}
-        <div className="flex justify-center -mt-2">
-          <div 
-            className="rounded-full bg-[#f3f4f6] border-[4px] border-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] overflow-hidden"
-            style={{ width: isIntro ? "112px" : "80px", height: isIntro ? "82px" : "59px" }}
+    <>
+      {/* ── INTRO: centered vertical badge ── */}
+      <AnimatePresence>
+        {isIntro && (
+          <motion.div
+            key="badge-intro"
+            className="absolute z-20 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={springTransition}
           >
-            <img
-              src={imgKateXu}
-              alt="Kate Xu"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
+            <div className="relative bg-white border border-[#e5e7eb] rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden w-[280px]">
+              <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)" }} />
 
-        {/* Name */}
-        <div className="text-center mt-2">
-          <h1 
-            className="font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]"
-            style={{ fontSize: isIntro ? "28px" : "20px" }}
-          >
-            Kate Xu
-          </h1>
-        </div>
+              {/* Clip/Hook */}
+              <div className="relative h-12 flex items-start justify-center pt-0">
+                <div className="absolute -top-4 w-5 h-10 border-[5px] border-[#333] rounded-full z-0" />
+                <div className="relative z-10 mt-3 w-16 h-5 bg-[#f5f5f5] border border-black/10 rounded-lg flex items-center justify-center shadow-sm">
+                  <div className="w-10 h-1 bg-black/30 rounded-full" />
+                </div>
+              </div>
 
-        {/* Title */}
-        <div className="flex flex-col items-center mt-2">
-          <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase text-center">
-            Gen AI
-          </p>
-          <div className="flex items-center justify-center gap-2 mt-0.5">
-            <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">
-              Product Designer
-            </p>
-            <div className="w-1.5 h-1.5 rounded-full bg-[#00bc7d] flex-shrink-0" />
-          </div>
-        </div>
+              {/* Avatar */}
+              <div className="flex justify-center -mt-2">
+                <div className="w-[112px] h-[82px] rounded-full bg-[#f3f4f6] border-[4px] border-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] overflow-hidden">
+                  <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
+                </div>
+              </div>
 
-        {/* Mission & Resume */}
-        <div className="px-4 pb-4 mt-3">
-          <div className="flex flex-col gap-2 opacity-80">
-            {/* Mission */}
-            <div>
-              <p className="text-[8px] font-bold text-[#99a1af] tracking-wider uppercase mb-0.5">
-                Mission
-              </p>
-              <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5">
-                <p className="text-[9px] text-[#364153] tracking-wider uppercase leading-4">
-                  <span className="whitespace-nowrap">Imagination + Expression</span> to Build Fun & Beautiful Things
-                </p>
+              {/* Name */}
+              <div className="text-center mt-2">
+                <h1 className="text-[28px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</h1>
+              </div>
+
+              {/* Title */}
+              <div className="flex flex-col items-center mt-2">
+                <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">Gen AI</p>
+                <div className="flex items-center justify-center gap-2 mt-0.5">
+                  <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">Product Designer</p>
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#00bc7d]" />
+                </div>
+              </div>
+
+              {/* Mission & Resume */}
+              <div className="px-4 pb-4 mt-3">
+                <div className="flex flex-col gap-2 opacity-80">
+                  <div>
+                    <p className="text-[8px] font-bold text-[#99a1af] tracking-wider uppercase mb-0.5">Mission</p>
+                    <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5">
+                      <p className="text-[9px] text-[#364153] tracking-wider uppercase leading-4">
+                        Imagination + Expression to Build Fun &amp; Beautiful Things
+                      </p>
+                    </div>
+                  </div>
+                  <Link href="/resume" className="w-full">
+                    <button className="bg-black text-white px-4 py-2 rounded-[8px] text-[10px] font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
+                      Resume
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            {/* Resume Button */}
-            <Link href="/resume" className="w-full">
-              <button className="bg-black text-white px-4 py-2 rounded-[8px] text-[10px] font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
+      {/* ── SPECS: horizontal nameplate, top-left ── */}
+      <AnimatePresence>
+        {!isIntro && (
+          <motion.div
+            key="nameplate-specs"
+            className="fixed top-5 left-5 z-30 flex items-center gap-3"
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            {/* Avatar */}
+            <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
+              <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
+            </div>
+
+            {/* Name + role */}
+            <div className="flex flex-col leading-tight">
+              <span className="text-[14px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
+                Kate Xu
+              </span>
+              <span className="text-[10px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">
+                Gen AI Product Designer
+              </span>
+            </div>
+
+            {/* Separator dot */}
+            <div className="w-1 h-1 rounded-full bg-[#00bc7d] flex-shrink-0 opacity-60" />
+
+            {/* Resume pill */}
+            <Link href="/resume">
+              <span className="text-[10px] font-bold text-[#00915f] tracking-[1.5px] uppercase hover:text-[#007a52] transition-colors cursor-pointer">
                 Resume
-              </button>
+              </span>
             </Link>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
