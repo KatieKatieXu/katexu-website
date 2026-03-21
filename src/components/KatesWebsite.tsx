@@ -465,7 +465,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         {/* Inner content area with consistent padding */}
         <div style={{ padding: "0 28px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
           {/* Top bar: Project title left-aligned */}
-          <div style={{ paddingRight: isMobile ? "100px" : "160px", marginTop: "16px" }}>
+          <div style={{ paddingRight: isMobile ? "80px" : "120px", marginTop: "16px" }}>
             <p
               style={{
                 fontFamily: "monospace",
@@ -675,8 +675,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       <div
         style={{
           position: "absolute",
-          top: "-36px",
-          right: "-16px",
+          top: "-52px",
+          right: "-30px",
           zIndex: 10,
           pointerEvents: "none",
         }}
