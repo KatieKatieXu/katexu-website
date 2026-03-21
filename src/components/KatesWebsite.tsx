@@ -469,7 +469,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             <p
               style={{
                 fontFamily: "monospace",
-                fontSize: "28px",
+                fontSize: "36px",
                 fontWeight: 700,
                 letterSpacing: "0px",
                 color: "#1d1d1f",
