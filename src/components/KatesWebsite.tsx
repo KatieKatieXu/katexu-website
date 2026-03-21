@@ -896,15 +896,37 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
                 Gen AI Product Designer
               </span>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-            {/* Separator dot */}
-            <div className="w-1 h-1 rounded-full bg-[#00bc7d] flex-shrink-0 opacity-60" />
-
-            {/* Resume pill */}
+      {/* ── SPECS: Resume button, top-right ── */}
+      <AnimatePresence>
+        {!isIntro && (
+          <motion.div
+            key="resume-btn-specs"
+            className="fixed top-5 right-5 z-30"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 16 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
             <Link href="/resume">
-              <span className="text-[10px] font-bold text-[#00915f] tracking-[1.5px] uppercase hover:text-[#007a52] transition-colors cursor-pointer">
-                Resume
-              </span>
+              <div
+                className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
+                style={{
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(16px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                  border: "1px solid rgba(0,188,125,0.35)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                }}
+              >
+                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                  Resume
+                </span>
+                <span className="text-[#00bc7d] text-[14px] leading-none">›</span>
+              </div>
             </Link>
           </motion.div>
         )}
