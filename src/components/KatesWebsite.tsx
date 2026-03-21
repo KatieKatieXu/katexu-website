@@ -423,7 +423,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         className="relative"
         style={{
           width: "100%",
-          height: isMobile ? "72vh" : "580px",
+          height: isMobile ? "72vh" : "620px",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -526,11 +526,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           {/* Cover image area - main center */}
           <div
             style={{
-              flex: 1,
               width: "100%",
               height: isMobile ? "160px" : "240px",
               minHeight: isMobile ? "160px" : "240px",
-              maxHeight: isMobile ? "200px" : "280px",
+              maxHeight: isMobile ? "160px" : "240px",
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderRadius: "8px",
@@ -600,7 +599,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section separator + Read More button */}
-          <div style={{ marginTop: "auto", paddingTop: "28px", display: "flex", justifyContent: "center" }}>
+          <div style={{ marginTop: "28px", paddingTop: "0", paddingBottom: "0", display: "flex", justifyContent: "center" }}>
             {route ? (
               <Link href={route}>
                 <div
@@ -1061,7 +1060,7 @@ export default function KatesWebsite() {
                   direction="left"
                   onClick={goPrev}
                   disabled={selectedIndex === 0}
-                  showcaseHeight={isMobile ? "72vh" : "580px"}
+                  showcaseHeight={isMobile ? "72vh" : "620px"}
                 />
               )}
 
@@ -1082,7 +1081,7 @@ export default function KatesWebsite() {
                   direction="right"
                   onClick={goNext}
                   disabled={selectedIndex === spaceships.length - 1}
-                  showcaseHeight={isMobile ? "72vh" : "580px"}
+                  showcaseHeight={isMobile ? "72vh" : "620px"}
                 />
               )}
             </div>
