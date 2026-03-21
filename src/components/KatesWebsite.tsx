@@ -418,197 +418,244 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         maxWidth: "680px",
       }}
     >
-      {/* The frosted glass panel itself */}
+      {/* The frosted glass panel itself - liquid glass style */}
       <div
         className="relative"
         style={{
           width: "100%",
           height: isMobile ? "62vh" : "480px",
-          background: "rgba(255,251,242,0.88)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: "1px solid rgba(255,255,255,0.8)",
+          background: "rgba(255, 255, 255, 0.45)",
+          backdropFilter: "blur(24px) saturate(180%)",
+          WebkitBackdropFilter: "blur(24px) saturate(180%)",
+          border: "1px solid rgba(255, 255, 255, 0.5)",
           borderRadius: isMobile ? "24px" : "12px",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.12)",
+          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.12), 0 8px 16px -6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
           overflow: "hidden",
-          padding: isMobile ? "20px" : "28px",
           display: "flex",
           flexDirection: "column",
         }}
       >
-        {/* Green corner accents (L-shaped) */}
-        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[12px]" style={{ borderRadius: isMobile ? "24px 0 0 0" : "12px 0 0 0" }} />
-        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 24px 0 0" : "0 12px 0 0" }} />
-        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 0 0 24px" : "0 0 0 12px" }} />
-        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 0 24px 0" : "0 0 12px 0" }} />
+        {/* Green top notch/tab - centered at top */}
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{ width: "60px", height: "6px", borderRadius: "0 0 4px 4px", background: "#00bc7d" }} />
+        </div>
 
-        {/* Top bar: Project title left-aligned */}
-        <div style={{ paddingRight: isMobile ? "100px" : "160px" }}>
-          <p
-            style={{
-              fontFamily: "monospace",
-              fontSize: "22px",
-              fontWeight: 700,
-              letterSpacing: "2px",
-              color: "#00915f",
-              textTransform: "uppercase",
-              margin: 0,
-            }}
-          >
-            {project.title}
-          </p>
-          {/* Category/role subtitle */}
+        {/* Glass shine overlay */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            pointerEvents: "none",
+            borderRadius: "inherit",
+            backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.1) 70%, transparent 100%)",
+          }}
+        />
+
+        {/* Top edge highlight */}
+        <div
+          style={{
+            position: "absolute",
+            inset: "0 0 auto 0",
+            height: "1px",
+            pointerEvents: "none",
+            background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)",
+          }}
+        />
+
+        {/* Inner content area with consistent padding */}
+        <div style={{ padding: "0 20px 16px", display: "flex", flexDirection: "column", flex: 1 }}>
+          {/* Top bar: Project title left-aligned */}
+          <div style={{ paddingRight: isMobile ? "100px" : "160px", marginTop: "12px" }}>
+            <p
+              style={{
+                fontFamily: "monospace",
+                fontSize: "22px",
+                fontWeight: 700,
+                letterSpacing: "2px",
+                color: "#1a1a1a",
+                textTransform: "uppercase",
+                margin: 0,
+                textShadow: "0 0 8px rgba(255,255,255,0.5)",
+              }}
+            >
+              {project.title}
+            </p>
+            {/* Category/role subtitle */}
+            <p
+              style={{
+                fontSize: "13px",
+                fontFamily: "monospace",
+                letterSpacing: "2px",
+                color: "#6b7280",
+                textTransform: "uppercase",
+                marginTop: "4px",
+                marginBottom: "0",
+              }}
+            >
+              {project.category}
+            </p>
+          </div>
+
+          {/* Divider line between category and description */}
+          <div style={{ width: "100%", height: "1px", margin: "10px 0", background: "rgba(255,255,255,0.4)" }} />
+
+          {/* Project intro description */}
           <p
             style={{
               fontSize: "13px",
-              fontFamily: "monospace",
-              letterSpacing: "2px",
-              color: "rgba(0,0,0,0.4)",
-              textTransform: "uppercase",
+              fontFamily: "sans-serif",
+              color: "#374151",
+              lineHeight: "1.6",
               marginBottom: "12px",
-              marginTop: "4px",
+              marginTop: "0",
             }}
           >
-            {project.category}
+            {project.description}
           </p>
-        </div>
 
-        {/* Project intro description */}
-        <p
-          style={{
-            fontSize: "13px",
-            fontFamily: "sans-serif",
-            color: "rgba(0,0,0,0.6)",
-            lineHeight: "1.6",
-            marginBottom: "12px",
-            marginTop: "0",
-          }}
-        >
-          {project.description}
-        </p>
+          {/* Cover image area - main center */}
+          <div
+            style={{
+              flex: 1,
+              width: "100%",
+              height: isMobile ? "140px" : "200px",
+              minHeight: isMobile ? "140px" : "200px",
+              maxHeight: isMobile ? "180px" : "240px",
+              background: "rgba(255,255,255,0.5)",
+              border: "1px solid rgba(255,255,255,0.4)",
+              borderRadius: "8px",
+              padding: "4px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+            }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedIndex}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
+              >
+                <img
+                  src={project.previewImage}
+                  alt={`${project.title} preview`}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    borderRadius: "4px",
+                  }}
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
 
-        {/* Cover image area - main center */}
-        <div
-          style={{
-            flex: 1,
-            width: "100%",
-            height: isMobile ? "140px" : "200px",
-            minHeight: isMobile ? "140px" : "200px",
-            maxHeight: isMobile ? "180px" : "240px",
-            background: "rgba(255,255,255,0.5)",
-            borderRadius: "8px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            overflow: "hidden",
-          }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3 }}
-              style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
-            >
-              <img
-                src={project.previewImage}
-                alt={`${project.title} preview`}
+          {/* Highlights row (benchmarks) */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "6px 16px",
+              marginTop: "12px",
+            }}
+          >
+            {benchmarks.map((benchmark, i) => (
+              <motion.div
+                key={`${selectedIndex}-benchmark-${i}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+                style={{ display: "flex", alignItems: "flex-start", gap: "6px" }}
+              >
+                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "5px", display: "inline-block" }} />
+                <p
+                  style={{
+                    fontSize: "14px",
+                    fontFamily: "monospace",
+                    color: "#4b5563",
+                    fontWeight: 600,
+                    margin: 0,
+                    lineHeight: "1.5",
+                  }}
+                >
+                  {benchmark}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Bottom section separator + Read More button */}
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.35)", marginTop: "8px", paddingTop: "12px", display: "flex", justifyContent: "center" }}>
+            {route ? (
+              <Link href={route}>
+                <div
+                  style={{
+                    background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 100%)",
+                    backdropFilter: "blur(16px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(180%)",
+                    border: "1px solid rgba(255,255,255,0.5)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5)",
+                    borderRadius: "6px",
+                    cursor: "pointer",
+                    position: "relative",
+                    overflow: "hidden",
+                  }}
+                  onMouseEnter={(e) => {
+                    const glow = e.currentTarget.querySelector('.hover-glow') as HTMLElement;
+                    if (glow) glow.style.opacity = '1';
+                  }}
+                  onMouseLeave={(e) => {
+                    const glow = e.currentTarget.querySelector('.hover-glow') as HTMLElement;
+                    if (glow) glow.style.opacity = '0';
+                  }}
+                >
+                  {/* Hover glow overlay */}
+                  <div
+                    className="hover-glow"
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      pointerEvents: "none",
+                      borderRadius: "6px",
+                      background: "radial-gradient(ellipse at center, rgba(0,188,125,0.08) 0%, transparent 70%)",
+                      opacity: 0,
+                      transition: "opacity 0.3s",
+                    }}
+                  />
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 16px" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "#00bc7d", textTransform: "uppercase", textShadow: "0 0 4px rgba(0,188,125,0.3)" }}>
+                      Read More
+                    </span>
+                    <span style={{ color: "#00bc7d", fontSize: "18px" }}>›</span>
+                  </div>
+                </div>
+              </Link>
+            ) : (
+              <div
                 style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                  borderRadius: "8px",
-                }}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Highlights row (benchmarks) */}
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "6px 16px",
-            marginTop: "12px",
-          }}
-        >
-          {benchmarks.map((benchmark, i) => (
-            <motion.div
-              key={`${selectedIndex}-benchmark-${i}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-              style={{ display: "flex", alignItems: "flex-start", gap: "6px" }}
-            >
-              <span style={{ fontSize: "14px", fontFamily: "monospace", color: "#00bc7d", fontWeight: 700, lineHeight: "1.5", flexShrink: 0 }}>•</span>
-              <p
-                style={{
-                  fontSize: "14px",
-                  fontFamily: "monospace",
-                  color: "#1a1a1a",
-                  fontWeight: 600,
-                  margin: 0,
-                  lineHeight: "1.5",
+                  background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 100%)",
+                  backdropFilter: "blur(16px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(180%)",
+                  border: "1px solid rgba(255,255,255,0.5)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5)",
+                  borderRadius: "6px",
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
-                {benchmark}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Read More button - paper white with corner accents */}
-        <div style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}>
-          {route ? (
-            <Link href={route}>
-              <span
-                className="relative inline-block transition-colors"
-                style={{
-                  background: "#fff",
-                  padding: "10px 24px",
-                  borderRadius: "8px",
-                  fontFamily: "monospace",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  letterSpacing: "3px",
-                  color: "#00915f",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = "rgba(0,188,125,0.04)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#fff";
-                }}
-              >
-                {/* L-shape corner accents (10px) */}
-                <span className="absolute top-0 left-0 w-[10px] h-[10px] border-t-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-tl-[4px]" />
-                <span className="absolute top-0 right-0 w-[10px] h-[10px] border-t-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-tr-[4px]" />
-                <span className="absolute bottom-0 left-0 w-[10px] h-[10px] border-b-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-bl-[4px]" />
-                <span className="absolute bottom-0 right-0 w-[10px] h-[10px] border-b-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-br-[4px]" />
-                READ MORE →
-              </span>
-            </Link>
-          ) : (
-            <span
-              className="relative inline-block"
-              style={{
-                background: "rgba(200,200,200,0.3)",
-                padding: "10px 24px",
-                borderRadius: "8px",
-                fontFamily: "monospace",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "3px",
-                color: "rgba(0,0,0,0.3)",
-              }}
-            >
-              COMING SOON
-            </span>
-          )}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 16px" }}>
+                  <span style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "rgba(0,188,125,0.3)", textTransform: "uppercase" }}>
+                    Coming Soon
+                  </span>
+                  <span style={{ color: "rgba(0,188,125,0.3)", fontSize: "18px" }}>›</span>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Mobile: Nav buttons inside showcase */}
