@@ -423,7 +423,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         className="relative"
         style={{
           width: "100%",
-          height: isMobile ? "62vh" : "480px",
+          height: isMobile ? "72vh" : "580px",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -463,9 +463,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         />
 
         {/* Inner content area with consistent padding */}
-        <div style={{ padding: "0 20px 16px", display: "flex", flexDirection: "column", flex: 1 }}>
+        <div style={{ padding: "0 28px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
           {/* Top bar: Project title left-aligned */}
-          <div style={{ paddingRight: isMobile ? "100px" : "160px", marginTop: "12px" }}>
+          <div style={{ paddingRight: isMobile ? "100px" : "160px", marginTop: "16px" }}>
             <p
               style={{
                 fontFamily: "monospace",
@@ -474,7 +474,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 letterSpacing: "2px",
                 color: "#1a1a1a",
                 textTransform: "uppercase",
-                margin: 0,
+                margin: "0 0 2px 0",
+                lineHeight: "1.2",
                 textShadow: "0 0 8px rgba(255,255,255,0.5)",
               }}
             >
@@ -483,13 +484,14 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             {/* Category/role subtitle */}
             <p
               style={{
-                fontSize: "13px",
+                fontSize: "11px",
                 fontFamily: "monospace",
                 letterSpacing: "2px",
-                color: "#6b7280",
+                color: "#9ca3af",
                 textTransform: "uppercase",
-                marginTop: "4px",
+                marginTop: "2px",
                 marginBottom: "0",
+                lineHeight: "1.4",
               }}
             >
               {project.category}
@@ -497,16 +499,16 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Divider line between category and description */}
-          <div style={{ width: "100%", height: "1px", margin: "10px 0", background: "rgba(255,255,255,0.4)" }} />
+          <div style={{ width: "100%", height: "1px", margin: "14px 0 12px", background: "rgba(200,200,200,0.5)" }} />
 
           {/* Project intro description */}
           <p
             style={{
-              fontSize: "13px",
-              fontFamily: "sans-serif",
+              fontSize: "14px",
+              fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
               color: "#374151",
-              lineHeight: "1.6",
-              marginBottom: "12px",
+              lineHeight: "1.65",
+              marginBottom: "14px",
               marginTop: "0",
             }}
           >
@@ -518,9 +520,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               flex: 1,
               width: "100%",
-              height: isMobile ? "140px" : "200px",
-              minHeight: isMobile ? "140px" : "200px",
-              maxHeight: isMobile ? "180px" : "240px",
+              height: isMobile ? "130px" : "180px",
+              minHeight: isMobile ? "130px" : "180px",
+              maxHeight: isMobile ? "160px" : "200px",
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderRadius: "8px",
@@ -559,8 +561,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "6px 16px",
-              marginTop: "12px",
+              gap: "8px 20px",
+              marginTop: "14px",
             }}
           >
             {benchmarks.map((benchmark, i) => (
@@ -574,10 +576,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "5px", display: "inline-block" }} />
                 <p
                   style={{
-                    fontSize: "14px",
-                    fontFamily: "monospace",
-                    color: "#4b5563",
-                    fontWeight: 600,
+                    fontSize: "13px",
+                    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                    color: "#374151",
+                    fontWeight: 500,
                     margin: 0,
                     lineHeight: "1.5",
                   }}
@@ -589,7 +591,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section separator + Read More button */}
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.35)", marginTop: "8px", paddingTop: "12px", display: "flex", justifyContent: "center" }}>
+          <div style={{ borderTop: "1px solid rgba(200,200,200,0.4)", marginTop: "16px", paddingTop: "14px", display: "flex", justifyContent: "center" }}>
             {route ? (
               <Link href={route}>
                 <div
