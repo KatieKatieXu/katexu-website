@@ -482,21 +482,27 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               {project.title}
             </p>
             {/* Category/role subtitle */}
-            <p
-              style={{
-                fontSize: "11px",
-                fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                letterSpacing: "0.5px",
-                color: "#00915f",
-                textTransform: "uppercase",
-                fontWeight: 600,
-                marginTop: "4px",
-                marginBottom: "0",
-                lineHeight: "1.4",
-              }}
-            >
-              {project.category}
-            </p>
+            <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "4px" }}>
+              {/* Person icon */}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#00bc7d" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="7" r="4" />
+                <path d="M4 21c0-4 3.582-7 8-7s8 3 8 7" strokeLinecap="round" />
+              </svg>
+              <p
+                style={{
+                  fontSize: "11px",
+                  fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                  letterSpacing: "0.5px",
+                  color: "#00915f",
+                  textTransform: "uppercase",
+                  fontWeight: 600,
+                  margin: 0,
+                  lineHeight: "1.4",
+                }}
+              >
+                {project.category}
+              </p>
+            </div>
           </div>
 
           {/* Divider line between category and description */}
