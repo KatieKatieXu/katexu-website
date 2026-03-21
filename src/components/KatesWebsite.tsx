@@ -406,138 +406,226 @@ interface ShowcaseWindowProps {
 
 function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoNext, isMobile }: ShowcaseWindowProps) {
   const project = projects[ship.key];
-  const specs = specHighlights[ship.key];
   const route = projectRoutes[ship.key];
-
-  // Spec positions inside the showcase window
-  const specPositions = [
-    { left: "5%", top: "10%" },
-    { right: "5%", top: "18%" },
-    { left: "8%", bottom: "12%" },
-    { right: "8%", bottom: "18%" },
-  ];
+  const benchmarks = project.benchmarks.slice(0, 4);
 
   return (
     <div
-      className="relative"
       style={{
+        position: "relative",
+        overflow: "visible",
         width: isMobile ? "92vw" : "680px",
-        height: isMobile ? "62vh" : "480px",
         maxWidth: "680px",
-        background: "rgba(255,251,242,0.88)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(255,255,255,0.8)",
-        borderRadius: isMobile ? "24px" : "0",
-        boxShadow: "0 20px 60px rgba(0,0,0,0.12)",
       }}
     >
-      {/* Green corner accents (L-shaped) - only on mobile since desktop has flush nav buttons */}
-      {isMobile && (
-        <>
-          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[24px]" />
-          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[24px]" />
-          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[24px]" />
-          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[24px]" />
-        </>
-      )}
-
-      {/* SVG connector lines from center to specs - shortened, dashed */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ borderRadius: isMobile ? "24px" : "0", overflow: "hidden" }}
+      {/* The frosted glass panel itself */}
+      <div
+        className="relative"
+        style={{
+          width: "100%",
+          height: isMobile ? "62vh" : "480px",
+          background: "rgba(255,251,242,0.88)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          border: "1px solid rgba(255,255,255,0.8)",
+          borderRadius: isMobile ? "24px" : "12px",
+          boxShadow: "0 20px 60px rgba(0,0,0,0.12)",
+          overflow: "hidden",
+          padding: isMobile ? "20px" : "28px",
+          display: "flex",
+          flexDirection: "column",
+        }}
       >
-        {specPositions.map((pos, i) => {
-          // Calculate approximate label center percentages
-          let labelX: number;
-          let labelY: number;
-          
-          if (pos.left) {
-            labelX = parseFloat(pos.left) + 8;
-          } else if (pos.right) {
-            labelX = 100 - parseFloat(pos.right) - 8;
-          } else {
-            labelX = 50;
-          }
-          
-          if (pos.top) {
-            labelY = parseFloat(pos.top) + 4;
-          } else if (pos.bottom) {
-            labelY = 100 - parseFloat(pos.bottom) - 4;
-          } else {
-            labelY = 50;
-          }
-          
-          // Shorten the line: stop at 55% of the way to the label
-          const shortenedX = 50 + (labelX - 50) * 0.55;
-          const shortenedY = 50 + (labelY - 50) * 0.55;
-          
-          return (
-            <g key={i}>
-              <line
-                x1="50%"
-                y1="50%"
-                x2={`${shortenedX}%`}
-                y2={`${shortenedY}%`}
-                stroke="rgba(0,188,125,0.35)"
-                strokeWidth="0.8"
-                strokeDasharray="4 3"
-              />
-              <circle
-                cx="50%"
-                cy="50%"
-                r="3"
-                fill="rgba(0,188,125,0.5)"
-              />
-            </g>
-          );
-        })}
-      </svg>
+        {/* Green corner accents (L-shaped) */}
+        <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[12px]" style={{ borderRadius: isMobile ? "24px 0 0 0" : "12px 0 0 0" }} />
+        <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 24px 0 0" : "0 12px 0 0" }} />
+        <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 0 0 24px" : "0 0 0 12px" }} />
+        <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 0 24px 0" : "0 0 12px 0" }} />
 
-      {/* Project title - bigger and more obvious */}
-      <div className="absolute top-6 left-0 right-0 flex flex-col items-center">
-        <p
+        {/* Top bar: Project title left-aligned */}
+        <div style={{ paddingRight: isMobile ? "80px" : "100px" }}>
+          <p
+            style={{
+              fontFamily: "monospace",
+              fontSize: "16px",
+              fontWeight: 700,
+              letterSpacing: "2px",
+              color: "#00915f",
+              textTransform: "uppercase",
+              margin: 0,
+            }}
+          >
+            {project.title}
+          </p>
+          {/* Category/role subtitle */}
+          <p
+            style={{
+              fontSize: "10px",
+              fontFamily: "monospace",
+              letterSpacing: "2px",
+              color: "rgba(0,0,0,0.4)",
+              textTransform: "uppercase",
+              marginBottom: "12px",
+              marginTop: "4px",
+            }}
+          >
+            {project.category}
+          </p>
+        </div>
+
+        {/* Cover image area - main center */}
+        <div
           style={{
-            fontFamily: "monospace",
-            fontSize: "18px",
-            fontWeight: 700,
-            letterSpacing: "3px",
-            color: "#00915f",
-            textTransform: "uppercase",
+            flex: 1,
+            width: "100%",
+            height: isMobile ? "140px" : "200px",
+            minHeight: isMobile ? "140px" : "200px",
+            maxHeight: isMobile ? "180px" : "240px",
+            background: "rgba(255,255,255,0.5)",
+            borderRadius: "8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
           }}
         >
-          {project.title}
-        </p>
-        {/* Brief intro row under project title */}
-        <p
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={selectedIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
+            >
+              <img
+                src={project.previewImage}
+                alt={`${project.title} preview`}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                  borderRadius: "8px",
+                }}
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Highlights row (benchmarks) */}
+        <div
           style={{
-            fontSize: "12px",
-            color: "rgba(0,0,0,0.5)",
-            fontFamily: "sans-serif",
-            textAlign: "center",
-            maxWidth: "80%",
-            margin: "4px auto 12px",
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "6px 16px",
+            marginTop: "12px",
           }}
         >
-          {project.description}
-        </p>
+          {benchmarks.map((benchmark, i) => (
+            <motion.div
+              key={`${selectedIndex}-benchmark-${i}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+            >
+              <p
+                style={{
+                  fontSize: "11px",
+                  fontFamily: "monospace",
+                  color: "#1a1a1a",
+                  fontWeight: 600,
+                  margin: 0,
+                }}
+              >
+                • {benchmark}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Read More button - paper white with corner accents */}
+        <div style={{ marginTop: "16px", display: "flex", justifyContent: "center" }}>
+          {route ? (
+            <Link href={route}>
+              <span
+                className="relative inline-block transition-colors"
+                style={{
+                  background: "#fff",
+                  padding: "10px 24px",
+                  borderRadius: "8px",
+                  fontFamily: "monospace",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  letterSpacing: "3px",
+                  color: "#00915f",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(0,188,125,0.04)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#fff";
+                }}
+              >
+                {/* L-shape corner accents (10px) */}
+                <span className="absolute top-0 left-0 w-[10px] h-[10px] border-t-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-tl-[4px]" />
+                <span className="absolute top-0 right-0 w-[10px] h-[10px] border-t-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-tr-[4px]" />
+                <span className="absolute bottom-0 left-0 w-[10px] h-[10px] border-b-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-bl-[4px]" />
+                <span className="absolute bottom-0 right-0 w-[10px] h-[10px] border-b-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-br-[4px]" />
+                READ MORE →
+              </span>
+            </Link>
+          ) : (
+            <span
+              className="relative inline-block"
+              style={{
+                background: "rgba(200,200,200,0.3)",
+                padding: "10px 24px",
+                borderRadius: "8px",
+                fontFamily: "monospace",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "3px",
+                color: "rgba(0,0,0,0.3)",
+              }}
+            >
+              COMING SOON
+            </span>
+          )}
+        </div>
+
+        {/* Mobile: Nav buttons inside showcase */}
+        {isMobile && (
+          <>
+            <MobileNavButton direction="left" onClick={onPrev} disabled={!canGoPrev} />
+            <MobileNavButton direction="right" onClick={onNext} disabled={!canGoNext} />
+          </>
+        )}
       </div>
 
-      {/* Ship image centered with floating animation */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+      {/* Spaceship absolutely positioned at top-right, overflowing */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-20px",
+          right: "-10px",
+          zIndex: 10,
+          pointerEvents: "none",
+        }}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedIndex}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+            animate={{ opacity: 1, scale: 1, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.8, rotate: 10 }}
             transition={{ duration: 0.3 }}
           >
             <motion.div
               variants={floatingVariants}
               animate="float"
               custom={ship.floatParams}
-              style={{ width: isMobile ? "180px" : "280px" }}
+              style={{ width: isMobile ? "90px" : "120px" }}
             >
               <img
                 src={ship.src}
@@ -548,84 +636,6 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </motion.div>
         </AnimatePresence>
       </div>
-
-      {/* Spec labels scattered inside window - lowkey style, no decorations */}
-      {specPositions.map((pos, i) => (
-        <motion.div
-          key={`${selectedIndex}-${i}`}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-          className="absolute"
-          style={{
-            ...pos,
-          }}
-        >
-          <div
-            style={{
-              background: "transparent",
-              padding: "2px 0",
-              borderBottom: "1px solid rgba(0,188,125,0.4)",
-            }}
-          >
-            <p
-              style={{
-                fontSize: "12px",
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: "1px",
-                color: "#1a1a1a",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {specs[i]}
-            </p>
-          </div>
-        </motion.div>
-      ))}
-
-      {/* Read More button - paper white with corner accents */}
-      {route && (
-        <div className="absolute bottom-6 left-0 right-0 flex justify-center">
-          <Link href={route}>
-            <span
-              className="relative inline-block transition-colors"
-              style={{
-                background: "#fff",
-                padding: "10px 24px",
-                borderRadius: "8px",
-                fontFamily: "monospace",
-                fontSize: "11px",
-                fontWeight: 700,
-                letterSpacing: "3px",
-                color: "#00915f",
-                cursor: "pointer",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "rgba(0,188,125,0.04)";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "#fff";
-              }}
-            >
-              {/* L-shape corner accents (10px) */}
-              <span className="absolute top-0 left-0 w-[10px] h-[10px] border-t-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-tl-[4px]" />
-              <span className="absolute top-0 right-0 w-[10px] h-[10px] border-t-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-tr-[4px]" />
-              <span className="absolute bottom-0 left-0 w-[10px] h-[10px] border-b-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-bl-[4px]" />
-              <span className="absolute bottom-0 right-0 w-[10px] h-[10px] border-b-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-br-[4px]" />
-              READ MORE →
-            </span>
-          </Link>
-        </div>
-      )}
-
-      {/* Mobile: Nav buttons inside showcase */}
-      {isMobile && (
-        <>
-          <MobileNavButton direction="left" onClick={onPrev} disabled={!canGoPrev} />
-          <MobileNavButton direction="right" onClick={onNext} disabled={!canGoNext} />
-        </>
-      )}
     </div>
   );
 }
@@ -672,10 +682,11 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
               style={{
                 width: "80px",
                 height: "64px",
-                opacity: isActive ? 1 : 0.45,
+                opacity: 1,
                 border: isActive ? "1.5px solid #00bc7d" : "1.5px solid transparent",
                 borderRadius: "8px",
                 boxShadow: isActive ? "0 0 10px rgba(0,188,125,0.25)" : "none",
+                filter: isActive ? "none" : "grayscale(30%) brightness(0.85)",
                 padding: "4px",
                 display: "flex",
                 alignItems: "center",
