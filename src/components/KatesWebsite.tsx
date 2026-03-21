@@ -471,11 +471,11 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 fontFamily: "monospace",
                 fontSize: "22px",
                 fontWeight: 700,
-                letterSpacing: "2px",
-                color: "#1a1a1a",
+                letterSpacing: "1px",
+                color: "#1d1d1f",
                 textTransform: "uppercase",
-                margin: "0 0 2px 0",
-                lineHeight: "1.2",
+                margin: "0 0 4px 0",
+                lineHeight: "1.15",
                 textShadow: "0 0 8px rgba(255,255,255,0.5)",
               }}
             >
@@ -484,14 +484,15 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             {/* Category/role subtitle */}
             <p
               style={{
-                fontSize: "11px",
-                fontFamily: "monospace",
-                letterSpacing: "2px",
-                color: "#9ca3af",
-                textTransform: "uppercase",
-                marginTop: "2px",
+                fontSize: "12px",
+                fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                letterSpacing: "0px",
+                color: "#6e6e73",
+                textTransform: "none",
+                fontWeight: 400,
+                marginTop: "3px",
                 marginBottom: "0",
-                lineHeight: "1.4",
+                lineHeight: "1.47",
               }}
             >
               {project.category}
@@ -504,10 +505,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           {/* Project intro description */}
           <p
             style={{
-              fontSize: "14px",
+              fontSize: "17px",
               fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-              color: "#374151",
-              lineHeight: "1.65",
+              color: "#1d1d1f",
+              lineHeight: "1.47",
               marginBottom: "14px",
               marginTop: "0",
             }}
@@ -576,12 +577,12 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "5px", display: "inline-block" }} />
                 <p
                   style={{
-                    fontSize: "13px",
+                    fontSize: "15px",
                     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                    color: "#374151",
-                    fontWeight: 500,
+                    color: "#1d1d1f",
+                    fontWeight: 400,
                     margin: 0,
-                    lineHeight: "1.5",
+                    lineHeight: "1.47",
                   }}
                 >
                   {benchmark}
@@ -772,14 +773,14 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
             {/* Project short title under thumbnail */}
             <p
               style={{
-                fontSize: "11px",
-                fontFamily: "monospace",
-                letterSpacing: "0.5px",
-                color: "rgba(0,0,0,0.65)",
+                fontSize: "12px",
+                fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+                letterSpacing: "0px",
+                color: "#6e6e73",
                 textAlign: "center",
                 marginTop: "6px",
-                textTransform: "uppercase",
-                fontWeight: 600,
+                textTransform: "none",
+                fontWeight: 400,
               }}
             >
               {project.title}
