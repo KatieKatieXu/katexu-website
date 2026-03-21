@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 // Image assets
 const imgPlanetaryDiagram = "/planetary-diagram.png";
@@ -11,6 +10,8 @@ const imgBofaCloud = "/bofa-cloud.png";
 const imgBofAWorkplace = "/bofa-workplace.png";
 const imgPawpawStory = "/pawpaw-story.png";
 const imgIOnboard = "/ionboard.png";
+const imgJobpilot = "/jobpilot-ship.jpeg";
+const imgOneco = "/oneco-ship.avif";
 const imgKateXu = "/kate-xu.png";
 
 // Project data
@@ -72,9 +73,41 @@ const projects = {
       "Figma MCP → Cursor → Claude API workflow",
     ],
   },
+  oneco: {
+    title: "ONECO",
+    category: "SOLO AI PRODUCT BUILDER",
+    description: "Builder archetype quiz — are you built to run a one-person company?",
+    previewImage: "/oneco-ship.avif",
+    benchmarks: [
+      "5 builder archetypes",
+      "4 languages (EN/ZH/ES/FR)",
+      "Personality → career path",
+      "One-person company readiness",
+    ],
+  },
 };
 
 type ProjectKey = keyof typeof projects;
+
+// Spec highlights for each spaceship (short phrases)
+const specHighlights: Record<ProjectKey, [string, string, string, string]> = {
+  bofaCloud: ["Design Lead · 35", "4K+ apps", "-40% task time", "Design system"],
+  bofaWorkplace: ["Solo designer", "NPS 36", "3 platforms → 1", "91% unified"],
+  pawpawStory: ["Solo AI builder", "0→App Store, 4 wks", "Voice cloning", "Multi-agent AI"],
+  ionboard: ["$57K Kickstarter", "570% funded", "Brand + marketing", "Global e-comm"],
+  jobpilot: ["AI job hunting", "Form auto-fill", "Scout pipeline", "User #1: Katie"],
+  oneco: ["Builder archetype quiz", "5 profiles", "4 languages", "One-person co."],
+};
+
+// Project routes mapping
+const projectRoutes: Record<ProjectKey, string | null> = {
+  bofaCloud: "/projects/bofa-cloud",
+  bofaWorkplace: "/projects/bofa-workplace",
+  pawpawStory: "/projects/pawpaw-story",
+  ionboard: "/projects/ionboard",
+  jobpilot: "/projects/jobpilot",
+  oneco: null, // coming soon
+};
 
 // Floating animation variants for spaceships
 const floatingVariants = {
@@ -90,258 +123,76 @@ const floatingVariants = {
   }),
 };
 
-// Project routes mapping
-const projectRoutes: Record<ProjectKey, string | null> = {
-  bofaCloud: "/projects/bofa-cloud",
-  bofaWorkplace: "/projects/bofa-workplace",
-  pawpawStory: "/projects/pawpaw-story",
-  ionboard: "/projects/ionboard",
-  jobpilot: "/projects/jobpilot",
+// Spring transition config
+const springTransition = {
+  type: "spring" as const,
+  stiffness: 60,
+  damping: 20,
 };
 
-// Project Spec Card component - renders at fixed position
-interface SpecCardProps {
-  project: { title: string; category: string; description: string; previewImage: string | null; benchmarks: string[] };
-  projectKey: ProjectKey;
-  className: string;
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-}
-
-function SpecCard({ project, projectKey, className, onMouseEnter, onMouseLeave }: SpecCardProps) {
-  const projectRoute = projectRoutes[projectKey];
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95, y: 8 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95, y: 8 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      className={`absolute w-[260px] md:w-[280px] z-50 ${className}`}
-    >
-      {/* Outer panel frame — liquid glass */}
-      <div
-        className="relative rounded-[12px] overflow-hidden"
-        style={{
-          background: "rgba(255, 255, 255, 0.45)",
-          backdropFilter: "blur(24px) saturate(180%)",
-          WebkitBackdropFilter: "blur(24px) saturate(180%)",
-          border: "1px solid rgba(255, 255, 255, 0.5)",
-          boxShadow: "0 20px 40px -10px rgba(0,0,0,0.12), 0 8px 16px -6px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
-        }}
-      >
-        {/* Top notch/tab accent */}
-        <div className="flex justify-center">
-          <div
-            className="w-[60px] h-[6px] rounded-b-[4px] bg-[#00bc7d]"
-          />
-        </div>
-
-        {/* Glass shine overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none rounded-[12px]"
-          style={{
-            backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.4) 0%, transparent 40%, rgba(255,255,255,0.1) 70%, transparent 100%)",
-          }}
-        />
-        {/* Top edge highlight */}
-        <div className="absolute inset-x-0 top-0 h-[1px] pointer-events-none rounded-t-[12px]" style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent)" }} />
-
-        {/* Preview Image */}
-        {project.previewImage && (
-          <div className="relative w-full h-[120px] overflow-hidden mx-auto mt-2 px-3">
-            <div className="rounded-[8px] overflow-hidden h-full" style={{ border: "1px solid rgba(255,255,255,0.4)" }}>
-              <img
-                src={project.previewImage}
-                alt={`${project.title} preview`}
-                className="w-full h-full object-contain bg-white/50 p-1"
-              />
-            </div>
-          </div>
-        )}
-
-        {/* Content area */}
-        <div className="relative px-5 pt-4 pb-3">
-          {/* Title */}
-          <h3 className="text-[16px] font-bold text-gray-900 tracking-wide drop-shadow-[0_0_8px_rgba(255,255,255,0.5)]">
-            {project.title}
-          </h3>
-          <p className="text-[11px] font-semibold text-gray-600 tracking-widest mt-0.5 uppercase">
-            {project.category}
-          </p>
-
-          {/* Divider line */}
-          <div className="w-full h-[1px] mt-3 mb-3" style={{ background: "rgba(255,255,255,0.4)" }} />
-
-          {/* Description */}
-          <p className="text-[13px] text-gray-700 leading-relaxed">
-            {project.description}
-          </p>
-
-          {/* Benchmarks */}
-          <ul className="mt-3 space-y-1.5">
-            {project.benchmarks.map((item, i) => (
-              <li key={i} className="flex items-center gap-2 text-[12px] text-gray-600">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#00bc7d] flex-shrink-0" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Bottom plate — subtle separator */}
-        <div
-          className="relative mt-1"
-          style={{
-            borderTop: "1px solid rgba(255,255,255,0.35)",
-          }}
-        >
-          <div className="px-5 py-3">
-            {projectRoute ? (
-              <Link href={projectRoute}>
-                <div className="relative rounded-[6px] cursor-pointer group overflow-hidden"
-                  style={{
-                    background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 100%)",
-                    backdropFilter: "blur(16px) saturate(180%)",
-                    WebkitBackdropFilter: "blur(16px) saturate(180%)",
-                    border: "1px solid rgba(255,255,255,0.5)",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.5)",
-                  }}
-                >
-                  {/* Hover glow */}
-                  <div
-                    className="absolute inset-0 pointer-events-none rounded-[6px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                      background: "radial-gradient(ellipse at center, rgba(0,188,125,0.08) 0%, transparent 70%)",
-                    }}
-                  />
-                  <div className="relative flex items-center justify-center gap-2 py-2.5 px-4">
-                    <span className="text-[12px] font-bold tracking-[3px] text-[#00bc7d] uppercase group-hover:text-[#4ade80] transition-colors drop-shadow-[0_0_4px_rgba(0,188,125,0.3)]">
-                      Read More
-                    </span>
-                    <span className="text-[#00bc7d] text-lg group-hover:translate-x-0.5 transition-transform group-hover:text-[#4ade80] drop-shadow-[0_0_4px_rgba(0,188,125,0.3)]">›</span>
-                  </div>
-                </div>
-              </Link>
-            ) : (
-              <div className="relative rounded-[6px] overflow-hidden"
-                style={{
-                  background: "rgba(255,255,255,0.25)",
-                  border: "1px solid rgba(255,255,255,0.4)",
-                }}
-              >
-                <div className="flex items-center justify-center gap-2 py-2.5 px-4">
-                  <span className="text-[12px] font-bold tracking-[3px] text-[#00bc7d]/30 uppercase">
-                    Coming Soon
-                  </span>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// Spaceship component with floating animation
-interface SpaceshipProps {
+// Spaceship data with initial scattered positions
+interface SpaceshipData {
+  key: ProjectKey;
   src: string;
   alt: string;
-  className: string;
-  projectKey: ProjectKey;
-  duration?: number;
-  delay?: number;
-  yOffset?: number;
-  isActive?: boolean;
-  glowColor?: string;
-  onHoverStart?: () => void;
-  onHoverEnd?: () => void;
-  onTap?: () => void;
+  initialPos: { left: string; top: string; width: string; height: string };
+  mobileInitialPos: { left: string; top: string; width: string; height: string };
+  floatParams: { duration: number; delay: number; yOffset: number };
 }
 
-function Spaceship({ 
-  src, 
-  alt, 
-  className, 
-  projectKey,
-  duration = 4, 
-  delay = 0, 
-  yOffset = 12,
-  isActive = false,
-  glowColor = "rgba(74, 222, 128, 1)", // bright mint green by default
-  onHoverStart,
-  onHoverEnd,
-  onTap,
-}: SpaceshipProps) {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    // Detect touch device on mount
-    setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
-  }, []);
-
-  const handleClick = () => {
-    if (isTouchDevice) {
-      onTap?.();
-    } else {
-      const route = projectRoutes[projectKey];
-      if (route) router.push(route);
-    }
-  };
-
-  return (
-    <motion.div
-      className={`${className} relative`}
-      variants={floatingVariants}
-      animate="float"
-      custom={{ duration, delay, yOffset }}
-      // Only apply hover animation on non-touch devices
-      whileHover={!isTouchDevice ? { 
-        scale: 1.08, 
-        opacity: 1,
-        transition: { duration: 0.3 } 
-      } : undefined}
-      // Desktop only: hover to show/hide
-      onMouseEnter={() => {
-        if (!isTouchDevice) onHoverStart?.();
-      }}
-      onMouseLeave={() => {
-        if (!isTouchDevice) onHoverEnd?.();
-      }}
-      onClick={handleClick}
-      style={{ touchAction: 'manipulation' }}
-    >
-      {/* Background glow layer to fill transparent holes */}
-      {isActive && (
-        <div 
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse at center, rgba(74, 222, 128, 0.3) 0%, transparent 70%)`,
-            filter: "blur(8px)",
-            transform: "scale(1.1)",
-          }}
-        />
-      )}
-      <img
-        src={src}
-        alt={alt}
-        className="relative w-full h-full object-contain pointer-events-none"
-        style={{
-          filter: isActive 
-            ? `drop-shadow(0 0 3px ${glowColor}) drop-shadow(0 0 6px ${glowColor}) drop-shadow(0 0 10px rgba(74, 222, 128, 0.5))`
-            : "none",
-          transition: "filter 0.3s ease-in-out",
-        }}
-      />
-    </motion.div>
-  );
-}
+const spaceships: SpaceshipData[] = [
+  {
+    key: "bofaCloud",
+    src: imgBofaCloud,
+    alt: "Bofa Cloud Project",
+    initialPos: { left: "12%", top: "18%", width: "192px", height: "139px" },
+    mobileInitialPos: { left: "18%", top: "12%", width: "90px", height: "65px" },
+    floatParams: { duration: 5, delay: 0, yOffset: 10 },
+  },
+  {
+    key: "bofaWorkplace",
+    src: imgBofAWorkplace,
+    alt: "BofA Workplace Project",
+    initialPos: { left: "72%", top: "18%", width: "192px", height: "129px" },
+    mobileInitialPos: { left: "58%", top: "12%", width: "90px", height: "60px" },
+    floatParams: { duration: 6, delay: 0.5, yOffset: 14 },
+  },
+  {
+    key: "pawpawStory",
+    src: imgPawpawStory,
+    alt: "Pawpaw Story Project",
+    initialPos: { left: "5%", top: "30%", width: "192px", height: "109px" },
+    mobileInitialPos: { left: "5%", top: "52%", width: "90px", height: "51px" },
+    floatParams: { duration: 4.5, delay: 1, yOffset: 8 },
+  },
+  {
+    key: "ionboard",
+    src: imgIOnboard,
+    alt: "iOnboard Project",
+    initialPos: { left: "72%", top: "30%", width: "192px", height: "99px" },
+    mobileInitialPos: { left: "68%", top: "52%", width: "90px", height: "47px" },
+    floatParams: { duration: 5.5, delay: 1.5, yOffset: 12 },
+  },
+  {
+    key: "jobpilot",
+    src: imgJobpilot,
+    alt: "Jobpilot Project",
+    initialPos: { left: "20%", top: "55%", width: "180px", height: "120px" },
+    mobileInitialPos: { left: "10%", top: "75%", width: "85px", height: "57px" },
+    floatParams: { duration: 5, delay: 0.3, yOffset: 11 },
+  },
+  {
+    key: "oneco",
+    src: imgOneco,
+    alt: "Oneco Project",
+    initialPos: { left: "68%", top: "55%", width: "180px", height: "120px" },
+    mobileInitialPos: { left: "60%", top: "75%", width: "85px", height: "57px" },
+    floatParams: { duration: 4.8, delay: 0.8, yOffset: 9 },
+  },
+];
 
 // Mission Command — typewriter on a glass sheet with green edges
-function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
+function MissionCommand({ visible }: { visible: boolean }) {
   const fullText = "CHOOSE A SPACESHIP TO SEE SPECS";
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
@@ -349,7 +200,6 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
   const charIndex = useRef(0);
 
   useEffect(() => {
-    // Small initial delay before typing starts
     const startDelay = setTimeout(() => {
       const interval = setInterval(() => {
         if (charIndex.current < fullText.length) {
@@ -361,7 +211,7 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
         }
       }, 60);
       return () => clearInterval(interval);
-    }, position === "bottom" ? 800 : 400);
+    }, 400);
     return () => clearTimeout(startDelay);
   }, []);
 
@@ -371,16 +221,12 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
     return () => clearInterval(blink);
   }, []);
 
-  const posClass = position === "top"
-    ? "absolute top-14 left-0 right-0 flex justify-center z-10"
-    : "absolute bottom-10 left-0 right-0 flex justify-center z-10";
-
   return (
     <motion.div
-      className={posClass}
-      initial={{ opacity: 0, y: position === "top" ? -10 : 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: position === "bottom" ? 0.3 : 0 }}
+      className="absolute top-14 left-0 right-0 flex justify-center z-10"
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -20 }}
+      transition={{ duration: 0.5 }}
     >
       <div
         className="relative px-6 py-3 rounded-[8px] overflow-hidden"
@@ -398,12 +244,9 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
         <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[8px]" />
         <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[8px]" />
 
-        {/* Top edge glow */}
         <div className="absolute inset-x-0 top-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(0,188,125,0.5), transparent)" }} />
-        {/* Bottom edge glow */}
         <div className="absolute inset-x-0 bottom-0 h-[1px]" style={{ background: "linear-gradient(90deg, transparent, rgba(0,188,125,0.3), transparent)" }} />
 
-        {/* Typewriter text */}
         <p className="text-[11px] md:text-[12px] font-mono font-semibold tracking-[3px] text-[#00915f]">
           <span style={{ textShadow: "0 0 8px rgba(0,188,125,0.3)" }}>
             {displayedText}
@@ -418,7 +261,6 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
           />
         </p>
 
-        {/* Subtle scan line effect */}
         {!doneTyping && (
           <motion.div
             className="absolute inset-0 pointer-events-none"
@@ -435,13 +277,439 @@ function MissionCommand({ position = "top" }: { position?: "top" | "bottom" }) {
   );
 }
 
-export default function KatesWebsite() {
+// SpecBox component - glass box with connector line
+interface SpecBoxProps {
+  text: string;
+  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  shipCenterX: number;
+  shipCenterY: number;
+  boxRef?: React.RefObject<HTMLDivElement | null>;
+}
+
+function SpecBox({ text, position, shipCenterX, shipCenterY }: SpecBoxProps) {
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [boxCenter, setBoxCenter] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
-  const [hoveredProject, setHoveredProject] = useState<ProjectKey | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    if (boxRef.current && mounted) {
+      const rect = boxRef.current.getBoundingClientRect();
+      // Calculate box edge point based on position
+      let x = rect.left + rect.width / 2;
+      let y = rect.top + rect.height / 2;
+      
+      // Adjust to edge closest to ship
+      if (position.includes("top")) {
+        y = rect.bottom;
+      } else {
+        y = rect.top;
+      }
+      if (position.includes("left")) {
+        x = rect.right;
+      } else {
+        x = rect.left;
+      }
+      
+      setBoxCenter({ x, y });
+    }
+  }, [mounted, position]);
+
+  // Position offsets based on position prop
+  const positionStyles: Record<string, string> = {
+    "top-left": "-top-16 -left-8",
+    "top-right": "-top-16 -right-8",
+    "bottom-left": "-bottom-16 -left-8",
+    "bottom-right": "-bottom-16 -right-8",
+  };
+
+  return (
+    <>
+      {/* SVG connector line - rendered at parent level */}
+      {mounted && boxCenter.x !== 0 && (
+        <svg
+          className="absolute inset-0 pointer-events-none z-0"
+          style={{ overflow: "visible" }}
+        >
+          <line
+            x1={boxCenter.x}
+            y1={boxCenter.y}
+            x2={shipCenterX}
+            y2={shipCenterY}
+            stroke="rgba(0,188,125,0.4)"
+            strokeWidth="1"
+          />
+        </svg>
+      )}
+      
+      <motion.div
+        ref={boxRef}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className={`absolute ${positionStyles[position]} z-10`}
+      >
+        <div
+          className="relative px-2 py-1.5 rounded-[4px] whitespace-nowrap"
+          style={{
+            background: "rgba(255,255,255,0.35)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "1px solid rgba(0,188,125,0.4)",
+          }}
+        >
+          {/* Green corner accents - smaller */}
+          <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-[#00bc7d] rounded-tl-[3px]" />
+          <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-[#00bc7d] rounded-tr-[3px]" />
+          <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-[#00bc7d] rounded-bl-[3px]" />
+          <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-[#00bc7d] rounded-br-[3px]" />
+
+          <p className="text-[10px] font-mono tracking-widest text-[#00915f]">
+            {text}
+          </p>
+        </div>
+      </motion.div>
+    </>
+  );
+}
+
+// Spaceship with specs annotations
+interface SpaceshipWithSpecsProps {
+  ship: SpaceshipData;
+  phase: "intro" | "transition" | "specs";
+  index: number;
+  isMobile: boolean;
+}
+
+function SpaceshipWithSpecs({ ship, phase, index, isMobile }: SpaceshipWithSpecsProps) {
+  const shipRef = useRef<HTMLDivElement>(null);
+  const [shipCenter, setShipCenter] = useState({ x: 0, y: 0 });
+  const specs = specHighlights[ship.key];
+
+  useEffect(() => {
+    const updateCenter = () => {
+      if (shipRef.current) {
+        const rect = shipRef.current.getBoundingClientRect();
+        setShipCenter({
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2,
+        });
+      }
+    };
+    
+    updateCenter();
+    window.addEventListener("resize", updateCenter);
+    return () => window.removeEventListener("resize", updateCenter);
+  }, [phase]);
+
+  // Calculate final position in the row
+  const shipWidth = 160;
+  const totalShips = 6;
+  const gap = 20;
+  const totalWidth = totalShips * shipWidth + (totalShips - 1) * gap;
+  
+  // Desktop: single row centered
+  // Mobile: 3x2 grid
+  let finalX: number;
+  let finalY: number;
+  
+  if (isMobile) {
+    const col = index % 3;
+    const row = Math.floor(index / 3);
+    const mobileShipWidth = 100;
+    const mobileGap = 16;
+    const mobileTotalWidth = 3 * mobileShipWidth + 2 * mobileGap;
+    const mobileStartX = (window.innerWidth - mobileTotalWidth) / 2;
+    finalX = mobileStartX + col * (mobileShipWidth + mobileGap) + mobileShipWidth / 2;
+    finalY = window.innerHeight / 2 - 60 + row * 140;
+  } else {
+    const startX = (window.innerWidth - totalWidth) / 2;
+    finalX = startX + index * (shipWidth + gap) + shipWidth / 2;
+    finalY = window.innerHeight / 2;
+  }
+
+  // Initial position from data
+  const initPos = isMobile ? ship.mobileInitialPos : ship.initialPos;
+  const initLeft = parseFloat(initPos.left);
+  const initTop = parseFloat(initPos.top);
+  const initWidth = parseFloat(initPos.width);
+  const initHeight = parseFloat(initPos.height);
+
+  // Calculate initial center in pixels
+  const initCenterX = (initLeft / 100) * window.innerWidth + initWidth / 2;
+  const initCenterY = (initTop / 100) * window.innerHeight + initHeight / 2;
+
+  const isIntro = phase === "intro";
+  const isSpecs = phase === "specs";
+
+  // Target dimensions
+  const targetWidth = isMobile ? 100 : shipWidth;
+  const targetHeight = isMobile ? 67 : 107;
+
+  return (
+    <motion.div
+      ref={shipRef}
+      className="absolute z-10"
+      initial={{
+        x: initCenterX - targetWidth / 2,
+        y: initCenterY - targetHeight / 2,
+        width: initWidth,
+        height: initHeight,
+      }}
+      animate={{
+        x: isIntro ? initCenterX - initWidth / 2 : finalX - targetWidth / 2,
+        y: isIntro ? initCenterY - initHeight / 2 : finalY - targetHeight / 2,
+        width: isIntro ? initWidth : targetWidth,
+        height: isIntro ? initHeight : targetHeight,
+      }}
+      transition={springTransition}
+      style={{ position: "absolute", left: 0, top: 0 }}
+    >
+      {/* Floating container */}
+      <motion.div
+        className="w-full h-full relative"
+        variants={floatingVariants}
+        animate="float"
+        custom={ship.floatParams}
+      >
+        <img
+          src={ship.src}
+          alt={ship.alt}
+          className="w-full h-full object-contain pointer-events-none"
+        />
+      </motion.div>
+
+      {/* Spec annotations - only show in specs phase */}
+      <AnimatePresence>
+        {isSpecs && (
+          <>
+            {/* Top specs */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, delay: 0.2 }}
+              className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            >
+              <SpecBoxSimple text={specs[0]} />
+              <SpecBoxSimple text={specs[1]} />
+            </motion.div>
+            
+            {/* Bottom specs */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+            >
+              <SpecBoxSimple text={specs[2]} />
+              <SpecBoxSimple text={specs[3]} />
+            </motion.div>
+
+            {/* Connector lines */}
+            <svg
+              className="absolute inset-0 pointer-events-none overflow-visible"
+              style={{ width: "100%", height: "100%", left: 0, top: 0 }}
+            >
+              {/* Top line */}
+              <line
+                x1="50%"
+                y1="-8"
+                x2="50%"
+                y2="-65"
+                stroke="rgba(0,188,125,0.4)"
+                strokeWidth="1"
+              />
+              {/* Bottom line */}
+              <line
+                x1="50%"
+                y1="calc(100% + 8px)"
+                x2="50%"
+                y2="calc(100% + 65px)"
+                stroke="rgba(0,188,125,0.4)"
+                strokeWidth="1"
+              />
+            </svg>
+          </>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+}
+
+// Simple spec box without positioning logic
+function SpecBoxSimple({ text }: { text: string }) {
+  return (
+    <div
+      className="relative px-2 py-1 rounded-[4px] whitespace-nowrap"
+      style={{
+        background: "rgba(255,255,255,0.35)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        border: "1px solid rgba(0,188,125,0.4)",
+      }}
+    >
+      {/* Green corner accents */}
+      <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-[#00bc7d] rounded-tl-[3px]" />
+      <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-[#00bc7d] rounded-tr-[3px]" />
+      <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-[#00bc7d] rounded-bl-[3px]" />
+      <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-[#00bc7d] rounded-br-[3px]" />
+
+      <p className="text-[10px] font-mono tracking-widest text-[#00915f]">
+        {text}
+      </p>
+    </div>
+  );
+}
+
+// Badge card component
+function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
+  const isIntro = phase === "intro";
+
+  return (
+    <motion.div
+      className="absolute z-20"
+      initial={{
+        left: "50%",
+        top: "50%",
+        x: "-50%",
+        y: "-50%",
+        scale: 1,
+      }}
+      animate={{
+        left: isIntro ? "50%" : "24px",
+        top: isIntro ? "50%" : "24px",
+        x: isIntro ? "-50%" : "0%",
+        y: isIntro ? "-50%" : "0%",
+        scale: isIntro ? 1 : 0.8,
+      }}
+      transition={springTransition}
+    >
+      <div 
+        className="relative bg-white border border-[#e5e7eb] rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden"
+        style={{ width: isIntro ? "280px" : "220px" }}
+      >
+        {/* Glassmorphism overlay */}
+        <div 
+          className="absolute inset-0 pointer-events-none"
+          style={{ 
+            backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)" 
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
+
+        {/* Clip/Hook at top */}
+        <div className="relative h-12 flex items-start justify-center pt-0">
+          <div className="absolute -top-4 w-5 h-10 border-[5px] border-[#333] rounded-full z-0" />
+          <div className="relative z-10 mt-3 w-16 h-5 bg-[#f5f5f5] border border-black/10 rounded-lg flex items-center justify-center shadow-sm">
+            <div className="w-10 h-1 bg-black/30 rounded-full" />
+          </div>
+        </div>
+
+        {/* Avatar */}
+        <div className="flex justify-center -mt-2">
+          <div 
+            className="rounded-full bg-[#f3f4f6] border-[4px] border-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] overflow-hidden"
+            style={{ width: isIntro ? "112px" : "80px", height: isIntro ? "82px" : "59px" }}
+          >
+            <img
+              src={imgKateXu}
+              alt="Kate Xu"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+
+        {/* Name */}
+        <div className="text-center mt-2">
+          <h1 
+            className="font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]"
+            style={{ fontSize: isIntro ? "28px" : "20px" }}
+          >
+            Kate Xu
+          </h1>
+        </div>
+
+        {/* Title */}
+        <div className="flex flex-col items-center mt-2">
+          <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase text-center">
+            Gen AI
+          </p>
+          <div className="flex items-center justify-center gap-2 mt-0.5">
+            <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">
+              Product Designer
+            </p>
+            <div className="w-1.5 h-1.5 rounded-full bg-[#00bc7d] flex-shrink-0" />
+          </div>
+        </div>
+
+        {/* Mission & Resume */}
+        <div className="px-4 pb-4 mt-3">
+          <div className="flex flex-col gap-2 opacity-80">
+            {/* Mission */}
+            <div>
+              <p className="text-[8px] font-bold text-[#99a1af] tracking-wider uppercase mb-0.5">
+                Mission
+              </p>
+              <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5">
+                <p className="text-[9px] text-[#364153] tracking-wider uppercase leading-4">
+                  <span className="whitespace-nowrap">Imagination + Expression</span> to Build Fun & Beautiful Things
+                </p>
+              </div>
+            </div>
+
+            {/* Resume Button */}
+            <Link href="/resume" className="w-full">
+              <button className="bg-black text-white px-4 py-2 rounded-[8px] text-[10px] font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
+                Resume
+              </button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+export default function KatesWebsite() {
+  const [mounted, setMounted] = useState(false);
+  const [phase, setPhase] = useState<"intro" | "transition" | "specs">("intro");
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    setIsMobile(window.innerWidth < 768);
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Phase transition timer
+  useEffect(() => {
+    if (!mounted) return;
+
+    // After 2 seconds, start transition
+    const transitionTimer = setTimeout(() => {
+      setPhase("transition");
+    }, 2000);
+
+    // After transition completes (~1.2s), show specs
+    const specsTimer = setTimeout(() => {
+      setPhase("specs");
+    }, 3200);
+
+    return () => {
+      clearTimeout(transitionTimer);
+      clearTimeout(specsTimer);
+    };
+  }, [mounted]);
 
   if (!mounted) {
     return (
@@ -451,30 +719,20 @@ export default function KatesWebsite() {
     );
   }
 
-  // Fixed positions for each spec card (static, doesn't float)
-  // Mobile: centered, Desktop: positioned around the badge
-  const cardPositions: Record<ProjectKey, string> = {
-    bofaCloud: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[22%] md:top-[5%]",
-    bofaWorkplace: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-auto md:right-[22%] md:top-[18%]",
-    pawpawStory: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[28%] md:top-[38%]",
-    ionboard: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-auto md:right-[28%] md:top-[48%]",
-    jobpilot: "left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:translate-x-0 md:translate-y-0 md:left-[18%] md:top-[62%]",
-  };
-
   return (
     <div 
       className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0 pt-6"
-      style={{ touchAction: 'none', overscrollBehavior: 'none' }}
+      style={{ touchAction: "none", overscrollBehavior: "none" }}
     >
-      {/* Credit line — very top, just above mission command */}
+      {/* Credit line */}
       <div className="absolute top-6 left-0 right-0 text-center z-10 px-4">
         <p className="text-[10px] text-black/40 tracking-wide">
           🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
         </p>
       </div>
 
-      {/* Mission Command Glass Panel */}
-      <MissionCommand />
+      {/* Mission Command Glass Panel - fades out during transition */}
+      <MissionCommand visible={phase === "intro"} />
 
       {/* Planetary Diagram Background */}
       <div className="absolute inset-0 flex items-center justify-center opacity-60">
@@ -487,12 +745,10 @@ export default function KatesWebsite() {
 
       {/* Orbit Rings */}
       <div className="absolute inset-0 pointer-events-none">
-        {/* Large orbit ring */}
         <div 
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-black/10"
         />
         
-        {/* Rotating planet on orbit */}
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px]">
           <motion.div
             className="w-full h-full"
@@ -503,7 +759,6 @@ export default function KatesWebsite() {
               ease: "linear",
             }}
           >
-            {/* Black planet positioned on the orbit edge */}
             <div 
               className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-black shadow-[0_0_15px_rgba(0,0,0,0.4)]"
             />
@@ -511,171 +766,19 @@ export default function KatesWebsite() {
         </div>
       </div>
 
-      {/* Project Spaceships - Floating in standby */}
-      {/* Top Left - Bofa Cloud - closer to center */}
-      <Spaceship
-        src={imgBofaCloud}
-        alt="Bofa Cloud Project"
-        projectKey="bofaCloud"
-        className="absolute left-[18%] md:left-[12%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[65px] md:h-[139px] opacity-80 cursor-pointer z-10"
-        duration={5}
-        delay={0}
-        yOffset={10}
-        isActive={hoveredProject === "bofaCloud"}
-        onHoverStart={() => setHoveredProject("bofaCloud")}
-        onHoverEnd={() => setHoveredProject(null)}
-        onTap={() => setHoveredProject(hoveredProject === "bofaCloud" ? null : "bofaCloud")}
-      />
+      {/* Spaceships with specs */}
+      {spaceships.map((ship, index) => (
+        <SpaceshipWithSpecs
+          key={ship.key}
+          ship={ship}
+          phase={phase}
+          index={index}
+          isMobile={isMobile}
+        />
+      ))}
 
-      {/* Top Right - BofA Workplace */}
-      <Spaceship
-        src={imgBofAWorkplace}
-        alt="BofA Workplace Project"
-        projectKey="bofaWorkplace"
-        className="absolute left-[58%] md:left-[72%] top-[12%] md:top-[18%] w-[90px] md:w-[192px] h-[60px] md:h-[129px] opacity-80 cursor-pointer z-10"
-        duration={6}
-        delay={0.5}
-        yOffset={14}
-        isActive={hoveredProject === "bofaWorkplace"}
-        onHoverStart={() => setHoveredProject("bofaWorkplace")}
-        onHoverEnd={() => setHoveredProject(null)}
-        onTap={() => setHoveredProject(hoveredProject === "bofaWorkplace" ? null : "bofaWorkplace")}
-      />
-
-      {/* Bottom Left - Pawpaw Story - farther from center */}
-      <Spaceship
-        src={imgPawpawStory}
-        alt="Pawpaw Story Project"
-        projectKey="pawpawStory"
-        className="absolute left-[5%] md:left-[5%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[51px] md:h-[109px] opacity-80 cursor-pointer z-10"
-        duration={4.5}
-        delay={1}
-        yOffset={8}
-        isActive={hoveredProject === "pawpawStory"}
-        onHoverStart={() => setHoveredProject("pawpawStory")}
-        onHoverEnd={() => setHoveredProject(null)}
-        onTap={() => setHoveredProject(hoveredProject === "pawpawStory" ? null : "pawpawStory")}
-      />
-
-      {/* Bottom Right - iOnboard */}
-      <Spaceship
-        src={imgIOnboard}
-        alt="iOnboard Project"
-        projectKey="ionboard"
-        className="absolute left-[68%] md:left-[72%] top-[52%] md:top-[30%] w-[90px] md:w-[192px] h-[47px] md:h-[99px] opacity-80 cursor-pointer z-10"
-        duration={5.5}
-        delay={1.5}
-        yOffset={12}
-        isActive={hoveredProject === "ionboard"}
-        onHoverStart={() => setHoveredProject("ionboard")}
-        onHoverEnd={() => setHoveredProject(null)}
-        onTap={() => setHoveredProject(hoveredProject === "ionboard" ? null : "ionboard")}
-      />
-
-      {/* Static Spec Cards - Rendered at fixed positions on hover */}
-      <AnimatePresence>
-        {hoveredProject && (
-          <>
-            {/* Dim overlay - dims surroundings when card is shown */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 bg-black/20 z-40 md:pointer-events-none"
-              onClick={() => setHoveredProject(null)}
-            />
-            <SpecCard 
-              project={projects[hoveredProject]}
-              projectKey={hoveredProject}
-              className={cardPositions[hoveredProject]}
-              onMouseEnter={() => setHoveredProject(hoveredProject)}
-              onMouseLeave={() => setHoveredProject(null)}
-            />
-          </>
-        )}
-      </AnimatePresence>
-
-      {/* Center Badge Card */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div className="relative w-[240px] md:w-[300px] bg-white border border-[#e5e7eb] rounded-2xl shadow-[0_20px_25px_-5px_rgba(0,0,0,0.1),0_8px_10px_-6px_rgba(0,0,0,0.1)] overflow-hidden">
-          {/* Glassmorphism overlay */}
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{ 
-              backgroundImage: "linear-gradient(124deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(0,0,0,0.1) 100%)" 
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-
-          {/* Clip/Hook at top */}
-          <div className="relative h-12 md:h-16 flex items-start justify-center pt-0">
-            {/* Hook loop - behind the clip slot */}
-            <div className="absolute -top-4 md:-top-5 w-5 md:w-6 h-10 md:h-12 border-[5px] md:border-[6px] border-[#333] rounded-full z-0" />
-            {/* Clip slot - in front of the hook */}
-            <div className="relative z-10 mt-3 md:mt-4 w-16 md:w-20 h-5 md:h-6 bg-[#f5f5f5] border border-black/10 rounded-lg flex items-center justify-center shadow-sm">
-              <div className="w-10 md:w-12 h-1 bg-black/30 rounded-full" />
-            </div>
-          </div>
-
-          {/* Avatar */}
-          <div className="flex justify-center -mt-2">
-            <div className="w-28 md:w-40 h-[82px] md:h-[117px] rounded-full bg-[#f3f4f6] border-[4px] md:border-[6px] border-white shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_6px_-4px_rgba(0,0,0,0.1)] overflow-hidden">
-              <img
-                src={imgKateXu}
-                alt="Kate Xu"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-
-          {/* Name */}
-          <div className="text-center mt-3 md:mt-4">
-            <h1 className="text-2xl md:text-4xl font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
-              Kate Xu
-            </h1>
-          </div>
-
-          {/* Title */}
-          <div className="flex flex-col items-center mt-4">
-            <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase text-center">
-              Gen AI
-            </p>
-            <div className="flex items-center justify-center gap-2 mt-1">
-              <p className="text-xs font-bold text-[#6a7282] tracking-[2px] md:tracking-[3px] uppercase">
-                Product Designer
-              </p>
-              <div className="w-2 h-2 rounded-full bg-[#00bc7d] flex-shrink-0" />
-            </div>
-          </div>
-
-          {/* Mission & Resume */}
-          <div className="px-4 md:px-6 pb-4 md:pb-6 mt-4 md:mt-6">
-            <div className="flex flex-col gap-3 md:gap-4 opacity-80">
-              {/* Mission */}
-              <div>
-                <p className="text-[8px] md:text-[9px] font-bold text-[#99a1af] tracking-wider uppercase mb-1">
-                  Mission
-                </p>
-                <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5 md:p-2">
-                  <p className="text-[9px] md:text-[10px] text-[#364153] tracking-wider uppercase leading-4 md:leading-5">
-                    <span className="whitespace-nowrap">Imagination + Expression</span> to Build Fun & Beautiful Things
-                  </p>
-                </div>
-              </div>
-
-              {/* Resume Button */}
-              <Link href="/resume" className="w-full">
-                <button className="bg-black text-white px-4 md:px-5 py-2 md:py-2.5 rounded-[8px] md:rounded-[10px] text-[10px] md:text-xs font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
-                  Resume
-                </button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
+      {/* Center Badge Card - animates to top-left */}
+      <BadgeCard phase={phase} />
     </div>
   );
 }
