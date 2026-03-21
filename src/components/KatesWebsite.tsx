@@ -928,18 +928,26 @@ export default function KatesWebsite() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Phase transition timer
+  // Phase transition timer — skip intro if already seen this session
   useEffect(() => {
     if (!mounted) return;
 
-    // After 2 seconds, start transition
+    const alreadySeen = sessionStorage.getItem("katexu-intro-seen");
+
+    if (alreadySeen) {
+      // Skip straight to showcase
+      setPhase("specs");
+      return;
+    }
+
+    // First visit: play the animation, then mark as seen
     const transitionTimer = setTimeout(() => {
       setPhase("transition");
     }, 2000);
 
-    // After transition completes (~1.2s), show specs
     const specsTimer = setTimeout(() => {
       setPhase("specs");
+      sessionStorage.setItem("katexu-intro-seen", "1");
     }, 3200);
 
     return () => {
