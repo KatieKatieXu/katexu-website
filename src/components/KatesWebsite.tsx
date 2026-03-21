@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -723,20 +723,37 @@ interface ThumbnailRowProps {
 }
 
 function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRowProps) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Auto-scroll active thumbnail into view on mobile
+  useEffect(() => {
+    if (!isMobile || !scrollRef.current) return;
+    const btn = scrollRef.current.children[selectedIndex] as HTMLElement;
+    if (btn) btn.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [selectedIndex, isMobile]);
+
+  const itemW  = isMobile ? 56 : 80;
+  const itemH  = isMobile ? 44 : 64;
+  const gap    = isMobile ? 12 : 40;
+  const labelSz = isMobile ? "11px" : "13px";
+
   return (
     <div
-      className="flex justify-center items-start overflow-x-auto"
+      ref={scrollRef}
       style={{
-        gap: "40px",
+        display: "flex",
+        justifyContent: isMobile ? "flex-start" : "center",
+        alignItems: "flex-start",
+        overflowX: isMobile ? "auto" : "visible",
+        gap: `${gap}px`,
         scrollbarWidth: "none",
         msOverflowStyle: "none",
-      }}
+        WebkitOverflowScrolling: "touch",
+        scrollSnapType: isMobile ? "x mandatory" : "none",
+        paddingLeft:  isMobile ? "20px" : "0",
+        paddingRight: isMobile ? "20px" : "0",
+      } as React.CSSProperties}
     >
-      <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
       {ships.map((ship, index) => {
         const isActive = index === selectedIndex;
         const project = projects[ship.key];
@@ -750,13 +767,13 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
               border: "none",
               cursor: "pointer",
               padding: 0,
+              scrollSnapAlign: isMobile ? "center" : "none",
             }}
           >
             <div
               style={{
-                width: "80px",
-                height: "64px",
-                opacity: 1,
+                width: `${itemW}px`,
+                height: `${itemH}px`,
                 border: isActive ? "1.5px solid #00bc7d" : "1.5px solid transparent",
                 borderRadius: "8px",
                 boxShadow: isActive ? "0 0 10px rgba(0,188,125,0.25)" : "none",
@@ -770,24 +787,18 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
               <img
                 src={ship.src}
                 alt={ship.alt}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "contain",
-                }}
+                style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
             </div>
-            {/* Project short title under thumbnail */}
             <p
               style={{
-                fontSize: "13px",
+                fontSize: labelSz,
                 fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                letterSpacing: "0px",
                 color: "#1d1d1f",
                 textAlign: "center",
-                marginTop: "8px",
-                textTransform: "none",
+                marginTop: "6px",
                 fontWeight: 400,
+                whiteSpace: "nowrap",
               }}
             >
               {project.title}
