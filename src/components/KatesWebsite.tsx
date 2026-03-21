@@ -1052,7 +1052,7 @@ export default function KatesWebsite() {
                   direction="left"
                   onClick={goPrev}
                   disabled={selectedIndex === 0}
-                  showcaseHeight="480px"
+                  showcaseHeight={isMobile ? "72vh" : "580px"}
                 />
               )}
 
@@ -1073,7 +1073,7 @@ export default function KatesWebsite() {
                   direction="right"
                   onClick={goNext}
                   disabled={selectedIndex === spaceships.length - 1}
-                  showcaseHeight="480px"
+                  showcaseHeight={isMobile ? "72vh" : "580px"}
                 />
               )}
             </div>
