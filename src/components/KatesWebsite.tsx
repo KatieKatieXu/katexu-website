@@ -443,11 +443,11 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d]" style={{ borderRadius: isMobile ? "0 0 24px 0" : "0 0 12px 0" }} />
 
         {/* Top bar: Project title left-aligned */}
-        <div style={{ paddingRight: isMobile ? "80px" : "100px" }}>
+        <div style={{ paddingRight: isMobile ? "100px" : "160px" }}>
           <p
             style={{
               fontFamily: "monospace",
-              fontSize: "16px",
+              fontSize: "22px",
               fontWeight: 700,
               letterSpacing: "2px",
               color: "#00915f",
@@ -460,7 +460,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           {/* Category/role subtitle */}
           <p
             style={{
-              fontSize: "10px",
+              fontSize: "13px",
               fontFamily: "monospace",
               letterSpacing: "2px",
               color: "rgba(0,0,0,0.4)",
@@ -530,7 +530,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             >
               <p
                 style={{
-                  fontSize: "11px",
+                  fontSize: "14px",
                   fontFamily: "monospace",
                   color: "#1a1a1a",
                   fontWeight: 600,
@@ -554,7 +554,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                   padding: "10px 24px",
                   borderRadius: "8px",
                   fontFamily: "monospace",
-                  fontSize: "11px",
+                  fontSize: "13px",
                   fontWeight: 700,
                   letterSpacing: "3px",
                   color: "#00915f",
@@ -607,8 +607,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       <div
         style={{
           position: "absolute",
-          top: "-20px",
-          right: "-10px",
+          top: "-36px",
+          right: "-16px",
           zIndex: 10,
           pointerEvents: "none",
         }}
@@ -625,7 +625,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               variants={floatingVariants}
               animate="float"
               custom={ship.floatParams}
-              style={{ width: isMobile ? "90px" : "120px" }}
+              style={{ width: isMobile ? "110px" : "180px" }}
             >
               <img
                 src={ship.src}
