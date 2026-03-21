@@ -414,8 +414,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       style={{
         position: "relative",
         overflow: "visible",
-        width: isMobile ? "92vw" : "680px",
-        maxWidth: "680px",
+        width: isMobile ? "92vw" : "820px",
+        maxWidth: "820px",
       }}
     >
       {/* The frosted glass panel itself - liquid glass style */}
