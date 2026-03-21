@@ -565,6 +565,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               gridTemplateColumns: "1fr 1fr",
               gap: "10px 20px",
               marginTop: "24px",
+              alignContent: "start",
             }}
           >
             {benchmarks.map((benchmark, i) => (
