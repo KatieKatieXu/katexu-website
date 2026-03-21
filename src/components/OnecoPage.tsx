@@ -29,14 +29,9 @@ const sections = {
     subtitle: "Project Detail: 01 — Why Oneco",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover */}
-        <div className="rounded-[16px] overflow-hidden bg-gradient-to-br from-[#0f0f0f] to-[#1a1a2e] flex items-center justify-center h-[200px] relative">
-          <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_#6366f1_0%,_transparent_70%)]" />
-          <div className="text-center relative z-10">
-            <span className="text-[64px]">🚀</span>
-            <p className="text-white font-bold text-[24px] mt-2">Oneco</p>
-            <p className="text-indigo-300 text-[14px]">Builder archetype quiz</p>
-          </div>
+        {/* Cover image */}
+        <div className="rounded-[16px] overflow-hidden">
+          <img src="/oneco-cover.png" alt="Oneco product screenshot" className="w-full h-auto object-cover" />
         </div>
 
         <div className="space-y-[24px]">
