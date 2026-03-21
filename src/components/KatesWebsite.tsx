@@ -522,9 +522,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               flex: 1,
               width: "100%",
-              height: isMobile ? "130px" : "180px",
-              minHeight: isMobile ? "130px" : "180px",
-              maxHeight: isMobile ? "160px" : "200px",
+              height: isMobile ? "160px" : "240px",
+              minHeight: isMobile ? "160px" : "240px",
+              maxHeight: isMobile ? "200px" : "280px",
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderRadius: "8px",
@@ -563,8 +563,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: "8px 20px",
-              marginTop: "14px",
+              gap: "10px 20px",
+              marginTop: "24px",
             }}
           >
             {benchmarks.map((benchmark, i) => (
