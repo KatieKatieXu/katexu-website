@@ -560,6 +560,12 @@ function BlueprintShipSection({ ship, index, isMobile }: BlueprintShipSectionPro
           height: `${containerHeight}px`,
           width: "100%",
           maxWidth: "700px",
+          borderRadius: "24px",
+          background: "rgba(255, 251, 242, 0.82)",
+          backdropFilter: "blur(18px) saturate(140%)",
+          WebkitBackdropFilter: "blur(18px) saturate(140%)",
+          border: "1px solid rgba(255,255,255,0.7)",
+          boxShadow: "0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)",
         }}
       >
         {/* SVG overlay for connector lines */}
@@ -820,8 +826,8 @@ export default function KatesWebsite() {
 
   return (
     <div 
-      className={`w-screen bg-[#fffbf2] relative ${isIntroPhase ? "h-screen overflow-hidden fixed inset-0" : "min-h-screen overflow-y-auto"}`}
-      style={isIntroPhase ? { touchAction: "none", overscrollBehavior: "none" } : {}}
+      className={`w-screen bg-[#fffbf2] relative ${isIntroPhase ? "h-screen overflow-hidden fixed inset-0" : ""}`}
+      style={isIntroPhase ? { touchAction: "none", overscrollBehavior: "none" } : { minHeight: "100vh", overflowY: "auto" }}
     >
       {/* Fixed background layer */}
       <div className="fixed inset-0 pointer-events-none">
@@ -895,7 +901,7 @@ export default function KatesWebsite() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative z-10 pt-32 pb-20 px-4"
+            className="relative z-10 pt-44 pb-24 px-4"
           >
             <div className="flex flex-col items-center">
               {spaceships.map((ship, index) => (
