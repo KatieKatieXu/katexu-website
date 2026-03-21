@@ -28,13 +28,9 @@ const sections = {
     subtitle: "Project Detail: 01 — Why Jobpilot",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover Image placeholder */}
-        <div className="rounded-[16px] overflow-hidden bg-gradient-to-br from-[#0f172a] to-[#1e3a5f] flex items-center justify-center h-[200px]">
-          <div className="text-center">
-            <span className="text-[64px]">✈️</span>
-            <p className="text-white font-bold text-[24px] mt-2">Jobpilot</p>
-            <p className="text-blue-300 text-[14px]">AI-powered job hunting</p>
-          </div>
+        {/* Cover image */}
+        <div className="rounded-[16px] overflow-hidden">
+          <img src="/jobpilot-cover.png" alt="Jobpilot product screenshot" className="w-full h-auto object-cover" />
         </div>
 
         <div className="space-y-[24px]">

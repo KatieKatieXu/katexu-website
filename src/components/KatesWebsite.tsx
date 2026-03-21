@@ -77,7 +77,7 @@ const projects = {
     title: "ONECO",
     category: "SOLO AI PRODUCT BUILDER",
     description: "Builder archetype quiz — are you built to run a one-person company?",
-    previewImage: "/oneco-ship.avif",
+    previewImage: "/oneco-cover.png",
     benchmarks: [
       "5 builder archetypes",
       "4 languages (EN/ZH/ES/FR)",
