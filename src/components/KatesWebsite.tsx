@@ -569,7 +569,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
               gap: "10px 20px",
-              marginTop: "24px",
+              marginTop: "32px",
               alignContent: "start",
             }}
           >
