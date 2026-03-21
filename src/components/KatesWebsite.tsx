@@ -578,9 +578,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "5px", display: "inline-block" }} />
                 <p
                   style={{
-                    fontSize: "14px",
+                    fontSize: "17px",
                     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                    color: "#6e6e73",
+                    color: "#1d1d1f",
                     fontWeight: 400,
                     margin: 0,
                     lineHeight: "1.47",
