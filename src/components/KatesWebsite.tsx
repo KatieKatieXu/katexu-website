@@ -473,6 +473,20 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </p>
         </div>
 
+        {/* Project intro description */}
+        <p
+          style={{
+            fontSize: "13px",
+            fontFamily: "sans-serif",
+            color: "rgba(0,0,0,0.6)",
+            lineHeight: "1.6",
+            marginBottom: "12px",
+            marginTop: "0",
+          }}
+        >
+          {project.description}
+        </p>
+
         {/* Cover image area - main center */}
         <div
           style={{
@@ -527,7 +541,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+              style={{ display: "flex", alignItems: "flex-start", gap: "6px" }}
             >
+              <span style={{ fontSize: "14px", fontFamily: "monospace", color: "#00bc7d", fontWeight: 700, lineHeight: "1.5", flexShrink: 0 }}>•</span>
               <p
                 style={{
                   fontSize: "14px",
@@ -535,9 +551,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                   color: "#1a1a1a",
                   fontWeight: 600,
                   margin: 0,
+                  lineHeight: "1.5",
                 }}
               >
-                • {benchmark}
+                {benchmark}
               </p>
             </motion.div>
           ))}
@@ -706,13 +723,14 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
             {/* Project short title under thumbnail */}
             <p
               style={{
-                fontSize: "9px",
+                fontSize: "11px",
                 fontFamily: "monospace",
-                letterSpacing: "1px",
-                color: "rgba(0,0,0,0.4)",
+                letterSpacing: "0.5px",
+                color: "rgba(0,0,0,0.65)",
                 textAlign: "center",
-                marginTop: "4px",
+                marginTop: "6px",
                 textTransform: "uppercase",
+                fontWeight: 600,
               }}
             >
               {project.title}
