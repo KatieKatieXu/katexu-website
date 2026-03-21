@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
@@ -196,8 +196,7 @@ function MissionCommand({ visible }: { visible: boolean }) {
   const fullText = "CHOOSE A SPACESHIP TO SEE SPECS";
   const [displayedText, setDisplayedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
-  const [doneTyping, setDoneTyping] = useState(false);
-  const charIndex = useRef(0);
+  const charIndex = useState({ current: 0 })[0];
 
   useEffect(() => {
     const startDelay = setTimeout(() => {
@@ -207,13 +206,12 @@ function MissionCommand({ visible }: { visible: boolean }) {
           charIndex.current += 1;
         } else {
           clearInterval(interval);
-          setDoneTyping(true);
         }
       }, 60);
       return () => clearInterval(interval);
     }, 400);
     return () => clearTimeout(startDelay);
-  }, []);
+  }, [charIndex]);
 
   // Blinking cursor
   useEffect(() => {
@@ -260,123 +258,12 @@ function MissionCommand({ visible }: { visible: boolean }) {
             }}
           />
         </p>
-
-        {!doneTyping && (
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "linear-gradient(180deg, transparent 0%, rgba(0,188,125,0.03) 50%, transparent 100%)",
-              backgroundSize: "100% 8px",
-            }}
-            animate={{ y: [0, 8] }}
-            transition={{ duration: 0.3, repeat: Infinity, ease: "linear" }}
-          />
-        )}
       </div>
     </motion.div>
   );
 }
 
-// SpecBox component - glass box with connector line
-interface SpecBoxProps {
-  text: string;
-  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
-  shipCenterX: number;
-  shipCenterY: number;
-  boxRef?: React.RefObject<HTMLDivElement | null>;
-}
-
-function SpecBox({ text, position, shipCenterX, shipCenterY }: SpecBoxProps) {
-  const boxRef = useRef<HTMLDivElement>(null);
-  const [boxCenter, setBoxCenter] = useState({ x: 0, y: 0 });
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (boxRef.current && mounted) {
-      const rect = boxRef.current.getBoundingClientRect();
-      // Calculate box edge point based on position
-      let x = rect.left + rect.width / 2;
-      let y = rect.top + rect.height / 2;
-      
-      // Adjust to edge closest to ship
-      if (position.includes("top")) {
-        y = rect.bottom;
-      } else {
-        y = rect.top;
-      }
-      if (position.includes("left")) {
-        x = rect.right;
-      } else {
-        x = rect.left;
-      }
-      
-      setBoxCenter({ x, y });
-    }
-  }, [mounted, position]);
-
-  // Position offsets based on position prop
-  const positionStyles: Record<string, string> = {
-    "top-left": "-top-16 -left-8",
-    "top-right": "-top-16 -right-8",
-    "bottom-left": "-bottom-16 -left-8",
-    "bottom-right": "-bottom-16 -right-8",
-  };
-
-  return (
-    <>
-      {/* SVG connector line - rendered at parent level */}
-      {mounted && boxCenter.x !== 0 && (
-        <svg
-          className="absolute inset-0 pointer-events-none z-0"
-          style={{ overflow: "visible" }}
-        >
-          <line
-            x1={boxCenter.x}
-            y1={boxCenter.y}
-            x2={shipCenterX}
-            y2={shipCenterY}
-            stroke="rgba(0,188,125,0.4)"
-            strokeWidth="1"
-          />
-        </svg>
-      )}
-      
-      <motion.div
-        ref={boxRef}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3, delay: 0.1 }}
-        className={`absolute ${positionStyles[position]} z-10`}
-      >
-        <div
-          className="relative px-2 py-1.5 rounded-[4px] whitespace-nowrap"
-          style={{
-            background: "rgba(255,255,255,0.35)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "1px solid rgba(0,188,125,0.4)",
-          }}
-        >
-          {/* Green corner accents - smaller */}
-          <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-[#00bc7d] rounded-tl-[3px]" />
-          <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-[#00bc7d] rounded-tr-[3px]" />
-          <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-[#00bc7d] rounded-bl-[3px]" />
-          <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-[#00bc7d] rounded-br-[3px]" />
-
-          <p className="text-[10px] font-mono tracking-widest text-[#00915f]">
-            {text}
-          </p>
-        </div>
-      </motion.div>
-    </>
-  );
-}
-
-// Spaceship with specs annotations (Phase 1 intro only)
+// Spaceship intro component (Phase 1)
 interface SpaceshipIntroProps {
   ship: SpaceshipData;
   isMobile: boolean;
@@ -411,260 +298,352 @@ function SpaceshipIntro({ ship, isMobile }: SpaceshipIntroProps) {
   );
 }
 
-// Blueprint-style spec label positions (scattered/organic around ship center)
-// Each ship has 4 specs with different positions around it
-const specLabelPositions = [
-  // Ship 0: bofaCloud
-  [
-    { left: "5%", top: "12%" },
-    { right: "8%", top: "25%" },
-    { left: "10%", bottom: "22%" },
-    { right: "6%", bottom: "18%" },
-  ],
-  // Ship 1: bofaWorkplace
-  [
-    { left: "8%", top: "18%" },
-    { right: "5%", top: "15%" },
-    { left: "6%", bottom: "25%" },
-    { right: "10%", bottom: "20%" },
-  ],
-  // Ship 2: pawpawStory
-  [
-    { left: "6%", top: "10%" },
-    { right: "7%", top: "22%" },
-    { left: "12%", bottom: "18%" },
-    { right: "5%", bottom: "28%" },
-  ],
-  // Ship 3: ionboard
-  [
-    { left: "10%", top: "15%" },
-    { right: "6%", top: "12%" },
-    { left: "5%", bottom: "20%" },
-    { right: "8%", bottom: "25%" },
-  ],
-  // Ship 4: jobpilot
-  [
-    { left: "7%", top: "8%" },
-    { right: "5%", top: "20%" },
-    { left: "8%", bottom: "15%" },
-    { right: "12%", bottom: "22%" },
-  ],
-  // Ship 5: oneco
-  [
-    { left: "5%", top: "20%" },
-    { right: "10%", top: "10%" },
-    { left: "6%", bottom: "28%" },
-    { right: "7%", bottom: "15%" },
-  ],
-];
+// Navigation Button Component
+interface NavButtonProps {
+  direction: "left" | "right";
+  onClick: () => void;
+  disabled: boolean;
+  isMobile: boolean;
+}
 
-// Blueprint spec label component
-function BlueprintSpecLabel({ text }: { text: string }) {
+function NavButton({ direction, onClick, disabled, isMobile }: NavButtonProps) {
+  const arrow = direction === "left" ? "‹" : "›";
+  
+  // Mobile: position inside showcase window
+  if (isMobile) {
+    return (
+      <button
+        onClick={onClick}
+        disabled={disabled}
+        className="absolute z-20 flex items-center justify-center transition-all duration-200"
+        style={{
+          width: "48px",
+          height: "48px",
+          borderRadius: "50%",
+          background: disabled ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.7)",
+          border: "1px solid rgba(0,188,125,0.4)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          opacity: disabled ? 0.3 : 1,
+          cursor: disabled ? "not-allowed" : "pointer",
+          top: "50%",
+          transform: "translateY(-50%)",
+          ...(direction === "left" ? { left: "12px" } : { right: "12px" }),
+        }}
+      >
+        <span
+          style={{
+            fontSize: "28px",
+            color: "#00bc7d",
+            lineHeight: 1,
+            marginTop: "-2px",
+          }}
+        >
+          {arrow}
+        </span>
+      </button>
+    );
+  }
+  
+  // Desktop: external buttons
   return (
-    <div
-      className="relative px-3 py-2 rounded-[4px] min-w-[120px]"
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="flex-shrink-0 flex items-center justify-center transition-all duration-200 hover:bg-[rgba(0,188,125,0.1)]"
       style={{
-        background: "rgba(255,255,255,0.35)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
+        width: "64px",
+        height: "64px",
+        borderRadius: "50%",
+        background: disabled ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.7)",
         border: "1px solid rgba(0,188,125,0.4)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        opacity: disabled ? 0.3 : 1,
+        cursor: disabled ? "not-allowed" : "pointer",
       }}
     >
-      {/* Green corner accents */}
-      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[4px]" />
-      <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[4px]" />
-      <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[4px]" />
-      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[4px]" />
+      <span
+        style={{
+          fontSize: "32px",
+          color: "#00bc7d",
+          lineHeight: 1,
+          marginTop: "-2px",
+        }}
+      >
+        {arrow}
+      </span>
+    </button>
+  );
+}
 
-      <p className="text-[13px] font-mono tracking-wider text-[#00915f] text-left whitespace-nowrap">
-        {text}
-      </p>
+// Showcase Window Component
+interface ShowcaseWindowProps {
+  ship: SpaceshipData;
+  selectedIndex: number;
+  onPrev: () => void;
+  onNext: () => void;
+  canGoPrev: boolean;
+  canGoNext: boolean;
+  isMobile: boolean;
+}
+
+function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoNext, isMobile }: ShowcaseWindowProps) {
+  const project = projects[ship.key];
+  const specs = specHighlights[ship.key];
+  const route = projectRoutes[ship.key];
+
+  // Spec positions inside the showcase window
+  const specPositions = [
+    { left: "5%", top: "10%" },
+    { right: "5%", top: "18%" },
+    { left: "8%", bottom: "12%" },
+    { right: "8%", bottom: "18%" },
+  ];
+
+  return (
+    <div
+      className="relative"
+      style={{
+        width: isMobile ? "90vw" : "600px",
+        height: isMobile ? "55vh" : "420px",
+        maxWidth: "600px",
+        background: "rgba(255,251,242,0.88)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        border: "1px solid rgba(255,255,255,0.8)",
+        borderRadius: "24px",
+        boxShadow: "0 20px 60px rgba(0,0,0,0.12)",
+      }}
+    >
+      {/* Green corner accents (L-shaped) */}
+      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[24px]" />
+      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[24px]" />
+      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[24px]" />
+      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[24px]" />
+
+      {/* SVG connector lines from center to specs */}
+      <svg
+        className="absolute inset-0 w-full h-full pointer-events-none"
+        style={{ borderRadius: "24px", overflow: "hidden" }}
+      >
+        {specPositions.map((pos, i) => {
+          // Calculate approximate label center percentages
+          let labelX: number;
+          let labelY: number;
+          
+          if (pos.left) {
+            labelX = parseFloat(pos.left) + 8;
+          } else if (pos.right) {
+            labelX = 100 - parseFloat(pos.right) - 8;
+          } else {
+            labelX = 50;
+          }
+          
+          if (pos.top) {
+            labelY = parseFloat(pos.top) + 4;
+          } else if (pos.bottom) {
+            labelY = 100 - parseFloat(pos.bottom) - 4;
+          } else {
+            labelY = 50;
+          }
+          
+          return (
+            <g key={i}>
+              <line
+                x1="50%"
+                y1="50%"
+                x2={`${labelX}%`}
+                y2={`${labelY}%`}
+                stroke="rgba(0,188,125,0.4)"
+                strokeWidth="1"
+              />
+              <circle
+                cx="50%"
+                cy="50%"
+                r="3"
+                fill="rgba(0,188,125,0.5)"
+              />
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* Project title */}
+      <div className="absolute top-6 left-0 right-0 flex justify-center">
+        <p
+          style={{
+            fontFamily: "monospace",
+            fontSize: "11px",
+            letterSpacing: "4px",
+            color: "#00915f",
+            textTransform: "uppercase",
+          }}
+        >
+          {project.title}
+        </p>
+      </div>
+
+      {/* Ship image centered with floating animation */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedIndex}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.3 }}
+          >
+            <motion.div
+              variants={floatingVariants}
+              animate="float"
+              custom={ship.floatParams}
+              style={{ width: isMobile ? "180px" : "280px" }}
+            >
+              <img
+                src={ship.src}
+                alt={ship.alt}
+                className="w-full h-auto object-contain"
+              />
+            </motion.div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+
+      {/* Spec labels scattered inside window */}
+      {specPositions.map((pos, i) => (
+        <motion.div
+          key={`${selectedIndex}-${i}`}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+          className="absolute"
+          style={{
+            ...pos,
+          }}
+        >
+          <div
+            className="relative px-3 py-2 rounded-[4px]"
+            style={{
+              background: "rgba(255,255,255,0.35)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              border: "1px solid rgba(0,188,125,0.4)",
+              minWidth: isMobile ? "80px" : "100px",
+            }}
+          >
+            {/* Mini green corner accents */}
+            <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[4px]" />
+            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[4px]" />
+            <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[4px]" />
+            <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[4px]" />
+
+            <p
+              style={{
+                fontSize: isMobile ? "11px" : "13px",
+                fontFamily: "monospace",
+                letterSpacing: "0.5px",
+                color: "#00915f",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {specs[i]}
+            </p>
+          </div>
+        </motion.div>
+      ))}
+
+      {/* Read More link */}
+      {route && (
+        <div className="absolute bottom-6 left-0 right-0 flex justify-center">
+          <Link href={route}>
+            <span
+              className="transition-opacity hover:opacity-80"
+              style={{
+                fontFamily: "monospace",
+                fontSize: "12px",
+                letterSpacing: "1px",
+                color: "#00bc7d",
+                cursor: "pointer",
+              }}
+            >
+              Read More →
+            </span>
+          </Link>
+        </div>
+      )}
+
+      {/* Mobile: Nav buttons inside showcase */}
+      {isMobile && (
+        <>
+          <NavButton direction="left" onClick={onPrev} disabled={!canGoPrev} isMobile={true} />
+          <NavButton direction="right" onClick={onNext} disabled={!canGoNext} isMobile={true} />
+        </>
+      )}
     </div>
   );
 }
 
-// Blueprint ship section with scattered spec annotations
-interface BlueprintShipSectionProps {
-  ship: SpaceshipData;
-  index: number;
+// Thumbnail Row Component
+interface ThumbnailRowProps {
+  ships: SpaceshipData[];
+  selectedIndex: number;
+  onSelect: (index: number) => void;
   isMobile: boolean;
 }
 
-function BlueprintShipSection({ ship, index, isMobile }: BlueprintShipSectionProps) {
-  const specs = specHighlights[ship.key];
-  const positions = specLabelPositions[index];
-  const project = projects[ship.key];
-  
-  // Ship dimensions
-  const shipWidth = isMobile ? 150 : 220;
-  
-  // Container dimensions
-  const containerHeight = isMobile ? 420 : 500;
-  
-  // Ship center coordinates (for SVG lines)
-  const shipCenterX = 50; // percentage
-  const shipCenterY = 50; // percentage
-
-  // Calculate approximate label centers for SVG lines (in percentages)
-  const getLabelCenter = (pos: { left?: string; right?: string; top?: string; bottom?: string }) => {
-    // Estimate label center based on its position
-    let x: number;
-    let y: number;
-    
-    if (pos.left) {
-      x = parseFloat(pos.left) + 8; // rough center of label
-    } else if (pos.right) {
-      x = 100 - parseFloat(pos.right) - 8;
-    } else {
-      x = 50;
-    }
-    
-    if (pos.top) {
-      y = parseFloat(pos.top) + 3;
-    } else if (pos.bottom) {
-      y = 100 - parseFloat(pos.bottom) - 3;
-    } else {
-      y = 50;
-    }
-    
-    return { x, y };
-  };
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="w-full flex flex-col items-center"
-      style={{ marginBottom: isMobile ? "40px" : "60px" }}
-    >
-      {/* Ship title */}
-      <h2
-        style={{
-          fontFamily: "monospace",
-          fontSize: "11px",
-          letterSpacing: "4px",
-          color: "#00915f",
-          textAlign: "center",
-          marginBottom: "8px",
-          textTransform: "uppercase",
-        }}
-      >
-        {project.title}
-      </h2>
-
-      {/* Ship section container with specs */}
-      <div
-        style={{
-          position: "relative",
-          height: `${containerHeight}px`,
-          width: "100%",
-          maxWidth: "700px",
-          borderRadius: "24px",
-          background: "rgba(255, 251, 242, 0.82)",
-          backdropFilter: "blur(18px) saturate(140%)",
-          WebkitBackdropFilter: "blur(18px) saturate(140%)",
-          border: "1px solid rgba(255,255,255,0.7)",
-          boxShadow: "0 8px 32px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.9)",
-        }}
-      >
-        {/* SVG overlay for connector lines */}
-        <svg
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            pointerEvents: "none",
-          }}
-        >
-          {positions.map((pos, i) => {
-            const labelCenter = getLabelCenter(pos);
-            return (
-              <g key={i}>
-                <line
-                  x1={`${shipCenterX}%`}
-                  y1={`${shipCenterY}%`}
-                  x2={`${labelCenter.x}%`}
-                  y2={`${labelCenter.y}%`}
-                  stroke="rgba(0,188,125,0.5)"
-                  strokeWidth="1"
-                />
-                <circle
-                  cx={`${shipCenterX}%`}
-                  cy={`${shipCenterY}%`}
-                  r="3"
-                  fill="rgba(0,188,125,0.6)"
-                />
-              </g>
-            );
-          })}
-        </svg>
-
-        {/* Ship image centered */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -50%)",
-            width: `${shipWidth}px`,
-          }}
-        >
-          <motion.div
-            variants={floatingVariants}
-            animate="float"
-            custom={ship.floatParams}
-          >
-            <img
-              src={ship.src}
-              alt={ship.alt}
-              className="w-full h-auto object-contain pointer-events-none"
-            />
-          </motion.div>
-        </div>
-
-        {/* Spec labels at scattered positions */}
-        {positions.map((pos, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
-            style={{
-              position: "absolute",
-              ...pos,
-            }}
-          >
-            <BlueprintSpecLabel text={specs[i]} />
-          </motion.div>
-        ))}
-      </div>
-    </motion.div>
-  );
-}
-
-// Simple spec box without positioning logic
-function SpecBoxSimple({ text }: { text: string }) {
+function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRowProps) {
   return (
     <div
-      className="relative px-2 py-1 rounded-[4px] whitespace-nowrap"
       style={{
-        background: "rgba(255,255,255,0.35)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(0,188,125,0.4)",
+        background: "rgba(255,251,242,0.9)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+        borderTop: "1px solid rgba(0,0,0,0.06)",
+        padding: "12px 16px",
       }}
     >
-      {/* Green corner accents */}
-      <div className="absolute top-0 left-0 w-1.5 h-1.5 border-t border-l border-[#00bc7d] rounded-tl-[3px]" />
-      <div className="absolute top-0 right-0 w-1.5 h-1.5 border-t border-r border-[#00bc7d] rounded-tr-[3px]" />
-      <div className="absolute bottom-0 left-0 w-1.5 h-1.5 border-b border-l border-[#00bc7d] rounded-bl-[3px]" />
-      <div className="absolute bottom-0 right-0 w-1.5 h-1.5 border-b border-r border-[#00bc7d] rounded-br-[3px]" />
-
-      <p className="text-[10px] font-mono tracking-widest text-[#00915f]">
-        {text}
-      </p>
+      <div
+        className="flex justify-center items-center gap-4 overflow-x-auto"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        <style jsx>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+        {ships.map((ship, index) => {
+          const isActive = index === selectedIndex;
+          return (
+            <button
+              key={ship.key}
+              onClick={() => onSelect(index)}
+              className="flex-shrink-0 transition-all duration-200"
+              style={{
+                width: isMobile ? "60px" : "80px",
+                height: isMobile ? "42px" : "56px",
+                opacity: isActive ? 1 : 0.5,
+                transform: isActive ? "scale(1.1)" : "scale(1)",
+                border: isActive ? "2px solid #00bc7d" : "2px solid transparent",
+                borderRadius: "8px",
+                boxShadow: isActive ? "0 0 12px rgba(0,188,125,0.3)" : "none",
+                background: "transparent",
+                cursor: "pointer",
+                padding: "4px",
+              }}
+            >
+              <img
+                src={ship.src}
+                alt={ship.alt}
+                className="w-full h-full object-contain"
+              />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -782,6 +761,10 @@ export default function KatesWebsite() {
   const [mounted, setMounted] = useState(false);
   const [phase, setPhase] = useState<"intro" | "transition" | "specs">("intro");
   const [isMobile, setIsMobile] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const goNext = () => setSelectedIndex(i => Math.min(i + 1, spaceships.length - 1));
+  const goPrev = () => setSelectedIndex(i => Math.max(i - 1, 0));
 
   useEffect(() => {
     setMounted(true);
@@ -823,11 +806,12 @@ export default function KatesWebsite() {
   }
 
   const isIntroPhase = phase === "intro";
+  const selectedShip = spaceships[selectedIndex];
 
   return (
     <div 
-      className={`w-screen bg-[#fffbf2] relative ${isIntroPhase ? "h-screen overflow-hidden fixed inset-0" : ""}`}
-      style={isIntroPhase ? { touchAction: "none", overscrollBehavior: "none" } : { minHeight: "100vh", overflowY: "auto" }}
+      className="w-screen h-screen bg-[#fffbf2] relative overflow-hidden fixed inset-0"
+      style={{ touchAction: "none", overscrollBehavior: "none" }}
     >
       {/* Fixed background layer */}
       <div className="fixed inset-0 pointer-events-none">
@@ -894,33 +878,80 @@ export default function KatesWebsite() {
         )}
       </AnimatePresence>
 
-      {/* Phase 2/3: Vertical column layout with blueprint-style specs */}
+      {/* Phase 2/3: Showcase Window with Nav Arrows */}
       <AnimatePresence>
         {!isIntroPhase && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative z-10 pt-44 pb-24 px-4"
+            className="fixed inset-0 flex flex-col items-center justify-center z-10"
+            style={{ paddingBottom: "120px" }}
           >
-            <div className="flex flex-col items-center">
-              {spaceships.map((ship, index) => (
-                <BlueprintShipSection
-                  key={ship.key}
-                  ship={ship}
-                  index={index}
-                  isMobile={isMobile}
+            {/* Nav row: left button + showcase + right button */}
+            <div
+              className="flex items-center justify-center w-full"
+              style={{
+                gap: isMobile ? "0" : "24px",
+                padding: "0 24px",
+              }}
+            >
+              {/* Desktop left nav button */}
+              {!isMobile && (
+                <NavButton
+                  direction="left"
+                  onClick={goPrev}
+                  disabled={selectedIndex === 0}
+                  isMobile={false}
                 />
-              ))}
+              )}
+
+              {/* Showcase Window */}
+              <ShowcaseWindow
+                ship={selectedShip}
+                selectedIndex={selectedIndex}
+                onPrev={goPrev}
+                onNext={goNext}
+                canGoPrev={selectedIndex > 0}
+                canGoNext={selectedIndex < spaceships.length - 1}
+                isMobile={isMobile}
+              />
+
+              {/* Desktop right nav button */}
+              {!isMobile && (
+                <NavButton
+                  direction="right"
+                  onClick={goNext}
+                  disabled={selectedIndex === spaceships.length - 1}
+                  isMobile={false}
+                />
+              )}
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
+      {/* Thumbnail row - fixed to bottom */}
+      <AnimatePresence>
+        {!isIntroPhase && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="fixed bottom-0 left-0 right-0 z-30"
+          >
+            <ThumbnailRow
+              ships={spaceships}
+              selectedIndex={selectedIndex}
+              onSelect={setSelectedIndex}
+              isMobile={isMobile}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Badge Card - fixed position in top-left after intro */}
-      <div className={isIntroPhase ? "" : "fixed top-6 left-6 z-20"}>
-        <BadgeCard phase={phase} />
-      </div>
+      <BadgeCard phase={phase} />
     </div>
   );
 }
