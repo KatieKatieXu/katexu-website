@@ -516,7 +516,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               color: "#1d1d1f",
               fontWeight: 600,
               lineHeight: "1.3",
-              marginBottom: "10px",
+              marginBottom: "20px",
               marginTop: "0",
             }}
           >
