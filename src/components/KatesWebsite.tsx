@@ -10,8 +10,8 @@ const imgBofaCloud = "/bofa-cloud.png";
 const imgBofAWorkplace = "/bofa-workplace.png";
 const imgPawpawStory = "/pawpaw-story.png";
 const imgIOnboard = "/ionboard.png";
-const imgJobpilot = "/jobpilot-ship.jpeg";
-const imgOneco = "/oneco-ship.avif";
+const imgJobpilot = "/jobpilot-ship.png";
+const imgOneco = "/oneco-ship.png";
 const imgKateXu = "/kate-xu.png";
 
 // Project data
@@ -376,99 +376,25 @@ function SpecBox({ text, position, shipCenterX, shipCenterY }: SpecBoxProps) {
   );
 }
 
-// Spaceship with specs annotations
-interface SpaceshipWithSpecsProps {
+// Spaceship with specs annotations (Phase 1 intro only)
+interface SpaceshipIntroProps {
   ship: SpaceshipData;
-  phase: "intro" | "transition" | "specs";
-  index: number;
   isMobile: boolean;
 }
 
-function SpaceshipWithSpecs({ ship, phase, index, isMobile }: SpaceshipWithSpecsProps) {
-  const shipRef = useRef<HTMLDivElement>(null);
-  const [shipCenter, setShipCenter] = useState({ x: 0, y: 0 });
-  const specs = specHighlights[ship.key];
-
-  useEffect(() => {
-    const updateCenter = () => {
-      if (shipRef.current) {
-        const rect = shipRef.current.getBoundingClientRect();
-        setShipCenter({
-          x: rect.left + rect.width / 2,
-          y: rect.top + rect.height / 2,
-        });
-      }
-    };
-    
-    updateCenter();
-    window.addEventListener("resize", updateCenter);
-    return () => window.removeEventListener("resize", updateCenter);
-  }, [phase]);
-
-  // Calculate final position in the row
-  const shipWidth = 160;
-  const totalShips = 6;
-  const gap = 20;
-  const totalWidth = totalShips * shipWidth + (totalShips - 1) * gap;
-  
-  // Desktop: single row centered
-  // Mobile: 3x2 grid
-  let finalX: number;
-  let finalY: number;
-  
-  if (isMobile) {
-    const col = index % 3;
-    const row = Math.floor(index / 3);
-    const mobileShipWidth = 100;
-    const mobileGap = 16;
-    const mobileTotalWidth = 3 * mobileShipWidth + 2 * mobileGap;
-    const mobileStartX = (window.innerWidth - mobileTotalWidth) / 2;
-    finalX = mobileStartX + col * (mobileShipWidth + mobileGap) + mobileShipWidth / 2;
-    finalY = window.innerHeight / 2 - 60 + row * 140;
-  } else {
-    const startX = (window.innerWidth - totalWidth) / 2;
-    finalX = startX + index * (shipWidth + gap) + shipWidth / 2;
-    finalY = window.innerHeight / 2;
-  }
-
-  // Initial position from data
+function SpaceshipIntro({ ship, isMobile }: SpaceshipIntroProps) {
   const initPos = isMobile ? ship.mobileInitialPos : ship.initialPos;
-  const initLeft = parseFloat(initPos.left);
-  const initTop = parseFloat(initPos.top);
-  const initWidth = parseFloat(initPos.width);
-  const initHeight = parseFloat(initPos.height);
-
-  // Calculate initial center in pixels
-  const initCenterX = (initLeft / 100) * window.innerWidth + initWidth / 2;
-  const initCenterY = (initTop / 100) * window.innerHeight + initHeight / 2;
-
-  const isIntro = phase === "intro";
-  const isSpecs = phase === "specs";
-
-  // Target dimensions
-  const targetWidth = isMobile ? 100 : shipWidth;
-  const targetHeight = isMobile ? 67 : 107;
 
   return (
     <motion.div
-      ref={shipRef}
       className="absolute z-10"
-      initial={{
-        x: initCenterX - targetWidth / 2,
-        y: initCenterY - targetHeight / 2,
-        width: initWidth,
-        height: initHeight,
+      style={{
+        left: initPos.left,
+        top: initPos.top,
+        width: initPos.width,
+        height: initPos.height,
       }}
-      animate={{
-        x: isIntro ? initCenterX - initWidth / 2 : finalX - targetWidth / 2,
-        y: isIntro ? initCenterY - initHeight / 2 : finalY - targetHeight / 2,
-        width: isIntro ? initWidth : targetWidth,
-        height: isIntro ? initHeight : targetHeight,
-      }}
-      transition={springTransition}
-      style={{ position: "absolute", left: 0, top: 0 }}
     >
-      {/* Floating container */}
       <motion.div
         className="w-full h-full relative"
         variants={floatingVariants}
@@ -481,62 +407,233 @@ function SpaceshipWithSpecs({ ship, phase, index, isMobile }: SpaceshipWithSpecs
           className="w-full h-full object-contain pointer-events-none"
         />
       </motion.div>
+    </motion.div>
+  );
+}
 
-      {/* Spec annotations - only show in specs phase */}
-      <AnimatePresence>
-        {isSpecs && (
-          <>
-            {/* Top specs */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="absolute -top-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            >
-              <SpecBoxSimple text={specs[0]} />
-              <SpecBoxSimple text={specs[1]} />
-            </motion.div>
-            
-            {/* Bottom specs */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            >
-              <SpecBoxSimple text={specs[2]} />
-              <SpecBoxSimple text={specs[3]} />
-            </motion.div>
+// Blueprint-style spec label positions (scattered/organic around ship center)
+// Each ship has 4 specs with different positions around it
+const specLabelPositions = [
+  // Ship 0: bofaCloud
+  [
+    { left: "5%", top: "12%" },
+    { right: "8%", top: "25%" },
+    { left: "10%", bottom: "22%" },
+    { right: "6%", bottom: "18%" },
+  ],
+  // Ship 1: bofaWorkplace
+  [
+    { left: "8%", top: "18%" },
+    { right: "5%", top: "15%" },
+    { left: "6%", bottom: "25%" },
+    { right: "10%", bottom: "20%" },
+  ],
+  // Ship 2: pawpawStory
+  [
+    { left: "6%", top: "10%" },
+    { right: "7%", top: "22%" },
+    { left: "12%", bottom: "18%" },
+    { right: "5%", bottom: "28%" },
+  ],
+  // Ship 3: ionboard
+  [
+    { left: "10%", top: "15%" },
+    { right: "6%", top: "12%" },
+    { left: "5%", bottom: "20%" },
+    { right: "8%", bottom: "25%" },
+  ],
+  // Ship 4: jobpilot
+  [
+    { left: "7%", top: "8%" },
+    { right: "5%", top: "20%" },
+    { left: "8%", bottom: "15%" },
+    { right: "12%", bottom: "22%" },
+  ],
+  // Ship 5: oneco
+  [
+    { left: "5%", top: "20%" },
+    { right: "10%", top: "10%" },
+    { left: "6%", bottom: "28%" },
+    { right: "7%", bottom: "15%" },
+  ],
+];
 
-            {/* Connector lines */}
-            <svg
-              className="absolute inset-0 pointer-events-none overflow-visible"
-              style={{ width: "100%", height: "100%", left: 0, top: 0 }}
-            >
-              {/* Top line */}
-              <line
-                x1="50%"
-                y1="-8"
-                x2="50%"
-                y2="-65"
-                stroke="rgba(0,188,125,0.4)"
-                strokeWidth="1"
-              />
-              {/* Bottom line */}
-              <line
-                x1="50%"
-                y1="calc(100% + 8px)"
-                x2="50%"
-                y2="calc(100% + 65px)"
-                stroke="rgba(0,188,125,0.4)"
-                strokeWidth="1"
-              />
-            </svg>
-          </>
-        )}
-      </AnimatePresence>
+// Blueprint spec label component
+function BlueprintSpecLabel({ text }: { text: string }) {
+  return (
+    <div
+      className="relative px-3 py-2 rounded-[4px] min-w-[120px]"
+      style={{
+        background: "rgba(255,255,255,0.35)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        border: "1px solid rgba(0,188,125,0.4)",
+      }}
+    >
+      {/* Green corner accents */}
+      <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[4px]" />
+      <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[4px]" />
+      <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[4px]" />
+      <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[4px]" />
+
+      <p className="text-[13px] font-mono tracking-wider text-[#00915f] text-left whitespace-nowrap">
+        {text}
+      </p>
+    </div>
+  );
+}
+
+// Blueprint ship section with scattered spec annotations
+interface BlueprintShipSectionProps {
+  ship: SpaceshipData;
+  index: number;
+  isMobile: boolean;
+}
+
+function BlueprintShipSection({ ship, index, isMobile }: BlueprintShipSectionProps) {
+  const specs = specHighlights[ship.key];
+  const positions = specLabelPositions[index];
+  const project = projects[ship.key];
+  
+  // Ship dimensions
+  const shipWidth = isMobile ? 150 : 220;
+  
+  // Container dimensions
+  const containerHeight = isMobile ? 420 : 500;
+  
+  // Ship center coordinates (for SVG lines)
+  const shipCenterX = 50; // percentage
+  const shipCenterY = 50; // percentage
+
+  // Calculate approximate label centers for SVG lines (in percentages)
+  const getLabelCenter = (pos: { left?: string; right?: string; top?: string; bottom?: string }) => {
+    // Estimate label center based on its position
+    let x: number;
+    let y: number;
+    
+    if (pos.left) {
+      x = parseFloat(pos.left) + 8; // rough center of label
+    } else if (pos.right) {
+      x = 100 - parseFloat(pos.right) - 8;
+    } else {
+      x = 50;
+    }
+    
+    if (pos.top) {
+      y = parseFloat(pos.top) + 3;
+    } else if (pos.bottom) {
+      y = 100 - parseFloat(pos.bottom) - 3;
+    } else {
+      y = 50;
+    }
+    
+    return { x, y };
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="w-full flex flex-col items-center"
+      style={{ marginBottom: isMobile ? "40px" : "60px" }}
+    >
+      {/* Ship title */}
+      <h2
+        style={{
+          fontFamily: "monospace",
+          fontSize: "11px",
+          letterSpacing: "4px",
+          color: "#00915f",
+          textAlign: "center",
+          marginBottom: "8px",
+          textTransform: "uppercase",
+        }}
+      >
+        {project.title}
+      </h2>
+
+      {/* Ship section container with specs */}
+      <div
+        style={{
+          position: "relative",
+          height: `${containerHeight}px`,
+          width: "100%",
+          maxWidth: "700px",
+        }}
+      >
+        {/* SVG overlay for connector lines */}
+        <svg
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            pointerEvents: "none",
+          }}
+        >
+          {positions.map((pos, i) => {
+            const labelCenter = getLabelCenter(pos);
+            return (
+              <g key={i}>
+                <line
+                  x1={`${shipCenterX}%`}
+                  y1={`${shipCenterY}%`}
+                  x2={`${labelCenter.x}%`}
+                  y2={`${labelCenter.y}%`}
+                  stroke="rgba(0,188,125,0.5)"
+                  strokeWidth="1"
+                />
+                <circle
+                  cx={`${shipCenterX}%`}
+                  cy={`${shipCenterY}%`}
+                  r="3"
+                  fill="rgba(0,188,125,0.6)"
+                />
+              </g>
+            );
+          })}
+        </svg>
+
+        {/* Ship image centered */}
+        <div
+          style={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            width: `${shipWidth}px`,
+          }}
+        >
+          <motion.div
+            variants={floatingVariants}
+            animate="float"
+            custom={ship.floatParams}
+          >
+            <img
+              src={ship.src}
+              alt={ship.alt}
+              className="w-full h-auto object-contain pointer-events-none"
+            />
+          </motion.div>
+        </div>
+
+        {/* Spec labels at scattered positions */}
+        {positions.map((pos, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.4, delay: 0.2 + i * 0.1 }}
+            style={{
+              position: "absolute",
+              ...pos,
+            }}
+          >
+            <BlueprintSpecLabel text={specs[i]} />
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -719,66 +816,105 @@ export default function KatesWebsite() {
     );
   }
 
+  const isIntroPhase = phase === "intro";
+
   return (
     <div 
-      className="h-screen w-screen overflow-hidden bg-[#fffbf2] relative fixed inset-0 pt-6"
-      style={{ touchAction: "none", overscrollBehavior: "none" }}
+      className={`w-screen bg-[#fffbf2] relative ${isIntroPhase ? "h-screen overflow-hidden fixed inset-0" : "min-h-screen overflow-y-auto"}`}
+      style={isIntroPhase ? { touchAction: "none", overscrollBehavior: "none" } : {}}
     >
-      {/* Credit line */}
-      <div className="absolute top-6 left-0 right-0 text-center z-10 px-4">
+      {/* Fixed background layer */}
+      <div className="fixed inset-0 pointer-events-none">
+        {/* Planetary Diagram Background */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-60">
+          <img
+            src={imgPlanetaryDiagram}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Orbit Rings */}
+        <div className="absolute inset-0">
+          <div 
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-black/10"
+          />
+          
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px]">
+            <motion.div
+              className="w-full h-full"
+              animate={{ rotate: 360 }}
+              transition={{
+                duration: 60,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+            >
+              <div 
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-black shadow-[0_0_15px_rgba(0,0,0,0.4)]"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Credit line - fixed */}
+      <div className="fixed top-6 left-0 right-0 text-center z-10 px-4">
         <p className="text-[10px] text-black/40 tracking-wide">
           🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
         </p>
       </div>
 
       {/* Mission Command Glass Panel - fades out during transition */}
-      <MissionCommand visible={phase === "intro"} />
+      <MissionCommand visible={isIntroPhase} />
 
-      {/* Planetary Diagram Background */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-60">
-        <img
-          src={imgPlanetaryDiagram}
-          alt=""
-          className="w-full h-full object-cover pointer-events-none"
-        />
-      </div>
-
-      {/* Orbit Rings */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full border border-black/10"
-        />
-        
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px]">
+      {/* Phase 1: Intro with scattered spaceships */}
+      <AnimatePresence>
+        {isIntroPhase && (
           <motion.div
-            className="w-full h-full"
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 60,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            className="absolute inset-0"
           >
-            <div 
-              className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-black shadow-[0_0_15px_rgba(0,0,0,0.4)]"
-            />
+            {spaceships.map((ship) => (
+              <SpaceshipIntro
+                key={ship.key}
+                ship={ship}
+                isMobile={isMobile}
+              />
+            ))}
           </motion.div>
-        </div>
+        )}
+      </AnimatePresence>
+
+      {/* Phase 2/3: Vertical column layout with blueprint-style specs */}
+      <AnimatePresence>
+        {!isIntroPhase && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="relative z-10 pt-32 pb-20 px-4"
+          >
+            <div className="flex flex-col items-center">
+              {spaceships.map((ship, index) => (
+                <BlueprintShipSection
+                  key={ship.key}
+                  ship={ship}
+                  index={index}
+                  isMobile={isMobile}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Badge Card - fixed position in top-left after intro */}
+      <div className={isIntroPhase ? "" : "fixed top-6 left-6 z-20"}>
+        <BadgeCard phase={phase} />
       </div>
-
-      {/* Spaceships with specs */}
-      {spaceships.map((ship, index) => (
-        <SpaceshipWithSpecs
-          key={ship.key}
-          ship={ship}
-          phase={phase}
-          index={index}
-          isMobile={isMobile}
-        />
-      ))}
-
-      {/* Center Badge Card - animates to top-left */}
-      <BadgeCard phase={phase} />
     </div>
   );
 }
