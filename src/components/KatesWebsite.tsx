@@ -508,7 +508,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               fontSize: "17px",
               fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
               color: "#1d1d1f",
-              fontWeight: 400,
+              fontWeight: 600,
               lineHeight: "1.3",
               marginBottom: "10px",
               marginTop: "0",
@@ -580,7 +580,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                   style={{
                     fontSize: "14px",
                     fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                    color: "#1d1d1f",
+                    color: "#6e6e73",
                     fontWeight: 400,
                     margin: 0,
                     lineHeight: "1.47",
