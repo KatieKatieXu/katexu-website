@@ -423,7 +423,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         className="relative"
         style={{
           width: "100%",
-          height: isMobile ? "72vh" : "620px",
+          height: isMobile ? "auto" : "620px",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -462,14 +462,14 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           }}
         />
 
-        {/* Inner content area with consistent padding */}
-        <div style={{ padding: "0 28px 20px", display: "flex", flexDirection: "column", flex: 1 }}>
-          {/* Top bar: Project title left-aligned */}
-          <div style={{ paddingRight: isMobile ? "80px" : "120px", marginTop: "16px" }}>
+        {/* Inner content area — centered column, scrollable on mobile */}
+        <div style={{ padding: isMobile ? "0 16px 12px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: 1, alignItems: "center", overflowY: isMobile ? "auto" : "visible" }}>
+          {/* Title + category — left-aligned */}
+          <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "8px" : "16px" }}>
             <p
               style={{
                 fontFamily: "monospace",
-                fontSize: "36px",
+                fontSize: isMobile ? "22px" : "36px",
                 fontWeight: 700,
                 letterSpacing: "0px",
                 color: "#1d1d1f",
@@ -483,14 +483,13 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             </p>
             {/* Category/role subtitle */}
             <div style={{ display: "flex", alignItems: "center", gap: "5px", marginTop: "4px" }}>
-              {/* Person icon */}
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="#00bc7d" xmlns="http://www.w3.org/2000/svg">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="#00bc7d" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="7" r="4" />
                 <path d="M4 21c0-4 3.582-7 8-7s8 3 8 7" strokeLinecap="round" />
               </svg>
               <p
                 style={{
-                  fontSize: "11px",
+                  fontSize: isMobile ? "9px" : "11px",
                   fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                   letterSpacing: "0.5px",
                   color: "#00915f",
@@ -505,31 +504,33 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             </div>
           </div>
 
-          {/* Divider line between category and description */}
-          <div style={{ width: "100%", height: "1px", margin: "14px 0 12px", background: "rgba(200,200,200,0.5)" }} />
+          {/* Divider */}
+          <div style={{ width: "100%", height: "1px", margin: isMobile ? "8px 0 16px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
 
-          {/* Project intro description */}
+          {/* Project intro description — centered */}
           <p
             style={{
-              fontSize: "17px",
+              width: "100%",
+              fontSize: isMobile ? "13px" : "17px",
               fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
               color: "#1d1d1f",
               fontWeight: 600,
               lineHeight: "1.3",
-              marginBottom: "20px",
+              marginBottom: isMobile ? "10px" : "20px",
               marginTop: "0",
+              textAlign: "center",
             }}
           >
             {project.description}
           </p>
 
-          {/* Cover image area - main center */}
+          {/* Cover image area — centered */}
           <div
             style={{
               width: "100%",
-              height: isMobile ? "160px" : "240px",
-              minHeight: isMobile ? "160px" : "240px",
-              maxHeight: isMobile ? "160px" : "240px",
+              height: isMobile ? "180px" : "240px",
+              minHeight: isMobile ? "180px" : "240px",
+              maxHeight: isMobile ? "180px" : "240px",
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderRadius: "8px",
@@ -552,56 +553,57 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 <img
                   src={project.previewImage}
                   alt={`${project.title} preview`}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    borderRadius: "4px",
-                  }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", borderRadius: "4px" }}
                 />
               </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Highlights row (benchmarks) */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "10px 20px",
-              marginTop: "32px",
-              alignContent: "start",
-            }}
-          >
-            {benchmarks.map((benchmark, i) => (
-              <motion.div
-                key={`${selectedIndex}-benchmark-${i}`}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-                style={{ display: "flex", alignItems: "flex-start", gap: "6px" }}
-              >
-                <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "5px", display: "inline-block" }} />
-                <p
-                  style={{
-                    fontSize: "17px",
-                    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                    color: "#1d1d1f",
-                    fontWeight: 400,
-                    margin: 0,
-                    lineHeight: "1.47",
-                  }}
-                >
-                  {benchmark}
-                </p>
-              </motion.div>
-            ))}
+          {/* Highlights — centered block */}
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "10px" : "32px" }}>
+            {isMobile ? (
+              /* Mobile: inline-block table trick — shrinks to content, then margin:auto centers it */
+              <div style={{ display: "table", margin: "0 auto" }}>
+                {benchmarks.map((benchmark, i) => (
+                  <motion.div
+                    key={`${selectedIndex}-benchmark-${i}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+                    style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "6px" }}
+                  >
+                    <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "4px", display: "inline-block" }} />
+                    <p style={{ fontSize: "12px", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#1d1d1f", fontWeight: 400, margin: 0, lineHeight: "1.4", whiteSpace: "nowrap" }}>
+                      {benchmark}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            ) : (
+              /* Desktop: 2-col grid */
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 32px" }}>
+                {benchmarks.map((benchmark, i) => (
+                  <motion.div
+                    key={`${selectedIndex}-benchmark-${i}`}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
+                    style={{ display: "flex", alignItems: "flex-start", gap: "6px" }}
+                  >
+                    <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "4px", display: "inline-block" }} />
+                    <p style={{ fontSize: "17px", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#1d1d1f", fontWeight: 400, margin: 0, lineHeight: "1.4", whiteSpace: "nowrap" }}>
+                      {benchmark}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Bottom section separator + Read More button */}
-          <div style={{ marginTop: "28px", paddingTop: "0", paddingBottom: "12px", display: "flex", justifyContent: "center" }}>
+          {/* Bottom section + Read More button */}
+          <div style={{ marginTop: isMobile ? "12px" : "38px", paddingBottom: isMobile ? "8px" : "12px", display: "flex", justifyContent: "center" }}>
             {route ? (
-              <Link href={route}>
+              <Link href={route} style={{ display: "block" }}>
                 <div
                   style={{
                     background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 100%)",
@@ -637,10 +639,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                     }}
                   />
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 16px" }}>
-                    <span style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "#00bc7d", textTransform: "uppercase", textShadow: "0 0 4px rgba(0,188,125,0.3)" }}>
+                    <span style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "#00bc7d", textTransform: "uppercase", textShadow: "0 0 4px rgba(0,188,125,0.3)", lineHeight: 1 }}>
                       Read More
                     </span>
-                    <span style={{ color: "#00bc7d", fontSize: "18px" }}>›</span>
+                    <span style={{ color: "#00bc7d", fontSize: "13px", lineHeight: 1, position: "relative", top: "-1px" }}>›</span>
                   </div>
                 </div>
               </Link>
@@ -658,10 +660,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 }}
               >
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "10px 16px" }}>
-                  <span style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "rgba(0,188,125,0.3)", textTransform: "uppercase" }}>
+                  <span style={{ fontSize: "13px", fontWeight: 700, letterSpacing: "3px", color: "rgba(0,188,125,0.3)", textTransform: "uppercase", lineHeight: 1 }}>
                     Coming Soon
                   </span>
-                  <span style={{ color: "rgba(0,188,125,0.3)", fontSize: "18px" }}>›</span>
+                  <span style={{ color: "rgba(0,188,125,0.3)", fontSize: "13px", lineHeight: 1 }}>›</span>
                 </div>
               </div>
             )}
@@ -681,7 +683,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       <div
         style={{
           position: "absolute",
-          top: "-52px",
+          top: isMobile ? "-32px" : "-52px",
           right: "-30px",
           zIndex: 10,
           pointerEvents: "none",
@@ -887,7 +889,8 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         {!isIntro && (
           <motion.div
             key="nameplate-specs"
-            className="fixed top-5 left-5 z-30 flex items-center gap-3"
+            className="flex fixed top-0 left-4 z-30 items-center gap-2"
+            style={{ height: "64px" }}
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
@@ -916,7 +919,8 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         {!isIntro && (
           <motion.div
             key="resume-btn-specs"
-            className="fixed top-5 right-5 z-30"
+            className="fixed top-0 right-4 z-30 flex items-center"
+            style={{ height: "64px" }}
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 16 }}
@@ -936,7 +940,6 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
                 <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
                   Resume
                 </span>
-                <span className="text-[#00bc7d] text-[14px] leading-none">›</span>
               </div>
             </Link>
           </motion.div>
@@ -1045,8 +1048,11 @@ export default function KatesWebsite() {
         </div>
       </div>
 
-      {/* Credit line - fixed footer */}
-      <div className="fixed bottom-4 left-0 right-0 text-center z-10 px-4 pointer-events-none">
+      {/* Footer — desktop only: tagline + credit stacked */}
+      <div className="hidden md:flex fixed bottom-3 left-0 right-0 flex-col items-center z-10 px-4 pointer-events-none" style={{ gap: "4px" }}>
+        <p className="text-[10px] tracking-[2px] uppercase font-semibold" style={{ color: "rgba(0,188,125,0.55)" }}>
+          ASKS THE RIGHT QUESTIONS · FRAMES THE GOAL · TURNS FUZZY THINKING INTO CLEAR DIRECTION
+        </p>
         <p className="text-[10px] text-black/40 tracking-wide">
           🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
         </p>
@@ -1088,8 +1094,8 @@ export default function KatesWebsite() {
               flexDirection: "column",
               alignItems: "center",
               justifyContent: "center",
-              minHeight: "100vh",
-              padding: "80px 0 40px",
+              height: "100vh",
+              padding: isMobile ? "8px 0 0" : "80px 0 40px",
             }}
           >
             {/* Showcase row: left btn + showcase + right btn (flush, no gap) */}
@@ -1138,10 +1144,10 @@ export default function KatesWebsite() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               style={{
-                marginTop: "24px",
+                marginTop: "12px",
                 width: "100vw",
                 maxWidth: "100vw",
-                padding: "16px 0",
+                padding: isMobile ? "8px 0" : "16px 0",
                 background: "rgba(255, 255, 255, 0.45)",
                 backdropFilter: "blur(24px) saturate(180%)",
                 WebkitBackdropFilter: "blur(24px) saturate(180%)",
