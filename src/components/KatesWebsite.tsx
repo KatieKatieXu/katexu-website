@@ -298,62 +298,24 @@ function SpaceshipIntro({ ship, isMobile }: SpaceshipIntroProps) {
   );
 }
 
-// Navigation Button Component
-interface NavButtonProps {
+// Navigation Button Component - Mobile only (inside carousel overlay)
+interface MobileNavButtonProps {
   direction: "left" | "right";
   onClick: () => void;
   disabled: boolean;
-  isMobile: boolean;
 }
 
-function NavButton({ direction, onClick, disabled, isMobile }: NavButtonProps) {
+function MobileNavButton({ direction, onClick, disabled }: MobileNavButtonProps) {
   const arrow = direction === "left" ? "‹" : "›";
   
-  // Mobile: position inside showcase window
-  if (isMobile) {
-    return (
-      <button
-        onClick={onClick}
-        disabled={disabled}
-        className="absolute z-20 flex items-center justify-center transition-all duration-200"
-        style={{
-          width: "48px",
-          height: "48px",
-          borderRadius: "50%",
-          background: disabled ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.7)",
-          border: "1px solid rgba(0,188,125,0.4)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
-          opacity: disabled ? 0.3 : 1,
-          cursor: disabled ? "not-allowed" : "pointer",
-          top: "50%",
-          transform: "translateY(-50%)",
-          ...(direction === "left" ? { left: "12px" } : { right: "12px" }),
-        }}
-      >
-        <span
-          style={{
-            fontSize: "28px",
-            color: "#00bc7d",
-            lineHeight: 1,
-            marginTop: "-2px",
-          }}
-        >
-          {arrow}
-        </span>
-      </button>
-    );
-  }
-  
-  // Desktop: external buttons
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className="flex-shrink-0 flex items-center justify-center transition-all duration-200 hover:bg-[rgba(0,188,125,0.1)]"
+      className="absolute z-20 flex items-center justify-center transition-all duration-200"
       style={{
-        width: "64px",
-        height: "64px",
+        width: "48px",
+        height: "48px",
         borderRadius: "50%",
         background: disabled ? "rgba(255,255,255,0.5)" : "rgba(255,255,255,0.7)",
         border: "1px solid rgba(0,188,125,0.4)",
@@ -361,14 +323,68 @@ function NavButton({ direction, onClick, disabled, isMobile }: NavButtonProps) {
         WebkitBackdropFilter: "blur(12px)",
         opacity: disabled ? 0.3 : 1,
         cursor: disabled ? "not-allowed" : "pointer",
+        top: "50%",
+        transform: "translateY(-50%)",
+        ...(direction === "left" ? { left: "12px" } : { right: "12px" }),
       }}
     >
       <span
         style={{
-          fontSize: "32px",
+          fontSize: "28px",
           color: "#00bc7d",
           lineHeight: 1,
           marginTop: "-2px",
+        }}
+      >
+        {arrow}
+      </span>
+    </button>
+  );
+}
+
+// Desktop Navigation Button - Full height rectangle panel
+interface DesktopNavButtonProps {
+  direction: "left" | "right";
+  onClick: () => void;
+  disabled: boolean;
+  showcaseHeight: string;
+}
+
+function DesktopNavButton({ direction, onClick, disabled, showcaseHeight }: DesktopNavButtonProps) {
+  const arrow = direction === "left" ? "‹" : "›";
+  
+  return (
+    <button
+      onClick={onClick}
+      disabled={disabled}
+      className="flex-shrink-0 flex items-center justify-center transition-all duration-200"
+      style={{
+        width: "52px",
+        height: showcaseHeight,
+        borderRadius: direction === "left" ? "12px 0 0 12px" : "0 12px 12px 0",
+        background: disabled ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.55)",
+        backdropFilter: "blur(12px)",
+        WebkitBackdropFilter: "blur(12px)",
+        border: "1px solid rgba(0,188,125,0.25)",
+        borderRight: direction === "left" ? "none" : "1px solid rgba(0,188,125,0.25)",
+        borderLeft: direction === "right" ? "none" : "1px solid rgba(0,188,125,0.25)",
+        opacity: disabled ? 0.25 : 1,
+        cursor: disabled ? "not-allowed" : "pointer",
+      }}
+      onMouseEnter={(e) => {
+        if (!disabled) {
+          e.currentTarget.style.background = "rgba(0,188,125,0.08)";
+        }
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.background = disabled ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.55)";
+      }}
+    >
+      <span
+        style={{
+          fontSize: "36px",
+          color: "#00bc7d",
+          lineHeight: 1,
         }}
       >
         {arrow}
@@ -405,27 +421,31 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
     <div
       className="relative"
       style={{
-        width: isMobile ? "90vw" : "600px",
-        height: isMobile ? "55vh" : "420px",
-        maxWidth: "600px",
+        width: isMobile ? "92vw" : "680px",
+        height: isMobile ? "62vh" : "480px",
+        maxWidth: "680px",
         background: "rgba(255,251,242,0.88)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         border: "1px solid rgba(255,255,255,0.8)",
-        borderRadius: "24px",
+        borderRadius: isMobile ? "24px" : "0",
         boxShadow: "0 20px 60px rgba(0,0,0,0.12)",
       }}
     >
-      {/* Green corner accents (L-shaped) */}
-      <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[24px]" />
-      <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[24px]" />
-      <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[24px]" />
-      <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[24px]" />
+      {/* Green corner accents (L-shaped) - only on mobile since desktop has flush nav buttons */}
+      {isMobile && (
+        <>
+          <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[24px]" />
+          <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[24px]" />
+          <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[24px]" />
+          <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[24px]" />
+        </>
+      )}
 
-      {/* SVG connector lines from center to specs */}
+      {/* SVG connector lines from center to specs - shortened, dashed */}
       <svg
         className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ borderRadius: "24px", overflow: "hidden" }}
+        style={{ borderRadius: isMobile ? "24px" : "0", overflow: "hidden" }}
       >
         {specPositions.map((pos, i) => {
           // Calculate approximate label center percentages
@@ -448,15 +468,20 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             labelY = 50;
           }
           
+          // Shorten the line: stop at 55% of the way to the label
+          const shortenedX = 50 + (labelX - 50) * 0.55;
+          const shortenedY = 50 + (labelY - 50) * 0.55;
+          
           return (
             <g key={i}>
               <line
                 x1="50%"
                 y1="50%"
-                x2={`${labelX}%`}
-                y2={`${labelY}%`}
-                stroke="rgba(0,188,125,0.4)"
-                strokeWidth="1"
+                x2={`${shortenedX}%`}
+                y2={`${shortenedY}%`}
+                stroke="rgba(0,188,125,0.35)"
+                strokeWidth="0.8"
+                strokeDasharray="4 3"
               />
               <circle
                 cx="50%"
@@ -469,18 +494,32 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         })}
       </svg>
 
-      {/* Project title */}
-      <div className="absolute top-6 left-0 right-0 flex justify-center">
+      {/* Project title - bigger and more obvious */}
+      <div className="absolute top-6 left-0 right-0 flex flex-col items-center">
         <p
           style={{
             fontFamily: "monospace",
-            fontSize: "11px",
-            letterSpacing: "4px",
+            fontSize: "18px",
+            fontWeight: 700,
+            letterSpacing: "3px",
             color: "#00915f",
             textTransform: "uppercase",
           }}
         >
           {project.title}
+        </p>
+        {/* Brief intro row under project title */}
+        <p
+          style={{
+            fontSize: "12px",
+            color: "rgba(0,0,0,0.5)",
+            fontFamily: "sans-serif",
+            textAlign: "center",
+            maxWidth: "80%",
+            margin: "4px auto 12px",
+          }}
+        >
+          {project.description}
         </p>
       </div>
 
@@ -510,7 +549,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         </AnimatePresence>
       </div>
 
-      {/* Spec labels scattered inside window */}
+      {/* Spec labels scattered inside window - lowkey style, no decorations */}
       {specPositions.map((pos, i) => (
         <motion.div
           key={`${selectedIndex}-${i}`}
@@ -523,27 +562,19 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           }}
         >
           <div
-            className="relative px-3 py-2 rounded-[4px]"
             style={{
-              background: "rgba(255,255,255,0.35)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "1px solid rgba(0,188,125,0.4)",
-              minWidth: isMobile ? "80px" : "100px",
+              background: "transparent",
+              padding: "2px 0",
+              borderBottom: "1px solid rgba(0,188,125,0.4)",
             }}
           >
-            {/* Mini green corner accents */}
-            <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-[#00bc7d] rounded-tl-[4px]" />
-            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-[#00bc7d] rounded-tr-[4px]" />
-            <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-[#00bc7d] rounded-bl-[4px]" />
-            <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-[#00bc7d] rounded-br-[4px]" />
-
             <p
               style={{
-                fontSize: isMobile ? "11px" : "13px",
+                fontSize: "12px",
                 fontFamily: "monospace",
-                letterSpacing: "0.5px",
-                color: "#00915f",
+                fontWeight: 700,
+                letterSpacing: "1px",
+                color: "#1a1a1a",
                 whiteSpace: "nowrap",
               }}
             >
@@ -553,21 +584,36 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         </motion.div>
       ))}
 
-      {/* Read More link */}
+      {/* Read More button - paper white with corner accents */}
       {route && (
         <div className="absolute bottom-6 left-0 right-0 flex justify-center">
           <Link href={route}>
             <span
-              className="transition-opacity hover:opacity-80"
+              className="relative inline-block transition-colors"
               style={{
+                background: "#fff",
+                padding: "10px 24px",
+                borderRadius: "8px",
                 fontFamily: "monospace",
-                fontSize: "12px",
-                letterSpacing: "1px",
-                color: "#00bc7d",
+                fontSize: "11px",
+                fontWeight: 700,
+                letterSpacing: "3px",
+                color: "#00915f",
                 cursor: "pointer",
               }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "rgba(0,188,125,0.04)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#fff";
+              }}
             >
-              Read More →
+              {/* L-shape corner accents (10px) */}
+              <span className="absolute top-0 left-0 w-[10px] h-[10px] border-t-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-tl-[4px]" />
+              <span className="absolute top-0 right-0 w-[10px] h-[10px] border-t-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-tr-[4px]" />
+              <span className="absolute bottom-0 left-0 w-[10px] h-[10px] border-b-[1.5px] border-l-[1.5px] border-[#00bc7d] rounded-bl-[4px]" />
+              <span className="absolute bottom-0 right-0 w-[10px] h-[10px] border-b-[1.5px] border-r-[1.5px] border-[#00bc7d] rounded-br-[4px]" />
+              READ MORE →
             </span>
           </Link>
         </div>
@@ -576,15 +622,15 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       {/* Mobile: Nav buttons inside showcase */}
       {isMobile && (
         <>
-          <NavButton direction="left" onClick={onPrev} disabled={!canGoPrev} isMobile={true} />
-          <NavButton direction="right" onClick={onNext} disabled={!canGoNext} isMobile={true} />
+          <MobileNavButton direction="left" onClick={onPrev} disabled={!canGoPrev} />
+          <MobileNavButton direction="right" onClick={onNext} disabled={!canGoNext} />
         </>
       )}
     </div>
   );
 }
 
-// Thumbnail Row Component
+// Thumbnail Row Component - now positioned below showcase, not fixed to bottom
 interface ThumbnailRowProps {
   ships: SpaceshipData[];
   selectedIndex: number;
@@ -595,55 +641,74 @@ interface ThumbnailRowProps {
 function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRowProps) {
   return (
     <div
+      className="flex justify-center items-start overflow-x-auto"
       style={{
-        background: "rgba(255,251,242,0.9)",
-        backdropFilter: "blur(16px)",
-        WebkitBackdropFilter: "blur(16px)",
-        borderTop: "1px solid rgba(0,0,0,0.06)",
-        padding: "12px 16px",
+        gap: "20px",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
       }}
     >
-      <div
-        className="flex justify-center items-center gap-4 overflow-x-auto"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-      >
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
-        {ships.map((ship, index) => {
-          const isActive = index === selectedIndex;
-          return (
-            <button
-              key={ship.key}
-              onClick={() => onSelect(index)}
-              className="flex-shrink-0 transition-all duration-200"
+      <style jsx>{`
+        div::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
+      {ships.map((ship, index) => {
+        const isActive = index === selectedIndex;
+        const project = projects[ship.key];
+        return (
+          <button
+            key={ship.key}
+            onClick={() => onSelect(index)}
+            className="flex-shrink-0 flex flex-col items-center transition-all duration-200"
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              padding: 0,
+            }}
+          >
+            <div
               style={{
-                width: isMobile ? "60px" : "80px",
-                height: isMobile ? "42px" : "56px",
-                opacity: isActive ? 1 : 0.5,
-                transform: isActive ? "scale(1.1)" : "scale(1)",
-                border: isActive ? "2px solid #00bc7d" : "2px solid transparent",
+                width: "80px",
+                height: "64px",
+                opacity: isActive ? 1 : 0.45,
+                border: isActive ? "1.5px solid #00bc7d" : "1.5px solid transparent",
                 borderRadius: "8px",
-                boxShadow: isActive ? "0 0 12px rgba(0,188,125,0.3)" : "none",
-                background: "transparent",
-                cursor: "pointer",
+                boxShadow: isActive ? "0 0 10px rgba(0,188,125,0.25)" : "none",
                 padding: "4px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <img
                 src={ship.src}
                 alt={ship.alt}
-                className="w-full h-full object-contain"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "contain",
+                }}
               />
-            </button>
-          );
-        })}
-      </div>
+            </div>
+            {/* Project short title under thumbnail */}
+            <p
+              style={{
+                fontSize: "9px",
+                fontFamily: "monospace",
+                letterSpacing: "1px",
+                color: "rgba(0,0,0,0.4)",
+                textAlign: "center",
+                marginTop: "4px",
+                textTransform: "uppercase",
+              }}
+            >
+              {project.title}
+            </p>
+          </button>
+        );
+      })}
     </div>
   );
 }
@@ -878,31 +943,38 @@ export default function KatesWebsite() {
         )}
       </AnimatePresence>
 
-      {/* Phase 2/3: Showcase Window with Nav Arrows */}
+      {/* Phase 2/3: Showcase Window with Nav Arrows + Thumbnail Strip below */}
       <AnimatePresence>
         {!isIntroPhase && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="fixed inset-0 flex flex-col items-center justify-center z-10"
-            style={{ paddingBottom: "120px" }}
+            className="z-10"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              minHeight: "100vh",
+              padding: "80px 0 40px",
+            }}
           >
-            {/* Nav row: left button + showcase + right button */}
+            {/* Showcase row: left btn + showcase + right btn (flush, no gap) */}
             <div
-              className="flex items-center justify-center w-full"
               style={{
-                gap: isMobile ? "0" : "24px",
-                padding: "0 24px",
+                display: "flex",
+                alignItems: "stretch",
+                justifyContent: "center",
               }}
             >
-              {/* Desktop left nav button */}
+              {/* Desktop left nav button - full height rectangle */}
               {!isMobile && (
-                <NavButton
+                <DesktopNavButton
                   direction="left"
                   onClick={goPrev}
                   disabled={selectedIndex === 0}
-                  isMobile={false}
+                  showcaseHeight="480px"
                 />
               )}
 
@@ -917,35 +989,36 @@ export default function KatesWebsite() {
                 isMobile={isMobile}
               />
 
-              {/* Desktop right nav button */}
+              {/* Desktop right nav button - full height rectangle */}
               {!isMobile && (
-                <NavButton
+                <DesktopNavButton
                   direction="right"
                   onClick={goNext}
                   disabled={selectedIndex === spaceships.length - 1}
-                  isMobile={false}
+                  showcaseHeight="480px"
                 />
               )}
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
-      {/* Thumbnail row - fixed to bottom */}
-      <AnimatePresence>
-        {!isIntroPhase && (
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="fixed bottom-0 left-0 right-0 z-30"
-          >
-            <ThumbnailRow
-              ships={spaceships}
-              selectedIndex={selectedIndex}
-              onSelect={setSelectedIndex}
-              isMobile={isMobile}
-            />
+            {/* Thumbnail strip directly below, with 24px gap */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              style={{
+                marginTop: "24px",
+                width: "100%",
+                maxWidth: "800px",
+                padding: "0 16px",
+              }}
+            >
+              <ThumbnailRow
+                ships={spaceships}
+                selectedIndex={selectedIndex}
+                onSelect={setSelectedIndex}
+                isMobile={isMobile}
+              />
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
