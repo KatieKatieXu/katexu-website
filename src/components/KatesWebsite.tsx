@@ -1034,8 +1034,8 @@ export default function KatesWebsite() {
         </div>
       </div>
 
-      {/* Credit line - fixed */}
-      <div className="fixed top-6 left-0 right-0 text-center z-10 px-4">
+      {/* Credit line - fixed footer */}
+      <div className="fixed bottom-4 left-0 right-0 text-center z-10 px-4 pointer-events-none">
         <p className="text-[10px] text-black/40 tracking-wide">
           🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
         </p>
