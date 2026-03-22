@@ -683,8 +683,10 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       <div
         style={{
           position: "absolute",
-          top: isMobile ? "-32px" : "-52px",
-          right: isMobile ? "4px" : "-30px",
+          top: isMobile ? "-32px" : "auto",
+          bottom: isMobile ? "auto" : "-52px",
+          right: isMobile ? "4px" : "auto",
+          left: isMobile ? "auto" : "-30px",
           zIndex: 50,
           pointerEvents: "none",
         }}
