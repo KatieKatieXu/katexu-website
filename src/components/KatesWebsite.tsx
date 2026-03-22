@@ -889,8 +889,7 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         {!isIntro && (
           <motion.div
             key="nameplate-specs"
-            className="flex fixed top-0 left-4 z-30 items-center gap-2"
-            style={{ height: "64px" }}
+            className="hidden md:flex absolute top-4 left-4 z-30 items-center gap-2"
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
@@ -919,8 +918,7 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         {!isIntro && (
           <motion.div
             key="resume-btn-specs"
-            className="fixed top-0 right-4 z-30 flex items-center"
-            style={{ height: "64px" }}
+            className="hidden md:flex absolute top-4 right-4 z-30 items-center"
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 16 }}
@@ -1010,8 +1008,8 @@ export default function KatesWebsite() {
 
   return (
     <div 
-      className="w-screen h-screen bg-[#fffbf2] relative overflow-hidden fixed inset-0"
-      style={{ touchAction: "none", overscrollBehavior: "none", maxWidth: "100vw" }}
+      className={`bg-[#fffbf2] relative ${isMobile ? "w-screen h-screen overflow-hidden fixed inset-0" : ""}`}
+      style={isMobile ? { touchAction: "none", overscrollBehavior: "none" } : { minWidth: "1024px", minHeight: "100vh" }}
     >
       {/* Fixed background layer */}
       <div className="fixed inset-0 pointer-events-none">
@@ -1048,15 +1046,7 @@ export default function KatesWebsite() {
         </div>
       </div>
 
-      {/* Footer — desktop only: tagline + credit stacked */}
-      <div className="hidden md:flex fixed bottom-3 left-0 right-0 flex-col items-center z-10 px-4 pointer-events-none" style={{ gap: "4px" }}>
-        <p className="text-[10px] tracking-[2px] uppercase font-semibold" style={{ color: "rgba(0,188,125,0.55)" }}>
-          ASKS THE RIGHT QUESTIONS · FRAMES THE GOAL · TURNS FUZZY THINKING INTO CLEAR DIRECTION
-        </p>
-        <p className="text-[10px] text-black/40 tracking-wide">
-          🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
-        </p>
-      </div>
+
 
       {/* Mission Command Glass Panel - fades out during transition */}
       <MissionCommand visible={isIntroPhase} />
@@ -1098,25 +1088,45 @@ export default function KatesWebsite() {
               padding: isMobile ? "8px 0 0" : "80px 0 40px",
             }}
           >
-            {/* Showcase row: left btn + showcase + right btn (flush, no gap) */}
+            {/* Desktop: tunnel on top */}
+            {!isMobile && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                style={{
+                  marginTop: "64px",
+                  width: "100vw",
+                  maxWidth: "100vw",
+                  padding: "16px 0",
+                  background: "rgba(255, 255, 255, 0.45)",
+                  backdropFilter: "blur(24px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                  borderTop: "1px solid rgba(255, 255, 255, 0.5)",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
+                  boxShadow: "0 8px 32px -4px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
+                  position: "relative",
+                  overflow: "visible",
+                }}
+              >
+                <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
+                <div style={{ position: "absolute", inset: "0 0 auto 0", height: "1px", pointerEvents: "none", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, transparent 100%)" }} />
+                <ThumbnailRow ships={spaceships} selectedIndex={selectedIndex} onSelect={setSelectedIndex} isMobile={false} />
+              </motion.div>
+            )}
+
+            {/* Showcase row */}
             <div
               style={{
                 display: "flex",
                 alignItems: "stretch",
                 justifyContent: "center",
+                marginTop: isMobile ? "0" : "12px",
               }}
             >
-              {/* Desktop left nav button - full height rectangle */}
               {!isMobile && (
-                <DesktopNavButton
-                  direction="left"
-                  onClick={goPrev}
-                  disabled={selectedIndex === 0}
-                  showcaseHeight={isMobile ? "72vh" : "620px"}
-                />
+                <DesktopNavButton direction="left" onClick={goPrev} disabled={selectedIndex === 0} showcaseHeight="620px" />
               )}
-
-              {/* Showcase Window */}
               <ShowcaseWindow
                 ship={selectedShip}
                 selectedIndex={selectedIndex}
@@ -1126,28 +1136,22 @@ export default function KatesWebsite() {
                 canGoNext={selectedIndex < spaceships.length - 1}
                 isMobile={isMobile}
               />
-
-              {/* Desktop right nav button - full height rectangle */}
               {!isMobile && (
-                <DesktopNavButton
-                  direction="right"
-                  onClick={goNext}
-                  disabled={selectedIndex === spaceships.length - 1}
-                  showcaseHeight={isMobile ? "72vh" : "620px"}
-                />
+                <DesktopNavButton direction="right" onClick={goNext} disabled={selectedIndex === spaceships.length - 1} showcaseHeight="620px" />
               )}
             </div>
 
-            {/* Thumbnail strip directly below, with 24px gap */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              style={{
-                marginTop: "12px",
-                width: "100vw",
-                maxWidth: "100vw",
-                padding: isMobile ? "8px 0" : "16px 0",
+            {/* Mobile: tunnel below showcase */}
+            {isMobile && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                style={{
+                  marginTop: "12px",
+                  width: "100vw",
+                  maxWidth: "100vw",
+                  padding: "8px 0",
                 background: "rgba(255, 255, 255, 0.45)",
                 backdropFilter: "blur(24px) saturate(180%)",
                 WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -1158,17 +1162,21 @@ export default function KatesWebsite() {
                 overflow: "visible",
               }}
             >
-              {/* Glass shine overlay */}
               <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
-              {/* Top edge highlight */}
               <div style={{ position: "absolute", inset: "0 0 auto 0", height: "1px", pointerEvents: "none", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, transparent 100%)" }} />
-              <ThumbnailRow
-                ships={spaceships}
-                selectedIndex={selectedIndex}
-                onSelect={setSelectedIndex}
-                isMobile={isMobile}
-              />
+              <ThumbnailRow ships={spaceships} selectedIndex={selectedIndex} onSelect={setSelectedIndex} isMobile={true} />
             </motion.div>
+            )}
+
+            {/* Desktop footer taglines — inline below showcase, scrolls with page */}
+            <div className="hidden md:flex flex-col items-center w-full pt-32 pb-8 pointer-events-none" style={{ gap: "8px" }}>
+              <p className="text-[12px] tracking-[2px] uppercase font-semibold" style={{ color: "rgba(0,188,125,0.75)" }}>
+                ASKS THE RIGHT QUESTIONS · FRAMES THE GOAL · TURNS FUZZY THINKING INTO CLEAR DIRECTION
+              </p>
+              <p className="text-[12px] tracking-wide" style={{ color: "rgba(0,0,0,0.5)" }}>
+                🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
+              </p>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
