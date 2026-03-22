@@ -684,8 +684,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         style={{
           position: "absolute",
           top: isMobile ? "-32px" : "-52px",
-          right: "-30px",
-          zIndex: 10,
+          right: isMobile ? "4px" : "-30px",
+          zIndex: 50,
           pointerEvents: "none",
         }}
       >
@@ -1011,7 +1011,7 @@ export default function KatesWebsite() {
   return (
     <div 
       className="w-screen h-screen bg-[#fffbf2] relative overflow-hidden fixed inset-0"
-      style={{ touchAction: "none", overscrollBehavior: "none" }}
+      style={{ touchAction: "none", overscrollBehavior: "none", maxWidth: "100vw" }}
     >
       {/* Fixed background layer */}
       <div className="fixed inset-0 pointer-events-none">
