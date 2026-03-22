@@ -891,23 +891,23 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         {!isIntro && (
           <motion.div
             key="nameplate-specs"
-            className="hidden md:flex absolute top-4 left-4 z-30 items-center gap-2"
+            className="flex absolute top-3 left-3 z-30 items-center gap-2"
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
             {/* Avatar */}
-            <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
+            <div className="w-7 h-7 md:w-9 md:h-9 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
               <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
             </div>
 
             {/* Name + role */}
             <div className="flex flex-col leading-tight">
-              <span className="text-[14px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
+              <span className="text-[12px] md:text-[14px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
                 Kate Xu
               </span>
-              <span className="text-[10px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">
+              <span className="text-[9px] md:text-[10px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">
                 Gen AI Product Designer
               </span>
             </div>
@@ -920,7 +920,7 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         {!isIntro && (
           <motion.div
             key="resume-btn-specs"
-            className="hidden md:flex absolute top-4 right-4 z-30 items-center"
+            className="flex absolute top-3 right-3 z-30 items-center"
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 16 }}
