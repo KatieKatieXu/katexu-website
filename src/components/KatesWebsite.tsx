@@ -886,62 +886,11 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         )}
       </AnimatePresence>
 
-      {/* ── SPECS: mobile nameplate — absolute top-left (original behaviour) ── */}
-      <AnimatePresence>
-        {!isIntro && isMobile && (
-          <motion.div
-            key="nameplate-mobile"
-            className="flex absolute top-3 left-3 z-30 items-center gap-2"
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -16 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
-              <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
-            </div>
-            <div className="flex flex-col leading-tight">
-              <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
-              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer</span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── SPECS: mobile resume button — absolute top-right ── */}
-      <AnimatePresence>
-        {!isIntro && isMobile && (
-          <motion.div
-            key="resume-btn-mobile"
-            className="flex absolute top-3 right-3 z-30 items-center"
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 16 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
-            <Link href="/resume">
-              <div
-                className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200"
-                style={{
-                  background: "rgba(255,255,255,0.55)",
-                  backdropFilter: "blur(16px) saturate(160%)",
-                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
-                  border: "1px solid rgba(0,188,125,0.35)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
-                }}
-              >
-                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">Resume</span>
-              </div>
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       {/* ── SPECS: desktop fixed header bar — name + role on left, Resume on right.
            Uses fixed positioning + its own frosted background so the tunnel
            can never slide up behind it regardless of viewport height. ── */}
       <AnimatePresence>
-        {!isIntro && !isMobile && (
+        {!isIntro && (
           <motion.div
             key="header-bar-specs"
             className="hidden md:flex fixed top-0 left-0 right-0 z-40 items-center justify-between px-4"
@@ -1236,6 +1185,57 @@ export default function KatesWebsite() {
                 🤍 This website is imagined and handcrafted by Kate and her beloved AIs 🤍
               </p>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile nameplate — absolute top-left, shown after intro */}
+      <AnimatePresence>
+        {phase === "specs" && isMobile && (
+          <motion.div
+            key="nameplate-mobile"
+            className="flex absolute top-3 left-3 z-30 items-center gap-2"
+            initial={{ opacity: 0, x: -16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -16 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
+              <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
+            </div>
+            <div className="flex flex-col leading-tight">
+              <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
+              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile resume button — absolute top-right, shown after intro */}
+      <AnimatePresence>
+        {phase === "specs" && isMobile && (
+          <motion.div
+            key="resume-btn-mobile"
+            className="flex absolute top-3 right-3 z-30 items-center"
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 16 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <Link href="/resume">
+              <div
+                className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200"
+                style={{
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(16px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                  border: "1px solid rgba(0,188,125,0.35)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                }}
+              >
+                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">Resume</span>
+              </div>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
