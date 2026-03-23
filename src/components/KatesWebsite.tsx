@@ -511,7 +511,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Divider */}
-          <div style={{ width: "100%", height: "1px", margin: isMobile ? "8px 0 16px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
+          <div style={{ width: "100%", height: "1px", margin: isMobile ? "4px 0 8px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
 
           {/* Project intro description — centered */}
           <p
@@ -522,7 +522,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               color: "#1d1d1f",
               fontWeight: 600,
               lineHeight: "1.3",
-              marginBottom: isMobile ? "10px" : "20px",
+              marginBottom: isMobile ? "6px" : "20px",
               marginTop: "0",
               textAlign: "center",
             }}
@@ -534,9 +534,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           <div
             style={{
               width: "100%",
-              height: isMobile ? "180px" : "240px",
-              minHeight: isMobile ? "180px" : "240px",
-              maxHeight: isMobile ? "180px" : "240px",
+              height: isMobile ? "28vh" : "240px",
+              minHeight: isMobile ? "100px" : "240px",
+              maxHeight: isMobile ? "160px" : "240px",
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderRadius: "8px",
@@ -566,7 +566,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Highlights — centered block */}
-          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "10px" : "32px" }}>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "6px" : "32px" }}>
             {isMobile ? (
               /* Mobile: inline-block table trick — shrinks to content, then margin:auto centers it */
               <div style={{ display: "table", margin: "0 auto" }}>
@@ -607,7 +607,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section + Read More button */}
-          <div style={{ marginTop: isMobile ? "12px" : "38px", paddingBottom: isMobile ? "8px" : "12px", display: "flex", justifyContent: "center" }}>
+          <div style={{ marginTop: isMobile ? "8px" : "38px", paddingBottom: isMobile ? "4px" : "12px", display: "flex", justifyContent: "center" }}>
             {route ? (
               <Link href={route} style={{ display: "block" }}>
                 <div
@@ -689,7 +689,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       <div
         style={{
           position: "absolute",
-          top: isMobile ? "-32px" : "auto",
+          top: isMobile ? "-24px" : "auto",
           bottom: isMobile ? "auto" : "-52px",
           right: isMobile ? "4px" : "auto",
           left: isMobile ? "auto" : "-30px",
@@ -709,7 +709,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               variants={floatingVariants}
               animate="float"
               custom={ship.floatParams}
-              style={{ width: isMobile ? "110px" : "180px" }}
+              style={{ width: isMobile ? "85px" : "180px" }}
             >
               <img
                 src={ship.src}
@@ -1072,7 +1072,7 @@ export default function KatesWebsite() {
                 ? {
                     // Mobile: fill full viewport, use space-between to push tunnel to bottom
                     height: "100vh",
-                    paddingTop: "calc(env(safe-area-inset-top, 0px) + 52px)", // clear safe area + nameplate
+                    paddingTop: "calc(env(safe-area-inset-top, 0px) + 44px)", // clear safe area + nameplate
                     paddingBottom: "0",
                     justifyContent: "space-between",
                     overflow: "hidden",
@@ -1118,6 +1118,8 @@ export default function KatesWebsite() {
                 alignItems: "stretch",
                 justifyContent: "center",
                 marginTop: isMobile ? "0" : "12px",
+                flex: isMobile ? "1 1 auto" : undefined,
+                minHeight: isMobile ? "0" : undefined,
                 flexShrink: 0,
               }}
             >
