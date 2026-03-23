@@ -1063,7 +1063,7 @@ export default function KatesWebsite() {
               // Desktop: natural page scroll (window scrolls, not an inner div).
               // paddingTop = fixed header height so tunnel appears immediately below it.
               ...(isMobile
-                ? { height: "100vh" }
+                ? { height: "100vh", paddingTop: "52px", overflow: "hidden" }
                 : {
                     minHeight: "100vh",
                     paddingTop: "52px",
