@@ -421,7 +421,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         overflow: "visible",
         width: isMobile ? "92vw" : "820px",
         maxWidth: "820px",
-        ...(isMobile ? { height: "100%", display: "flex", flexDirection: "column" as const } : {}),
+        ...(isMobile ? { height: "auto", position: "relative" as const } : {}),
       }}
     >
       {/* The frosted glass panel itself - liquid glass style */}
@@ -430,7 +430,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         onWheel={onWheel}
         style={{
           width: "100%",
-          height: isMobile ? "100%" : "clamp(400px, calc(100vh - 220px), 620px)",
+          height: isMobile ? "auto" : "clamp(400px, calc(100vh - 220px), 620px)",
+          ...(isMobile ? { maxHeight: "calc(100dvh - env(safe-area-inset-top, 0px) - 150px)" } : {}),
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -470,7 +471,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         />
 
         {/* Inner content area — centered column, scrollable on mobile */}
-        <div style={{ padding: isMobile ? "0 16px 6px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: 1, minHeight: 0, alignItems: "center", overflowY: isMobile ? "hidden" : "visible" }}>
+        <div style={{ padding: isMobile ? "0 16px 6px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: isMobile ? "0 1 auto" : 1, minHeight: 0, alignItems: "center", overflowY: isMobile ? "auto" : "visible" }}>
           {/* Title + category — left-aligned */}
           <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "4px" : "16px" }}>
             <p
@@ -536,7 +537,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               width: "100%",
               ...(isMobile
-                ? { flex: "1 1 0%", minHeight: "60px" }
+                ? { height: "100px", minHeight: "80px", maxHeight: "100px" }
                 : { height: "240px", minHeight: "240px", maxHeight: "240px" }),
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
@@ -690,9 +691,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       <div
         style={{
           position: "absolute",
-          top: isMobile ? "-24px" : "auto",
+          top: isMobile ? "8px" : "auto",
           bottom: isMobile ? "auto" : "-52px",
-          right: isMobile ? "4px" : "auto",
+          right: isMobile ? "8px" : "auto",
           left: isMobile ? "auto" : "-30px",
           zIndex: 50,
           pointerEvents: "none",
@@ -710,7 +711,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               variants={floatingVariants}
               animate="float"
               custom={ship.floatParams}
-              style={{ width: isMobile ? "85px" : "180px" }}
+              style={{ width: isMobile ? "65px" : "180px" }}
             >
               <img
                 src={ship.src}
@@ -1071,11 +1072,12 @@ export default function KatesWebsite() {
               // paddingTop = fixed header height so tunnel appears immediately below it.
               ...(isMobile
                 ? {
-                    // Mobile: fill full viewport, use space-between to push tunnel to bottom
+                    // Mobile: fill viewport, center content cluster
                     height: "100dvh",
                     paddingTop: "calc(env(safe-area-inset-top, 0px) + 44px)", // clear safe area + nameplate
                     paddingBottom: "env(safe-area-inset-bottom, 0px)",
-                    justifyContent: "space-between",
+                    justifyContent: "center",
+                    gap: "8px",
                     overflow: "hidden",
                   }
                 : {
@@ -1116,11 +1118,11 @@ export default function KatesWebsite() {
             <div
               style={{
                 display: "flex",
-                alignItems: "stretch",
+                alignItems: isMobile ? "center" : "stretch",
                 justifyContent: "center",
                 marginTop: isMobile ? "0" : "12px",
                 ...(isMobile
-                  ? { flex: "1 1 0%", minHeight: 0, overflow: "hidden" }
+                  ? { flex: "0 0 auto", overflow: "visible" }
                   : { flexShrink: 0 }),
               }}
             >
