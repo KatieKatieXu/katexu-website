@@ -886,46 +886,43 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
         )}
       </AnimatePresence>
 
-      {/* ── SPECS: horizontal nameplate, top-left ── */}
+      {/* ── SPECS: fixed header bar — name + role on left, Resume on right.
+           Uses fixed positioning + its own frosted background so the tunnel
+           can never slide up behind it regardless of viewport height. ── */}
       <AnimatePresence>
         {!isIntro && (
           <motion.div
-            key="nameplate-specs"
-            className="flex absolute top-3 left-3 z-30 items-center gap-2"
-            initial={{ opacity: 0, x: -16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -16 }}
+            key="header-bar-specs"
+            className="hidden md:flex fixed top-0 left-0 right-0 z-40 items-center justify-between px-4"
+            style={{
+              height: "52px",
+              background: "rgba(255, 251, 242, 0.82)",
+              backdropFilter: "blur(20px) saturate(160%)",
+              WebkitBackdropFilter: "blur(20px) saturate(160%)",
+              borderBottom: "1px solid rgba(0,188,125,0.15)",
+              boxShadow: "0 1px 12px rgba(0,0,0,0.06)",
+            }}
+            initial={{ opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {/* Avatar */}
-            <div className="w-7 h-7 md:w-9 md:h-9 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
-              <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
+            {/* Left: avatar + name + role */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
+                <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[14px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
+                  Kate Xu
+                </span>
+                <span className="text-[10px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">
+                  Gen AI Product Designer & Builder
+                </span>
+              </div>
             </div>
 
-            {/* Name + role */}
-            <div className="flex flex-col leading-tight">
-              <span className="text-[12px] md:text-[14px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">
-                Kate Xu
-              </span>
-              <span className="text-[9px] md:text-[10px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">
-                Gen AI Product Designer
-              </span>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* ── SPECS: Resume button, top-right ── */}
-      <AnimatePresence>
-        {!isIntro && (
-          <motion.div
-            key="resume-btn-specs"
-            className="flex absolute top-3 right-3 z-30 items-center"
-            initial={{ opacity: 0, x: 16 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 16 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
-          >
+            {/* Right: Resume button */}
             <Link href="/resume">
               <div
                 className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
@@ -1087,7 +1084,7 @@ export default function KatesWebsite() {
               alignItems: "center",
               justifyContent: "center",
               height: "100vh",
-              padding: isMobile ? "8px 0 0" : "80px 0 40px",
+              padding: isMobile ? "8px 0 0" : "52px 0 40px", // 52px = fixed header height on desktop
             }}
           >
             {/* Desktop: tunnel on top */}
@@ -1097,7 +1094,7 @@ export default function KatesWebsite() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 style={{
-                  marginTop: "64px",
+                  marginTop: "0px",
                   width: "100vw",
                   maxWidth: "100vw",
                   padding: "16px 0",
