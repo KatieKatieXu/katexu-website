@@ -409,6 +409,11 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
   const route = projectRoutes[ship.key];
   const benchmarks = project.benchmarks.slice(0, 4);
 
+  // Forward wheel events from the glass panel to window so trackpad scroll works on desktop
+  const onWheel = !isMobile
+    ? (e: React.WheelEvent) => { window.scrollBy({ top: e.deltaY, behavior: "auto" }); }
+    : undefined;
+
   return (
     <div
       style={{
@@ -421,6 +426,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
       {/* The frosted glass panel itself - liquid glass style */}
       <div
         className="relative"
+        onWheel={onWheel}
         style={{
           width: "100%",
           height: isMobile ? "auto" : "clamp(400px, calc(100vh - 220px), 620px)",
@@ -1075,8 +1081,6 @@ export default function KatesWebsite() {
                     minHeight: "100vh",
                     paddingTop: "52px",
                     paddingBottom: "40px",
-                    // Ensure scroll events reach window, not blocked by this div
-                    pointerEvents: "none",
                   }),
             }}
           >
@@ -1099,7 +1103,6 @@ export default function KatesWebsite() {
                   position: "relative",
                   overflow: "visible",
                   flexShrink: 0,
-                  pointerEvents: "auto", // re-enable for interactive tunnel
                 }}
               >
                 <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
@@ -1116,7 +1119,6 @@ export default function KatesWebsite() {
                 justifyContent: "center",
                 marginTop: isMobile ? "0" : "12px",
                 flexShrink: 0,
-                pointerEvents: "auto", // re-enable for showcase + nav buttons
               }}
             >
               {!isMobile && (
