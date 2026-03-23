@@ -966,10 +966,32 @@ export default function KatesWebsite() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Skip intro entirely — go straight to showcase
+  // Phase transition timer — skip intro if already seen this session
   useEffect(() => {
     if (!mounted) return;
-    setPhase("specs");
+
+    const alreadySeen = sessionStorage.getItem("katexu-intro-seen");
+
+    if (alreadySeen) {
+      // Skip straight to showcase
+      setPhase("specs");
+      return;
+    }
+
+    // First visit: play the animation, then mark as seen
+    const transitionTimer = setTimeout(() => {
+      setPhase("transition");
+    }, 2000);
+
+    const specsTimer = setTimeout(() => {
+      setPhase("specs");
+      sessionStorage.setItem("katexu-intro-seen", "1");
+    }, 3200);
+
+    return () => {
+      clearTimeout(transitionTimer);
+      clearTimeout(specsTimer);
+    };
   }, [mounted]);
 
   if (!mounted) {
