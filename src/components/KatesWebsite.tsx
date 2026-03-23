@@ -421,6 +421,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         overflow: "visible",
         width: isMobile ? "92vw" : "820px",
         maxWidth: "820px",
+        ...(isMobile ? { height: "100%", display: "flex", flexDirection: "column" as const } : {}),
       }}
     >
       {/* The frosted glass panel itself - liquid glass style */}
@@ -429,7 +430,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         onWheel={onWheel}
         style={{
           width: "100%",
-          height: isMobile ? "auto" : "clamp(400px, calc(100vh - 220px), 620px)",
+          height: isMobile ? "100%" : "clamp(400px, calc(100vh - 220px), 620px)",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -469,9 +470,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         />
 
         {/* Inner content area — centered column, scrollable on mobile */}
-        <div style={{ padding: isMobile ? "0 16px 12px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: 1, alignItems: "center", overflowY: isMobile ? "auto" : "visible" }}>
+        <div style={{ padding: isMobile ? "0 16px 6px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: 1, minHeight: 0, alignItems: "center", overflowY: isMobile ? "hidden" : "visible" }}>
           {/* Title + category — left-aligned */}
-          <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "8px" : "16px" }}>
+          <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "4px" : "16px" }}>
             <p
               style={{
                 fontFamily: "monospace",
@@ -511,7 +512,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Divider */}
-          <div style={{ width: "100%", height: "1px", margin: isMobile ? "4px 0 8px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
+          <div style={{ width: "100%", height: "1px", margin: isMobile ? "4px 0 4px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
 
           {/* Project intro description — centered */}
           <p
@@ -522,7 +523,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               color: "#1d1d1f",
               fontWeight: 600,
               lineHeight: "1.3",
-              marginBottom: isMobile ? "6px" : "20px",
+              marginBottom: isMobile ? "4px" : "20px",
               marginTop: "0",
               textAlign: "center",
             }}
@@ -534,9 +535,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           <div
             style={{
               width: "100%",
-              height: isMobile ? "28vh" : "240px",
-              minHeight: isMobile ? "100px" : "240px",
-              maxHeight: isMobile ? "160px" : "240px",
+              ...(isMobile
+                ? { flex: "1 1 0%", minHeight: "60px" }
+                : { height: "240px", minHeight: "240px", maxHeight: "240px" }),
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
               borderRadius: "8px",
@@ -566,7 +567,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Highlights — centered block */}
-          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "6px" : "32px" }}>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "4px" : "32px", flexShrink: 0 }}>
             {isMobile ? (
               /* Mobile: inline-block table trick — shrinks to content, then margin:auto centers it */
               <div style={{ display: "table", margin: "0 auto" }}>
@@ -576,7 +577,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-                    style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "6px" }}
+                    style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "3px" }}
                   >
                     <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "4px", display: "inline-block" }} />
                     <p style={{ fontSize: "12px", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#1d1d1f", fontWeight: 400, margin: 0, lineHeight: "1.4", whiteSpace: "nowrap" }}>
@@ -607,7 +608,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section + Read More button */}
-          <div style={{ marginTop: isMobile ? "8px" : "38px", paddingBottom: isMobile ? "4px" : "12px", display: "flex", justifyContent: "center" }}>
+          <div style={{ marginTop: isMobile ? "4px" : "38px", paddingBottom: isMobile ? "2px" : "12px", display: "flex", justifyContent: "center", flexShrink: 0 }}>
             {route ? (
               <Link href={route} style={{ display: "block" }}>
                 <div
@@ -991,8 +992,8 @@ export default function KatesWebsite() {
 
   return (
     <div 
-      className={`bg-[#fffbf2] relative ${isMobile ? "w-screen h-screen overflow-hidden fixed inset-0" : ""}`}
-      style={isMobile ? { touchAction: "none", overscrollBehavior: "none" } : { minWidth: "1024px", minHeight: "100vh", overflowX: "hidden" }}
+      className={`bg-[#fffbf2] relative ${isMobile ? "w-screen overflow-hidden fixed inset-0" : ""}`}
+      style={isMobile ? { height: "100dvh", touchAction: "none", overscrollBehavior: "none" } : { minWidth: "1024px", minHeight: "100vh", overflowX: "hidden" }}
     >
       {/* Fixed background layer */}
       <div className="fixed inset-0 pointer-events-none">
@@ -1071,9 +1072,9 @@ export default function KatesWebsite() {
               ...(isMobile
                 ? {
                     // Mobile: fill full viewport, use space-between to push tunnel to bottom
-                    height: "100vh",
+                    height: "100dvh",
                     paddingTop: "calc(env(safe-area-inset-top, 0px) + 44px)", // clear safe area + nameplate
-                    paddingBottom: "0",
+                    paddingBottom: "env(safe-area-inset-bottom, 0px)",
                     justifyContent: "space-between",
                     overflow: "hidden",
                   }
@@ -1118,9 +1119,9 @@ export default function KatesWebsite() {
                 alignItems: "stretch",
                 justifyContent: "center",
                 marginTop: isMobile ? "0" : "12px",
-                flex: isMobile ? "1 1 auto" : undefined,
-                minHeight: isMobile ? "0" : undefined,
-                flexShrink: 0,
+                ...(isMobile
+                  ? { flex: "1 1 0%", minHeight: 0, overflow: "hidden" }
+                  : { flexShrink: 0 }),
               }}
             >
               {!isMobile && (
