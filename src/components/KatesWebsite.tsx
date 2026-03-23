@@ -1072,7 +1072,7 @@ export default function KatesWebsite() {
                 ? {
                     // Mobile: fill full viewport, use space-between to push tunnel to bottom
                     height: "100vh",
-                    paddingTop: "52px", // clear fixed nameplate
+                    paddingTop: "44px", // clear absolute nameplate (~36px + 8px gap)
                     paddingBottom: "0",
                     justifyContent: "space-between",
                     overflow: "hidden",
