@@ -416,6 +416,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         overflow: "visible",
         width: isMobile ? "92vw" : "820px",
         maxWidth: "820px",
+        // Mobile: grow to fill space between header and tunnel
+        ...(isMobile ? { flex: 1, display: "flex", flexDirection: "column", minHeight: 0 } : {}),
       }}
     >
       {/* The frosted glass panel itself - liquid glass style */}
@@ -423,7 +425,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         className="relative"
         style={{
           width: "100%",
-          height: isMobile ? "auto" : "clamp(400px, calc(100vh - 220px), 620px)",
+          height: isMobile ? "100%" : "clamp(400px, calc(100vh - 220px), 620px)",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -1063,11 +1065,20 @@ export default function KatesWebsite() {
               // Desktop: natural page scroll (window scrolls, not an inner div).
               // paddingTop = fixed header height so tunnel appears immediately below it.
               ...(isMobile
-                ? { height: "100vh", paddingTop: "52px", overflow: "hidden" }
+                ? {
+                    // Mobile: fill full viewport, use space-between to push tunnel to bottom
+                    height: "100vh",
+                    paddingTop: "52px", // clear fixed nameplate
+                    paddingBottom: "0",
+                    justifyContent: "space-between",
+                    overflow: "hidden",
+                  }
                 : {
                     minHeight: "100vh",
                     paddingTop: "52px",
                     paddingBottom: "40px",
+                    // Ensure scroll events reach window, not blocked by this div
+                    pointerEvents: "none",
                   }),
             }}
           >
@@ -1090,6 +1101,7 @@ export default function KatesWebsite() {
                   position: "relative",
                   overflow: "visible",
                   flexShrink: 0,
+                  pointerEvents: "auto", // re-enable for interactive tunnel
                 }}
               >
                 <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
@@ -1106,6 +1118,7 @@ export default function KatesWebsite() {
                 justifyContent: "center",
                 marginTop: isMobile ? "0" : "12px",
                 flexShrink: 0,
+                pointerEvents: "auto", // re-enable for showcase + nav buttons
               }}
             >
               {!isMobile && (
@@ -1132,19 +1145,20 @@ export default function KatesWebsite() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 style={{
-                  marginTop: "12px",
                   width: "100vw",
                   maxWidth: "100vw",
                   padding: "8px 0",
-                background: "rgba(255, 255, 255, 0.45)",
-                backdropFilter: "blur(24px) saturate(180%)",
-                WebkitBackdropFilter: "blur(24px) saturate(180%)",
-                borderTop: "1px solid rgba(255, 255, 255, 0.5)",
-                borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
-                boxShadow: "0 8px 32px -4px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
-                position: "relative",
-                overflow: "visible",
-              }}
+                  background: "rgba(255, 255, 255, 0.45)",
+                  backdropFilter: "blur(24px) saturate(180%)",
+                  WebkitBackdropFilter: "blur(24px) saturate(180%)",
+                  borderTop: "1px solid rgba(255, 255, 255, 0.5)",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.5)",
+                  boxShadow: "0 8px 32px -4px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
+                  position: "relative",
+                  overflow: "visible",
+                  pointerEvents: "auto",
+                  flexShrink: 0, // don't let tunnel get squeezed away
+                }}
             >
               <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
               <div style={{ position: "absolute", inset: "0 0 auto 0", height: "1px", pointerEvents: "none", background: "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 20%, rgba(255,255,255,0.8) 80%, transparent 100%)" }} />
