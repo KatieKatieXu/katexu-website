@@ -1072,7 +1072,7 @@ export default function KatesWebsite() {
                 ? {
                     // Mobile: fill full viewport, use space-between to push tunnel to bottom
                     height: "100vh",
-                    paddingTop: "44px", // clear absolute nameplate (~36px + 8px gap)
+                    paddingTop: "calc(env(safe-area-inset-top, 0px) + 52px)", // clear safe area + nameplate
                     paddingBottom: "0",
                     justifyContent: "space-between",
                     overflow: "hidden",
@@ -1184,7 +1184,8 @@ export default function KatesWebsite() {
         {phase === "specs" && isMobile && (
           <motion.div
             key="nameplate-mobile"
-            className="flex absolute top-3 left-3 z-30 items-center gap-2"
+            className="flex absolute left-3 z-30 items-center gap-2"
+            style={{ top: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
@@ -1206,7 +1207,8 @@ export default function KatesWebsite() {
         {phase === "specs" && isMobile && (
           <motion.div
             key="resume-btn-mobile"
-            className="flex absolute top-3 right-3 z-30 items-center"
+            className="flex absolute right-3 z-30 items-center"
+            style={{ top: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 16 }}
