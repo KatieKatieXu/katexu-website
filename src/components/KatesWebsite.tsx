@@ -537,7 +537,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               width: "100%",
               ...(isMobile
-                ? { height: "100px", minHeight: "80px", maxHeight: "100px" }
+                ? { height: "120px", minHeight: "100px", maxHeight: "120px" }
                 : { height: "240px", minHeight: "240px", maxHeight: "240px" }),
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
@@ -1076,8 +1076,8 @@ export default function KatesWebsite() {
                     height: "100dvh",
                     paddingTop: "calc(env(safe-area-inset-top, 0px) + 44px)", // clear safe area + nameplate
                     paddingBottom: "env(safe-area-inset-bottom, 0px)",
-                    justifyContent: "center",
-                    gap: "8px",
+                    justifyContent: "space-between",
+                    gap: "0px",
                     overflow: "hidden",
                   }
                 : {
@@ -1114,6 +1114,9 @@ export default function KatesWebsite() {
               </motion.div>
             )}
 
+            {/* Mobile top spacer — pushes showcase toward center while tunnel stays at bottom */}
+            {isMobile && <div style={{ flex: "1 1 0%" }} />}
+
             {/* Showcase row — shrinks gracefully on short viewports */}
             <div
               style={{
@@ -1142,6 +1145,9 @@ export default function KatesWebsite() {
                 <DesktopNavButton direction="right" onClick={goNext} disabled={selectedIndex === spaceships.length - 1} showcaseHeight="clamp(400px, calc(100vh - 220px), 620px)" />
               )}
             </div>
+
+            {/* Mobile bottom spacer — pushes tunnel to bottom */}
+            {isMobile && <div style={{ flex: "1 1 0%" }} />}
 
             {/* Mobile: tunnel below showcase */}
             {isMobile && (
