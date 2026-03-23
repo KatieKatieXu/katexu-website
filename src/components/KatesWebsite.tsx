@@ -1010,7 +1010,7 @@ export default function KatesWebsite() {
   return (
     <div 
       className={`bg-[#fffbf2] relative ${isMobile ? "w-screen h-screen overflow-hidden fixed inset-0" : ""}`}
-      style={isMobile ? { touchAction: "none", overscrollBehavior: "none" } : { minWidth: "1024px", minHeight: "100vh" }}
+      style={isMobile ? { touchAction: "none", overscrollBehavior: "none" } : { minWidth: "1024px", minHeight: "100vh", overflowX: "hidden" }}
     >
       {/* Fixed background layer */}
       <div className="fixed inset-0 pointer-events-none">
@@ -1084,7 +1084,7 @@ export default function KatesWebsite() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              // Desktop: scroll the page rather than compress/hide content.
+              // Desktop: natural page scroll (window scrolls, not an inner div).
               // paddingTop = fixed header height so tunnel appears immediately below it.
               ...(isMobile
                 ? { height: "100vh" }
@@ -1092,7 +1092,6 @@ export default function KatesWebsite() {
                     minHeight: "100vh",
                     paddingTop: "52px",
                     paddingBottom: "40px",
-                    overflowY: "auto",
                   }),
             }}
           >
