@@ -416,8 +416,6 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         overflow: "visible",
         width: isMobile ? "92vw" : "820px",
         maxWidth: "820px",
-        // Mobile: grow to fill space between header and tunnel
-        ...(isMobile ? { flex: 1, display: "flex", flexDirection: "column", minHeight: 0 } : {}),
       }}
     >
       {/* The frosted glass panel itself - liquid glass style */}
@@ -425,7 +423,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         className="relative"
         style={{
           width: "100%",
-          height: isMobile ? "100%" : "clamp(400px, calc(100vh - 220px), 620px)",
+          height: isMobile ? "auto" : "clamp(400px, calc(100vh - 220px), 620px)",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
