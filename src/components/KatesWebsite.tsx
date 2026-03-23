@@ -423,7 +423,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         className="relative"
         style={{
           width: "100%",
-          height: isMobile ? "auto" : "620px",
+          height: isMobile ? "auto" : "clamp(400px, calc(100vh - 220px), 620px)",
           background: "rgba(255, 255, 255, 0.45)",
           backdropFilter: "blur(24px) saturate(180%)",
           WebkitBackdropFilter: "blur(24px) saturate(180%)",
@@ -1082,19 +1082,25 @@ export default function KatesWebsite() {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center",
-              height: "100vh",
-              padding: isMobile ? "8px 0 0" : "52px 0 40px", // 52px = fixed header height on desktop
+              // Desktop: scroll the page rather than compress/hide content.
+              // paddingTop = fixed header height so tunnel appears immediately below it.
+              ...(isMobile
+                ? { height: "100vh" }
+                : {
+                    minHeight: "100vh",
+                    paddingTop: "52px",
+                    paddingBottom: "40px",
+                    overflowY: "auto",
+                  }),
             }}
           >
-            {/* Desktop: tunnel on top */}
+            {/* Desktop: tunnel — always the first thing visible below the fixed header */}
             {!isMobile && (
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.4 }}
                 style={{
-                  marginTop: "0px",
                   width: "100vw",
                   maxWidth: "100vw",
                   padding: "16px 0",
@@ -1106,6 +1112,7 @@ export default function KatesWebsite() {
                   boxShadow: "0 8px 32px -4px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6), inset 0 -1px 0 rgba(255,255,255,0.2)",
                   position: "relative",
                   overflow: "visible",
+                  flexShrink: 0,
                 }}
               >
                 <div style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 100%)" }} />
@@ -1114,17 +1121,18 @@ export default function KatesWebsite() {
               </motion.div>
             )}
 
-            {/* Showcase row */}
+            {/* Showcase row — shrinks gracefully on short viewports */}
             <div
               style={{
                 display: "flex",
                 alignItems: "stretch",
                 justifyContent: "center",
                 marginTop: isMobile ? "0" : "12px",
+                flexShrink: 0,
               }}
             >
               {!isMobile && (
-                <DesktopNavButton direction="left" onClick={goPrev} disabled={selectedIndex === 0} showcaseHeight="620px" />
+                <DesktopNavButton direction="left" onClick={goPrev} disabled={selectedIndex === 0} showcaseHeight="clamp(400px, calc(100vh - 220px), 620px)" />
               )}
               <ShowcaseWindow
                 ship={selectedShip}
@@ -1136,7 +1144,7 @@ export default function KatesWebsite() {
                 isMobile={isMobile}
               />
               {!isMobile && (
-                <DesktopNavButton direction="right" onClick={goNext} disabled={selectedIndex === spaceships.length - 1} showcaseHeight="620px" />
+                <DesktopNavButton direction="right" onClick={goNext} disabled={selectedIndex === spaceships.length - 1} showcaseHeight="clamp(400px, calc(100vh - 220px), 620px)" />
               )}
             </div>
 
