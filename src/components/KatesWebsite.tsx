@@ -471,9 +471,9 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
         />
 
         {/* Inner content area — centered column, scrollable on mobile */}
-        <div style={{ padding: isMobile ? "0 16px 6px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: isMobile ? "0 1 auto" : 1, minHeight: 0, alignItems: "center", overflowY: isMobile ? "auto" : "visible" }}>
+        <div style={{ padding: isMobile ? "0 16px 12px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: isMobile ? "0 1 auto" : 1, minHeight: 0, alignItems: "center", overflowY: isMobile ? "auto" : "visible" }}>
           {/* Title + category — left-aligned */}
-          <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "4px" : "16px" }}>
+          <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "10px" : "16px" }}>
             <p
               style={{
                 fontFamily: "monospace",
@@ -513,7 +513,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Divider */}
-          <div style={{ width: "100%", height: "1px", margin: isMobile ? "4px 0 4px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
+          <div style={{ width: "100%", height: "1px", margin: isMobile ? "8px 0 10px" : "14px 0 20px", background: "rgba(200,200,200,0.5)" }} />
 
           {/* Project intro description — centered */}
           <p
@@ -524,7 +524,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               color: "#1d1d1f",
               fontWeight: 600,
               lineHeight: "1.3",
-              marginBottom: isMobile ? "4px" : "20px",
+              marginBottom: isMobile ? "10px" : "20px",
               marginTop: "0",
               textAlign: "center",
             }}
@@ -537,7 +537,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
             style={{
               width: "100%",
               ...(isMobile
-                ? { height: "120px", minHeight: "100px", maxHeight: "120px" }
+                ? { height: "150px", minHeight: "120px", maxHeight: "150px" }
                 : { height: "240px", minHeight: "240px", maxHeight: "240px" }),
               background: "rgba(255,255,255,0.5)",
               border: "1px solid rgba(255,255,255,0.4)",
@@ -568,7 +568,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Highlights — centered block */}
-          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "4px" : "32px", flexShrink: 0 }}>
+          <div style={{ width: "100%", display: "flex", justifyContent: "center", marginTop: isMobile ? "12px" : "32px", flexShrink: 0 }}>
             {isMobile ? (
               /* Mobile: inline-block table trick — shrinks to content, then margin:auto centers it */
               <div style={{ display: "table", margin: "0 auto" }}>
@@ -578,7 +578,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.1 + i * 0.05 }}
-                    style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "3px" }}
+                    style={{ display: "flex", alignItems: "flex-start", gap: "6px", marginBottom: "5px" }}
                   >
                     <span style={{ width: "5px", height: "5px", borderRadius: "50%", background: "#00bc7d", flexShrink: 0, marginTop: "4px", display: "inline-block" }} />
                     <p style={{ fontSize: "12px", fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", color: "#1d1d1f", fontWeight: 400, margin: 0, lineHeight: "1.4", whiteSpace: "nowrap" }}>
@@ -609,7 +609,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           </div>
 
           {/* Bottom section + Read More button */}
-          <div style={{ marginTop: isMobile ? "4px" : "38px", paddingBottom: isMobile ? "2px" : "12px", display: "flex", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ marginTop: isMobile ? "12px" : "38px", paddingBottom: isMobile ? "6px" : "12px", display: "flex", justifyContent: "center", flexShrink: 0 }}>
             {route ? (
               <Link href={route} style={{ display: "block" }}>
                 <div
