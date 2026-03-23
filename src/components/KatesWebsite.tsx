@@ -966,34 +966,10 @@ export default function KatesWebsite() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Desktop: skip intro entirely, go straight to showcase.
-  // Mobile: keep the full intro animation (layout depends on it).
+  // Skip intro on all devices — go straight to showcase
   useEffect(() => {
     if (!mounted) return;
-
-    if (window.innerWidth >= 768) {
-      // Desktop — no animation, instant showcase
-      setPhase("specs");
-      return;
-    }
-
-    // Mobile — play intro as before
-    const alreadySeen = sessionStorage.getItem("katexu-intro-seen");
-    if (alreadySeen) {
-      setPhase("specs");
-      return;
-    }
-
-    const transitionTimer = setTimeout(() => setPhase("transition"), 2000);
-    const specsTimer = setTimeout(() => {
-      setPhase("specs");
-      sessionStorage.setItem("katexu-intro-seen", "1");
-    }, 3200);
-
-    return () => {
-      clearTimeout(transitionTimer);
-      clearTimeout(specsTimer);
-    };
+    setPhase("specs");
   }, [mounted]);
 
   if (!mounted) {
