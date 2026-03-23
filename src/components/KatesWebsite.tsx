@@ -866,7 +866,7 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
               <div className="flex flex-col items-center mt-2">
                 <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">Gen AI</p>
                 <div className="flex items-center justify-center gap-2 mt-0.5">
-                  <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">Product Designer</p>
+                  <p className="text-[10px] font-bold text-[#6a7282] tracking-[2px] uppercase">Product Designer & Builder</p>
                   <div className="w-1.5 h-1.5 rounded-full bg-[#00bc7d]" />
                 </div>
               </div>
@@ -1207,7 +1207,7 @@ export default function KatesWebsite() {
             </div>
             <div className="flex flex-col leading-tight">
               <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
-              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer</span>
+              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer & Builder</span>
             </div>
           </motion.div>
         )}

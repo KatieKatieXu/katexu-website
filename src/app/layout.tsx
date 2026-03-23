@@ -24,7 +24,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Kate Xu - Product Designer",
+  title: "Kate Xu - Product Designer & Builder",
   description: "Creating things fun and beautiful",
 };
 
