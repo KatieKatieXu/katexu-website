@@ -30,7 +30,7 @@ const sections = {
       <div className="space-y-[32px]">
         {/* Cover image */}
         <div className="rounded-[16px] overflow-hidden">
-          <img src="/jobpilot-cover.png" alt="Jobpilot product screenshot" className="w-full h-auto object-cover" />
+          <img src="/jobpilot-cover.gif" alt="Jobpilot product demo" className="w-full h-auto object-cover" />
         </div>
 
         <div className="space-y-[24px]">
@@ -78,70 +78,101 @@ const sections = {
     ),
   },
   features: {
-    title: "4 Features That Actually Help",
+    title: "5 Features That Actually Help",
     subtitle: "Project Detail: 02 — Product Overview",
     content: (
       <div className="space-y-[24px]">
-        {/* Feature 1 */}
+        {/* Feature 1 - Resume Reviser */}
         <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
           <div className="flex items-start gap-[16px]">
             <div className="w-[48px] h-[48px] bg-gradient-to-br from-purple-500 to-indigo-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
               <span className="text-[24px]">🧠</span>
             </div>
-            <div>
+            <div className="flex-1">
               <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 01</p>
               <h4 className="text-[20px] font-bold text-gray-900 mb-[8px]">Resume Reviser</h4>
-              <p className="text-[15px] text-gray-600 leading-[1.6]">
+              <p className="text-[15px] text-gray-600 leading-[1.6] mb-[16px]">
                 Upload any PDF — even image-based ones. Claude Vision extracts the text, analyzes it, and surfaces 6–10 structured improvement suggestions. You approve or edit each one. Export a revised, ATS-ready resume.
               </p>
+              <div className="rounded-[12px] overflow-hidden border border-[#e5e7eb] shadow-sm">
+                <img src="/jobpilot-resume.gif" alt="Resume Reviser demo" className="w-full h-auto" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Feature 2 */}
+        {/* Feature 2 - Job Matching */}
         <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
           <div className="flex items-start gap-[16px]">
             <div className="w-[48px] h-[48px] bg-gradient-to-br from-blue-500 to-cyan-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
               <span className="text-[24px]">✈️</span>
             </div>
-            <div>
+            <div className="flex-1">
               <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 02</p>
               <h4 className="text-[20px] font-bold text-gray-900 mb-[8px]">Job Matching</h4>
-              <p className="text-[15px] text-gray-600 leading-[1.6]">
+              <p className="text-[15px] text-gray-600 leading-[1.6] mb-[16px]">
                 Jobs ranked by interview probability — not just keyword match. Each role includes a &ldquo;Why this role for you&rdquo; brief: company outlook + personal compatibility signal. No more applying blind.
               </p>
+              <div className="rounded-[12px] overflow-hidden border border-[#e5e7eb] shadow-sm">
+                <img src="/jobpilot-jobs.gif" alt="Job Matching demo" className="w-full h-auto" />
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Feature 3 */}
-        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
-          <div className="flex items-start gap-[16px]">
-            <div className="w-[48px] h-[48px] bg-gradient-to-br from-amber-500 to-orange-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
-              <span className="text-[24px]">📋</span>
-            </div>
-            <div>
-              <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 03</p>
-              <h4 className="text-[20px] font-bold text-gray-900 mb-[8px]">Form Assist</h4>
-              <p className="text-[15px] text-gray-600 leading-[1.6]">
-                All profile info pre-filled and copyable by section. Name, experience, skills, links — organized and one-click ready. No more retyping the same info across 100 different job portals.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Feature 4 */}
+        {/* Feature 3 - Market Analysis */}
         <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
           <div className="flex items-start gap-[16px]">
             <div className="w-[48px] h-[48px] bg-gradient-to-br from-emerald-500 to-teal-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
+              <span className="text-[24px]">📈</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 03</p>
+              <h4 className="text-[20px] font-bold text-gray-900 mb-[8px]">Market Analysis</h4>
+              <p className="text-[15px] text-gray-600 leading-[1.6] mb-[16px]">
+                AI analyzes your profile and tells you your best-fit roles, what company types you&apos;ll win at, and specific LinkedIn optimizations. Market fit score shows how well-positioned you are.
+              </p>
+              <div className="rounded-[12px] overflow-hidden border border-[#e5e7eb] shadow-sm">
+                <img src="/jobpilot-market.gif" alt="Market Analysis demo" className="w-full h-auto" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Feature 4 - Stories Bank */}
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
+          <div className="flex items-start gap-[16px]">
+            <div className="w-[48px] h-[48px] bg-gradient-to-br from-amber-500 to-orange-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
+              <span className="text-[24px]">📖</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 04</p>
+              <h4 className="text-[20px] font-bold text-gray-900 mb-[8px]">Stories Bank</h4>
+              <p className="text-[15px] text-gray-600 leading-[1.6] mb-[16px]">
+                Save your career stories for interviews and applications. AI suggests questions based on your profile. Search instantly when filling out application forms — your answers power personalized cover letters.
+              </p>
+              <div className="rounded-[12px] overflow-hidden border border-[#e5e7eb] shadow-sm">
+                <img src="/jobpilot-stories.gif" alt="Stories Bank demo" className="w-full h-auto" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Feature 5 - Application Tracker */}
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
+          <div className="flex items-start gap-[16px]">
+            <div className="w-[48px] h-[48px] bg-gradient-to-br from-pink-500 to-rose-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
               <span className="text-[24px]">📊</span>
             </div>
-            <div>
-              <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 04</p>
+            <div className="flex-1">
+              <p className="text-[11px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[4px]">Feature 05</p>
               <h4 className="text-[20px] font-bold text-gray-900 mb-[8px]">Application Tracker</h4>
-              <p className="text-[15px] text-gray-600 leading-[1.6]">
+              <p className="text-[15px] text-gray-600 leading-[1.6] mb-[16px]">
                 Kanban board to track every application: <span className="font-medium">Saved → Applied → Interviewing → Offer → Rejected</span>. Know exactly where you stand across your entire pipeline at a glance.
               </p>
+              <div className="rounded-[12px] overflow-hidden border border-[#e5e7eb] shadow-sm">
+                <img src="/jobpilot-applications.gif" alt="Application Tracker demo" className="w-full h-auto" />
+              </div>
             </div>
           </div>
         </div>
@@ -454,7 +485,7 @@ export default function JobpilotPage() {
             </div>
             <div className="flex items-center justify-center gap-2 mt-2 pb-6">
               <div className="w-2 h-2 rounded-full bg-[#1e2939] opacity-60" />
-              <p className="text-xs font-bold text-[#6a7282] tracking-[3px] uppercase">Product Designer</p>
+              <p className="text-xs font-bold text-[#6a7282] tracking-[3px] uppercase">Designer & Builder</p>
             </div>
           </div>
         </div>
@@ -507,7 +538,7 @@ export default function JobpilotPage() {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#101828] leading-tight tracking-[2.1px] uppercase">Kate Xu</p>
-                  <p className="text-[8px] text-[#99a1af] uppercase tracking-[1px]">Designer</p>
+                  <p className="text-[8px] text-[#99a1af] uppercase tracking-[1px]">Designer & Builder</p>
                 </div>
               </div>
             </div>
@@ -582,7 +613,7 @@ export default function JobpilotPage() {
             </div>
             <div>
               <p className="text-[10px] font-semibold text-gray-900">Kate Xu</p>
-              <p className="text-[8px] text-gray-500 uppercase tracking-wider">Designer</p>
+              <p className="text-[8px] text-gray-500 uppercase tracking-wider">Designer & Builder</p>
             </div>
           </div>
           <div className="w-10" />

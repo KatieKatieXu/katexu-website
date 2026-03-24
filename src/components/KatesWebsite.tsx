@@ -65,7 +65,7 @@ const projects = {
     title: "JOBPILOT",
     category: "SOLO AI PRODUCT BUILDER",
     description: "AI-powered job hunting tool — built as User #1.",
-    previewImage: "/jobpilot-cover.png",
+    previewImage: "/jobpilot-cover.gif",
     benchmarks: [
       "AI resume analysis & revision",
       "Job matching by interview probability",
