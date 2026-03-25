@@ -558,11 +558,54 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 transition={{ duration: 0.3 }}
                 style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
-                <img
-                  src={project.previewImage}
-                  alt={`${project.title} preview`}
-                  style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", borderRadius: "4px" }}
-                />
+                {ship.key === "oneco" ? (
+                  /* iPhone 16 Pro frame for OneCo */
+                  <div style={{ position: "relative", width: isMobile ? "140px" : "180px" }}>
+                    <div style={{
+                      position: "relative",
+                      background: "#2c2c2e",
+                      borderRadius: isMobile ? "28px" : "36px",
+                      padding: isMobile ? "5px" : "6px",
+                      boxShadow: "0 25px 50px -12px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1)",
+                    }}>
+                      <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "28px" : "36px", border: "1px solid rgba(72,72,74,0.5)" }} />
+                      <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "24px" : "30px", overflow: "hidden" }}>
+                        <div style={{
+                          position: "absolute",
+                          top: isMobile ? "6px" : "8px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: isMobile ? "50px" : "60px",
+                          height: isMobile ? "14px" : "16px",
+                          background: "#000",
+                          borderRadius: "999px",
+                          zIndex: 10,
+                        }} />
+                        <img
+                          src={project.previewImage}
+                          alt={`${project.title} preview`}
+                          style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                        />
+                        <div style={{
+                          position: "absolute",
+                          bottom: isMobile ? "5px" : "6px",
+                          left: "50%",
+                          transform: "translateX(-50%)",
+                          width: isMobile ? "60px" : "70px",
+                          height: "3px",
+                          background: "rgba(255,255,255,0.3)",
+                          borderRadius: "999px",
+                        }} />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <img
+                    src={project.previewImage}
+                    alt={`${project.title} preview`}
+                    style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center", borderRadius: "4px" }}
+                  />
+                )}
               </motion.div>
             </AnimatePresence>
           </div>
