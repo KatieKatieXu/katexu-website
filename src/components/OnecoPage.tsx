@@ -519,7 +519,7 @@ export default function OnecoPage() {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#101828] leading-tight tracking-[2.1px] uppercase">Kate Xu</p>
-                  <p className="text-[8px] text-[#99a1af] uppercase tracking-[1px]">Designer</p>
+                  <p className="text-[8px] text-[#99a1af] uppercase tracking-[1px]">Designer & Builder</p>
                 </div>
               </div>
             </div>
@@ -594,7 +594,7 @@ export default function OnecoPage() {
             </div>
             <div>
               <p className="text-[10px] font-semibold text-gray-900">Kate Xu</p>
-              <p className="text-[8px] text-gray-500 uppercase tracking-wider">Designer</p>
+              <p className="text-[8px] text-gray-500 uppercase tracking-wider">Designer & Builder</p>
             </div>
           </div>
           <div className="w-10" />
