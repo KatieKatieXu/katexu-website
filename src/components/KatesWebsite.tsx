@@ -559,32 +559,64 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
                 {ship.key === "oneco" ? (
-                  /* iPhone 16 Pro frame for OneCo - no Dynamic Island */
-                  <div style={{ position: "relative", width: isMobile ? "140px" : "180px" }}>
-                    <div style={{
-                      position: "relative",
-                      background: "#2c2c2e",
-                      borderRadius: isMobile ? "28px" : "36px",
-                      padding: isMobile ? "5px" : "6px",
-                      boxShadow: "0 25px 50px -12px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1)",
-                    }}>
-                      <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "28px" : "36px", border: "1px solid rgba(72,72,74,0.5)" }} />
-                      <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "24px" : "30px", overflow: "hidden" }}>
-                        <img
-                          src={project.previewImage}
-                          alt={`${project.title} preview`}
-                          style={{ width: "100%", height: "auto", objectFit: "cover" }}
-                        />
-                        <div style={{
-                          position: "absolute",
-                          bottom: isMobile ? "5px" : "6px",
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                          width: isMobile ? "60px" : "70px",
-                          height: "3px",
-                          background: "rgba(255,255,255,0.3)",
-                          borderRadius: "999px",
-                        }} />
+                  /* Two iPhone 16 Pro frames for OneCo - side by side */
+                  <div style={{ display: "flex", gap: isMobile ? "8px" : "16px", justifyContent: "center", alignItems: "center" }}>
+                    {/* First iPhone */}
+                    <div style={{ position: "relative", width: isMobile ? "70px" : "110px" }}>
+                      <div style={{
+                        position: "relative",
+                        background: "#2c2c2e",
+                        borderRadius: isMobile ? "14px" : "22px",
+                        padding: isMobile ? "3px" : "4px",
+                        boxShadow: "0 15px 30px -8px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1)",
+                      }}>
+                        <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "14px" : "22px", border: "1px solid rgba(72,72,74,0.5)" }} />
+                        <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "12px" : "18px", overflow: "hidden" }}>
+                          <img
+                            src="/oneco-demo.gif"
+                            alt="Oneco language demo"
+                            style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                          />
+                          <div style={{
+                            position: "absolute",
+                            bottom: isMobile ? "3px" : "4px",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            width: isMobile ? "30px" : "45px",
+                            height: "2px",
+                            background: "rgba(255,255,255,0.3)",
+                            borderRadius: "999px",
+                          }} />
+                        </div>
+                      </div>
+                    </div>
+                    {/* Second iPhone */}
+                    <div style={{ position: "relative", width: isMobile ? "70px" : "110px" }}>
+                      <div style={{
+                        position: "relative",
+                        background: "#2c2c2e",
+                        borderRadius: isMobile ? "14px" : "22px",
+                        padding: isMobile ? "3px" : "4px",
+                        boxShadow: "0 15px 30px -8px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1)",
+                      }}>
+                        <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "14px" : "22px", border: "1px solid rgba(72,72,74,0.5)" }} />
+                        <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "12px" : "18px", overflow: "hidden" }}>
+                          <img
+                            src="/oneco-share.gif"
+                            alt="Oneco share demo"
+                            style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                          />
+                          <div style={{
+                            position: "absolute",
+                            bottom: isMobile ? "3px" : "4px",
+                            left: "50%",
+                            transform: "translateX(-50%)",
+                            width: isMobile ? "30px" : "45px",
+                            height: "2px",
+                            background: "rgba(255,255,255,0.3)",
+                            borderRadius: "999px",
+                          }} />
+                        </div>
                       </div>
                     </div>
                   </div>
