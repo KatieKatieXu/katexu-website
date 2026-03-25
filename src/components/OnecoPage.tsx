@@ -29,9 +29,9 @@ const sections = {
     subtitle: "Project Detail: 01 — Why Oneco",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover image */}
+        {/* Cover demo GIF */}
         <div className="rounded-[16px] overflow-hidden">
-          <img src="/oneco-cover.png" alt="Oneco product screenshot" className="w-full h-auto object-cover" />
+          <img src="/oneco-demo.gif" alt="Oneco product demo" className="w-full h-auto object-cover" />
         </div>
 
         <div className="space-y-[24px]">
