@@ -38,8 +38,8 @@ const sections = {
               <div className="absolute inset-0 rounded-[48px] border border-[#48484a]/50" />
               {/* Screen bezel */}
               <div className="relative bg-black rounded-[40px] overflow-hidden">
-                {/* Dynamic Island */}
-                <div className="absolute top-[12px] left-1/2 -translate-x-1/2 w-[100px] h-[32px] bg-black rounded-full z-10" />
+                {/* Dynamic Island - smaller/slimmer */}
+                <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[72px] h-[22px] bg-black rounded-full z-10" />
                 {/* Screen content */}
                 <img src="/oneco-demo.gif" alt="Oneco product demo" className="w-full h-auto object-cover" />
                 {/* Home indicator */}
