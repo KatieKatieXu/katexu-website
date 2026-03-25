@@ -618,7 +618,7 @@ export default function PawpawStoryPage() {
             </div>
             <div className="flex items-center justify-center gap-2 mt-2 pb-6">
               <div className="w-2 h-2 rounded-full bg-[#1e2939] opacity-60" />
-              <p className="text-xs font-bold text-[#6a7282] tracking-[3px] uppercase">Product Designer</p>
+              <p className="text-xs font-bold text-[#6a7282] tracking-[3px] uppercase">Designer & Builder</p>
             </div>
           </div>
         </div>
@@ -701,7 +701,7 @@ export default function PawpawStoryPage() {
                 </div>
                 <div>
                   <p className="text-[10px] font-bold text-[#101828] leading-tight tracking-[2.1px] uppercase">Kate Xu</p>
-                  <p className="text-[8px] text-[#99a1af] uppercase tracking-[1px]">Designer</p>
+                  <p className="text-[8px] text-[#99a1af] uppercase tracking-[1px]">Designer & Builder</p>
                 </div>
               </div>
             </div>
@@ -914,7 +914,7 @@ export default function PawpawStoryPage() {
             </div>
             <div>
               <p className="text-[10px] font-semibold text-gray-900">Kate Xu</p>
-              <p className="text-[8px] text-gray-500 uppercase tracking-wider">Designer</p>
+              <p className="text-[8px] text-gray-500 uppercase tracking-wider">Designer & Builder</p>
             </div>
           </div>
           <div className="w-10" /> {/* Spacer for centering */}
