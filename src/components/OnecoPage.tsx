@@ -29,19 +29,22 @@ const sections = {
     subtitle: "Project Detail: 01 — Why Oneco",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover demo GIF in iPhone frame */}
+        {/* Cover demo GIF in iPhone 16 Pro frame */}
         <div className="flex justify-center">
-          <div className="relative w-[280px]">
-            {/* iPhone frame */}
-            <div className="relative bg-[#1a1a1a] rounded-[40px] p-[10px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
-              {/* Dynamic Island */}
-              <div className="absolute top-[18px] left-1/2 -translate-x-1/2 w-[90px] h-[28px] bg-black rounded-full z-10" />
-              {/* Screen */}
-              <div className="relative bg-white rounded-[32px] overflow-hidden">
+          <div className="relative" style={{ width: "260px" }}>
+            {/* iPhone 16 Pro frame - titanium bezel */}
+            <div className="relative bg-[#2c2c2e] rounded-[48px] p-[8px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+              {/* Titanium edge highlight */}
+              <div className="absolute inset-0 rounded-[48px] border border-[#48484a]/50" />
+              {/* Screen bezel */}
+              <div className="relative bg-black rounded-[40px] overflow-hidden">
+                {/* Dynamic Island */}
+                <div className="absolute top-[12px] left-1/2 -translate-x-1/2 w-[100px] h-[32px] bg-black rounded-full z-10" />
+                {/* Screen content */}
                 <img src="/oneco-demo.gif" alt="Oneco product demo" className="w-full h-auto object-cover" />
+                {/* Home indicator */}
+                <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[100px] h-[4px] bg-white/30 rounded-full" />
               </div>
-              {/* Home indicator */}
-              <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[100px] h-[4px] bg-white/30 rounded-full" />
             </div>
           </div>
         </div>
