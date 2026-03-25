@@ -559,7 +559,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
                 {ship.key === "oneco" ? (
-                  /* iPhone 16 Pro frame for OneCo */
+                  /* iPhone 16 Pro frame for OneCo - no Dynamic Island */
                   <div style={{ position: "relative", width: isMobile ? "140px" : "180px" }}>
                     <div style={{
                       position: "relative",
@@ -570,17 +570,6 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                     }}>
                       <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "28px" : "36px", border: "1px solid rgba(72,72,74,0.5)" }} />
                       <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "24px" : "30px", overflow: "hidden" }}>
-                        <div style={{
-                          position: "absolute",
-                          top: isMobile ? "6px" : "8px",
-                          left: "50%",
-                          transform: "translateX(-50%)",
-                          width: isMobile ? "50px" : "60px",
-                          height: isMobile ? "14px" : "16px",
-                          background: "#000",
-                          borderRadius: "999px",
-                          zIndex: 10,
-                        }} />
                         <img
                           src={project.previewImage}
                           alt={`${project.title} preview`}
