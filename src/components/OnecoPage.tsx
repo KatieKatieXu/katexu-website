@@ -29,21 +29,27 @@ const sections = {
     subtitle: "Project Detail: 01 — Why Oneco",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover demo GIF in iPhone 16 Pro frame */}
-        <div className="flex justify-center">
-          <div className="relative" style={{ width: "260px" }}>
-            {/* iPhone 16 Pro frame - titanium bezel */}
-            <div className="relative bg-[#2c2c2e] rounded-[48px] p-[8px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]">
-              {/* Titanium edge highlight */}
-              <div className="absolute inset-0 rounded-[48px] border border-[#48484a]/50" />
-              {/* Screen bezel */}
-              <div className="relative bg-black rounded-[40px] overflow-hidden">
-                {/* Dynamic Island - smaller/slimmer */}
-                <div className="absolute top-[10px] left-1/2 -translate-x-1/2 w-[72px] h-[22px] bg-black rounded-full z-10" />
-                {/* Screen content */}
-                <img src="/oneco-demo.gif" alt="Oneco product demo" className="w-full h-auto object-cover" />
-                {/* Home indicator */}
-                <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[100px] h-[4px] bg-white/30 rounded-full" />
+        {/* Two demo GIFs side by side in iPhone 16 Pro frames */}
+        <div className="flex justify-center gap-[16px] md:gap-[32px]">
+          {/* First iPhone - Language switcher demo */}
+          <div className="relative" style={{ width: "clamp(140px, 30vw, 200px)" }}>
+            <div className="relative bg-[#2c2c2e] rounded-[36px] md:rounded-[48px] p-[5px] md:p-[8px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+              <div className="absolute inset-0 rounded-[36px] md:rounded-[48px] border border-[#48484a]/50" />
+              <div className="relative bg-black rounded-[30px] md:rounded-[40px] overflow-hidden">
+                <div className="absolute top-[6px] md:top-[10px] left-1/2 -translate-x-1/2 w-[50px] md:w-[72px] h-[16px] md:h-[22px] bg-black rounded-full z-10" />
+                <img src="/oneco-demo.gif" alt="Oneco language demo" className="w-full h-auto object-cover" />
+                <div className="absolute bottom-[6px] md:bottom-[8px] left-1/2 -translate-x-1/2 w-[70px] md:w-[100px] h-[3px] md:h-[4px] bg-white/30 rounded-full" />
+              </div>
+            </div>
+          </div>
+          {/* Second iPhone - Share demo */}
+          <div className="relative" style={{ width: "clamp(140px, 30vw, 200px)" }}>
+            <div className="relative bg-[#2c2c2e] rounded-[36px] md:rounded-[48px] p-[5px] md:p-[8px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.4),inset_0_1px_1px_rgba(255,255,255,0.1)]">
+              <div className="absolute inset-0 rounded-[36px] md:rounded-[48px] border border-[#48484a]/50" />
+              <div className="relative bg-black rounded-[30px] md:rounded-[40px] overflow-hidden">
+                <div className="absolute top-[6px] md:top-[10px] left-1/2 -translate-x-1/2 w-[50px] md:w-[72px] h-[16px] md:h-[22px] bg-black rounded-full z-10" />
+                <img src="/oneco-share.gif" alt="Oneco share demo" className="w-full h-auto object-cover" />
+                <div className="absolute bottom-[6px] md:bottom-[8px] left-1/2 -translate-x-1/2 w-[70px] md:w-[100px] h-[3px] md:h-[4px] bg-white/30 rounded-full" />
               </div>
             </div>
           </div>
