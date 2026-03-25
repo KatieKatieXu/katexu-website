@@ -29,9 +29,21 @@ const sections = {
     subtitle: "Project Detail: 01 — Why Oneco",
     content: (
       <div className="space-y-[32px]">
-        {/* Cover demo GIF */}
-        <div className="rounded-[16px] overflow-hidden">
-          <img src="/oneco-demo.gif" alt="Oneco product demo" className="w-full h-auto object-cover" />
+        {/* Cover demo GIF in iPhone frame */}
+        <div className="flex justify-center">
+          <div className="relative w-[280px]">
+            {/* iPhone frame */}
+            <div className="relative bg-[#1a1a1a] rounded-[40px] p-[10px] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)]">
+              {/* Dynamic Island */}
+              <div className="absolute top-[18px] left-1/2 -translate-x-1/2 w-[90px] h-[28px] bg-black rounded-full z-10" />
+              {/* Screen */}
+              <div className="relative bg-white rounded-[32px] overflow-hidden">
+                <img src="/oneco-demo.gif" alt="Oneco product demo" className="w-full h-auto object-cover" />
+              </div>
+              {/* Home indicator */}
+              <div className="absolute bottom-[8px] left-1/2 -translate-x-1/2 w-[100px] h-[4px] bg-white/30 rounded-full" />
+            </div>
+          </div>
         </div>
 
         <div className="space-y-[24px]">
