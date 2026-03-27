@@ -942,7 +942,7 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
                     <p className="text-[8px] font-bold text-[#99a1af] tracking-wider uppercase mb-0.5">Mission</p>
                     <div className="bg-[#f9fafb] border border-[#d1d5dc] rounded p-1.5">
                       <p className="text-[9px] text-[#364153] tracking-wider uppercase leading-4">
-                        Imagination + Expression to Build Fun &amp; Beautiful Things
+                        Ask good questions. Build things that make people more capable.
                       </p>
                     </div>
                   </div>

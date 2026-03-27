@@ -25,7 +25,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Kate Xu - Product Designer & Builder",
-  description: "Creating things fun and beautiful",
+  description: "I ask good questions and build things that make people more capable.",
 };
 
 export default function RootLayout({
