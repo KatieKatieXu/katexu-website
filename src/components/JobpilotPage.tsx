@@ -33,6 +33,22 @@ const sections = {
           <img src="/jobpilot-cover.gif" alt="Jobpilot product demo" className="w-full h-auto object-cover" />
         </div>
 
+        {/* Try it Live CTA */}
+        <div className="flex justify-center">
+          <a
+            href="https://jobpilot.katexu.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-[8px] px-[24px] py-[14px] bg-[#00bc7d] hover:bg-[#00a66d] text-white font-semibold text-[16px] rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+          >
+            <span>🚀</span>
+            <span>Try Jobpilot Live</span>
+            <svg className="w-[16px] h-[16px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+
         <div className="space-y-[24px]">
           <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
             <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">The Reality</h4>
