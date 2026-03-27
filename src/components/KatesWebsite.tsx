@@ -559,23 +559,24 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                 style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}
               >
                 {ship.key === "oneco" ? (
-                  /* Two iPhone 16 Pro frames for OneCo - side by side */
-                  <div style={{ display: "flex", gap: isMobile ? "8px" : "16px", justifyContent: "center", alignItems: "center" }}>
+                  /* Two iPhone 16 Pro frames for OneCo - side by side, height constrained */
+                  <div style={{ display: "flex", gap: isMobile ? "8px" : "16px", justifyContent: "center", alignItems: "center", height: "100%" }}>
                     {/* First iPhone */}
-                    <div style={{ position: "relative", width: isMobile ? "70px" : "110px" }}>
+                    <div style={{ position: "relative", height: isMobile ? "140px" : "220px" }}>
                       <div style={{
                         position: "relative",
+                        height: "100%",
                         background: "#2c2c2e",
                         borderRadius: isMobile ? "14px" : "22px",
                         padding: isMobile ? "3px" : "4px",
                         boxShadow: "0 15px 30px -8px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1)",
                       }}>
                         <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "14px" : "22px", border: "1px solid rgba(72,72,74,0.5)" }} />
-                        <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "12px" : "18px", overflow: "hidden" }}>
+                        <div style={{ position: "relative", height: "100%", background: "#000", borderRadius: isMobile ? "12px" : "18px", overflow: "hidden" }}>
                           <img
                             src="/oneco-demo.gif"
                             alt="Oneco language demo"
-                            style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                            style={{ height: "100%", width: "auto", objectFit: "cover" }}
                           />
                           <div style={{
                             position: "absolute",
@@ -591,20 +592,21 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
                       </div>
                     </div>
                     {/* Second iPhone */}
-                    <div style={{ position: "relative", width: isMobile ? "70px" : "110px" }}>
+                    <div style={{ position: "relative", height: isMobile ? "140px" : "220px" }}>
                       <div style={{
                         position: "relative",
+                        height: "100%",
                         background: "#2c2c2e",
                         borderRadius: isMobile ? "14px" : "22px",
                         padding: isMobile ? "3px" : "4px",
                         boxShadow: "0 15px 30px -8px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1)",
                       }}>
                         <div style={{ position: "absolute", inset: 0, borderRadius: isMobile ? "14px" : "22px", border: "1px solid rgba(72,72,74,0.5)" }} />
-                        <div style={{ position: "relative", background: "#000", borderRadius: isMobile ? "12px" : "18px", overflow: "hidden" }}>
+                        <div style={{ position: "relative", height: "100%", background: "#000", borderRadius: isMobile ? "12px" : "18px", overflow: "hidden" }}>
                           <img
                             src="/oneco-share.gif"
                             alt="Oneco share demo"
-                            style={{ width: "100%", height: "auto", objectFit: "cover" }}
+                            style={{ height: "100%", width: "auto", objectFit: "cover" }}
                           />
                           <div style={{
                             position: "absolute",
