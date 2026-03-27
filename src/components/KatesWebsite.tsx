@@ -470,8 +470,8 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           }}
         />
 
-        {/* Inner content area — centered column, scrollable on mobile */}
-        <div style={{ padding: isMobile ? "0 16px 12px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: isMobile ? "0 1 auto" : 1, minHeight: 0, alignItems: "center", overflowY: isMobile ? "auto" : "visible" }}>
+        {/* Inner content area — centered column, scrollable */}
+        <div style={{ padding: isMobile ? "0 16px 12px" : "0 28px 20px", display: "flex", flexDirection: "column", flex: 1, minHeight: 0, alignItems: "center", overflowY: "auto" }}>
           {/* Title + category — left-aligned */}
           <div style={{ width: "100%", paddingRight: isMobile ? "60px" : "120px", marginTop: isMobile ? "10px" : "16px" }}>
             <p
