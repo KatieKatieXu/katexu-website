@@ -15,9 +15,10 @@ const imgKateXu = "/kate-xu.png";
 // Stone images for navigation
 const stones = {
   overview: "/stone-1.png",
-  features: "/stone-2.png",
-  techstack: "/stone-3.png",
-  insight: "/stone-4.png",
+  designthinking: "/stone-2.png",
+  features: "/stone-3.png",
+  techstack: "/stone-4.png",
+  insight: "/stone-5.png",
 };
 
 type SectionKey = keyof typeof stones;
@@ -89,6 +90,37 @@ const sections = {
               <p className="text-[13px] text-gray-500 mt-1">Status</p>
             </div>
           </div>
+        </div>
+      </div>
+    ),
+  },
+  designthinking: {
+    title: "Design Thinking: The Hard Calls",
+    subtitle: "Project Detail: 02 — Why It Works This Way",
+    content: (
+      <div className="space-y-[32px]">
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+          <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">The Approval Layer</h4>
+          <p className="text-[16px] text-gray-700 leading-[1.6]">
+            The easiest version of the Resume Reviser would have been: upload PDF → Claude rewrites it → download. Fast, impressive in a demo. But I kept asking: <span className="font-semibold text-gray-900">whose resume is this?</span>
+          </p>
+          <p className="text-[16px] text-gray-700 leading-[1.6] mt-[16px]">
+            If AI silently rewrites your resume and you don&apos;t understand the changes, you can&apos;t defend them in an interview. You&apos;ve handed over authorship. So I added a mandatory review step: Claude surfaces 6–10 specific suggestions, you approve or edit each individually, then export. This slows the experience down on purpose — it keeps the human in the loop at the moment that matters most.
+          </p>
+        </div>
+
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+          <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">What I Chose Not To Build</h4>
+          <p className="text-[16px] text-gray-700 leading-[1.6]">
+            Auto-apply — where Jobpilot submits applications on your behalf — is technically feasible and users would love it conceptually. I cut it because it removes the human from a decision with real consequences. Sending 200 auto-applications with your name on them, without your judgment on each one, is a <span className="font-semibold text-gray-900">design failure wearing a product feature costume.</span>
+          </p>
+        </div>
+
+        <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
+          <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">The Filter Every Feature Went Through</h4>
+          <p className="text-[16px] text-gray-700 leading-[1.6]">
+            <span className="font-semibold text-gray-900">Does this make the user more capable, or more dependent?</span> A tool that does everything for you isn&apos;t a job hunting tool — it&apos;s a crutch. Jobpilot is designed to make you a better applicant, not to replace your judgment. AI&apos;s job is to extend human capability, not substitute for it.
+          </p>
         </div>
       </div>
     ),
@@ -206,20 +238,16 @@ const sections = {
             <div className="space-y-[10px]">
               <div className="flex items-center gap-[12px]">
                 <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
-                <span className="text-[16px] text-gray-800 font-medium">Figma</span>
+                <span className="text-[16px] text-gray-800 font-medium">Hand Sketch</span>
               </div>
-              <p className="text-[13px] text-gray-500 pl-[20px]">Design + Figma MCP pipeline</p>
-            </div>
-          </div>
-
-          <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
-            <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[16px]">AI</p>
-            <div className="space-y-[10px]">
               <div className="flex items-center gap-[12px]">
                 <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
-                <span className="text-[16px] text-gray-800 font-medium">Claude API (Sonnet)</span>
+                <span className="text-[16px] text-gray-800 font-medium">Figma Make</span>
               </div>
-              <p className="text-[13px] text-gray-500 pl-[20px]">Vision for PDF extraction, analysis for resume suggestions</p>
+              <div className="flex items-center gap-[12px]">
+                <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
+                <span className="text-[16px] text-gray-800 font-medium">Google Stitch</span>
+              </div>
             </div>
           </div>
 
@@ -241,26 +269,6 @@ const sections = {
             </div>
           </div>
 
-          <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[28px]">
-            <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[16px]">Workflow</p>
-            <div className="space-y-[10px]">
-              <div className="flex items-center gap-[12px]">
-                <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
-                <span className="text-[16px] text-gray-800 font-medium">Google Stitch</span>
-              </div>
-              <p className="text-[13px] text-gray-500 pl-[20px]">Prototyping</p>
-              <div className="flex items-center gap-[12px]">
-                <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
-                <span className="text-[16px] text-gray-800 font-medium">Cursor</span>
-              </div>
-              <p className="text-[13px] text-gray-500 pl-[20px]">Implementation</p>
-              <div className="flex items-center gap-[12px]">
-                <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
-                <span className="text-[16px] text-gray-800 font-medium">localStorage → backend v2</span>
-              </div>
-              <p className="text-[13px] text-gray-500 pl-[20px]">Data layer MVP</p>
-            </div>
-          </div>
         </div>
 
         <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-[16px] p-4 md:p-[33px] text-white">
@@ -271,41 +279,41 @@ const sections = {
           <div className="hidden md:flex items-center justify-between gap-[16px]">
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Design</p>
+              <p className="text-[18px] font-bold mt-1">Sketch + Figma + Stitch</p>
+            </div>
+            <div className="text-emerald-400 text-[24px]">→</div>
+            <div className="text-center">
+              <p className="text-[14px] text-gray-400">MCP</p>
               <p className="text-[18px] font-bold mt-1">Figma MCP</p>
             </div>
             <div className="text-emerald-400 text-[24px]">→</div>
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Code</p>
-              <p className="text-[18px] font-bold mt-1">Cursor</p>
-            </div>
-            <div className="text-emerald-400 text-[24px]">→</div>
-            <div className="text-center">
-              <p className="text-[14px] text-gray-400">AI</p>
-              <p className="text-[18px] font-bold mt-1">Claude API</p>
+              <p className="text-[18px] font-bold mt-1">Claude Code</p>
             </div>
             <div className="text-emerald-400 text-[24px]">→</div>
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Ship</p>
-              <p className="text-[18px] font-bold mt-1">Live</p>
+              <p className="text-[18px] font-bold mt-1">Vercel</p>
             </div>
           </div>
           {/* Mobile: 4-col grid */}
           <div className="md:hidden grid grid-cols-4 gap-2 text-center">
             <div>
               <p className="text-[10px] text-gray-400">Design</p>
-              <p className="text-[13px] font-bold">Figma</p>
+              <p className="text-[13px] font-bold">Sketch+Figma+Stitch</p>
+            </div>
+            <div>
+              <p className="text-[10px] text-gray-400">MCP</p>
+              <p className="text-[13px] font-bold">Figma MCP</p>
             </div>
             <div>
               <p className="text-[10px] text-gray-400">Code</p>
-              <p className="text-[13px] font-bold">Cursor</p>
-            </div>
-            <div>
-              <p className="text-[10px] text-gray-400">AI</p>
-              <p className="text-[13px] font-bold">Claude</p>
+              <p className="text-[13px] font-bold">Claude Code</p>
             </div>
             <div>
               <p className="text-[10px] text-gray-400">Ship</p>
-              <p className="text-[13px] font-bold">Live</p>
+              <p className="text-[13px] font-bold">Vercel</p>
             </div>
           </div>
         </div>
@@ -349,7 +357,7 @@ const sections = {
                 Built in 2 Days
               </h4>
               <p className="text-[16px] text-gray-600 leading-[1.6]">
-                Figma MCP → Cursor → Claude API. Design to production in hours, not weeks. The workflow I&apos;ve built means the bottleneck is never the tool — it&apos;s always the idea.
+                Figma MCP → Claude Code → Claude API. Design to production in hours, not weeks. The workflow I&apos;ve built means the bottleneck is never the tool — it&apos;s always the idea.
               </p>
             </div>
           </div>
@@ -536,6 +544,7 @@ export default function JobpilotPage() {
           <div className="flex-1 flex flex-col justify-center pl-[32px]">
             <nav className="space-y-[32px]">
               <NavItem stoneImg={stones.overview} label="Overview" isActive={activeSection === "overview"} onClick={() => setActiveSection("overview")} />
+              <NavItem stoneImg={stones.designthinking} label="Design Thinking" isActive={activeSection === "designthinking"} onClick={() => setActiveSection("designthinking")} />
               <NavItem stoneImg={stones.features} label="Features" isActive={activeSection === "features"} onClick={() => setActiveSection("features")} />
               <NavItem stoneImg={stones.techstack} label="Tech Stack" isActive={activeSection === "techstack"} onClick={() => setActiveSection("techstack")} />
               <NavItem stoneImg={stones.insight} label="Insight" isActive={activeSection === "insight"} onClick={() => setActiveSection("insight")} />
