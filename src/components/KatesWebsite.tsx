@@ -996,23 +996,41 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
               </div>
             </div>
 
-            {/* Right: Resume button */}
-            <Link href="/resume">
-              <div
-                className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
-                style={{
-                  background: "rgba(255,255,255,0.55)",
-                  backdropFilter: "blur(16px) saturate(160%)",
-                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
-                  border: "1px solid rgba(0,188,125,0.35)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
-                }}
-              >
-                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
-                  Resume
-                </span>
-              </div>
-            </Link>
+            {/* Right: How I Think + Resume buttons */}
+            <div className="flex items-center gap-2">
+              <Link href="/how-i-think">
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
+                  style={{
+                    background: "rgba(255,255,255,0.55)",
+                    backdropFilter: "blur(16px) saturate(160%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                    border: "1px solid rgba(0,188,125,0.35)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                    How I Think
+                  </span>
+                </div>
+              </Link>
+              <Link href="/resume">
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
+                  style={{
+                    background: "rgba(255,255,255,0.55)",
+                    backdropFilter: "blur(16px) saturate(160%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                    border: "1px solid rgba(0,188,125,0.35)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                    Resume
+                  </span>
+                </div>
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1268,9 +1286,11 @@ export default function KatesWebsite() {
             exit={{ opacity: 0, x: -16 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0">
-              <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
-            </div>
+            <Link href="/how-i-think">
+              <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0 hover:ring-2 hover:ring-[#00bc7d] hover:ring-offset-1 transition-all">
+                <img src={imgKateXu} alt="Kate Xu — How I Think" className="w-full h-full object-cover" />
+              </div>
+            </Link>
             <div className="flex flex-col leading-tight">
               <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
               <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer & Builder</span>

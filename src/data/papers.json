@@ -1,0 +1,18 @@
+[
+  {
+    "year": 2025,
+    "title": "Functional Divergence Between the Two Cerebral Hemispheres Contributes to Human Fluid Intelligence",
+    "journal": "Communications Biology (Nature)",
+    "summary": "The more differently your left and right brain work from each other, the better you tend to be at solving new problems on the fly. Researchers studied 777 people and found that the frontoparietal network — responsible for focus, working memory, and decision-making — showed the strongest differences between hemispheres. People whose two sides diverged more in function scored higher on intelligence tests.",
+    "takeaway": "Specialization beats redundancy. The brain works better when each side has a distinct job — the same principle that makes great products: don't make every feature do everything. Let each part own something.",
+    "url": "https://www.nature.com/articles/s42003-025-08151-3"
+  },
+  {
+    "year": 2025,
+    "title": "Longitudinal Changes in Brain Asymmetry Track Lifestyle and Disease",
+    "journal": "Nature Communications",
+    "summary": "Your brain's left-right balance isn't fixed — it shifts over your lifetime based on your lifestyle and health. Using data from 1,425 people, researchers found that things like retirement, daily habits, and diseases measurably change how asymmetric your brain is. The left and right hemispheres handle different jobs, and shifts in their balance connect to thousands of health outcomes.",
+    "takeaway": "People aren't static. The mental models users bring to your product today are shaped by everything they've lived through. Design for the person who is always changing, not a fixed archetype.",
+    "url": "https://www.nature.com/articles/s41467-025-60451-8"
+  }
+]
