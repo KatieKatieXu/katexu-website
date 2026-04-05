@@ -211,9 +211,12 @@ const sections = {
             <div className="space-y-[10px]">
               <div className="flex items-center gap-[12px]">
                 <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
-                <span className="text-[16px] text-gray-800 font-medium">Figma</span>
+                <span className="text-[16px] text-gray-800 font-medium">Hand Sketch</span>
               </div>
-              <p className="text-[13px] text-gray-500 pl-[20px]">UI design with variables & components</p>
+              <div className="flex items-center gap-[12px]">
+                <div className="w-[8px] h-[8px] bg-[#00bc7d] rounded-full" />
+                <span className="text-[16px] text-gray-800 font-medium">Openclaw</span>
+              </div>
             </div>
           </div>
 
@@ -271,12 +274,12 @@ const sections = {
           <div className="hidden md:flex items-center justify-between gap-[16px]">
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Design</p>
-              <p className="text-[18px] font-bold mt-1">Figma MCP</p>
+              <p className="text-[18px] font-bold mt-1">Sketch + Openclaw</p>
             </div>
             <div className="text-emerald-400 text-[24px]">→</div>
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Code</p>
-              <p className="text-[18px] font-bold mt-1">Cursor</p>
+              <p className="text-[18px] font-bold mt-1">Openclaw</p>
             </div>
             <div className="text-emerald-400 text-[24px]">→</div>
             <div className="text-center">
@@ -291,18 +294,18 @@ const sections = {
             <div className="text-emerald-400 text-[24px]">→</div>
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Ship</p>
-              <p className="text-[18px] font-bold mt-1">Live</p>
+              <p className="text-[18px] font-bold mt-1">Vercel</p>
             </div>
           </div>
           {/* Mobile: grid */}
           <div className="md:hidden grid grid-cols-5 gap-1 text-center">
             <div>
               <p className="text-[9px] text-gray-400">Design</p>
-              <p className="text-[11px] font-bold">Figma</p>
+              <p className="text-[11px] font-bold">Sketch+Openclaw</p>
             </div>
             <div>
               <p className="text-[9px] text-gray-400">Code</p>
-              <p className="text-[11px] font-bold">Cursor</p>
+              <p className="text-[11px] font-bold">Openclaw</p>
             </div>
             <div>
               <p className="text-[9px] text-gray-400">AI</p>
@@ -314,7 +317,7 @@ const sections = {
             </div>
             <div>
               <p className="text-[9px] text-gray-400">Ship</p>
-              <p className="text-[11px] font-bold">Live</p>
+              <p className="text-[11px] font-bold">Vercel</p>
             </div>
           </div>
         </div>

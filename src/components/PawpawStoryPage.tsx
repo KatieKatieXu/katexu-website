@@ -16,10 +16,10 @@ const imgKateXu = "/kate-xu.png";
 // Stone images for navigation
 const stones = {
   highlights: "/stone-1.png",
-  process: "/stone-2.png",
-  build: "/stone-3.png",
-  takeaways: "/stone-4.png",
-  techstack: "/stone-5.png",
+  designthinking: "/stone-2.png",
+  process: "/stone-3.png",
+  buildstack: "/stone-4.png",
+  takeaways: "/stone-5.png",
 };
 
 type SectionKey = keyof typeof stones;
@@ -78,6 +78,42 @@ const sections = {
               AI-reconstructed classic tales + voice-cloning in parent&apos;s voice = <span className="font-semibold text-gray-900">screen-free, soothing, personalized</span> bedtime experience.
             </p>
           </div>
+        </div>
+      </div>
+    ),
+  },
+  designthinking: {
+    title: "Design Thinking: The Hard Calls",
+    subtitle: "Project Detail: 02 — Why It Works This Way",
+    content: (
+      <div className="space-y-[32px]">
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+          <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">Why Voice Cloning, Not Just a Good AI Voice</h4>
+          <p className="text-[16px] text-gray-700 leading-[1.6]">
+            The obvious product choice was a high-quality generic AI narrator — ElevenLabs has beautiful preset voices. Fast to implement, no friction. I rejected it.
+          </p>
+          <p className="text-[16px] text-gray-700 leading-[1.6] mt-[16px]">
+            The entire thesis of PawpawStory is grounded in cognitive science: a child&apos;s brain responds to their parent&apos;s voice in a fundamentally different way than any other voice. If I used a generic voice — even a great one — I&apos;d be building a slightly better audiobook app. <span className="font-semibold text-gray-900">The parent&apos;s cloned voice isn&apos;t a feature. It&apos;s the product.</span>
+          </p>
+        </div>
+
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[24px]">
+          <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">Designing for Trust in a Sensitive Context</h4>
+          <p className="text-[16px] text-gray-700 leading-[1.6]">
+            Voice recording for your child&apos;s bedtime app is emotionally loaded. I made three specific decisions to reduce anxiety:
+          </p>
+          <ul className="space-y-[12px] text-[15px] text-gray-700 leading-[1.6] mt-[16px]">
+            <li><span className="font-medium text-gray-900">Warm language, not technical:</span> The prompt focuses on what it produces — your voice, telling your child a story — not the mechanics of cloning.</li>
+            <li><span className="font-medium text-gray-900">Immediate preview:</span> After recording, users hear their cloned voice narrating a story snippet before committing. The gap between recording and hearing yourself had to be as small as possible.</li>
+            <li><span className="font-medium text-gray-900">No &quot;clone&quot; in the UI:</span> The technology is voice cloning. The experience is &quot;your voice, in the app.&quot; Language shapes how people feel about AI features — in a children&apos;s product, that responsibility is higher.</li>
+          </ul>
+        </div>
+
+        <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px]">
+          <h4 className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[8px]">What I Chose Not To Build</h4>
+          <p className="text-[16px] text-gray-700 leading-[1.6]">
+            I scoped out the ability for parents to upload existing audio — a voice note, a video, anything. Technically possible with ElevenLabs. I cut it because I couldn&apos;t guarantee quality from compressed or ambient recordings. <span className="font-semibold text-gray-900">A bad voice clone in a children&apos;s bedtime app would be worse than no app at all.</span> The 60-second controlled recording isn&apos;t a limitation — it&apos;s a quality gate that protects the experience.
+          </p>
         </div>
       </div>
     ),
@@ -228,9 +264,9 @@ const sections = {
       </div>
     ),
   },
-  build: {
-    title: "The Build & Polish",
-    subtitle: "Project Detail: 03 — Production Implementation",
+  buildstack: {
+    title: "Build & Tech Stack",
+    subtitle: "Project Detail: 04 — Implementation",
     content: (
       <div className="space-y-[32px]">
         <p className="text-[18px] text-gray-700 leading-[1.7]">
@@ -289,75 +325,7 @@ const sections = {
             <p className="text-[14px] text-gray-500 mt-2">Dev Time Saved</p>
           </div>
         </div>
-      </div>
-    ),
-  },
-  takeaways: {
-    title: "Key Takeaways",
-    subtitle: "Project Detail: 04 — Why This Matters",
-    content: (
-      <div className="space-y-[24px]">
-        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
-          <div className="flex items-start gap-[20px]">
-            <div className="w-[48px] h-[48px] bg-gradient-to-br from-purple-500 to-pink-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-[20px]">🎨</span>
-            </div>
-            <div>
-              <h4 className="text-[20px] font-semibold text-gray-900 mb-[8px]">
-                Designer-Developer Hybrid
-              </h4>
-              <p className="text-[16px] text-gray-600 leading-[1.6]">
-                I don&apos;t just mock up interfaces; I understand the technical constraints and can build <span className="font-medium">functional prototypes that look and feel real</span>.
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
-          <div className="flex items-start gap-[20px]">
-            <div className="w-[48px] h-[48px] bg-gradient-to-br from-orange-500 to-amber-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-[20px]">⚡</span>
-            </div>
-            <div>
-              <h4 className="text-[20px] font-semibold text-gray-900 mb-[8px]">
-                Efficiency Master
-              </h4>
-              <p className="text-[16px] text-gray-600 leading-[1.6]">
-                By using Gemini to &quot;manage&quot; Cursor, I cut development time by <span className="font-bold text-[#00bc7d]">~70%</span>, allowing more time for User Testing and Iteration.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
-          <div className="flex items-start gap-[20px]">
-            <div className="w-[48px] h-[48px] bg-gradient-to-br from-cyan-500 to-blue-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-[20px]">🤖</span>
-            </div>
-            <div>
-              <h4 className="text-[20px] font-semibold text-gray-900 mb-[8px]">
-                AI Literacy
-              </h4>
-              <p className="text-[16px] text-gray-600 leading-[1.6]">
-                Proficient in the latest AI development protocols (<span className="font-medium">MCP</span>), positioned at the cutting edge of the <span className="font-medium">&quot;Agentic Workflow&quot;</span> era.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-gradient-to-br from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[33px]">
-          <blockquote className="text-[18px] text-gray-700 italic leading-[1.6]">
-            &quot;A personalized AI storytelling app for families, designed and built in 4 weeks using a Vibe Coding workflow that bridges the gap between Figma design and production code.&quot;
-          </blockquote>
-        </div>
-      </div>
-    ),
-  },
-  techstack: {
-    title: "Tech Stack",
-    subtitle: null,
-    content: (
-      <div className="space-y-[32px]">
         <div className="grid grid-cols-2 gap-[24px]">
           <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
             <p className="text-[12px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[16px]">
@@ -436,7 +404,6 @@ const sections = {
           <p className="text-[11px] md:text-[12px] font-semibold text-emerald-400 tracking-wider uppercase mb-[12px]">
             The Workflow Summary
           </p>
-          {/* Desktop: horizontal row */}
           <div className="hidden md:flex items-center justify-between gap-[16px]">
             <div className="text-center">
               <p className="text-[14px] text-gray-400">Architecture</p>
@@ -458,7 +425,6 @@ const sections = {
               <p className="text-[18px] font-bold mt-1">App Store</p>
             </div>
           </div>
-          {/* Mobile: 2x2 grid */}
           <div className="md:hidden grid grid-cols-4 gap-2 text-center">
             <div>
               <p className="text-[10px] text-gray-400">Architecture</p>
@@ -477,6 +443,67 @@ const sections = {
               <p className="text-[13px] font-bold">App Store</p>
             </div>
           </div>
+        </div>
+      </div>
+    ),
+  },
+  takeaways: {
+    title: "Key Takeaways",
+    subtitle: "Project Detail: 04 — Why This Matters",
+    content: (
+      <div className="space-y-[24px]">
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
+          <div className="flex items-start gap-[20px]">
+            <div className="w-[48px] h-[48px] bg-gradient-to-br from-purple-500 to-pink-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-[20px]">🎨</span>
+            </div>
+            <div>
+              <h4 className="text-[20px] font-semibold text-gray-900 mb-[8px]">
+                Designer-Developer Hybrid
+              </h4>
+              <p className="text-[16px] text-gray-600 leading-[1.6]">
+                I don&apos;t just mock up interfaces; I understand the technical constraints and can build <span className="font-medium">functional prototypes that look and feel real</span>.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
+          <div className="flex items-start gap-[20px]">
+            <div className="w-[48px] h-[48px] bg-gradient-to-br from-orange-500 to-amber-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-[20px]">⚡</span>
+            </div>
+            <div>
+              <h4 className="text-[20px] font-semibold text-gray-900 mb-[8px]">
+                Efficiency Master
+              </h4>
+              <p className="text-[16px] text-gray-600 leading-[1.6]">
+                By using Gemini to &quot;manage&quot; Cursor, I cut development time by <span className="font-bold text-[#00bc7d]">~70%</span>, allowing more time for User Testing and Iteration.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-[#f9fafb] border border-[#f3f4f6] rounded-[16px] p-[33px]">
+          <div className="flex items-start gap-[20px]">
+            <div className="w-[48px] h-[48px] bg-gradient-to-br from-cyan-500 to-blue-600 rounded-[12px] flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-[20px]">🤖</span>
+            </div>
+            <div>
+              <h4 className="text-[20px] font-semibold text-gray-900 mb-[8px]">
+                AI Literacy
+              </h4>
+              <p className="text-[16px] text-gray-600 leading-[1.6]">
+                Proficient in the latest AI development protocols (<span className="font-medium">MCP</span>), positioned at the cutting edge of the <span className="font-medium">&quot;Agentic Workflow&quot;</span> era.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gradient-to-br from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[33px]">
+          <blockquote className="text-[18px] text-gray-700 italic leading-[1.6]">
+            &quot;A personalized AI storytelling app for families, designed and built in 4 weeks using a Vibe Coding workflow that bridges the gap between Figma design and production code.&quot;
+          </blockquote>
         </div>
       </div>
     ),
@@ -663,28 +690,28 @@ export default function PawpawStoryPage() {
                 onClick={() => setActiveSection("highlights")}
               />
               <NavItem
+                stoneImg={stones.designthinking}
+                label="Design Thinking"
+                isActive={activeSection === "designthinking"}
+                onClick={() => setActiveSection("designthinking")}
+              />
+              <NavItem
                 stoneImg={stones.process}
                 label="Process"
                 isActive={activeSection === "process"}
                 onClick={() => setActiveSection("process")}
               />
               <NavItem
-                stoneImg={stones.build}
-                label="Build"
-                isActive={activeSection === "build"}
-                onClick={() => setActiveSection("build")}
+                stoneImg={stones.buildstack}
+                label="Build & Stack"
+                isActive={activeSection === "buildstack"}
+                onClick={() => setActiveSection("buildstack")}
               />
               <NavItem
                 stoneImg={stones.takeaways}
                 label="Takeaways"
                 isActive={activeSection === "takeaways"}
                 onClick={() => setActiveSection("takeaways")}
-              />
-              <NavItem
-                stoneImg={stones.techstack}
-                label="Tech Stack"
-                isActive={activeSection === "techstack"}
-                onClick={() => setActiveSection("techstack")}
               />
             </nav>
           </div>
@@ -1085,7 +1112,7 @@ export default function PawpawStoryPage() {
               >
                 <img src={stones[key]} alt="" className="w-6 h-6 object-contain" />
                 <span className={`text-[9px] mt-0.5 font-semibold ${activeSection === key ? 'text-[#00bc7d]' : 'text-gray-600'}`}>
-                  {key === "highlights" ? "Highlights" : key === "techstack" ? "Stack" : key.charAt(0).toUpperCase() + key.slice(1)}
+                  {key === "highlights" ? "Highlights" : key === "buildstack" ? "Build & Stack" : key === "designthinking" ? "Design" : key.charAt(0).toUpperCase() + key.slice(1)}
                 </span>
               </button>
             ))}
