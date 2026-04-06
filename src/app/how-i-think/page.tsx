@@ -257,17 +257,64 @@ export default function HowIThinkPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex flex-col items-center justify-center py-24 text-center"
             >
               <span className="text-[10px] font-bold text-[#00915f] tracking-[3px] uppercase">
-                Coming soon
+                In practice
               </span>
-              <h2 className="mt-4 text-2xl font-bold text-[#1a1a1a] font-[family-name:var(--font-tinos)]">
-                AI Workflow
-              </h2>
-              <p className="mt-3 text-[14px] text-[#888] max-w-sm leading-relaxed">
-                How I actually use AI day to day — the tools, the habits, and what I&apos;ve learned building with it.
+              <p className="mt-3 text-[14px] text-[#555] leading-relaxed max-w-lg">
+                These are workflows I&apos;ve built, tested, and refined — each shaped for a different kind of problem. They&apos;re always evolving.{" "}
+                <a
+                  href="mailto:katherinexu09@gmail.com"
+                  className="text-[#00915f] hover:underline"
+                >
+                  Get in touch
+                </a>{" "}
+                if you&apos;d like to know more.
               </p>
+
+              <div className="mt-10 flex flex-col gap-6">
+                {[
+                  {
+                    purpose: "Ship a product with UI",
+                    steps: ["Hand Sketch", "Figma Make", "Google Stitch", "Figma → Cursor MCP", "Cursor", "Vercel"],
+                  },
+                  {
+                    purpose: "Ship a Design System",
+                    steps: ["Claude → Figma MCP", "Figma Design System"],
+                  },
+                  {
+                    purpose: "Build & deploy AI agents",
+                    steps: ["Claude Code", "Create Skills", "Upload & apply to agents"],
+                  },
+                ].map((workflow, i) => (
+                  <motion.div
+                    key={i}
+                    className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#00bc7d]/40 transition-colors"
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1, duration: 0.4 }}
+                  >
+                    <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                      {workflow.purpose}
+                    </span>
+
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                      {workflow.steps.map((step, j) => (
+                        <div key={j} className="flex items-center gap-2">
+                          <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
+                            {step}
+                          </span>
+                          {j < workflow.steps.length - 1 && (
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.section>
           )}
         </motion.div>
