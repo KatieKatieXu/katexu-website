@@ -316,60 +316,64 @@ export default function HowIThinkPage() {
                 ))}
               </div>
 
-              {/* Locked teaser cards */}
-              {[
-                {
-                  purpose: "Automate a content pipeline",
-                  steps: ["Source", "Agent Layer", "Transform", "Distribute", "Loop"],
-                },
-                {
-                  purpose: "Ship a mobile app solo",
-                  steps: ["Brief", "Module Map", "Design Tokens", "AI Build", "TestFlight", "App Store"],
-                },
-                {
-                  purpose: "Run a nightly QA system",
-                  steps: ["Codebase Scan", "Cross-check", "Flag", "Report", "Fix Loop"],
-                },
-              ].map((fake, i) => (
-                <motion.div
-                  key={i}
-                  className="relative mt-4 rounded-2xl border border-[#e8e4db] bg-white/60 p-6 overflow-hidden"
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 + i * 0.08, duration: 0.4 }}
-                >
-                  {/* Fake content underneath */}
-                  <div className="opacity-30 select-none pointer-events-none">
-                    <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
-                      {fake.purpose}
-                    </span>
-                    <div className="mt-4 flex flex-wrap items-center gap-2">
-                      {fake.steps.map((step, j) => (
-                        <div key={j} className="flex items-center gap-2">
-                          <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
-                            {step}
-                          </span>
-                          {j < fake.steps.length - 1 && (
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                              <path d="M5 12h14M12 5l7 7-7 7" />
-                            </svg>
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Matte glass overlay */}
-                  <div className="absolute inset-0 rounded-2xl backdrop-blur-[5px] bg-[#fdfbf7]/75 flex items-center justify-center">
-                    <a
-                      href="mailto:katherinexu09@gmail.com"
-                      className="text-[11px] font-semibold text-[#00915f] tracking-[2px] uppercase hover:underline"
+              {/* Locked teaser section */}
+              <motion.div
+                className="relative mt-4"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+              >
+                {/* Fake cards underneath */}
+                <div className="flex flex-col gap-4 select-none pointer-events-none">
+                  {[
+                    {
+                      purpose: "Automate a content pipeline",
+                      steps: ["Source", "Agent Layer", "Transform", "Distribute", "Loop"],
+                    },
+                    {
+                      purpose: "Ship a mobile app solo",
+                      steps: ["Brief", "Module Map", "Design Tokens", "AI Build", "TestFlight", "App Store"],
+                    },
+                    {
+                      purpose: "Run a nightly QA system",
+                      steps: ["Codebase Scan", "Cross-check", "Flag", "Report", "Fix Loop"],
+                    },
+                  ].map((fake, i) => (
+                    <div
+                      key={i}
+                      className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 opacity-30"
                     >
-                      Contact to know more
-                    </a>
-                  </div>
-                </motion.div>
-              ))}
+                      <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                        {fake.purpose}
+                      </span>
+                      <div className="mt-4 flex flex-wrap items-center gap-2">
+                        {fake.steps.map((step, j) => (
+                          <div key={j} className="flex items-center gap-2">
+                            <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
+                              {step}
+                            </span>
+                            {j < fake.steps.length - 1 && (
+                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                              </svg>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Single matte glass overlay covering all locked cards */}
+                <div className="absolute inset-0 rounded-2xl backdrop-blur-[6px] bg-[#fdfbf7]/70 flex items-center justify-center">
+                  <a
+                    href="mailto:katherinexu09@gmail.com"
+                    className="text-[12px] font-semibold text-[#00915f] tracking-[2px] uppercase hover:underline"
+                  >
+                    Contact to know more
+                  </a>
+                </div>
+              </motion.div>
 
             </motion.section>
           )}
