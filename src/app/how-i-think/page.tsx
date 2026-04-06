@@ -364,8 +364,14 @@ export default function HowIThinkPage() {
                   ))}
                 </div>
 
-                {/* Single matte glass overlay covering all locked cards */}
-                <div className="absolute inset-0 rounded-2xl backdrop-blur-[6px] bg-[#fdfbf7]/70 flex items-center justify-center">
+                {/* Gradient fade — top is clear, bottom is locked */}
+                <div className="absolute inset-0 rounded-2xl" style={{background: "linear-gradient(to bottom, transparent 0%, transparent 15%, rgba(253,251,247,0.7) 40%, rgba(253,251,247,0.92) 60%)"}} />
+
+                {/* Blur layer that kicks in mid-way */}
+                <div className="absolute inset-x-0 bottom-0 top-[25%] rounded-b-2xl backdrop-blur-[5px]" style={{WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%)", maskImage: "linear-gradient(to bottom, transparent, black 30%)"}} />
+
+                {/* CTA */}
+                <div className="absolute inset-x-0 bottom-0 top-[30%] flex items-center justify-center">
                   <a
                     href="mailto:katherinexu09@gmail.com"
                     className="text-[12px] font-semibold text-[#00915f] tracking-[2px] uppercase hover:underline"
