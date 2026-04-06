@@ -52,7 +52,7 @@ export default function HowIThinkPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 px-4 md:px-6 pb-3">
+        <div className="flex justify-center gap-1 px-4 md:px-6 pb-3">
           {tabs.map((tab) => (
             <button
               key={tab}
