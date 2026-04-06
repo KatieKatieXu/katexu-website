@@ -272,7 +272,7 @@ export default function HowIThinkPage() {
                 if you&apos;d like to know more.
               </p>
 
-              <div className="mt-10 flex flex-col gap-5">
+              <div className="mt-10 flex flex-col gap-6">
                 {[
                   {
                     purpose: "Ship a product with UI",
@@ -289,30 +289,23 @@ export default function HowIThinkPage() {
                 ].map((workflow, i) => (
                   <motion.div
                     key={i}
-                    className="group rounded-2xl border border-[#e8e4db] bg-white p-6 shadow-sm hover:shadow-md hover:border-[#00bc7d]/50 transition-all duration-300"
+                    className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#00bc7d]/40 transition-colors"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
                   >
-                    {/* Card header */}
-                    <div className="flex items-center gap-3 mb-5">
-                      <span className="w-7 h-7 rounded-full bg-[#f0fdf8] border border-[#00bc7d]/30 flex items-center justify-center text-[10px] font-bold text-[#00915f]">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
-                        {workflow.purpose}
-                      </span>
-                    </div>
+                    <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                      {workflow.purpose}
+                    </span>
 
-                    {/* Steps */}
-                    <div className="flex flex-wrap items-center gap-y-3 gap-x-2">
+                    <div className="mt-4 flex flex-wrap items-center gap-2">
                       {workflow.steps.map((step, j) => (
                         <div key={j} className="flex items-center gap-2">
-                          <span className="text-[12px] font-medium text-[#333] bg-[#f7f5f0] border border-[#e8e4db] group-hover:border-[#00bc7d]/20 px-3 py-1.5 rounded-full shadow-sm transition-colors">
+                          <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
                             {step}
                           </span>
                           {j < workflow.steps.length - 1 && (
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#ccc" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                               <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                           )}
