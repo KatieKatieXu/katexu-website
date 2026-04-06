@@ -315,6 +315,41 @@ export default function HowIThinkPage() {
                   </motion.div>
                 ))}
               </div>
+
+              {/* Locked teaser card */}
+              <motion.div
+                className="relative mt-6 rounded-2xl border border-[#e8e4db] bg-white/60 p-6 overflow-hidden"
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.4 }}
+              >
+                {/* Fake content underneath */}
+                <div className="opacity-40 select-none pointer-events-none">
+                  <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                    Automate content pipeline
+                  </span>
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    {["Source", "Agent Layer", "Transform", "Distribute", "Loop"].map((step, j, arr) => (
+                      <div key={j} className="flex items-center gap-2">
+                        <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
+                          {step}
+                        </span>
+                        {j < arr.length - 1 && (
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#bbb" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                          </svg>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Matte glass overlay */}
+                <div className="absolute inset-0 rounded-2xl backdrop-blur-[6px] bg-[#fdfbf7]/70 flex items-center justify-center">
+                  <span className="text-[11px] font-semibold text-[#aaa] tracking-[2px] uppercase">More coming</span>
+                </div>
+              </motion.div>
+
             </motion.section>
           )}
         </motion.div>
