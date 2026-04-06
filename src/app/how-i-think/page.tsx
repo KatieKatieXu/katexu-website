@@ -341,7 +341,7 @@ export default function HowIThinkPage() {
                   ].map((fake, i) => (
                     <div
                       key={i}
-                      className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 opacity-30"
+                      className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 opacity-60"
                     >
                       <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
                         {fake.purpose}
@@ -364,14 +364,8 @@ export default function HowIThinkPage() {
                   ))}
                 </div>
 
-                {/* Gradient fade — top is clear, bottom is locked */}
-                <div className="absolute inset-0 rounded-2xl" style={{background: "linear-gradient(to bottom, transparent 0%, transparent 15%, rgba(253,251,247,0.7) 40%, rgba(253,251,247,0.92) 60%)"}} />
-
-                {/* Blur layer that kicks in mid-way */}
-                <div className="absolute inset-x-0 bottom-0 top-[25%] rounded-b-2xl backdrop-blur-[5px]" style={{WebkitMaskImage: "linear-gradient(to bottom, transparent, black 30%)", maskImage: "linear-gradient(to bottom, transparent, black 30%)"}} />
-
-                {/* CTA */}
-                <div className="absolute inset-x-0 bottom-0 top-[30%] flex items-center justify-center">
+                {/* Uniform matte glass over all cards */}
+                <div className="absolute inset-0 rounded-2xl backdrop-blur-[4px] bg-[#fdfbf7]/60 flex items-center justify-center">
                   <a
                     href="mailto:katherinexu09@gmail.com"
                     className="text-[12px] font-semibold text-[#00915f] tracking-[2px] uppercase hover:underline"
