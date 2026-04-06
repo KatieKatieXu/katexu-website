@@ -5,10 +5,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import papersData from "@/data/papers.json";
-import thoughtsData from "@/data/thoughts.json";
+
+interface Thought {
+  date: string;
+  content: string;
+}
 
 const papers = [...papersData].reverse();
-const thoughts = [...thoughtsData].reverse();
+const thoughts: Thought[] = ([] as Thought[]);
 
 const tabs = ["Research", "Thoughts", "AI Workflow"] as const;
 type Tab = (typeof tabs)[number];
