@@ -3,18 +3,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import papersData from "@/data/papers.json";
 
-interface Thought {
-  date: string;
-  content: string;
-}
-
 const papers = [...papersData].reverse();
-const thoughts: Thought[] = ([] as Thought[]);
 
-const tabs = ["Research", "Thoughts", "AI Workflow"] as const;
+const tabs = ["Research", "AI Workflow"] as const;
 type Tab = (typeof tabs)[number];
 
 export default function HowIThinkPage() {
@@ -199,63 +192,7 @@ export default function HowIThinkPage() {
             </>
           )}
 
-          {/* ── TAB 2: THOUGHTS ── */}
-          {activeTab === "Thoughts" && (
-            <>
-              <motion.section
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <span className="text-[10px] font-bold text-[#00915f] tracking-[3px] uppercase">
-                  Day to day
-                </span>
-                <p className="mt-2 text-[13px] text-[#888]">
-                  Things I&apos;m noticing, reacting to, thinking out loud.
-                </p>
-
-                {thoughts.length === 0 ? (
-                  <div className="mt-16 text-center">
-                    <p className="text-[14px] text-[#bbb]">Nothing here yet — check back soon.</p>
-                  </div>
-                ) : (
-                  <div className="mt-8 flex flex-col gap-4">
-                    {thoughts.map((thought, i) => (
-                      <motion.article
-                        key={i}
-                        className="rounded-2xl border border-[#e8e4db] bg-white/60 p-5 hover:border-[#00bc7d]/40 transition-colors"
-                        initial={{ opacity: 0, y: 16 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.08, duration: 0.4 }}
-                      >
-                        {/* Profile row */}
-                        <div className="flex items-center gap-3 mb-3">
-                          <Image
-                            src="/kate-xu.png"
-                            alt="Kate Xu"
-                            width={36}
-                            height={36}
-                            className="rounded-full object-cover"
-                          />
-                          <div>
-                            <p className="text-[13px] font-bold text-[#1a1a1a]">Kate Xu</p>
-                            <p className="text-[11px] text-[#aaa]">{thought.date}</p>
-                          </div>
-                        </div>
-
-                        {/* Content */}
-                        <p className="text-[14px] text-[#333] leading-relaxed whitespace-pre-wrap">
-                          {thought.content}
-                        </p>
-                      </motion.article>
-                    ))}
-                  </div>
-                )}
-              </motion.section>
-            </>
-          )}
-
-          {/* ── TAB 3: AI WORKFLOW ── */}
+          {/* ── TAB 2: AI WORKFLOW ── */}
           {activeTab === "AI Workflow" && (
             <motion.section
               initial={{ opacity: 0, y: 20 }}
