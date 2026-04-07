@@ -948,11 +948,18 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
                       </p>
                     </div>
                   </div>
-                  <Link href="/resume" className="w-full">
-                    <button className="bg-black text-white px-4 py-2 rounded-[8px] text-[10px] font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
-                      Resume
-                    </button>
-                  </Link>
+                  <div className="flex gap-2 w-full">
+                    <Link href="/resume" className="flex-1">
+                      <button className="bg-black text-white px-4 py-2 rounded-[8px] text-[10px] font-bold tracking-wider uppercase hover:bg-black/80 transition-colors w-full">
+                        Resume
+                      </button>
+                    </Link>
+                    <Link href="/how-i-think" className="flex-1">
+                      <button className="bg-white text-black border border-[#d1d5dc] px-4 py-2 rounded-[8px] text-[10px] font-bold tracking-wider uppercase hover:bg-[#f3f4f6] transition-colors w-full">
+                        How I Think
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -996,23 +1003,41 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
               </div>
             </div>
 
-            {/* Right: Resume button */}
-            <Link href="/resume">
-              <div
-                className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
-                style={{
-                  background: "rgba(255,255,255,0.55)",
-                  backdropFilter: "blur(16px) saturate(160%)",
-                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
-                  border: "1px solid rgba(0,188,125,0.35)",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
-                }}
-              >
-                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
-                  Resume
-                </span>
-              </div>
-            </Link>
+            {/* Right: Resume + How I Think buttons */}
+            <div className="flex items-center gap-2">
+              <Link href="/how-i-think">
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
+                  style={{
+                    background: "rgba(255,255,255,0.55)",
+                    backdropFilter: "blur(16px) saturate(160%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                    border: "1px solid rgba(0,188,125,0.35)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                    How I Think
+                  </span>
+                </div>
+              </Link>
+              <Link href="/resume">
+                <div
+                  className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200 hover:shadow-md"
+                  style={{
+                    background: "rgba(255,255,255,0.55)",
+                    backdropFilter: "blur(16px) saturate(160%)",
+                    WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                    border: "1px solid rgba(0,188,125,0.35)",
+                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                    Resume
+                  </span>
+                </div>
+              </Link>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1279,21 +1304,35 @@ export default function KatesWebsite() {
         )}
       </AnimatePresence>
 
-      {/* Mobile resume button — absolute top-right, shown after intro */}
+      {/* Mobile buttons — absolute top-right, shown after intro */}
       <AnimatePresence>
         {phase === "specs" && isMobile && (
           <motion.div
             key="resume-btn-mobile"
-            className="flex absolute right-3 z-30 items-center"
+            className="flex absolute right-3 z-30 items-center gap-2"
             style={{ top: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
             initial={{ opacity: 0, x: 16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 16 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
+            <Link href="/how-i-think">
+              <div
+                className="flex items-center gap-2 px-3 py-2 rounded-full cursor-pointer transition-all duration-200"
+                style={{
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(16px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                  border: "1px solid rgba(0,188,125,0.35)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                }}
+              >
+                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">How I Think</span>
+              </div>
+            </Link>
             <Link href="/resume">
               <div
-                className="flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-2 rounded-full cursor-pointer transition-all duration-200"
                 style={{
                   background: "rgba(255,255,255,0.55)",
                   backdropFilter: "blur(16px) saturate(160%)",
