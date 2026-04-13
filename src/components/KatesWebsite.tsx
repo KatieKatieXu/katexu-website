@@ -778,7 +778,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
               variants={floatingVariants}
               animate="float"
               custom={ship.floatParams}
-              style={{ width: isMobile ? "65px" : "180px" }}
+              style={{ width: isMobile ? "78px" : "180px" }}
             >
               <img
                 src={ship.src}
@@ -1290,62 +1290,64 @@ export default function KatesWebsite() {
         )}
       </AnimatePresence>
 
-      {/* Mobile nameplate + buttons — absolute top-left, shown after intro */}
+      {/* Mobile nameplate — absolute top-left, shown after intro */}
       <AnimatePresence>
         {phase === "specs" && isMobile && (
           <motion.div
             key="nameplate-mobile"
-            className="flex flex-col absolute left-3 z-30 gap-2"
+            className="flex absolute left-3 z-30 items-center gap-2"
             style={{ top: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -16 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            {/* Avatar + name + buttons */}
-            <div className="flex items-center gap-2">
-              <Link href="/how-i-think">
-                <div className="w-7 h-7 rounded-full overflow-hidden border-2 border-white shadow-md flex-shrink-0 hover:ring-2 hover:ring-[#00bc7d] hover:ring-offset-1 transition-all">
-                  <img src={imgKateXu} alt="Kate Xu" className="w-full h-full object-cover" />
-                </div>
-              </Link>
-              <div className="flex flex-col leading-tight gap-1.5">
-                <div>
-                  <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
-                  <span className="block text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer & Builder</span>
-                </div>
-                <div className="flex items-center gap-2">
-              <Link href="/how-i-think">
-                <div
-                  className="flex items-center px-3 py-1.5 rounded-full cursor-pointer transition-all duration-200"
-                  style={{
-                    background: "rgba(255,255,255,0.55)",
-                    backdropFilter: "blur(16px) saturate(160%)",
-                    WebkitBackdropFilter: "blur(16px) saturate(160%)",
-                    border: "1px solid rgba(0,188,125,0.35)",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
-                  }}
-                >
-                  <span className="text-[10px] font-bold text-[#00915f] tracking-[1.5px] uppercase">How I Think</span>
-                </div>
-              </Link>
-              <Link href="/resume">
-                <div
-                  className="flex items-center px-3 py-1.5 rounded-full cursor-pointer transition-all duration-200"
-                  style={{
-                    background: "rgba(255,255,255,0.55)",
-                    backdropFilter: "blur(16px) saturate(160%)",
-                    WebkitBackdropFilter: "blur(16px) saturate(160%)",
-                    border: "1px solid rgba(0,188,125,0.35)",
-                    boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
-                  }}
-                >
-                    <span className="text-[10px] font-bold text-[#00915f] tracking-[1.5px] uppercase">Resume</span>
-                  </div>
-                </Link>
-                </div>
+            {/* Profile pic → Resume, styled as a button */}
+            <Link href="/resume">
+              <div
+                className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 transition-all active:scale-95"
+                style={{
+                  border: "2px solid rgba(0,188,125,0.6)",
+                  boxShadow: "0 2px 8px rgba(0,188,125,0.25), 0 0 0 3px rgba(0,188,125,0.08)",
+                }}
+              >
+                <img src={imgKateXu} alt="Kate Xu — Resume" className="w-full h-full object-cover" />
               </div>
+            </Link>
+            <div className="flex flex-col leading-tight">
+              <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
+              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer & Builder</span>
             </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile — How I Think button, top-right */}
+      <AnimatePresence>
+        {phase === "specs" && isMobile && (
+          <motion.div
+            key="how-i-think-btn-mobile"
+            className="flex absolute right-3 z-30 items-center"
+            style={{ top: "calc(env(safe-area-inset-top, 0px) + 12px)" }}
+            initial={{ opacity: 0, x: 16 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 16 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+          >
+            <Link href="/how-i-think">
+              <div
+                className="flex items-center px-3 py-2 rounded-full cursor-pointer transition-all duration-200 active:scale-95"
+                style={{
+                  background: "rgba(255,255,255,0.55)",
+                  backdropFilter: "blur(16px) saturate(160%)",
+                  WebkitBackdropFilter: "blur(16px) saturate(160%)",
+                  border: "1px solid rgba(0,188,125,0.35)",
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.6)",
+                }}
+              >
+                <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">How I Think</span>
+              </div>
+            </Link>
           </motion.div>
         )}
       </AnimatePresence>
