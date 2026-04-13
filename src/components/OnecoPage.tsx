@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 // Image assets
 const imgPlanetaryDiagram = "/planetary-diagram.png";
@@ -60,6 +61,7 @@ const sections = {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-[8px] px-[24px] py-[14px] bg-[#00bc7d] hover:bg-[#00a66d] text-white font-semibold text-[16px] rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-[1.02]"
+            onClick={() => posthog.capture("live_app_clicked", { project_name: "Oneco", url: "https://oneco.katexu.com" })}
           >
             <span>🚀</span>
             <span>Try the Quiz Live</span>
@@ -455,6 +457,11 @@ export default function OnecoPage() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionKey>("overview");
 
+  const handleSectionChange = (section: SectionKey) => {
+    setActiveSection(section);
+    posthog.capture("project_section_navigated", { project_name: "Oneco", section });
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -519,10 +526,10 @@ export default function OnecoPage() {
 
           <div className="flex-1 flex flex-col justify-center pl-[32px]">
             <nav className="space-y-[32px]">
-              <NavItem stoneImg={stones.overview}    label="Overview"   isActive={activeSection === "overview"}    onClick={() => setActiveSection("overview")} />
-              <NavItem stoneImg={stones.archetypes}  label="Archetypes" isActive={activeSection === "archetypes"}  onClick={() => setActiveSection("archetypes")} />
-              <NavItem stoneImg={stones.techstack}   label="Tech Stack" isActive={activeSection === "techstack"}   onClick={() => setActiveSection("techstack")} />
-              <NavItem stoneImg={stones.insight}     label="Insight"    isActive={activeSection === "insight"}     onClick={() => setActiveSection("insight")} />
+              <NavItem stoneImg={stones.overview}    label="Overview"   isActive={activeSection === "overview"}    onClick={() => handleSectionChange("overview")} />
+              <NavItem stoneImg={stones.archetypes}  label="Archetypes" isActive={activeSection === "archetypes"}  onClick={() => handleSectionChange("archetypes")} />
+              <NavItem stoneImg={stones.techstack}   label="Tech Stack" isActive={activeSection === "techstack"}   onClick={() => handleSectionChange("techstack")} />
+              <NavItem stoneImg={stones.insight}     label="Insight"    isActive={activeSection === "insight"}     onClick={() => handleSectionChange("insight")} />
             </nav>
           </div>
         </div>
@@ -684,7 +691,7 @@ export default function OnecoPage() {
             {(Object.keys(stones) as SectionKey[]).map((key) => (
               <button
                 key={key}
-                onClick={() => setActiveSection(key)}
+                onClick={() => handleSectionChange(key)}
                 className={`flex flex-col items-center p-1 transition-all rounded-lg ${activeSection === key ? "opacity-100 bg-[#00bc7d]/10" : "opacity-60"}`}
               >
                 <img src={stones[key]} alt="" className="w-6 h-6 object-contain" />

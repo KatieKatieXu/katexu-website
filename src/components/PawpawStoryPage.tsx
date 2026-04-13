@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 // Image assets
 const imgPawpawCover = "/pawpaw-cover.png";
@@ -555,6 +556,11 @@ export default function PawpawStoryPage() {
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionKey>("highlights");
 
+  const handleSectionChange = (section: SectionKey) => {
+    setActiveSection(section);
+    posthog.capture("project_section_navigated", { project_name: "PawpawStory", section });
+  };
+
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -687,31 +693,31 @@ export default function PawpawStoryPage() {
                 stoneImg={stones.highlights}
                 label="Highlights"
                 isActive={activeSection === "highlights"}
-                onClick={() => setActiveSection("highlights")}
+                onClick={() => handleSectionChange("highlights")}
               />
               <NavItem
                 stoneImg={stones.designthinking}
                 label="Design Thinking"
                 isActive={activeSection === "designthinking"}
-                onClick={() => setActiveSection("designthinking")}
+                onClick={() => handleSectionChange("designthinking")}
               />
               <NavItem
                 stoneImg={stones.process}
                 label="Process"
                 isActive={activeSection === "process"}
-                onClick={() => setActiveSection("process")}
+                onClick={() => handleSectionChange("process")}
               />
               <NavItem
                 stoneImg={stones.buildstack}
                 label="Build & Stack"
                 isActive={activeSection === "buildstack"}
-                onClick={() => setActiveSection("buildstack")}
+                onClick={() => handleSectionChange("buildstack")}
               />
               <NavItem
                 stoneImg={stones.takeaways}
                 label="Takeaways"
                 isActive={activeSection === "takeaways"}
-                onClick={() => setActiveSection("takeaways")}
+                onClick={() => handleSectionChange("takeaways")}
               />
             </nav>
           </div>
@@ -747,6 +753,7 @@ export default function PawpawStoryPage() {
                   <Link
                     href="/projects/pawpaw-story/deck"
                     className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-[#00bc7d] text-white rounded-full font-semibold hover:bg-[#00a36a] transition-colors"
+                    onClick={() => posthog.capture("project_deck_clicked", { project_name: "PawpawStory" })}
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
@@ -784,11 +791,12 @@ export default function PawpawStoryPage() {
                       </p>
                       
                       {/* Outline CTA Button */}
-                      <a 
-                        href="https://apps.apple.com/us/app/pawpawstory/id6757112694" 
-                        target="_blank" 
+                      <a
+                        href="https://apps.apple.com/us/app/pawpawstory/id6757112694"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-[10px] border-2 border-[#00bc7d] text-[#00bc7d] px-[20px] py-[10px] rounded-full hover:bg-[#00bc7d] hover:text-white transition-all duration-300 group font-semibold"
+                        onClick={() => posthog.capture("app_store_clicked", { project_name: "PawpawStory" })}
                       >
                         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                           <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
@@ -961,6 +969,7 @@ export default function PawpawStoryPage() {
               <Link
                 href="/projects/pawpaw-story/deck"
                 className="inline-flex items-center gap-2 mt-4 px-4 py-2 bg-[#00bc7d] text-white rounded-full text-sm font-semibold"
+                onClick={() => posthog.capture("project_deck_clicked", { project_name: "PawpawStory" })}
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
@@ -971,11 +980,12 @@ export default function PawpawStoryPage() {
 
             {/* Mobile App Preview Card - Compact — first */}
             {activeSection === "highlights" && (
-              <a 
-                href="https://apps.apple.com/us/app/pawpawstory/id6757112694" 
-                target="_blank" 
+              <a
+                href="https://apps.apple.com/us/app/pawpawstory/id6757112694"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="mt-4 flex items-center gap-3 p-3 bg-gradient-to-br from-[#f8fafc] to-[#f1f5f9] rounded-[12px] border border-gray-200"
+                onClick={() => posthog.capture("app_store_clicked", { project_name: "PawpawStory" })}
               >
                 <div className="flex-shrink-0 w-[50px] h-[50px] rounded-[8px] overflow-hidden border border-gray-200">
                   <img 
@@ -1107,7 +1117,7 @@ export default function PawpawStoryPage() {
             {(Object.keys(stones) as SectionKey[]).map((key) => (
               <button
                 key={key}
-                onClick={() => setActiveSection(key)}
+                onClick={() => handleSectionChange(key)}
                 className={`flex flex-col items-center p-1 transition-all rounded-lg ${activeSection === key ? 'opacity-100 bg-[#00bc7d]/10' : 'opacity-60'}`}
               >
                 <img src={stones[key]} alt="" className="w-6 h-6 object-contain" />

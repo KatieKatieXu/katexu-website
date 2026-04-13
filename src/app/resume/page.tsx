@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 export default function ResumePage() {
   const [iframeLoaded, setIframeLoaded] = useState(false);
@@ -29,10 +30,11 @@ export default function ResumePage() {
           Kate Xu — Resume
         </h1>
         
-        <a 
-          href="/KateXu_Resume_032026.pdf" 
+        <a
+          href="/KateXu_Resume_032026.pdf"
           download="KateXu_Resume.pdf"
           className="px-4 py-2 bg-[#00bc7d] text-white text-sm font-semibold rounded-full hover:bg-[#00a86b] transition-colors flex items-center gap-2"
+          onClick={() => posthog.capture("resume_downloaded")}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

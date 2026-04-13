@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import papersData from "@/data/papers.json";
+import posthog from "posthog-js";
 
 const papers = [...papersData].reverse();
 
@@ -12,6 +13,11 @@ type Tab = (typeof tabs)[number];
 
 export default function HowIThinkPage() {
   const [activeTab, setActiveTab] = useState<Tab>("Research");
+
+  const handleTabChange = (tab: Tab) => {
+    setActiveTab(tab);
+    posthog.capture("how_i_think_tab_switched", { tab });
+  };
 
   return (
     <div className="h-screen overflow-y-auto w-full bg-[#fdfbf7] flex flex-col">
@@ -53,7 +59,7 @@ export default function HowIThinkPage() {
           {tabs.map((tab) => (
             <button
               key={tab}
-              onClick={() => setActiveTab(tab)}
+              onClick={() => handleTabChange(tab)}
               className={`relative px-4 py-1.5 text-[12px] font-semibold rounded-full transition-all ${
                 activeTab === tab
                   ? "text-white bg-[#00915f]"
@@ -160,6 +166,7 @@ export default function HowIThinkPage() {
                         target="_blank"
                         rel="noopener noreferrer"
                         className="block text-[15px] font-bold text-[#1a1a1a] leading-snug hover:text-[#00915f] transition-colors font-[family-name:var(--font-tinos)]"
+                        onClick={() => posthog.capture("research_paper_clicked", { paper_year: paper.year, paper_journal: paper.journal })}
                       >
                         {paper.title} ↗
                       </a>
@@ -207,6 +214,7 @@ export default function HowIThinkPage() {
                 <a
                   href="mailto:katherinexu09@gmail.com"
                   className="text-[#00915f] hover:underline"
+                  onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow" })}
                 >
                   Get in touch
                 </a>{" "}
@@ -315,6 +323,7 @@ export default function HowIThinkPage() {
                   <a
                     href="mailto:katherinexu09@gmail.com"
                     className="text-[12px] font-semibold text-[#00915f] tracking-[2px] uppercase hover:underline"
+                    onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow_locked" })}
                   >
                     Contact to know more
                   </a>

@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import posthog from "posthog-js";
 
 // Image assets
 const imgPlanetaryDiagram = "/planetary-diagram.png";
@@ -677,7 +678,7 @@ function ShowcaseWindow({ ship, selectedIndex, onPrev, onNext, canGoPrev, canGoN
           {/* Bottom section + Read More button */}
           <div style={{ marginTop: isMobile ? "12px" : "38px", paddingBottom: isMobile ? "6px" : "12px", display: "flex", justifyContent: "center", flexShrink: 0 }}>
             {route ? (
-              <Link href={route} style={{ display: "block" }}>
+              <Link href={route} style={{ display: "block" }} onClick={() => posthog.capture("project_read_more_clicked", { project_name: project.title, project_route: route })}>
                 <div
                   style={{
                     background: "linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0.2) 100%)",
@@ -838,7 +839,7 @@ function ThumbnailRow({ ships, selectedIndex, onSelect, isMobile }: ThumbnailRow
         return (
           <button
             key={ship.key}
-            onClick={() => onSelect(index)}
+            onClick={() => { onSelect(index); posthog.capture("project_selected", { project_name: projects[ship.key].title, project_index: index }); }}
             className="flex-shrink-0 flex flex-col items-center transition-all duration-200"
             style={{
               background: "transparent",
@@ -1051,8 +1052,16 @@ export default function KatesWebsite() {
   const [isMobile, setIsMobile] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const goNext = () => setSelectedIndex(i => Math.min(i + 1, spaceships.length - 1));
-  const goPrev = () => setSelectedIndex(i => Math.max(i - 1, 0));
+  const goNext = () => setSelectedIndex(i => {
+    const next = Math.min(i + 1, spaceships.length - 1);
+    if (next !== i) posthog.capture("project_navigated", { project_name: projects[spaceships[next].key].title, project_index: next, direction: "next" });
+    return next;
+  });
+  const goPrev = () => setSelectedIndex(i => {
+    const prev = Math.max(i - 1, 0);
+    if (prev !== i) posthog.capture("project_navigated", { project_name: projects[spaceships[prev].key].title, project_index: prev, direction: "prev" });
+    return prev;
+  });
 
   useEffect(() => {
     setMounted(true);
