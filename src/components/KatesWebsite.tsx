@@ -999,7 +999,7 @@ function BadgeCard({ phase }: { phase: "intro" | "transition" | "specs" }) {
                   Kate Xu
                 </span>
                 <span className="text-[10px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">
-                  Gen AI Product Designer & Builder
+                  Gen AI Product Designer
                 </span>
               </div>
             </div>
@@ -1316,7 +1316,7 @@ export default function KatesWebsite() {
             </Link>
             <div className="flex flex-col leading-tight">
               <span className="text-[12px] font-bold text-[#1a1a1a] tracking-tight font-[family-name:var(--font-tinos)]">Kate Xu</span>
-              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer & Builder</span>
+              <span className="text-[9px] font-semibold text-[#00915f] tracking-[1.5px] uppercase">Gen AI Product Designer</span>
             </div>
           </motion.div>
         )}
