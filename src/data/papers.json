@@ -23,4 +23,12 @@
     "takeaway": "If the brain is literally building its knowledge architecture between ages 10–14, then products for teens shouldn't just deliver content — they should accumulate with the user. Crystallized intelligence is about compounding knowledge and experience over time. Products that mirror that — where your history, progress, and insights grow richer the longer you stay — aren't just sticky. They're aligned with how the brain actually develops. That's where education and mental health products have a massive untapped advantage.",
     "url": "https://www.nature.com/articles/s41467-025-59110-9"
   }
+  ,{
+    "year": 2025,
+    "title": "Building compositional tasks with shared neural subspaces",
+    "journal": "Nature",
+    "summary": "Princeton neuroscientists found that the prefrontal cortex stores reusable patterns of neural activity — 'cognitive Legos' — that the brain snaps together to perform new tasks. Instead of learning each skill from scratch, it grabs an existing block (e.g., 'discriminate color') and wires its output into another ('drive an action'), composing complex behavior from small, pre-trained parts. Unused blocks are actively suppressed. This modular compositionality appears unique to the prefrontal cortex, and it's a trick AI systems haven't yet mastered.",
+    "takeaway": "Good B2C onboarding isn't teaching — it's triggering the cognitive block the user already has, which is probably why tropes never die.",
+    "url": "https://doi.org/10.1038/s41586-025-09805-2"
+  }
 ]
