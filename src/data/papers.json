@@ -31,4 +31,12 @@
     "takeaway": "Good B2C onboarding isn't teaching — it's triggering the cognitive block the user already has, which is probably why tropes never die.",
     "url": "https://doi.org/10.1038/s41586-025-09805-2"
   }
+  ,{
+    "year": 2025,
+    "title": "Chunking as a rational strategy for optimizing working memory",
+    "journal": "eLife",
+    "summary": "Brown University researchers built a computer model of the brain regions responsible for working memory (basal ganglia and thalamus) and discovered that our memory limits aren't really about storage capacity — they're about learning. The brain has learned to strategically 'chunk' related pieces of information together (like grouping shades of blue) to conserve mental space, and dopamine acts as the reward signal that reinforces this chunking strategy. When the model was given unlimited storage but no chunking ability, it actually performed worse — meaning the limit isn't a bug, it's a feature that forces the brain to find smarter organizing patterns. The findings also explain why people with dopamine-related conditions (Parkinson's, ADHD, schizophrenia) struggle with working memory differently.",
+    "takeaway": "A smart, smaller home makes you happier than a giant disorganized one — but you only feel that truth after living in it. The design challenge is making people sense it at the moment of choosing, because 'less but better' is a luxury people will pay more for.",
+    "url": "https://elifesciences.org/reviewed-preprints/97894"
+  }
 ]
