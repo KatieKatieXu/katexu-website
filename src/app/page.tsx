@@ -1,5 +1,5 @@
-import KatesWebsite from "@/components/KatesWebsite";
+import KatesWebsiteV2 from "@/components/KatesWebsiteV2";
 
 export default function Home() {
-  return <KatesWebsite />;
+  return <KatesWebsiteV2 />;
 }

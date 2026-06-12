@@ -36,6 +36,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# claude code local worktrees (never track these — committing one as a gitlink
+# breaks git status/diff/add)
+.claude/worktrees/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
