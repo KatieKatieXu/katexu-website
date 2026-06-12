@@ -262,7 +262,7 @@ function ImageCard({
   return (
     <div
       className={`overflow-hidden rounded-[24px] border border-[#ececec] bg-[#fafafa] ${
-        phone ? "mx-auto w-full max-w-[340px]" : ""
+        phone ? "mx-auto w-full max-w-[240px] md:max-w-[340px]" : ""
       } ${className}`}
     >
       <img src={imgSrc(img)} alt={title} loading="lazy" className="w-full h-auto block" />
