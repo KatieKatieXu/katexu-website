@@ -217,7 +217,7 @@ function IntroBlock() {
         className="w-[150px] md:w-[164px] h-auto block mb-5 -ml-2 select-none"
       />
       <h1 className="text-[20px] md:text-[21px] font-medium text-[#111] tracking-[-0.4px] leading-[1.35]">
-        Kate Xu — <span className="text-[#00915f]">Gen AI Product Designer</span>
+        Kate Xu — Senior Product Designer & Builder
       </h1>
       <p className="mt-1.5 text-[14px] md:text-[15px] text-[#555] leading-[1.5] max-w-[460px]">
         {TAGLINE}
