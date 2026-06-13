@@ -51,7 +51,7 @@ const projects: Project[] = [
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 4,000+ internal applications — design lead in a team of 35.",
-    images: ["/bofa-cloud-hero.png"],
+    images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
     reflection: [
       "Over three-plus years steering UX for a private cloud platform serving 4,000+ internal applications, I learned to treat design as product intelligence. I moved the team from static mockups to daily automated reporting — which changed my relationship with leadership, shifting every conversation from subjective aesthetics to objective product health.",
       "Establishing a baseline before each release let me quantify the ROI of design decisions, and proving a positive shift in feature click rates became the most effective tool for stakeholder buy-in. Working this close to infrastructure taught me technical empathy: a good design is only as good as its implementation, so I synced directly with engineers in Git and HTML to keep complex flows functional in production.",
