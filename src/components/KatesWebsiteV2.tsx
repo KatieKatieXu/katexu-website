@@ -64,7 +64,7 @@ const projects: Project[] = [
     title: "BofA WorkIT",
     description:
       "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
-    images: ["/workit-old-vs-new.gif"],
+    images: ["/workit-old-vs-new.gif", "/workit-eda-demo.jpg"],
     reflection: [
       "Over 1.5 years as the solo designer on WorkIT, I learned that a designer's most powerful tools aren't pixels, but observation, empathy, and data. Building a genuinely useful information architecture meant immersing in users' daily lives to find the 20% of features that drive 80% of the value.",
       "I came to view user complaints not as setbacks but as the clearest signal of where the product should go next. When behavior data contradicted my assumptions, I stayed open — re-prioritizing features by comparing release versions and A/B results rather than defending the original design.",
