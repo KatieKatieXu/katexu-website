@@ -10,7 +10,7 @@ const slides = [
           BofA Cloud
         </h1>
         <p className="text-[20px] md:text-[24px] text-gray-500 mt-4">
-          Cloud infrastructure platform supporting over 4K internal applications
+          Cloud infrastructure platform supporting over 1K internal applications
         </p>
         <p className="text-[16px] text-[#00bc7d] font-semibold mt-8">Design Lead in Team of 35</p>
       </div>
