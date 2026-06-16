@@ -40,6 +40,11 @@ yarn-error.log*
 # breaks git status/diff/add)
 .claude/worktrees/
 
+# personal / job-application files (keep local, never publish)
+*.docx
+cover-letter*.md
+KateXu_Resume*
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
