@@ -43,7 +43,17 @@ interface Project {
   images: ImageRow[]; // hero rows, stacked top-to-bottom
   reflection: string[];
   collaborators: string;
-  appStore?: string; // App Store URL — renders a "Download" button when set
+  appStore?: AppStore; // renders a download widget when set
+}
+
+// App Store listing data for the download widget.
+interface AppStore {
+  url: string;
+  icon: string;
+  name: string;
+  subtitle: string;
+  ratingLabel: string; // e.g. "5.0 · 2 Ratings · Ages 4+ · Books"
+  review?: string;
 }
 
 const projects: Project[] = [
@@ -89,7 +99,15 @@ const projects: Project[] = [
     ],
     collaborators:
       "A solo build. AI collaborators: Figma and Cursor — orchestrated by Gemini — for the agentic workflow, plus voice cloning for the storytelling.",
-    appStore: "https://apps.apple.com/us/app/pawpawstory/id6757112694",
+    appStore: {
+      url: "https://apps.apple.com/us/app/pawpawstory/id6757112694",
+      icon: "/pawpaw-appicon.png",
+      name: "pawpawStory",
+      subtitle: "Bedtime Stories in Your Voice",
+      ratingLabel: "5.0 · 2 Ratings · Ages 4+ · Books",
+      review:
+        "The app can narrate 10 short stories in my voice and tone with simply a 20s demo. The interface is so easy to navigate!",
+    },
   },
   {
     key: "ionboard",
@@ -277,6 +295,53 @@ function ImageCard({
 }
 
 // ───────────────────────────────────────────────────────────────────────────
+// Download widget — App Store-style card: icon, rating, review, Get button
+// ───────────────────────────────────────────────────────────────────────────
+function DownloadWidget({ app, project }: { app: AppStore; project: string }) {
+  return (
+    <div className="mt-5 max-w-[480px] rounded-[18px] border border-[#ececec] bg-white p-4 shadow-[0_6px_24px_-12px_rgba(0,0,0,0.18)]">
+      <div className="flex items-center gap-3.5">
+        <img
+          src={app.icon}
+          alt={`${app.name} icon`}
+          className="w-[58px] h-[58px] rounded-[13px] flex-shrink-0 border border-black/5"
+        />
+        <div className="min-w-0 flex-1">
+          <div className="text-[15px] font-semibold text-[#111] leading-tight">{app.name}</div>
+          <div className="text-[12.5px] text-[#888] truncate">{app.subtitle}</div>
+          <div className="flex items-center gap-1.5 mt-1.5">
+            <span className="text-[12px] leading-none tracking-[1px] text-[#00bc7d]" aria-hidden>
+              ★★★★★
+            </span>
+            <span className="text-[11.5px] text-[#999]">{app.ratingLabel}</span>
+          </div>
+        </div>
+        <a
+          href={app.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("v2_appstore_clicked", { project })}
+          className="flex-shrink-0 inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-2 text-[13px] font-semibold hover:bg-black transition-colors"
+        >
+          <svg width="11" height="13" viewBox="0 0 384 512" fill="currentColor" aria-hidden>
+            <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
+          </svg>
+          Get
+        </a>
+      </div>
+      {app.review && (
+        <p className="mt-3.5 pt-3.5 border-t border-[#f1f1f1] text-[13px] leading-[1.55] text-[#555]">
+          <span className="text-[#00bc7d]" aria-hidden>
+            ★★★★★
+          </span>{" "}
+          “{app.review}” <span className="text-[#aaa]">— App Store review</span>
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────────
 // A single project block — small title, one-liner, gray pill, then big image
 // ───────────────────────────────────────────────────────────────────────────
 function ProjectBlock({ project }: { project: Project }) {
@@ -301,22 +366,11 @@ function ProjectBlock({ project }: { project: Project }) {
         {project.description}
       </p>
 
-      {/* Actions: App Store download (if shipped) + expand pill */}
+      {/* Download widget — App Store card with rating + review (if shipped) */}
+      {project.appStore && <DownloadWidget app={project.appStore} project={project.title} />}
+
+      {/* Expand pill */}
       <div className="mt-4 flex flex-wrap items-center gap-2.5">
-        {project.appStore && (
-          <a
-            href={project.appStore}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => track("v2_appstore_clicked", { project: project.title })}
-            className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-3.5 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
-          >
-            <svg width="11" height="13" viewBox="0 0 384 512" fill="currentColor" aria-hidden>
-              <path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z" />
-            </svg>
-            Download on the App Store
-          </a>
-        )}
         <button
           onClick={toggle}
           aria-expanded={open}
