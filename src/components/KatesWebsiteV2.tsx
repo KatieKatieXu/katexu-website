@@ -78,7 +78,11 @@ const projects: Project[] = [
     title: "PawPaw Story",
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
-    images: ["/pawpaw-lineup.png", "/pawpaw-storycard-demo.gif"],
+    images: [
+      "/pawpaw-day-demo.jpg",
+      ["/pawpaw-night-demo.jpg", "/pawpaw-logo.png"],
+      "/pawpaw-storycard-demo.gif",
+    ],
     reflection: [
       "PawPaw started from a Stanford finding about the cognitive power of a parent's voice. I designed and shipped it in four weeks using a vibe-coding workflow that bridges Figma design and production code — proof that I don't just mock up interfaces, I understand the constraints and build functional prototypes that feel real.",
       "Using Gemini to “manage” Cursor cut development time by roughly 70%, leaving more room for user testing and iteration. The harder design work was restraint: deciding what not to build, and keeping the voice-cloning prompt warm and human rather than technical.",
