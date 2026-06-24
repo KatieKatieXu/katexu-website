@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
 
@@ -11,7 +11,6 @@ import posthog from "posthog-js";
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
 const TAGLINE = "I ask good questions and build things that make people more capable.";
-const SHIP = "/jobpilot-ship.png";
 const AVATAR = "/kate-avatar.png"; // colorful astronaut illustration w/ "Hello!" bubble
 
 // Track an event without crashing if PostHog isn't initialized.
@@ -147,64 +146,6 @@ const projects: Project[] = [
       "Solo build with AI as collaborator. Shipped in English, Chinese, Spanish, and French.",
   },
 ];
-
-// ───────────────────────────────────────────────────────────────────────────
-// Intro: a spaceship swings across, then the overlay fades to reveal the page
-// ───────────────────────────────────────────────────────────────────────────
-function SpaceshipIntro({ onDone }: { onDone: () => void }) {
-  const reduce = useReducedMotion();
-
-  // Play the spaceship fly-in only the very first time this browser ever lands on
-  // the main page. On every later visit — return from /resume or /how-i-think, a
-  // reload, a new tab, or a future session — collapse to a near-instant reveal so
-  // the ship never flies again. Persisted in localStorage so it survives sessions.
-  // Reduced-motion preference also skips it. `skip` only drives framer transition
-  // props (not SSR'd markup), so reading storage in the initializer can't mismatch.
-  const [seenBefore] = useState(
-    () => typeof window !== "undefined" && localStorage.getItem("v2IntroSeen") === "1",
-  );
-  const skip = reduce || seenBefore;
-
-  const handleDone = () => {
-    try {
-      localStorage.setItem("v2IntroSeen", "1");
-    } catch {
-      /* no-op */
-    }
-    onDone();
-  };
-
-  return (
-    <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
-      style={{ background: "#ffffff" }}
-      initial={{ opacity: 1 }}
-      animate={{ opacity: [1, 1, 0] }}
-      transition={{
-        duration: skip ? 0.01 : 0.95,
-        times: [0, 0.55, 1],
-        ease: "easeInOut",
-      }}
-      onAnimationComplete={handleDone}
-    >
-      {/* Ship always rendered (keeps SSR markup stable); when skipping, the overlay
-          fades in ~10ms so it's never perceived. */}
-      <motion.img
-        src={SHIP}
-        alt=""
-        aria-hidden
-        className="w-[260px] md:w-[420px] h-auto select-none pointer-events-none"
-        initial={{ x: "-65vw", y: 30, rotate: -16, opacity: 0 }}
-        animate={
-          skip
-            ? { opacity: 0 }
-            : { x: "65vw", y: [30, -40, 30], rotate: [-16, 0, 14], opacity: [0, 1, 1, 0] }
-        }
-        transition={{ duration: skip ? 0.01 : 0.6, ease: "easeInOut", times: [0, 0.5, 1] }}
-      />
-    </motion.div>
-  );
-}
 
 // ───────────────────────────────────────────────────────────────────────────
 // Links — gray, underlined, hover-green; external ones get a ↗
@@ -461,27 +402,15 @@ function Footer() {
 // Page
 // ───────────────────────────────────────────────────────────────────────────
 export default function KatesWebsiteV2() {
-  const [introDone, setIntroDone] = useState(false);
-
   return (
     <div className="min-h-screen bg-white text-[#111]">
-      <AnimatePresence>
-        {!introDone && <SpaceshipIntro onDone={() => setIntroDone(true)} />}
-      </AnimatePresence>
-
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: introDone ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <main className="mx-auto w-full max-w-[1040px] px-6 md:px-10">
-          <IntroBlock />
-          {projects.map((project) => (
-            <ProjectBlock key={project.key} project={project} />
-          ))}
-          <Footer />
-        </main>
-      </motion.div>
+      <main className="mx-auto w-full max-w-[1040px] px-6 md:px-10">
+        <IntroBlock />
+        {projects.map((project) => (
+          <ProjectBlock key={project.key} project={project} />
+        ))}
+        <Footer />
+      </main>
     </div>
   );
 }
