@@ -42,6 +42,7 @@ interface Project {
   images: ImageRow[]; // hero rows, stacked top-to-bottom
   reflection: string[];
   collaborators: string;
+  liveUrl?: string; // renders a "Try it live" button when set
   appStore?: AppStore; // renders a download widget when set
 }
 
@@ -124,10 +125,12 @@ const projects: Project[] = [
   {
     key: "jobpilot",
     title: "Jobpilot",
-    description: "AI-powered job-hunting copilot — built as User #1, shipped in two days.",
+    description:
+      "AI interview-prep coach and application tracker — built as User #1, shipped in two days.",
     images: ["/jobpilot-cover.gif"],
+    liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
-      "I am User #1. Every feature I built, I tested on my own job hunt. The Resume Reviser exists because my own PDF was image-based and unreadable by parsers; the “why this role for you” section exists because I was tired of applying blind. Dogfooding under real pressure turned every friction point into a feature and every workaround into a flow.",
+      "I am User #1. I built Jobpilot for my own search — not to find jobs, but to get ready for them and stay organized. It pairs an AI interview-prep coach with an application tracker: rehearse for the specific roles you're chasing, then keep every application, stage, and follow-up in one place. Every feature started as a friction point in my own process.",
       "Built in two days on a Figma MCP → Claude Code → Claude API pipeline. Claude didn't just power the features — it powered the build. AI as collaborator and AI as product, in a loop that feels genuinely new.",
     ],
     collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
@@ -310,8 +313,22 @@ function ProjectBlock({ project }: { project: Project }) {
       {/* Download widget — App Store card with rating + review (if shipped) */}
       {project.appStore && <DownloadWidget app={project.appStore} project={project.title} />}
 
-      {/* Expand pill */}
+      {/* Actions: try-it link (if live) + expand pill */}
       <div className="mt-4 flex flex-wrap items-center gap-2.5">
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("v2_try_clicked", { project: project.title })}
+            className="inline-flex items-center gap-1 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
+          >
+            Try it live
+            <span aria-hidden className="text-[0.9em] translate-y-[-1px]">
+              ↗
+            </span>
+          </a>
+        )}
         <button
           onClick={toggle}
           aria-expanded={open}
