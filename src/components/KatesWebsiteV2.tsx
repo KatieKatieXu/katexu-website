@@ -42,7 +42,8 @@ interface Project {
   images: ImageRow[]; // hero rows, stacked top-to-bottom
   reflection: string[];
   collaborators: string;
-  liveUrl?: string; // renders a "Try it live" button when set
+  liveUrl?: string; // renders an external link button when set
+  liveLabel?: string; // button text (defaults to "Try it live")
   appStore?: AppStore; // renders a download widget when set
 }
 
@@ -115,6 +116,9 @@ const projects: Project[] = [
     description:
       "Electric skateboard brand — $57K+ Kickstarter (570% funded). End-to-end brand, design, and marketing.",
     images: ["/ionboard-cover.png", ["/ionboard-ces.png", "/ionboard-pitch.png"]],
+    liveUrl:
+      "https://www.kickstarter.com/projects/1728725377/ionboard?ref=discovery&term=ionboard",
+    liveLabel: "View Kickstarter",
     reflection: [
       "Ionboard taught me to be a designer-entrepreneur: great design has to be grounded in business law, manufacturing risk, and market timing. We funded the electric skateboard at 570% on Kickstarter, and I owned the brand end to end — from product design to the global e-commerce marketing that drove it.",
       "Analyzing ad performance daily alongside engineers sharpened my ability to make proactive, data-driven design decisions — a habit I now apply at enterprise scale. I also learned that once a brand reaches the majority, its value shifts from the product itself to the connection it creates between people and resources.",
@@ -141,6 +145,7 @@ const projects: Project[] = [
     description:
       "Builder-archetype quiz in four languages — are you built to run a one-person company?",
     images: [{ src: "/oneco-demo.gif", phone: true }],
+    liveUrl: "https://oneco.katexu.com/",
     reflection: [
       "“Should I go solo?” is the wrong question. The right one is: what kind of builder am I? OneCo exists to answer that honestly, so people can stop second-guessing and start building in alignment with who they actually are.",
       "Building for four languages from day one forced better product decisions — clearer copy, fewer cultural assumptions, more universal framing. And unlike most personality tools that stop at a label, OneCo connects your archetype to real paths: the kind of one-person business you're suited to build, the traps to avoid, and where your edge actually is.",
@@ -323,7 +328,7 @@ function ProjectBlock({ project }: { project: Project }) {
             onClick={() => track("v2_try_clicked", { project: project.title })}
             className="inline-flex items-center gap-1 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
           >
-            Try it live
+            {project.liveLabel ?? "Try it live"}
             <span aria-hidden className="text-[0.9em] translate-y-[-1px]">
               ↗
             </span>
