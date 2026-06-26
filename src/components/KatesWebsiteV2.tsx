@@ -130,12 +130,17 @@ const projects: Project[] = [
     key: "jobpilot",
     title: "Jobpilot",
     description:
-      "AI interview-prep coach and application tracker — built as User #1, shipped in two days.",
-    images: ["/jobpilot-cover.gif"],
+      "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
+    images: [
+      "/jobpilot-welcome.jpg",
+      "/jobpilot-stories.jpg",
+      "/jobpilot-market.jpg",
+      "/jobpilot-tracking.jpg",
+    ],
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
-      "I am User #1. I built Jobpilot for my own search — not to find jobs, but to get ready for them and stay organized. It pairs an AI interview-prep coach with an application tracker: rehearse for the specific roles you're chasing, then keep every application, stage, and follow-up in one place. Every feature started as a friction point in my own process.",
-      "Built in two days on a Figma MCP → Claude Code → Claude API pipeline. Claude didn't just power the features — it powered the build. AI as collaborator and AI as product, in a loop that feels genuinely new.",
+      "Jobpilot started from a dangerously vague ambition — “help people manage their job search” — and the real work was narrowing it into something opinionated. The biggest call was framing: not a tool that finds you a job (judged on output), but a coach that makes you more prepared (judged on how ready you feel). That reframe — “your AI coach to land the next role” — set the tone for every feature: Jobpilot doesn't replace your effort, it makes it count.",
+      "It shows up in the details: no sign-up wall, so the whole product works in anonymous browser storage and value arrives before the ask; onboarding as a five-step journey, not a form; and a job-description field framed as a coaching moment — “postings disappear, so save the key points now; future you will thank you.” That's the line between a database and a coach: a database stores what you give it; a coach tells you what you'll wish you'd saved.",
     ],
     collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
   },
