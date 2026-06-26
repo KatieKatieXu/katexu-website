@@ -35,12 +35,18 @@ type ProjectImage = string | { src: string; phone?: boolean };
 // stack into one column on mobile.
 type ImageRow = ProjectImage | ProjectImage[];
 
+// A key design decision, framed as the call I made and why this, not that.
+interface Decision {
+  title: string;
+  body: string;
+}
+
 interface Project {
   key: string;
   title: string;
   description: string;
   images: ImageRow[]; // hero rows, stacked top-to-bottom
-  reflection: string[];
+  reflection: Decision[]; // key decisions: the call + why this, not that
   collaborators: string;
   liveUrl?: string; // renders an external link button when set
   liveLabel?: string; // button text (defaults to "Try it live")
@@ -65,8 +71,18 @@ const projects: Project[] = [
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
     images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
     reflection: [
-      "Over three-plus years steering UX for a private cloud platform serving 1,000+ internal applications, I learned to treat design as product intelligence. I moved the team from static mockups to daily automated reporting — which changed my relationship with leadership, shifting every conversation from subjective aesthetics to objective product health.",
-      "Establishing a baseline before each release let me quantify the ROI of design decisions, and proving a positive shift in feature click rates became the most effective tool for stakeholder buy-in. Working this close to infrastructure taught me technical empathy: a good design is only as good as its implementation, so I synced directly with engineers in Git and HTML to keep complex flows functional in production.",
+      {
+        title: "Measure design, don't just ship it",
+        body: "I moved the team from static mockups to daily automated reporting, so leadership conversations ran on objective product health instead of subjective aesthetics. The cost was building the tracking; the payoff was design decisions defended with data, not taste.",
+      },
+      {
+        title: "Baseline before every release",
+        body: "Rather than argue aesthetics, I established before/after metrics so each change's ROI was provable — a positive shift in feature click-rate became the most effective tool I had for stakeholder buy-in.",
+      },
+      {
+        title: "Design in the engineers' medium",
+        body: "On infrastructure this complex, a beautiful flow that breaks in production isn't a good design. I synced directly with engineers in Git and HTML rather than handing off static files, so the design survived implementation.",
+      },
     ],
     collaborators:
       "A 35-person platform org — product managers, cloud engineers, and the BofA design-system group.",
@@ -78,8 +94,18 @@ const projects: Project[] = [
       "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
     images: ["/workit-old-vs-new.gif", "/workit-eda-demo.jpg"],
     reflection: [
-      "Over 1.5 years as the solo designer on WorkIT, I learned that a designer's most powerful tools aren't pixels, but observation, empathy, and data. Building a genuinely useful information architecture meant immersing in users' daily lives to find the 20% of features that drive 80% of the value.",
-      "I came to view user complaints not as setbacks but as the clearest signal of where the product should go next. When behavior data contradicted my assumptions, I stayed open — re-prioritizing features by comparing release versions and A/B results rather than defending the original design.",
+      {
+        title: "Build the IA around the vital 20%",
+        body: "Instead of designing for every requested feature, I immersed in users' daily workflows to find the 20% that drives 80% of the value — and structured the whole information architecture around those.",
+      },
+      {
+        title: "Treat complaints as the roadmap",
+        body: "I chose to read user complaints not as setbacks but as the clearest signal of where the product should go next — the most meaningful context I had for what to build.",
+      },
+      {
+        title: "Let data overrule my assumptions",
+        body: "When behavior data contradicted my expectations, I re-prioritized features by comparing release versions and A/B results rather than defending the original design.",
+      },
     ],
     collaborators:
       "A team of three, the IT support staff whose real-time struggles shaped every iteration, and partner product managers.",
@@ -95,8 +121,18 @@ const projects: Project[] = [
       "/pawpaw-storycard-demo.gif",
     ],
     reflection: [
-      "PawPaw started from a Stanford finding about the cognitive power of a parent's voice. I designed and shipped it in four weeks using a vibe-coding workflow that bridges Figma design and production code — proof that I don't just mock up interfaces, I understand the constraints and build functional prototypes that feel real.",
-      "Using Gemini to “manage” Cursor cut development time by roughly 70%, leaving more room for user testing and iteration. The harder design work was restraint: deciding what not to build, and keeping the voice-cloning prompt warm and human rather than technical.",
+      {
+        title: "Build it, don't just mock it",
+        body: "I shipped functional, production-feeling prototypes in four weeks rather than static mockups — understanding the real constraints so the design was true, not aspirational.",
+      },
+      {
+        title: "Decide what not to build",
+        body: "With a four-week window, the harder calls were subtractive — cutting features so the core experience (record your voice, hear your story) stayed simple and emotional.",
+      },
+      {
+        title: "Warm, not technical",
+        body: "For the voice-cloning prompt I chose human, reassuring language over technical accuracy — because the moment is your voice telling your child a story, not a settings screen.",
+      },
     ],
     collaborators:
       "A solo build. AI collaborators: Figma and Cursor — orchestrated by Gemini — for the agentic workflow, plus voice cloning for the storytelling.",
@@ -120,8 +156,18 @@ const projects: Project[] = [
       "https://www.kickstarter.com/projects/1728725377/ionboard?ref=discovery&term=ionboard",
     liveLabel: "View Kickstarter",
     reflection: [
-      "Ionboard taught me to be a designer-entrepreneur: great design has to be grounded in business law, manufacturing risk, and market timing. We funded the electric skateboard at 570% on Kickstarter, and I owned the brand end to end — from product design to the global e-commerce marketing that drove it.",
-      "Analyzing ad performance daily alongside engineers sharpened my ability to make proactive, data-driven design decisions — a habit I now apply at enterprise scale. I also learned that once a brand reaches the majority, its value shifts from the product itself to the connection it creates between people and resources.",
+      {
+        title: "Treat business reality as a design constraint",
+        body: "I designed with manufacturing risk, business law, and market timing as first-class constraints, not afterthoughts — because a product that can't ship or sell isn't a good design, however beautiful.",
+      },
+      {
+        title: "Iterate on ad data, daily",
+        body: "I analyzed ad performance with engineers every day and let it drive proactive design changes, rather than designing once and defending it — the campaign funded at 570% of goal.",
+      },
+      {
+        title: "Shift from product to community",
+        body: "As the brand reached the majority, I reframed its value away from the board itself and toward the connection it creates between people and resources.",
+      },
     ],
     collaborators:
       "Co-founders and the hardware/engineering team; daily growth experiments run with marketing engineers.",
@@ -139,8 +185,18 @@ const projects: Project[] = [
     ],
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
-      "Jobpilot started from a dangerously vague ambition — “help people manage their job search” — and the real work was narrowing it into something opinionated. The biggest call was framing: not a tool that finds you a job (judged on output), but a coach that makes you more prepared (judged on how ready you feel). That reframe — “your AI coach to land the next role” — set the tone for every feature: Jobpilot doesn't replace your effort, it makes it count.",
-      "It shows up in the details: no sign-up wall, so the whole product works in anonymous browser storage and value arrives before the ask; onboarding as a five-step journey, not a form; and a job-description field framed as a coaching moment — “postings disappear, so save the key points now; future you will thank you.” That's the line between a database and a coach: a database stores what you give it; a coach tells you what you'll wish you'd saved.",
+      {
+        title: "Coach, not tool",
+        body: "The original page promised “auto-apply” and “smart matching” — automation competing with LinkedIn that the product didn't do. I rejected the tool-that-finds-you-a-job frame (judged on an output no tool can guarantee) for a coach-that-makes-you-prepared one (judged on how ready you feel). One word reset every feature downstream.",
+      },
+      {
+        title: "Value before the ask — no sign-up wall",
+        body: "Standard SaaS gates features to capture emails on day one. I did the opposite: the whole product runs in anonymous browser storage and only migrates to the cloud once you choose to sign in. It's more to build (dual-mode storage everywhere), but I'd rather earn the account than demand it.",
+      },
+      {
+        title: "A coach's nudge, not a database field",
+        body: "I could've shipped a tidy kanban — company, role, status — like every other tracker. Instead I added a job-description field, made it prominent and labeled it “Recommended,” and framed it as coaching: postings vanish before your interview call. A database stores what you give it; a coach tells you what you'll wish you'd saved.",
+      },
     ],
     collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
   },
@@ -152,8 +208,18 @@ const projects: Project[] = [
     images: [{ src: "/oneco-demo.gif", phone: true }],
     liveUrl: "https://oneco.katexu.com/",
     reflection: [
-      "“Should I go solo?” is the wrong question. The right one is: what kind of builder am I? OneCo exists to answer that honestly, so people can stop second-guessing and start building in alignment with who they actually are.",
-      "Building for four languages from day one forced better product decisions — clearer copy, fewer cultural assumptions, more universal framing. And unlike most personality tools that stop at a label, OneCo connects your archetype to real paths: the kind of one-person business you're suited to build, the traps to avoid, and where your edge actually is.",
+      {
+        title: "Reframe the question",
+        body: "“Should I go solo?” is the wrong question — no quiz can answer it. “What kind of builder am I?” is the right one, and the whole product is built to answer that honestly so people can build in alignment with who they actually are.",
+      },
+      {
+        title: "Global from day one",
+        body: "I designed for four languages from the start rather than bolting on localization later — which forced clearer copy, fewer cultural assumptions, and more universal framing.",
+      },
+      {
+        title: "Paths, not labels",
+        body: "Most personality tools stop at a label. I connected each archetype to real paths: the kind of one-person business you're suited to build, the traps to avoid, and where your edge actually is.",
+      },
     ],
     collaborators:
       "Solo build with AI as collaborator. Shipped in English, Chinese, Spanish, and French.",
@@ -367,17 +433,19 @@ function ProjectBlock({ project }: { project: Project }) {
             className="overflow-hidden"
           >
             <div className="mt-6 max-w-[620px]">
-              <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-2.5">
-                Reflection
+              <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-3">
+                Key decisions
               </h3>
-              {project.reflection.map((para, i) => (
-                <p
-                  key={i}
-                  className="text-[15px] leading-[1.65] text-[#3a3a3a] mb-3.5 last:mb-0"
-                >
-                  {para}
-                </p>
-              ))}
+              <div className="divide-y divide-[#eeeeee]">
+                {project.reflection.map((d, i) => (
+                  <div key={i} className="py-3.5 first:pt-0 last:pb-0">
+                    <h4 className="text-[14px] md:text-[15px] font-semibold text-[#1a1a1a] mb-1">
+                      {d.title}
+                    </h4>
+                    <p className="text-[14px] md:text-[15px] leading-[1.65] text-[#555]">{d.body}</p>
+                  </div>
+                ))}
+              </div>
 
               <h3 className="mt-6 text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-2">
                 Collaborators
