@@ -72,16 +72,12 @@ const projects: Project[] = [
     images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
     reflection: [
       {
-        title: "Measure design, don't just ship it",
-        body: "I moved the team from static mockups to daily automated reporting, so leadership conversations ran on objective product health instead of subjective aesthetics. The cost was building the tracking; the payoff was design decisions defended with data, not taste.",
+        title: "Won the goal, not the argument",
+        body: "My tracking showed the long resource-ordering wizard was driving drop-off and support tickets, so — using a standing 15-minute UX slot I'd carved out in the engineering standup — I pushed to cut steps. Engineering and the PM pushed back, and they were right: every field was a required technical input, and cramming them onto one screen was worse. So I lost that argument but held the goal — convenience — and noticed that repeat orders ask the identical setup every time. That reframe shipped as “pre-approval tickets” for frequent orders, and our monthly successful-submission rate rose 23% — the same convenience, without dropping a single necessary step.",
       },
       {
-        title: "Baseline before every release",
-        body: "Rather than argue aesthetics, I established before/after metrics so each change's ROI was provable — a positive shift in feature click-rate became the most effective tool I had for stakeholder buy-in.",
-      },
-      {
-        title: "Design in the engineers' medium",
-        body: "On infrastructure this complex, a beautiful flow that breaks in production isn't a good design. I synced directly with engineers in Git and HTML rather than handing off static files, so the design survived implementation.",
+        title: "Ask who's asking, before you design",
+        body: "A frontend lead handed me a vague mandate — “show more details on each machine” in the ordering flow, where users pick an OS image from a grid of logos. Before designing anything, I asked the questions people skip: who's actually asking — a user complaint, the data, or a PM? And “details” meaning what — price, provisioning time, specs? “All of it” told me the real problem wasn't the tile at all: users couldn't decide which machine to pick, and no single tile could hold enough to compare. So instead of decorating the grid, I designed a comparison view — specs as rows, machines as columns — to choose side by side. It added ~3% to the flow time, but order completion rose 6%: people lingered because they were finally deciding with confidence instead of abandoning.",
       },
     ],
     collaborators:
