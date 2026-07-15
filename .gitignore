@@ -41,9 +41,9 @@ yarn-error.log*
 .claude/worktrees/
 
 # personal / job-application files (keep local, never publish)
+# (note: the résumé PDF served at /resume lives in public/ and is intentionally tracked)
 *.docx
 cover-letter*.md
-KateXu_Resume*
 
 # typescript
 *.tsbuildinfo
