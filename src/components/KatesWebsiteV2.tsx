@@ -293,6 +293,13 @@ function IntroBlock() {
           How I Think
         </Link>
         <Link
+          href="/lab"
+          className={linkClass}
+          onClick={() => track("v2_nav_link_clicked", { href: "/lab" })}
+        >
+          Visual Lab
+        </Link>
+        <Link
           href="/resume"
           className={linkClass}
           onClick={() => track("v2_nav_link_clicked", { href: "/resume" })}
