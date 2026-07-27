@@ -273,23 +273,16 @@ function IntroBlock() {
   return (
     <section className="pt-20 md:pt-28 pb-2">
       <div className="relative w-[150px] md:w-[164px] mb-5 -ml-2 select-none">
-        <motion.img
-          src={AVATAR_ASTRONAUT}
-          alt="Kate Xu"
-          className="w-full h-auto block"
-          initial={{ y: -90, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 320, damping: 11, mass: 0.9, delay: 0.15 }}
-        />
+        <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
         <motion.img
           src={AVATAR_BUBBLE}
           alt=""
           aria-hidden
           className="absolute block"
-          style={{ left: "56.1%", top: "6.4%", width: "43.6%", transformOrigin: "8% 92%" }}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 380, damping: 13, delay: 0.75 }}
+          style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+          initial={{ y: -70, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
         />
       </div>
       <h1 className="text-[20px] md:text-[21px] font-medium text-[#111] tracking-[-0.4px] leading-[1.35]">
