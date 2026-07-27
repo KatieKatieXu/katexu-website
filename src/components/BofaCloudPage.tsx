@@ -34,6 +34,37 @@ const sections = {
     subtitle: null,
     content: (
       <div className="mt-[34px]">
+        {/* AI-Native Collaboration Highlight */}
+        <div className="bg-gradient-to-r from-[#f0fdf4] to-[#ecfdf5] border border-[#00bc7d]/20 rounded-[16px] p-[24px] mb-[24px]">
+          <p className="text-[14px] font-semibold text-[#00bc7d] tracking-wider uppercase mb-[16px]">
+            How I Ship With Engineers — AI-Native Workflow
+          </p>
+          <div className="flex flex-col gap-[16px]">
+            <div className="bg-white/70 border border-[#00bc7d]/10 rounded-[12px] p-[20px]">
+              <h4 className="text-[18px] font-semibold text-gray-900 mb-[8px]">
+                The AI-Verifiable Handoff
+              </h4>
+              <p className="text-[14px] text-gray-600 leading-[1.6] mb-[12px]">
+                Engineers receive a package of TSX, CSS, and design-system spec with reference demo images — their coding agent validates the implementation against my design.
+              </p>
+              <p className="text-[13px] text-[#00915f] font-medium">
+                Figma → TSX + CSS + DS Spec → Reference Image → Agent Validates → PR
+              </p>
+            </div>
+            <div className="bg-white/70 border border-[#00bc7d]/10 rounded-[12px] p-[20px]">
+              <h4 className="text-[18px] font-semibold text-gray-900 mb-[8px]">
+                The Living Screen Registry
+              </h4>
+              <p className="text-[14px] text-gray-600 leading-[1.6] mb-[12px]">
+                A coding agent captures the key screens of every core flow into a registry table that auto-updates on each code push — design documentation that can never drift from production.
+              </p>
+              <p className="text-[13px] text-[#00915f] font-medium">
+                Coding Agent → Capture Key Screens → Registry Table → Auto-Update on Push
+              </p>
+            </div>
+          </div>
+        </div>
+
         <div className="rounded-[16px] overflow-hidden mb-[24px]">
           <img
             src={imgCloudCover}
