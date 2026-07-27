@@ -8,11 +8,11 @@ import posthog from "posthog-js";
 
 const papers = [...papersData].reverse();
 
-const tabs = ["Research", "AI Workflow"] as const;
+const tabs = ["AI Workflow", "Research"] as const;
 type Tab = (typeof tabs)[number];
 
 export default function HowIThinkPage() {
-  const [activeTab, setActiveTab] = useState<Tab>("Research");
+  const [activeTab, setActiveTab] = useState<Tab>("AI Workflow");
 
   const handleTabChange = (tab: Tab) => {
     setActiveTab(tab);
@@ -224,16 +224,31 @@ export default function HowIThinkPage() {
               <div className="mt-10 flex flex-col gap-6">
                 {[
                   {
+                    purpose: "Designer → Engineer: The AI-Verifiable Handoff",
+                    steps: ["Figma", "Package: TSX + CSS + DS Spec", "Reference Demo Image", "Engineer's Agent Validates", "PR"],
+                    detail:
+                      "Instead of static mocks, engineers receive a package of TSX, CSS, and design-system spec alongside reference demo images. Their coding agent checks the implementation against my design — verification by agent, not by someone squinting at Figma.",
+                  },
+                  {
+                    purpose: "Designer → Engineer: The Living Screen Registry",
+                    steps: ["Coding Agent", "Capture Key Flow Screens", "Registry Table", "Auto-Update on Every Push"],
+                    detail:
+                      "A coding agent records the key screens of every core flow into a registry table that updates whenever code is pushed — design documentation that can never drift from what's actually in production.",
+                  },
+                  {
                     purpose: "Ship a product with UI",
                     steps: ["Hand Sketch", "Figma Make", "Google Stitch", "Figma → Cursor MCP", "Cursor", "Vercel"],
+                    detail: "",
                   },
                   {
                     purpose: "Ship a Design System",
                     steps: ["Claude → Figma MCP", "Figma Design System"],
+                    detail: "",
                   },
                   {
                     purpose: "Build & deploy AI agents",
                     steps: ["Claude Code", "Create Skills", "Upload & apply to agents"],
+                    detail: "",
                   },
                 ].map((workflow, i) => (
                   <motion.div
@@ -247,7 +262,7 @@ export default function HowIThinkPage() {
                       {workflow.purpose}
                     </span>
 
-                    <div className="mt-4 flex flex-wrap items-center gap-2">
+                    <div className="mt-4 flex flex-wrap items-center gap-y-3 gap-x-2">
                       {workflow.steps.map((step, j) => (
                         <div key={j} className="flex items-center gap-2">
                           <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
@@ -261,6 +276,11 @@ export default function HowIThinkPage() {
                         </div>
                       ))}
                     </div>
+                    {workflow.detail && (
+                      <p className="mt-4 pt-4 border-t border-[#f0ece4] text-[13px] text-[#555] leading-relaxed">
+                        {workflow.detail}
+                      </p>
+                    )}
                   </motion.div>
                 ))}
               </div>
