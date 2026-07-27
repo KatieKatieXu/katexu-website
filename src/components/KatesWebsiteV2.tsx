@@ -271,10 +271,13 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 function IntroBlock() {
   return (
     <section className="pt-20 md:pt-28 pb-2">
-      <img
+      <motion.img
         src={AVATAR}
         alt="Kate Xu"
         className="w-[150px] md:w-[164px] h-auto block mb-5 -ml-2 select-none"
+        initial={{ y: -90, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 320, damping: 11, mass: 0.9, delay: 0.15 }}
       />
       <h1 className="text-[20px] md:text-[21px] font-medium text-[#111] tracking-[-0.4px] leading-[1.35]">
         Kate Xu — Senior Product Designer & Builder
