@@ -124,6 +124,22 @@ export default function HowIThinkPage() {
                   they couldn&apos;t fully explain. A product that only works for one
                   of those people isn&apos;t finished yet.
                 </p>
+
+                <motion.figure
+                  className="mt-8"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                  <img
+                    src="/ucsd-design-competition-2018.jpg"
+                    alt="Kate Xu in conversation at the UCSD design competition"
+                    className="w-full h-auto rounded-2xl border border-[#e8e4db]"
+                  />
+                  <figcaption className="mt-2 text-center text-[11px] text-[#999] italic">
+                    2018 at UCSD design competition
+                  </figcaption>
+                </motion.figure>
               </motion.section>
 
               <motion.div
