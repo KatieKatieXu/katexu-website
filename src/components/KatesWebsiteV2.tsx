@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
@@ -270,20 +270,44 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 // Intro block — name, title, bio, links, in the content flow (no header)
 // ───────────────────────────────────────────────────────────────────────────
 function IntroBlock() {
+  // Play the Hello drop only on the first landing of this browser session —
+  // not again when the visitor returns from a subpage or soft-navigates back.
+  const [playHello, setPlayHello] = useState(false);
+  useLayoutEffect(() => {
+    try {
+      if (!window.sessionStorage.getItem("v2_hello_played")) {
+        window.sessionStorage.setItem("v2_hello_played", "1");
+        setPlayHello(true);
+      }
+    } catch {
+      /* private mode — just show the bubble statically */
+    }
+  }, []);
+
   return (
     <section className="pt-20 md:pt-28 pb-2">
       <div className="relative w-[150px] md:w-[164px] mb-5 -ml-2 select-none">
         <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
-        <motion.img
-          src={AVATAR_BUBBLE}
-          alt=""
-          aria-hidden
-          className="absolute block"
-          style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
-          initial={{ y: -70, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
-        />
+        {playHello ? (
+          <motion.img
+            src={AVATAR_BUBBLE}
+            alt=""
+            aria-hidden
+            className="absolute block"
+            style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+            initial={{ y: -70, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
+          />
+        ) : (
+          <img
+            src={AVATAR_BUBBLE}
+            alt=""
+            aria-hidden
+            className="absolute block"
+            style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+          />
+        )}
       </div>
       <h1 className="text-[20px] md:text-[21px] font-medium text-[#111] tracking-[-0.4px] leading-[1.35]">
         Kate Xu — Senior Product Designer & Builder
