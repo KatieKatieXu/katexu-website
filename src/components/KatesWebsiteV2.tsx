@@ -330,6 +330,16 @@ function WorkflowHighlightBlock() {
             </div>
           ))}
         </div>
+        <div className="mt-3 pt-3 border-t border-[#e9e9e6]">
+          <Link
+            href="/how-i-think"
+            className="inline-flex items-center gap-1 text-[12px] font-medium text-[#00915f] hover:underline underline-offset-[3px]"
+            onClick={() => track("v2_workflow_see_more_clicked", { href: "/how-i-think" })}
+          >
+            See more AI workflows
+            <span aria-hidden className="translate-y-[-1px]">→</span>
+          </Link>
+        </div>
       </div>
     </section>
   );
