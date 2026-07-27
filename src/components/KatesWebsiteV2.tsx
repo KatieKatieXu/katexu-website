@@ -41,12 +41,25 @@ interface Decision {
   body: string;
 }
 
-// An AI-native collaboration method, highlighted above a project's images.
+// An AI-native collaboration method, highlighted at the top of the portfolio.
 interface WorkflowHighlight {
   title: string;
   body: string;
   flow: string; // arrow-separated pipeline, rendered as a small green line
 }
+
+const workflows: WorkflowHighlight[] = [
+  {
+    title: "The AI-Verifiable Handoff",
+    body: "Engineers receive a package of TSX, CSS, and design-system spec plus reference demo images — their coding agent validates the implementation against my design.",
+    flow: "Figma → TSX + CSS + DS spec → reference image → agent validates → PR",
+  },
+  {
+    title: "The Living Screen Registry",
+    body: "A coding agent captures the key screens of every core flow into a registry table that auto-updates on each code push — documentation that can't drift from production.",
+    flow: "coding agent → key screens → registry table → auto-update on push",
+  },
+];
 
 interface Project {
   key: string;
@@ -54,7 +67,6 @@ interface Project {
   description: string;
   images: ImageRow[]; // hero rows, stacked top-to-bottom
   reflection: Decision[]; // key decisions: the call + why this, not that
-  workflows?: WorkflowHighlight[]; // AI-native workflow highlight (if set)
   collaborators: string;
   liveUrl?: string; // renders an external link button when set
   liveLabel?: string; // button text (defaults to "Try it live")
@@ -78,18 +90,6 @@ const projects: Project[] = [
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
     images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
-    workflows: [
-      {
-        title: "The AI-Verifiable Handoff",
-        body: "Engineers receive a package of TSX, CSS, and design-system spec plus reference demo images — their coding agent validates the implementation against my design.",
-        flow: "Figma → TSX + CSS + DS spec → reference image → agent validates → PR",
-      },
-      {
-        title: "The Living Screen Registry",
-        body: "A coding agent captures the key screens of every core flow into a registry table that auto-updates on each code push — documentation that can't drift from production.",
-        flow: "coding agent → key screens → registry table → auto-update on push",
-      },
-    ],
     reflection: [
       {
         title: "Nothing to cut → Pre-approval Tickets",
@@ -305,6 +305,30 @@ function IntroBlock() {
 }
 
 // ───────────────────────────────────────────────────────────────────────────
+// Portfolio-wide highlight — how I ship with engineers, AI-native
+// ───────────────────────────────────────────────────────────────────────────
+function WorkflowHighlightBlock() {
+  return (
+    <section className="pt-12 md:pt-14">
+      <div className="max-w-[620px] rounded-[18px] border border-[#ececec] bg-[#fafafa] p-4 md:p-5">
+        <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-3">
+          How I ship with engineers — AI-native workflow
+        </h3>
+        <div className="divide-y divide-[#e9e9e6]">
+          {workflows.map((w, i) => (
+            <div key={i} className="py-3 first:pt-0 last:pb-0">
+              <h4 className="text-[14px] font-semibold text-[#1a1a1a] mb-1">{w.title}</h4>
+              <p className="text-[13.5px] leading-[1.6] text-[#555]">{w.body}</p>
+              <p className="mt-1.5 text-[12px] font-medium text-[#00915f]">{w.flow}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────────
 // A single hero image in its rounded card. Phone captures are capped + centered.
 // ───────────────────────────────────────────────────────────────────────────
 const imgSrc = (img: ProjectImage) => (typeof img === "string" ? img : img.src);
@@ -401,24 +425,6 @@ function ProjectBlock({ project }: { project: Project }) {
       <p className="mt-1 text-[14px] md:text-[15px] text-[#555] leading-[1.5] max-w-[540px]">
         {project.description}
       </p>
-
-      {/* AI-native workflow highlight (if set) */}
-      {project.workflows && (
-        <div className="mt-5 max-w-[620px] rounded-[18px] border border-[#ececec] bg-[#fafafa] p-4 md:p-5">
-          <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-3">
-            How I ship with engineers — AI-native workflow
-          </h3>
-          <div className="divide-y divide-[#e9e9e6]">
-            {project.workflows.map((w, i) => (
-              <div key={i} className="py-3 first:pt-0 last:pb-0">
-                <h4 className="text-[14px] font-semibold text-[#1a1a1a] mb-1">{w.title}</h4>
-                <p className="text-[13.5px] leading-[1.6] text-[#555]">{w.body}</p>
-                <p className="mt-1.5 text-[12px] font-medium text-[#00915f]">{w.flow}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Download widget — App Store card with rating + review (if shipped) */}
       {project.appStore && <DownloadWidget app={project.appStore} project={project.title} />}
@@ -535,6 +541,7 @@ export default function KatesWebsiteV2() {
     <div className="min-h-screen bg-white text-[#111]">
       <main className="mx-auto w-full max-w-[1040px] px-6 md:px-10">
         <IntroBlock />
+        <WorkflowHighlightBlock />
         {projects.map((project) => (
           <ProjectBlock key={project.key} project={project} />
         ))}
