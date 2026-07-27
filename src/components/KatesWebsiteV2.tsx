@@ -323,10 +323,9 @@ function WorkflowHighlightBlock() {
         </h3>
         <div className="divide-y divide-[#e9e9e6]">
           {workflows.map((w, i) => (
-            <div key={i} className="py-3 first:pt-0 last:pb-0">
-              <h4 className="text-[14px] font-semibold text-[#1a1a1a] mb-1">{w.title}</h4>
-              <p className="text-[13.5px] leading-[1.6] text-[#555]">{w.body}</p>
-              <p className="mt-1.5 text-[12px] font-medium text-[#00915f]">{w.flow}</p>
+            <div key={i} className="py-2.5 first:pt-0 last:pb-0">
+              <h4 className="text-[14px] font-semibold text-[#1a1a1a] mb-0.5">{w.title}</h4>
+              <p className="text-[12px] font-medium text-[#00915f]">{w.flow}</p>
             </div>
           ))}
         </div>
