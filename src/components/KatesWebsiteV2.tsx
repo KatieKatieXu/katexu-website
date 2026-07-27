@@ -11,7 +11,8 @@ import posthog from "posthog-js";
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
 const TAGLINE = "I ask good questions and build things that make people more capable.";
-const AVATAR = "/kate-avatar.png"; // colorful astronaut illustration w/ "Hello!" bubble
+const AVATAR_ASTRONAUT = "/kate-avatar-astronaut.png"; // astronaut layer
+const AVATAR_BUBBLE = "/kate-avatar-bubble.png"; // "Hello!" bubble layer
 
 // Track an event without crashing if PostHog isn't initialized.
 function track(event: string, props?: Record<string, unknown>) {
@@ -271,14 +272,26 @@ function ExternalLink({ href, children }: { href: string; children: React.ReactN
 function IntroBlock() {
   return (
     <section className="pt-20 md:pt-28 pb-2">
-      <motion.img
-        src={AVATAR}
-        alt="Kate Xu"
-        className="w-[150px] md:w-[164px] h-auto block mb-5 -ml-2 select-none"
-        initial={{ y: -90, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 320, damping: 11, mass: 0.9, delay: 0.15 }}
-      />
+      <div className="relative w-[150px] md:w-[164px] mb-5 -ml-2 select-none">
+        <motion.img
+          src={AVATAR_ASTRONAUT}
+          alt="Kate Xu"
+          className="w-full h-auto block"
+          initial={{ y: -90, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 320, damping: 11, mass: 0.9, delay: 0.15 }}
+        />
+        <motion.img
+          src={AVATAR_BUBBLE}
+          alt=""
+          aria-hidden
+          className="absolute block"
+          style={{ left: "56.1%", top: "6.4%", width: "43.6%", transformOrigin: "8% 92%" }}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ type: "spring", stiffness: 380, damping: 13, delay: 0.75 }}
+        />
+      </div>
       <h1 className="text-[20px] md:text-[21px] font-medium text-[#111] tracking-[-0.4px] leading-[1.35]">
         Kate Xu — Senior Product Designer & Builder
       </h1>
