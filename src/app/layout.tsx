@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Tinos, Inter } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
 import { PostHogProvider } from "@/components/PostHogProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const tinos = Tinos({
-  weight: ["400", "700"],
-  variable: "--font-tinos",
   subsets: ["latin"],
 });
 
@@ -40,7 +29,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${tinos.variable} ${inter.variable} antialiased`}
+        className={`${geistMono.variable} ${inter.variable} antialiased`}
       >
         <PostHogProvider>{children}</PostHogProvider>
       </body>

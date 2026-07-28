@@ -27,6 +27,7 @@
     "vanta": "^0.5.24"
   },
   "devDependencies": {
+    "@figma/code-connect": "^1.4.9",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
