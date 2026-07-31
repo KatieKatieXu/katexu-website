@@ -133,11 +133,11 @@ export default function HowIThinkPage() {
                 >
                   <img
                     src="/ucsd-design-competition-2018.jpg"
-                    alt="Kate Xu in conversation at the UCSD design competition"
+                    alt="Kate Xu in conversation with Don Norman at the UCSD design competition"
                     className="w-full h-auto rounded-2xl border border-[#e8e4db]"
                   />
                   <figcaption className="mt-2 text-center text-[11px] text-[#999] italic">
-                    2018 at UCSD design competition
+                    2018 at UCSD design competition, with Don Norman
                   </figcaption>
                 </motion.figure>
               </motion.section>
