@@ -240,6 +240,19 @@ export default function HowIThinkPage() {
               <div className="mt-10 flex flex-col gap-6">
                 {[
                   {
+                    purpose: "Redesign an existing product",
+                    steps: [
+                      "Claude Design ↔ Codebase",
+                      "Learn Moodboard",
+                      "Stylescape / Style Tiles",
+                      "Key Visual Decisions",
+                      "Package → Cowork on New Branch",
+                      "Detail Fixes",
+                    ],
+                    detail:
+                      "Claude Design connects to the live codebase, then learns a new moodboard and distills it into stylescapes and style tiles. I make the key visual calls — that judgment stays human. Claude Design generates a package back to Cowork, which builds the redesign on a fresh branch, and I close the loop by tuning details.",
+                  },
+                  {
                     purpose: "Designer → Engineer: The AI-Verifiable Handoff",
                     steps: ["Figma", "Package: TSX + CSS + DS Spec", "Reference Demo Image", "Engineer's Agent Validates", "PR"],
                     detail:
