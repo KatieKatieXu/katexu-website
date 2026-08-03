@@ -135,8 +135,8 @@ const projects: Project[] = [
     images: ["/pawpaw-hero.mp4", "/pawpaw-collage.mp4"],
     reflection: [
       {
-        title: "A palette system, not 14 one-off illustrations",
-        body: "The first cover set looked templated — shared sky, moon, hills. Instead of redrawing 14 one-offs, I built a 25-color illustration palette (base → dusk → warm → glow → character) and composed every cover as a recipe: sky + celestial + landscape + motif. Upfront cost of building the primitives, but covers became visually distinct yet guaranteed-cohesive — and the system scales to future stories, including AI-generated covers.",
+        title: "Why I'm making this app",
+        body: "Bedtime stories are how children learn what love sounds like — but work trips, late nights, and distance mean parents can't always be there to tell them. Voice cloning is usually pitched as an efficiency tool; I wanted to use it for the opposite: presence. PawPaw Story lets a parent's own voice read the bedtime story even when they can't — not replacing the parent, extending them. That's my bar for AI products: the technology should disappear, and what's left should feel like the person you love.",
       },
       {
         title: "The karaoke pacer — fix the cause, not the symptom",
