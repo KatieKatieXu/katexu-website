@@ -5,6 +5,11 @@ import Lenis from "lenis";
 
 const LERP = 0.09;
 
+// macOS fires a zero-delta wheel event the moment fingers rest on the
+// trackpad; without this filter Lenis cancels the in-flight glide sharply.
+const ignoreRestingFingers = (data: { deltaX: number; deltaY: number }) =>
+  !(data.deltaX === 0 && data.deltaY === 0);
+
 /**
  * Smooth scrolling via Lenis.
  *
@@ -23,8 +28,13 @@ export function useSmoothScroll<T extends HTMLElement>() {
           content: target,
           lerp: LERP,
           wheelMultiplier: 1,
+          virtualScroll: ignoreRestingFingers,
         })
-      : new Lenis({ lerp: LERP, wheelMultiplier: 1 });
+      : new Lenis({
+          lerp: LERP,
+          wheelMultiplier: 1,
+          virtualScroll: ignoreRestingFingers,
+        });
 
     let rafId: number;
     const raf = (time: number) => {
