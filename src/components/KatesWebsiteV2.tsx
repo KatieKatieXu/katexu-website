@@ -98,16 +98,8 @@ const projects: Project[] = [
         body: "Job hunting is a high-anxiety activity, so the v2 redesign starts from one sentence: lower cortisol before asking for effort, then deliver small dopamine hits at real moments of progress — a saved job, a finished analysis, a moved card. “Dopamine Bauhaus” is that argument as a visual language: a warm cream field with primary blue, red, and yellow, 2px ink lines, hard offset shadows, and a fixed ratio of 70% paper, 20% ink, 10% color. Calm first, then a spark.",
       },
       {
-        title: "Color is a verb, and the radius rule",
-        body: "Color marks an action, a state, or a reward — never wallpaper. Cobalt is the only “spend” color, so every primary action pays out; scarcity is the reward mechanism. Corners follow one rule: 0 or full-round, nothing in between. Working structure is sharp, everything small and stateful is a circle or pill, and the default soft-UI 8–16px radius is banned. One rule bought system-wide coherence for free.",
-      },
-      {
         title: "Motion moves like furniture, not jelly",
         body: "Mechanical, axis-aligned, quick: buttons press 1px into their shadow, scores fill left-to-right in 400ms, and a single 1.15× overshoot is reserved for real wins so it still means something. Even the loading spinner is the logo doing physics — the yellow ball bounces with gravity and squash while red and blue hold still. Numbers are the dopamine: oversized, tabular, one color max, making progress feel physical.",
-      },
-      {
-        title: "Reskin without touching the data layer",
-        body: "The entire visual system was replaced while localStorage keys, Supabase sync, auth, and payments stayed byte-identical — users lost nothing and the redesign shipped with zero migration. Built in strict order (tokens → primitives → shell → pages) from interactive HTML prototypes that served as the spec, with analytics wired to the exact moments the design theory bets on. “Calm first, then a spark” is a testable hypothesis, not a vibe.",
       },
       {
         title: "Coach, not tool — and honest about the boundary",
@@ -147,20 +139,12 @@ const projects: Project[] = [
         body: "The first cover set looked templated — shared sky, moon, hills. Instead of redrawing 14 one-offs, I built a 25-color illustration palette (base → dusk → warm → glow → character) and composed every cover as a recipe: sky + celestial + landscape + motif. Upfront cost of building the primitives, but covers became visually distinct yet guaranteed-cohesive — and the system scales to future stories, including AI-generated covers.",
       },
       {
-        title: "Covers don't theme — restraint as a decision",
-        body: "The app has day and night modes, but covers stay identical in both. They're framed cards — the album-art model — and one warm-twilight palette reads well on both the cream and indigo backgrounds while halving the asset count. Knowing when not to theme something is a design decision too.",
-      },
-      {
         title: "The karaoke pacer — fix the cause, not the symptom",
         body: "Users finished the voice-cloning sample in under 30 seconds, the quality minimum. I rejected lowering the minimum (hurts clone quality) and padding the script (fragile). Instead: a word-by-word highlight paced at word count ÷ 30s, so any script fills the window — and a slower, warmer read gives ElevenLabs richer prosody. One UX mechanic fixed both the duration bug and the clone quality.",
       },
       {
         title: "Root-cause the crash, then fix the class of bug",
         body: "Toggling day↔night crashed the navigator. The root cause was subtle: the theme class flipping between empty and set made NativeWind remount the subtree mid-render. The fix was minimal — always apply a theme class so element identity never changes. Same habit at the visual layer: when one back button overlapped the status bar, I audited every screen with a back button and fixed the class of bug, not the instance.",
-      },
-      {
-        title: "The design isn't done until it runs on device",
-        body: "Every change was verified on a native build, which surfaced what web previews hide — a React Native linker error, and a cross-platform flex bug where covers squished only on web because RN and web disagree on flex-shrink defaults. Verification is part of the deliverable, and iterating art under stable filenames meant design churn never touched engineering risk.",
       },
     ],
     collaborators:
