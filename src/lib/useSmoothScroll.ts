@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
-const EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
+const EASING = (t: number) => Math.min(1, 1.001 - Math.pow(2, -14 * t));
 
 /**
  * Smooth scrolling via Lenis.
@@ -21,10 +21,10 @@ export function useSmoothScroll<T extends HTMLElement>() {
       ? new Lenis({
           wrapper: target,
           content: target,
-          duration: 1.1,
+          duration: 0.9,
           easing: EASING,
         })
-      : new Lenis({ duration: 1.1, easing: EASING });
+      : new Lenis({ duration: 0.9, easing: EASING });
 
     let rafId: number;
     const raf = (time: number) => {
