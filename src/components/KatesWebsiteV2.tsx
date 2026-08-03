@@ -176,29 +176,6 @@ const projects: Project[] = [
     },
   },
   {
-    key: "bofa-workit",
-    title: "BofA WorkIT",
-    description:
-      "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
-    images: ["/workit-old-vs-new.gif", "/workit-eda-demo.jpg"],
-    reflection: [
-      {
-        title: "Build the IA around the vital 20%",
-        body: "Instead of designing for every requested feature, I immersed in users' daily workflows to find the 20% that drives 80% of the value — and structured the whole information architecture around those.",
-      },
-      {
-        title: "Treat complaints as the roadmap",
-        body: "I chose to read user complaints not as setbacks but as the clearest signal of where the product should go next — the most meaningful context I had for what to build.",
-      },
-      {
-        title: "Let data overrule my assumptions",
-        body: "When behavior data contradicted my expectations, I re-prioritized features by comparing release versions and A/B results rather than defending the original design.",
-      },
-    ],
-    collaborators:
-      "A team of three, the IT support staff whose real-time struggles shaped every iteration, and partner product managers.",
-  },
-  {
     key: "ionboard",
     title: "Ionboard",
     description:
@@ -223,6 +200,29 @@ const projects: Project[] = [
     ],
     collaborators:
       "Co-founders and the hardware/engineering team; daily growth experiments run with marketing engineers.",
+  },
+  {
+    key: "bofa-workit",
+    title: "BofA WorkIT",
+    description:
+      "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
+    images: ["/workit-old-vs-new.gif", "/workit-eda-demo.jpg"],
+    reflection: [
+      {
+        title: "Build the IA around the vital 20%",
+        body: "Instead of designing for every requested feature, I immersed in users' daily workflows to find the 20% that drives 80% of the value — and structured the whole information architecture around those.",
+      },
+      {
+        title: "Treat complaints as the roadmap",
+        body: "I chose to read user complaints not as setbacks but as the clearest signal of where the product should go next — the most meaningful context I had for what to build.",
+      },
+      {
+        title: "Let data overrule my assumptions",
+        body: "When behavior data contradicted my expectations, I re-prioritized features by comparing release versions and A/B results rather than defending the original design.",
+      },
+    ],
+    collaborators:
+      "A team of three, the IT support staff whose real-time struggles shaped every iteration, and partner product managers.",
   },
   {
     key: "oneco",
