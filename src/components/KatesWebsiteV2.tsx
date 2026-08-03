@@ -140,7 +140,7 @@ const projects: Project[] = [
     title: "PawPaw Story",
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
-    images: ["/pawpaw-hero.gif", ["/pawpaw-screens.gif", "/pawpaw-logo.png"]],
+    images: ["/pawpaw-hero.gif", "/pawpaw-collage.gif"],
     reflection: [
       {
         title: "A palette system, not 14 one-off illustrations",
