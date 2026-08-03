@@ -90,7 +90,7 @@ const projects: Project[] = [
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
-    images: ["/jobpilot-design-demo.mp4"],
+    images: ["/jobpilot-design-demo.mp4", "/jobpilot-elements-showcase.mp4"],
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
       {
@@ -400,6 +400,10 @@ function ImageCard({
           playsInline
           preload="metadata"
           aria-label={title}
+          onEnded={(e) => {
+            e.currentTarget.currentTime = 0;
+            void e.currentTarget.play();
+          }}
           className="w-full h-auto block"
         />
       ) : (
