@@ -1,9 +1,10 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
+import Lenis from "lenis";
 
 // ───────────────────────────────────────────────────────────────────────────
 // Constants
@@ -581,6 +582,23 @@ function Footer() {
 // Page
 // ───────────────────────────────────────────────────────────────────────────
 export default function KatesWebsiteV2() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+    let rafId: number;
+    const raf = (time: number) => {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    };
+    rafId = requestAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-white text-[#111]">
       <main className="mx-auto w-full max-w-[1040px] px-6 md:px-10">
