@@ -341,7 +341,7 @@ function IntroBlock() {
 function WorkflowHighlightBlock() {
   return (
     <section className="pt-12 md:pt-14">
-      <div className="max-w-[620px] rounded-[18px] border border-[#f0f0f0] bg-white p-4 md:p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_12px_32px_-12px_rgba(0,0,0,0.12)]">
+      <div className="max-w-[620px] rounded-[18px] bg-white p-4 md:p-5 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)] hover:scale-[1.01] transition-all duration-300 ease-[cubic-bezier(0,0,0.5,1)]">
         <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-3">
           How I ship with engineers — AI-native workflow
         </h3>
