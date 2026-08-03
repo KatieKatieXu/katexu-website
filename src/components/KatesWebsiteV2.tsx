@@ -164,6 +164,7 @@ const projects: Project[] = [
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
     images: [
+      "/pawpaw-hero.gif",
       "/pawpaw-day-demo.jpg",
       ["/pawpaw-night-demo.jpg", "/pawpaw-logo.png"],
       "/pawpaw-storycard-demo.gif",
