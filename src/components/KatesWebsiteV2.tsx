@@ -136,7 +136,7 @@ const projects: Project[] = [
     reflection: [
       {
         title: "Why I'm making this app",
-        body: "Bedtime stories are how children learn what love sounds like — but work trips, late nights, and distance mean parents can't always be there to tell them. Voice cloning is usually pitched as an efficiency tool; I wanted to use it for the opposite: presence. PawPaw Story lets a parent's own voice read the bedtime story even when they can't — not replacing the parent, extending them. That's my bar for AI products: the technology should disappear, and what's left should feel like the person you love.",
+        body: "Two scenes kept coming up. A parent home at bedtime but too drained to tell a good story — the time is there, the energy isn't. And a mom away on a work trip while her kid lies awake at home, wanting her voice, because her voice is what makes it feel safe enough to sleep. PawPaw Story serves both: it turns a parent's voice into bedtime stories, so the exhausted parent can still give quality storytime, and the parent who stayed home can press play on the one who's away. Voice cloning is usually sold as efficiency; I built it for presence.",
       },
       {
         title: "The karaoke pacer — fix the cause, not the symptom",
