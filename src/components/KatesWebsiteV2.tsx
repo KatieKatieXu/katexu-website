@@ -90,7 +90,7 @@ const projects: Project[] = [
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
-    images: ["/jobpilot-welcome-v2.gif"],
+    images: ["/jobpilot-welcome-v2.mp4"],
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
       {
@@ -140,7 +140,7 @@ const projects: Project[] = [
     title: "PawPaw Story",
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
-    images: ["/pawpaw-hero.gif", "/pawpaw-collage.gif"],
+    images: ["/pawpaw-hero.mp4", "/pawpaw-collage.mp4"],
     reflection: [
       {
         title: "A palette system, not 14 one-off illustrations",
@@ -206,7 +206,7 @@ const projects: Project[] = [
     title: "BofA WorkIT",
     description:
       "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
-    images: ["/workit-old-vs-new.gif", "/workit-eda-demo.jpg"],
+    images: ["/workit-old-vs-new.mp4", "/workit-eda-demo.jpg"],
     reflection: [
       {
         title: "Build the IA around the vital 20%",
@@ -229,7 +229,7 @@ const projects: Project[] = [
     title: "OneCo",
     description:
       "Builder-archetype quiz in four languages — are you built to run a one-person company?",
-    images: [{ src: "/oneco-demo.gif", phone: true }],
+    images: [{ src: "/oneco-demo.mp4", phone: true }],
     liveUrl: "https://oneco.katexu.com/",
     reflection: [
       {
@@ -399,13 +399,28 @@ function ImageCard({
   className?: string;
 }) {
   const phone = typeof img === "object" && img.phone;
+  const src = imgSrc(img);
+  const isVideo = src.endsWith(".mp4") || src.endsWith(".webm");
   return (
     <div
       className={`overflow-hidden rounded-[24px] border border-[#ececec] bg-[#fafafa] ${
         phone ? "mx-auto w-full max-w-[240px] md:max-w-[340px]" : ""
       } ${className}`}
     >
-      <img src={imgSrc(img)} alt={title} loading="lazy" className="w-full h-auto block" />
+      {isVideo ? (
+        <video
+          src={src}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-label={title}
+          className="w-full h-auto block"
+        />
+      ) : (
+        <img src={src} alt={title} loading="lazy" className="w-full h-auto block" />
+      )}
     </div>
   );
 }
