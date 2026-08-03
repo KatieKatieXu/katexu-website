@@ -86,6 +86,34 @@ interface AppStore {
 
 const projects: Project[] = [
   {
+    key: "jobpilot",
+    title: "Jobpilot",
+    description:
+      "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
+    images: [
+      "/jobpilot-welcome-v2.gif",
+      "/jobpilot-stories.jpg",
+      "/jobpilot-market.jpg",
+      "/jobpilot-tracking.jpg",
+    ],
+    liveUrl: "https://jobpilot.katexu.com/dashboard",
+    reflection: [
+      {
+        title: "Coach, not tool",
+        body: "The original page promised “auto-apply” and “smart matching” — automation competing with LinkedIn that the product didn't do. I rejected the tool-that-finds-you-a-job frame (judged on an output no tool can guarantee) for a coach-that-makes-you-prepared one (judged on how ready you feel). One word reset every feature downstream.",
+      },
+      {
+        title: "Value before the ask — no sign-up wall",
+        body: "Standard SaaS gates features to capture emails on day one. I did the opposite: the whole product runs in anonymous browser storage and only migrates to the cloud once you choose to sign in. It's more to build (dual-mode storage everywhere), but I'd rather earn the account than demand it.",
+      },
+      {
+        title: "A coach's nudge, not a database field",
+        body: "I could've shipped a tidy kanban — company, role, status — like every other tracker. Instead I added a job-description field, made it prominent and labeled it “Recommended,” and framed it as coaching: postings vanish before your interview call. A database stores what you give it; a coach tells you what you'll wish you'd saved.",
+      },
+    ],
+    collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
+  },
+  {
     key: "bofa-cloud",
     title: "BofA Cloud",
     description:
@@ -188,34 +216,6 @@ const projects: Project[] = [
     ],
     collaborators:
       "Co-founders and the hardware/engineering team; daily growth experiments run with marketing engineers.",
-  },
-  {
-    key: "jobpilot",
-    title: "Jobpilot",
-    description:
-      "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
-    images: [
-      "/jobpilot-welcome-v2.gif",
-      "/jobpilot-stories.jpg",
-      "/jobpilot-market.jpg",
-      "/jobpilot-tracking.jpg",
-    ],
-    liveUrl: "https://jobpilot.katexu.com/dashboard",
-    reflection: [
-      {
-        title: "Coach, not tool",
-        body: "The original page promised “auto-apply” and “smart matching” — automation competing with LinkedIn that the product didn't do. I rejected the tool-that-finds-you-a-job frame (judged on an output no tool can guarantee) for a coach-that-makes-you-prepared one (judged on how ready you feel). One word reset every feature downstream.",
-      },
-      {
-        title: "Value before the ask — no sign-up wall",
-        body: "Standard SaaS gates features to capture emails on day one. I did the opposite: the whole product runs in anonymous browser storage and only migrates to the cloud once you choose to sign in. It's more to build (dual-mode storage everywhere), but I'd rather earn the account than demand it.",
-      },
-      {
-        title: "A coach's nudge, not a database field",
-        body: "I could've shipped a tidy kanban — company, role, status — like every other tracker. Instead I added a job-description field, made it prominent and labeled it “Recommended,” and framed it as coaching: postings vanish before your interview call. A database stores what you give it; a coach tells you what you'll wish you'd saved.",
-      },
-    ],
-    collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
   },
   {
     key: "oneco",
