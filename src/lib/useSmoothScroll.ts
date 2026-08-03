@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 
-const LERP = 0.09;
+const LERP = 0.2;
 
 // macOS fires a zero-delta wheel event the moment fingers rest on the
 // trackpad; without this filter Lenis cancels the in-flight glide sharply.
