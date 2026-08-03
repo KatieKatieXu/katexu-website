@@ -136,6 +136,51 @@ const projects: Project[] = [
       "A 35-person platform org — product managers, cloud engineers, and the BofA design-system group.",
   },
   {
+    key: "pawpaw-story",
+    title: "PawPaw Story",
+    description:
+      "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
+    images: [
+      "/pawpaw-hero.gif",
+      "/pawpaw-day-demo.jpg",
+      ["/pawpaw-night-demo.jpg", "/pawpaw-logo.png"],
+      "/pawpaw-storycard-demo.gif",
+    ],
+    reflection: [
+      {
+        title: "A palette system, not 14 one-off illustrations",
+        body: "The first cover set looked templated — shared sky, moon, hills. Instead of redrawing 14 one-offs, I built a 25-color illustration palette (base → dusk → warm → glow → character) and composed every cover as a recipe: sky + celestial + landscape + motif. Upfront cost of building the primitives, but covers became visually distinct yet guaranteed-cohesive — and the system scales to future stories, including AI-generated covers.",
+      },
+      {
+        title: "Covers don't theme — restraint as a decision",
+        body: "The app has day and night modes, but covers stay identical in both. They're framed cards — the album-art model — and one warm-twilight palette reads well on both the cream and indigo backgrounds while halving the asset count. Knowing when not to theme something is a design decision too.",
+      },
+      {
+        title: "The karaoke pacer — fix the cause, not the symptom",
+        body: "Users finished the voice-cloning sample in under 30 seconds, the quality minimum. I rejected lowering the minimum (hurts clone quality) and padding the script (fragile). Instead: a word-by-word highlight paced at word count ÷ 30s, so any script fills the window — and a slower, warmer read gives ElevenLabs richer prosody. One UX mechanic fixed both the duration bug and the clone quality.",
+      },
+      {
+        title: "Root-cause the crash, then fix the class of bug",
+        body: "Toggling day↔night crashed the navigator. The root cause was subtle: the theme class flipping between empty and set made NativeWind remount the subtree mid-render. The fix was minimal — always apply a theme class so element identity never changes. Same habit at the visual layer: when one back button overlapped the status bar, I audited every screen with a back button and fixed the class of bug, not the instance.",
+      },
+      {
+        title: "The design isn't done until it runs on device",
+        body: "Every change was verified on a native build, which surfaced what web previews hide — a React Native linker error, and a cross-platform flex bug where covers squished only on web because RN and web disagree on flex-shrink defaults. Verification is part of the deliverable, and iterating art under stable filenames meant design churn never touched engineering risk.",
+      },
+    ],
+    collaborators:
+      "A solo build. AI collaborators: Figma and Cursor — orchestrated by Gemini — for the agentic workflow, plus voice cloning for the storytelling.",
+    appStore: {
+      url: "https://apps.apple.com/us/app/pawpawstory/id6757112694",
+      icon: "/pawpaw-appicon.png",
+      name: "pawpawStory",
+      subtitle: "Bedtime Stories in Your Voice",
+      ratingLabel: "5.0 · 2 Ratings · Ages 4+ · Books",
+      review:
+        "The app can narrate 10 short stories in my voice and tone with simply a 20s demo. The interface is so easy to navigate!",
+    },
+  },
+  {
     key: "bofa-workit",
     title: "BofA WorkIT",
     description:
@@ -157,43 +202,6 @@ const projects: Project[] = [
     ],
     collaborators:
       "A team of three, the IT support staff whose real-time struggles shaped every iteration, and partner product managers.",
-  },
-  {
-    key: "pawpaw-story",
-    title: "PawPaw Story",
-    description:
-      "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
-    images: [
-      "/pawpaw-hero.gif",
-      "/pawpaw-day-demo.jpg",
-      ["/pawpaw-night-demo.jpg", "/pawpaw-logo.png"],
-      "/pawpaw-storycard-demo.gif",
-    ],
-    reflection: [
-      {
-        title: "Build it, don't just mock it",
-        body: "I shipped functional, production-feeling prototypes in four weeks rather than static mockups — understanding the real constraints so the design was true, not aspirational.",
-      },
-      {
-        title: "Decide what not to build",
-        body: "With a four-week window, the harder calls were subtractive — cutting features so the core experience (record your voice, hear your story) stayed simple and emotional.",
-      },
-      {
-        title: "Warm, not technical",
-        body: "For the voice-cloning prompt I chose human, reassuring language over technical accuracy — because the moment is your voice telling your child a story, not a settings screen.",
-      },
-    ],
-    collaborators:
-      "A solo build. AI collaborators: Figma and Cursor — orchestrated by Gemini — for the agentic workflow, plus voice cloning for the storytelling.",
-    appStore: {
-      url: "https://apps.apple.com/us/app/pawpawstory/id6757112694",
-      icon: "/pawpaw-appicon.png",
-      name: "pawpawStory",
-      subtitle: "Bedtime Stories in Your Voice",
-      ratingLabel: "5.0 · 2 Ratings · Ages 4+ · Books",
-      review:
-        "The app can narrate 10 short stories in my voice and tone with simply a 20s demo. The interface is so easy to navigate!",
-    },
   },
   {
     key: "ionboard",
