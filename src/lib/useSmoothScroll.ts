@@ -10,10 +10,29 @@ const GLIDE_LERP = 0.09;
 const BRAKE_LERP = 0.45;
 const INPUT_IDLE_MS = 90;
 
-// macOS fires a zero-delta wheel event the moment fingers rest on the
-// trackpad; without this filter Lenis cancels the in-flight glide sharply.
-const ignoreRestingFingers = (data: { deltaX: number; deltaY: number }) =>
-  !(data.deltaX === 0 && data.deltaY === 0);
+// Trackpads already have native OS inertia — smoothing on top of it stacks
+// two physics systems and causes motion sickness. So Lenis only handles
+// discrete mouse-wheel ticks; trackpad events fall through to native scroll.
+// Heuristic: discrete wheels report legacy wheelDeltaY in multiples of 120.
+function isTrackpad(event: WheelEvent): boolean {
+  if (event.deltaMode !== 0) return false;
+  const wdy = (event as WheelEvent & { wheelDeltaY?: number }).wheelDeltaY;
+  if (typeof wdy === "number" && wdy !== 0) return Math.abs(wdy) % 120 !== 0;
+  return Math.abs(event.deltaY) < 40;
+}
+
+// Also ignore zero-delta events (fingers resting on the trackpad) so they
+// never chop an in-flight glide.
+const smoothMouseOnly = (data: {
+  deltaX: number;
+  deltaY: number;
+  event: Event;
+}) => {
+  if (data.deltaX === 0 && data.deltaY === 0) return false;
+  const e = data.event;
+  if (e instanceof WheelEvent && isTrackpad(e)) return false;
+  return true;
+};
 
 /**
  * Smooth scrolling via Lenis.
@@ -33,12 +52,12 @@ export function useSmoothScroll<T extends HTMLElement>() {
           content: target,
           lerp: GLIDE_LERP,
           wheelMultiplier: 1,
-          virtualScroll: ignoreRestingFingers,
+          virtualScroll: smoothMouseOnly,
         })
       : new Lenis({
           lerp: GLIDE_LERP,
           wheelMultiplier: 1,
-          virtualScroll: ignoreRestingFingers,
+          virtualScroll: smoothMouseOnly,
         });
 
     // Engage the brake when wheel input stops: re-arm the in-flight
