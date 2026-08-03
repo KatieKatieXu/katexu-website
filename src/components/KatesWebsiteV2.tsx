@@ -195,7 +195,7 @@ const projects: Project[] = [
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
     images: [
-      "/jobpilot-welcome.jpg",
+      "/jobpilot-welcome-v2.gif",
       "/jobpilot-stories.jpg",
       "/jobpilot-market.jpg",
       "/jobpilot-tracking.jpg",
