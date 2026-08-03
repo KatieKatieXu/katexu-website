@@ -62,11 +62,17 @@ export function useSmoothScroll<T extends HTMLElement>() {
 
     // Engage the brake when wheel input stops: re-arm the in-flight
     // animation toward the same target with a much faster lerp.
+    // Only for mouse events (Lenis-handled) and only while Lenis is
+    // actually animating — braking against native trackpad scroll would
+    // yank the page toward Lenis's stale internal position.
     let idleTimer: ReturnType<typeof setTimeout> | undefined;
-    const onWheel = () => {
+    const onWheel = (e: Event) => {
+      if (e instanceof WheelEvent && isTrackpad(e)) return;
       clearTimeout(idleTimer);
       idleTimer = setTimeout(() => {
-        lenis.scrollTo(lenis.targetScroll, { lerp: BRAKE_LERP });
+        if (lenis.isScrolling === "smooth") {
+          lenis.scrollTo(lenis.targetScroll, { lerp: BRAKE_LERP });
+        }
       }, INPUT_IDLE_MS);
     };
     const listenTarget: EventTarget = target ?? window;
