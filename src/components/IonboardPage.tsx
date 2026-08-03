@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
+import { useSmoothScroll } from "@/lib/useSmoothScroll";
 
 // Image assets
 const imgIonboardCover = "/ionboard-cover.png";
@@ -364,6 +365,7 @@ function NavItem({ stoneImg, label, isActive, onClick }: NavItemProps) {
 }
 
 export default function IonboardPage() {
+  const scrollRef = useSmoothScroll<HTMLDivElement>();
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionKey>("vision");
 
@@ -631,7 +633,7 @@ export default function IonboardPage() {
         </div>
 
         {/* Content with glassmorphism */}
-        <div className="flex-1 overflow-y-auto pb-40">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto pb-40">
           <div className="bg-white/85 backdrop-blur-lg mx-2 my-4 rounded-xl p-4 min-h-[calc(100vh-180px)]">
             {/* Title */}
             <h1 className="text-[36px] font-bold text-[#1a365d] font-[family-name:var(--font-tinos)] tracking-tight leading-[1.1]">

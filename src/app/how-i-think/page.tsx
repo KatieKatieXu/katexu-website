@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import papersData from "@/data/papers.json";
 import posthog from "posthog-js";
+import { useSmoothScroll } from "@/lib/useSmoothScroll";
 
 const papers = [...papersData].reverse();
 
@@ -12,6 +13,7 @@ const tabs = ["AI Workflow", "Research"] as const;
 type Tab = (typeof tabs)[number];
 
 export default function HowIThinkPage() {
+  const scrollRef = useSmoothScroll<HTMLDivElement>();
   const [activeTab, setActiveTab] = useState<Tab>("AI Workflow");
 
   const handleTabChange = (tab: Tab) => {
@@ -20,7 +22,7 @@ export default function HowIThinkPage() {
   };
 
   return (
-    <div className="h-screen overflow-y-auto w-full bg-[#fdfbf7] flex flex-col">
+    <div ref={scrollRef} className="h-screen overflow-y-auto w-full bg-[#fdfbf7] flex flex-col">
       {/* Sticky Header */}
       <div className="sticky top-0 z-20 flex flex-col bg-white/80 backdrop-blur-md border-b border-gray-200/50">
         <div className="flex items-center justify-between p-4 md:p-6">

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
+import { useSmoothScroll } from "@/lib/useSmoothScroll";
 
 // Image assets
 const imgPlanetaryDiagram = "/planetary-diagram.png";
@@ -454,6 +455,7 @@ function NavItem({ stoneImg, label, isActive, onClick }: NavItemProps) {
 }
 
 export default function OnecoPage() {
+  const scrollRef = useSmoothScroll<HTMLDivElement>();
   const [mounted, setMounted] = useState(false);
   const [activeSection, setActiveSection] = useState<SectionKey>("overview");
 
@@ -627,7 +629,7 @@ export default function OnecoPage() {
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto pb-40">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto pb-40">
           <div className="bg-white/85 backdrop-blur-lg mx-2 my-4 rounded-xl p-4 min-h-[calc(100vh-180px)]">
             {/* Oneco ship image */}
             <div className="flex justify-center mb-4">

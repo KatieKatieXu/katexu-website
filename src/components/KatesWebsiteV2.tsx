@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
-import Lenis from "lenis";
 
 // ───────────────────────────────────────────────────────────────────────────
 // Constants
@@ -95,16 +94,24 @@ const projects: Project[] = [
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
       {
-        title: "Coach, not tool",
-        body: "The original page promised “auto-apply” and “smart matching” — automation competing with LinkedIn that the product didn't do. I rejected the tool-that-finds-you-a-job frame (judged on an output no tool can guarantee) for a coach-that-makes-you-prepared one (judged on how ready you feel). One word reset every feature downstream.",
+        title: "Design for the nervous system, not just the tasks",
+        body: "Job hunting is a high-anxiety activity, so the v2 redesign starts from one sentence: lower cortisol before asking for effort, then deliver small dopamine hits at real moments of progress — a saved job, a finished analysis, a moved card. “Dopamine Bauhaus” is that argument as a visual language: a warm cream field with primary blue, red, and yellow, 2px ink lines, hard offset shadows, and a fixed ratio of 70% paper, 20% ink, 10% color. Calm first, then a spark.",
       },
       {
-        title: "Value before the ask — no sign-up wall",
-        body: "Standard SaaS gates features to capture emails on day one. I did the opposite: the whole product runs in anonymous browser storage and only migrates to the cloud once you choose to sign in. It's more to build (dual-mode storage everywhere), but I'd rather earn the account than demand it.",
+        title: "Color is a verb, and the radius rule",
+        body: "Color marks an action, a state, or a reward — never wallpaper. Cobalt is the only “spend” color, so every primary action pays out; scarcity is the reward mechanism. Corners follow one rule: 0 or full-round, nothing in between. Working structure is sharp, everything small and stateful is a circle or pill, and the default soft-UI 8–16px radius is banned. One rule bought system-wide coherence for free.",
       },
       {
-        title: "A coach's nudge, not a database field",
-        body: "I could've shipped a tidy kanban — company, role, status — like every other tracker. Instead I added a job-description field, made it prominent and labeled it “Recommended,” and framed it as coaching: postings vanish before your interview call. A database stores what you give it; a coach tells you what you'll wish you'd saved.",
+        title: "Motion moves like furniture, not jelly",
+        body: "Mechanical, axis-aligned, quick: buttons press 1px into their shadow, scores fill left-to-right in 400ms, and a single 1.15× overshoot is reserved for real wins so it still means something. Even the loading spinner is the logo doing physics — the yellow ball bounces with gravity and squash while red and blue hold still. Numbers are the dopamine: oversized, tabular, one color max, making progress feel physical.",
+      },
+      {
+        title: "Reskin without touching the data layer",
+        body: "The entire visual system was replaced while localStorage keys, Supabase sync, auth, and payments stayed byte-identical — users lost nothing and the redesign shipped with zero migration. Built in strict order (tokens → primitives → shell → pages) from interactive HTML prototypes that served as the spec, with analytics wired to the exact moments the design theory bets on. “Calm first, then a spark” is a testable hypothesis, not a vibe.",
+      },
+      {
+        title: "Coach, not tool — and honest about the boundary",
+        body: "The original page promised “auto-apply” and “smart matching” — automation the product didn't do. I rejected the tool-that-finds-you-a-job frame for a coach-that-makes-you-prepared one, and v2 keeps that honesty structural: in onboarding, one of the four journey arches is drawn in dashed outline — “You apply — out there.” The product doesn't pretend to do the part it doesn't do, and the copy (“The job search is lonely. This one isn't.”) shipped verbatim from design to production.",
       },
     ],
     collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
@@ -582,23 +589,6 @@ function Footer() {
 // Page
 // ───────────────────────────────────────────────────────────────────────────
 export default function KatesWebsiteV2() {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.1,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-    let rafId: number;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-    return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-    };
-  }, []);
-
   return (
     <div className="min-h-screen bg-white text-[#111]">
       <main className="mx-auto w-full max-w-[1040px] px-6 md:px-10">

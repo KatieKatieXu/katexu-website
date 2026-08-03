@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
+import { useSmoothScroll } from "@/lib/useSmoothScroll";
 
 /* ──────────────────────────────────────────────────
    Lab — weekly experiments in AI-native interaction
@@ -756,6 +757,7 @@ const experiments = [
 ];
 
 export default function LabPage() {
+  const scrollRef = useSmoothScroll<HTMLDivElement>();
   const [activeCategory, setActiveCategory] = useState<Category>("All");
   const [expandedNumber, setExpandedNumber] = useState<string | null>(null);
 
@@ -782,7 +784,7 @@ export default function LabPage() {
   };
 
   return (
-    <div className="h-screen overflow-y-auto w-full bg-white flex flex-col">
+    <div ref={scrollRef} className="h-screen overflow-y-auto w-full bg-white flex flex-col">
       <div className="sticky top-0 z-20 flex items-center justify-between p-4 md:p-6 bg-white/80 backdrop-blur-md border-b border-gray-200/50">
         <Link href="/">
           <motion.button
