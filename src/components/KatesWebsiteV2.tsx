@@ -112,7 +112,7 @@ const projects: Project[] = [
   },
   {
     key: "bofa-cloud",
-    caseStudyUrl: "/projects/bofa-cloud",
+    caseStudyUrl: "/decks/bofa-cloud.html",
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
