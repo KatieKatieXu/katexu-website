@@ -497,20 +497,20 @@ function ProjectBlock({ project }: { project: Project }) {
 
       {/* Actions: try-it link (if live) + expand pill */}
       <div className="mt-4 flex flex-wrap items-center gap-2.5">
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => track("v2_try_clicked", { project: project.title })}
-            className="inline-flex items-center gap-1 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
+        <button
+          onClick={toggle}
+          aria-expanded={open}
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
+        >
+          <span
+            className="text-[13px] leading-none text-[#00bc7d] transition-transform duration-300"
+            style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+            aria-hidden
           >
-            {project.liveLabel ?? "Try it live"}
-            <span aria-hidden className="text-[0.9em] translate-y-[-1px]">
-              ↗
-            </span>
-          </a>
-        )}
+            +
+          </span>
+          {open ? "Hide key decisions" : "Key decisions"}
+        </button>
         {project.caseStudyUrl && (
           <Link
             href={project.caseStudyUrl}
@@ -521,20 +521,20 @@ function ProjectBlock({ project }: { project: Project }) {
             <span aria-hidden className="translate-y-[-1px]">→</span>
           </Link>
         )}
-        <button
-          onClick={toggle}
-          aria-expanded={open}
-          className="inline-flex items-center gap-1.5 rounded-full bg-[#f1f1f0] hover:bg-[#e9e9e6] px-3 py-1.5 text-[12px] font-medium text-[#555] transition-colors"
-        >
-          <span
-            className="text-[13px] leading-none text-[#00915f] transition-transform duration-300"
-            style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-            aria-hidden
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("v2_try_clicked", { project: project.title })}
+            className="inline-flex items-center gap-1 rounded-full bg-[#f1f1f0] hover:bg-[#e9e9e6] px-4 py-1.5 text-[12px] font-medium text-[#555] transition-colors"
           >
-            +
-          </span>
-          {open ? "Hide key decisions" : "Key decisions"}
-        </button>
+            {project.liveLabel ?? "Try it live"}
+            <span aria-hidden className="text-[0.9em] translate-y-[-1px]">
+              ↗
+            </span>
+          </a>
+        )}
       </div>
 
       {/* Expandable reflection + collaborators */}
