@@ -94,6 +94,14 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
 .counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--font); font-size: 14px; color: #8FA1BC; letter-spacing: 0.06em; }
 
+/* page selector — dot rail with hover labels */
+.dot-rail { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 1001; display: flex; gap: 8px; align-items: center; padding: 8px 14px; background: rgba(11,21,38,0.55); border-radius: 999px; backdrop-filter: blur(8px); }
+.dot { position: relative; width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.35); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease, width 0.25s var(--ease); }
+.dot:hover { background: rgba(255,255,255,0.7); }
+.dot.on { width: 26px; background: var(--blue); }
+.dot .tip { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(4px); background: #0B1526; color: #fff; font-family: var(--font); font-size: 13px; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.2s var(--ease); }
+.dot:hover .tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+
 /* mini wireframe primitives (CSS recreations of product UI) */
 .wf { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px -30px rgba(16,24,40,0.25); }
 .wf-head { display: flex; gap: 26px; padding: 20px 28px; border-bottom: 1px solid var(--line); font-size: 20px; color: var(--ink-faint); }
@@ -473,7 +481,31 @@ class SlidePresentation {
     this.setupKeys();
     this.setupWheel();
     this.setupTouch();
+    this.buildDotRail();
     this.show(0);
+  }
+  buildDotRail() {
+    const rail = document.createElement('nav');
+    rail.className = 'dot-rail';
+    rail.setAttribute('aria-label', 'Slide selector');
+    this.dots = [];
+    this.slides.forEach((s, i) => {
+      const kicker = s.querySelector('.kicker');
+      const heading = s.querySelector('h2.t, h1');
+      const label = (i + 1) + ' · ' + (heading ? heading.textContent.replace(/\s+/g, ' ').trim().slice(0, 42)
+        : kicker ? kicker.textContent.trim() : 'Slide');
+      const dot = document.createElement('button');
+      dot.className = 'dot';
+      dot.setAttribute('aria-label', label);
+      const tip = document.createElement('span');
+      tip.className = 'tip';
+      tip.textContent = label;
+      dot.appendChild(tip);
+      dot.addEventListener('click', () => this.show(i));
+      rail.appendChild(dot);
+      this.dots.push(dot);
+    });
+    document.body.appendChild(rail);
   }
   setupStageScale() {
     const scale = () => {
@@ -517,6 +549,7 @@ class SlidePresentation {
     });
     this.progress.style.width = ((this.current + 1) / this.slides.length * 100) + '%';
     this.counter.textContent = (this.current + 1) + ' / ' + this.slides.length;
+    if (this.dots) this.dots.forEach((d, idx) => d.classList.toggle('on', idx === this.current));
   }
 }
 new SlidePresentation();
