@@ -250,10 +250,21 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
   <div class="reveal" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:44px; max-width:1600px;">
     <span class="pill">Create</span><span class="arrow">→</span><span class="pill">Solution template</span><span class="arrow">→</span><span class="pill">Placement (AZ)</span><span class="arrow">→</span><span class="pill">OS base</span><span class="arrow">→</span><span class="pill">Hypervisor</span><span class="arrow">→</span><span class="pill">Hostnames</span><span class="arrow">→</span><span class="pill">NAS mounts</span><span class="arrow">→</span><span class="pill">Storage</span><span class="arrow">→</span><span class="pill">Maintenance windows</span><span class="arrow">→</span><span class="pill">Advanced parameters</span><span class="arrow">→</span><span class="pill">Summary</span><span class="arrow">→</span><span class="pill blue">Submit</span>
   </div>
-  <div class="reveal panel" style="flex:1; display:flex; align-items:center; justify-content:center; background:var(--blue-mist); border-color:var(--blue-soft);">
-    <div style="text-align:center; max-width:1100px; padding:60px;">
-      <p style="font-size:56px; font-weight:700; letter-spacing:-0.02em; line-height:1.2; margin-bottom:24px;">Placement, OS, hypervisor, hostnames, NAS mounts, storage, maintenance windows…</p>
-      <p style="font-size:var(--body); color:var(--ink-soft); line-height:1.5;">…before an engineer ever reaches submit. Power users walk this every week. The tedium is the point of this slide.</p>
+  <div class="reveal" style="flex:1; display:flex; gap:64px; align-items:center; min-height:0;">
+    <!-- MacBook frame with the real wizard screen recording -->
+    <div style="flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+      <div style="width:1080px; background:#161619; border-radius:26px 26px 0 0; padding:16px 16px 12px; box-shadow:0 40px 90px -30px rgba(11,21,38,0.5);">
+        <div style="width:120px; height:14px; background:#161619; border-radius:0 0 10px 10px; margin:-16px auto 6px;"></div>
+        <video src="bofa-cloud-wizard.mp4" autoplay muted loop playsinline
+          style="width:100%; display:block; border-radius:10px; background:#000;"></video>
+      </div>
+      <div style="width:1240px; height:26px; background:linear-gradient(#E8EAEF, #C8CCD4); border-radius:0 0 18px 18px; position:relative;">
+        <div style="position:absolute; left:50%; top:0; transform:translateX(-50%); width:180px; height:11px; background:#AEB3BC; border-radius:0 0 12px 12px;"></div>
+      </div>
+    </div>
+    <div style="flex:1;">
+      <p style="font-size:40px; font-weight:600; line-height:1.3; margin-bottom:22px;">The real wizard, in real time.</p>
+      <p class="lead">Placement, OS, hypervisor, hostnames, NAS mounts, storage, maintenance windows — before an engineer ever reaches submit. Power users walk this every week. The tedium is the point.</p>
     </div>
   </div>
 </section>
