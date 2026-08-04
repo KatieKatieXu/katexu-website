@@ -71,6 +71,7 @@ interface Project {
   collaborators: string;
   liveUrl?: string; // renders an external link button when set
   liveLabel?: string; // button text (defaults to "Try it live")
+  caseStudyUrl?: string; // internal link to the full process case study
   appStore?: AppStore; // renders a download widget when set
 }
 
@@ -87,6 +88,7 @@ interface AppStore {
 const projects: Project[] = [
   {
     key: "jobpilot",
+    caseStudyUrl: "/projects/jobpilot",
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
@@ -110,6 +112,7 @@ const projects: Project[] = [
   },
   {
     key: "bofa-cloud",
+    caseStudyUrl: "/projects/bofa-cloud",
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
@@ -129,6 +132,7 @@ const projects: Project[] = [
   },
   {
     key: "pawpaw-story",
+    caseStudyUrl: "/projects/pawpaw-story",
     title: "PawPaw Story",
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
@@ -161,6 +165,7 @@ const projects: Project[] = [
   },
   {
     key: "ionboard",
+    caseStudyUrl: "/projects/ionboard",
     title: "Ionboard",
     description:
       "Electric skateboard brand — $57K+ Kickstarter (570% funded). End-to-end brand, design, and marketing.",
@@ -187,6 +192,7 @@ const projects: Project[] = [
   },
   {
     key: "bofa-workit",
+    caseStudyUrl: "/projects/bofa-workplace",
     title: "BofA WorkIT",
     description:
       "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
@@ -210,6 +216,7 @@ const projects: Project[] = [
   },
   {
     key: "oneco",
+    caseStudyUrl: "/projects/oneco",
     title: "OneCo",
     description:
       "Builder-archetype quiz in four languages — are you built to run a one-person company?",
@@ -503,6 +510,16 @@ function ProjectBlock({ project }: { project: Project }) {
               ↗
             </span>
           </a>
+        )}
+        {project.caseStudyUrl && (
+          <Link
+            href={project.caseStudyUrl}
+            onClick={() => track("v2_case_study_clicked", { project: project.title })}
+            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[12px] font-medium hover:bg-[#e6f7f0] transition-colors"
+          >
+            Full case study
+            <span aria-hidden className="translate-y-[-1px]">→</span>
+          </Link>
         )}
         <button
           onClick={toggle}
