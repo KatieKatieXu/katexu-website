@@ -286,13 +286,97 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 <!-- ============ 04 · CAN WE SHORTEN IT? ============ -->
 <section class="slide">
   <p class="kicker reveal">First instinct</p>
-  <div class="reveal" style="display:flex; flex-wrap:wrap; gap:10px; max-width:1600px; padding:18px 22px; border:4px dashed var(--red); border-radius:18px;">
-    <span class="pill">Create</span><span class="arrow">→</span><span class="pill">Solution template</span><span class="arrow">→</span><span class="pill">Placement (AZ)</span><span class="arrow">→</span><span class="pill">OS base</span><span class="arrow">→</span><span class="pill">Hypervisor</span><span class="arrow">→</span><span class="pill">Hostnames</span><span class="arrow">→</span><span class="pill">NAS mounts</span><span class="arrow">→</span><span class="pill">Storage</span><span class="arrow">→</span><span class="pill">Maintenance windows</span><span class="arrow">→</span><span class="pill">Advanced parameters</span><span class="arrow">→</span><span class="pill">Summary</span><span class="arrow">→</span><span class="pill blue">Submit</span>
-  </div>
-  <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;">
-    <p class="reveal" style="font-size:200px; font-weight:600; line-height:1; color:var(--blue);">?</p>
-    <p class="reveal" style="font-size:60px; font-weight:600; letter-spacing:-0.02em; text-align:center;">Can we shorten the wizard?</p>
-    <p class="reveal lead" style="text-align:center; max-width:1100px; margin-top:10px;">If we lose users at every step, fewer steps should mean fewer losses — so which steps can go, or be asked later?</p>
+  <div style="flex:1; display:flex; gap:80px; align-items:center; min-height:0;">
+
+    <!-- left: the question and the hypotheses -->
+    <div style="flex:1; display:flex; flex-direction:column;">
+      <h2 class="t reveal" style="margin-bottom:28px;">Can we shorten<br>the wizard?</h2>
+      <p class="lead reveal" style="margin-bottom:44px;">If we lose users at every step, fewer steps should mean fewer losses. So I opened calls with the engineers and put every step on the table.</p>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div class="reveal panel" style="padding:26px 30px; display:flex; gap:18px; align-items:baseline;">
+          <span style="font-size:20px; font-weight:700; color:var(--blue);">H1</span>
+          <p style="font-size:25px; font-weight:600;">Drop steps entirely <span style="color:var(--ink-soft); font-weight:400;">— which ones are truly required?</span></p>
+        </div>
+        <div class="reveal panel" style="padding:26px 30px; display:flex; gap:18px; align-items:baseline;">
+          <span style="font-size:20px; font-weight:700; color:var(--blue);">H2</span>
+          <p style="font-size:25px; font-weight:600;">Ask later <span style="color:var(--ink-soft); font-weight:400;">— could some questions wait until after submission?</span></p>
+        </div>
+        <div class="reveal panel" style="padding:26px 30px; display:flex; gap:18px; align-items:baseline;">
+          <span style="font-size:20px; font-weight:700; color:var(--blue);">H3</span>
+          <p style="font-size:25px; font-weight:600;">Merge screens <span style="color:var(--ink-soft); font-weight:400;">— fewer stops, same inputs?</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- right: the wizard as a strip, scissors poised at candidate cuts -->
+    <div class="reveal" style="width:560px; flex-shrink:0; position:relative;">
+      <div class="panel" style="padding:16px 0; box-shadow:0 24px 60px -28px rgba(16,24,40,0.3);">
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">01</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Create</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">02</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Solution template</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">03</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Placement (AZ)</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">04</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">OS base</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:0 22px;">
+          <span style="font-size:22px; color:var(--red); transform:scaleX(-1);">✂</span>
+          <div style="flex:1; border-top:2.5px dashed var(--red);"></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">05</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Hypervisor</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">06</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Hostnames</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">07</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">NAS mounts</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">08</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Storage</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:0 22px;">
+          <span style="font-size:22px; color:var(--red); transform:scaleX(-1);">✂</span>
+          <div style="flex:1; border-top:2.5px dashed var(--red);"></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">09</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Maintenance windows</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">10</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Advanced parameters</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:0 22px;">
+          <span style="font-size:22px; color:var(--red); transform:scaleX(-1);">✂</span>
+          <div style="flex:1; border-top:2.5px dashed var(--red);"></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">11</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Summary</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">12</span>
+          <span style="font-size:21px; font-weight:600; color:var(--blue);">Submit</span>
+        </div>
+      </div>
+      <!-- floating question badge -->
+      <div style="position:absolute; right:-46px; top:-46px; width:130px; height:130px; border-radius:50%; background:linear-gradient(135deg,#7FA4FF 0%,#3D6BFF 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 44px -14px rgba(47,107,255,0.6);">
+        <span style="font-size:74px; font-weight:700; color:#fff;">?</span>
+      </div>
+    </div>
   </div>
 </section>
 
