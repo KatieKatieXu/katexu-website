@@ -533,7 +533,7 @@ function ProjectBlock({ project }: { project: Project }) {
           >
             +
           </span>
-          {open ? `Less about ${project.title}` : `More about ${project.title}`}
+          {open ? "Hide key decisions" : "Key decisions"}
         </button>
       </div>
 
