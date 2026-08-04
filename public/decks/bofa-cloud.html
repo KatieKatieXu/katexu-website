@@ -382,13 +382,52 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 05 · DEAD END (dark) ============ -->
 <section class="slide dark">
-  <p class="kicker reveal">First instinct</p>
-  <div style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px;">
-    <p class="reveal" style="font-size:200px; font-weight:600; line-height:1; color:var(--red);">✕</p>
-    <p class="reveal" style="font-size:60px; font-weight:600; letter-spacing:-0.02em; text-align:center;">Dead end — nothing could be cut.</p>
-    <p class="reveal lead" style="text-align:center; max-width:1150px; margin-top:10px;">Step-by-step calls with engineering: every field was a required technical input before provisioning. The process wasn't long by accident — it was already as short as it could be.</p>
+  <p class="kicker reveal">First instinct · verdict</p>
+  <div style="flex:1; display:flex; gap:80px; min-height:0; align-items:center;">
+
+    <!-- left: how the verdict was reached -->
+    <div style="width:640px; flex-shrink:0;">
+      <h2 class="t reveal" style="margin-bottom:26px;">Dead end —<br>nothing could be cut.</h2>
+      <p class="lead reveal" style="margin-bottom:36px;">I took the three hypotheses into working sessions with engineering and the PM and we walked the wizard together — step by step, all twelve.</p>
+      <div class="reveal" style="display:flex; gap:14px; margin-bottom:44px;">
+        <span class="chip">Design</span>
+        <span style="align-self:center; color:#5B6B82;">×</span>
+        <span class="chip">Engineering</span>
+        <span style="align-self:center; color:#5B6B82;">×</span>
+        <span class="chip">PM</span>
+      </div>
+      <div class="reveal">
+        <p style="font-size:120px; font-weight:700; line-height:1; color:#fff;">12<span style="color:#5B6B82;">/12</span></p>
+        <p style="font-size:26px; color:#A9B7CD; margin-top:14px;">steps confirmed required before provisioning</p>
+      </div>
+    </div>
+
+    <!-- right: hypothesis verdicts -->
+    <div style="flex:1; display:flex; flex-direction:column; gap:22px;">
+      <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
+        <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
+        <div>
+          <p style="font-size:24px; font-weight:700; color:#fff; margin-bottom:8px;">H1 — Drop steps entirely</p>
+          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">Engineering, field by field: every input is a required technical parameter — placement, storage, compliance. Provisioning cannot start without them.</p>
+        </div>
+      </div>
+      <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
+        <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
+        <div>
+          <p style="font-size:24px; font-weight:700; color:#fff; margin-bottom:8px;">H2 — Ask later</p>
+          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">Deferring any question just moves the block downstream — the build stalls until the answer arrives. Same wait, worse place.</p>
+        </div>
+      </div>
+      <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
+        <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
+        <div>
+          <p style="font-size:24px; font-weight:700; color:#fff; margin-bottom:8px;">H3 — Merge screens</p>
+          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">The PM and engineers were right: cramming twelve steps of required inputs onto fewer screens made each screen worse, not the flow shorter.</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="foot reveal"><b>What a lost argument buys:</b> <span>certainty. The problem wasn't the number of steps.</span></div>
+  <div class="foot reveal"><b>What a lost argument buys: certainty.</b> <span>The process was already as short as it could be — the problem wasn't the number of steps.</span></div>
 </section>
 
 <!-- ============ 06 · CHANGE THE QUESTION ============ -->
