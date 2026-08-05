@@ -129,6 +129,29 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 .lq-stack { animation: lq-float 7s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .lq-stack { animation: none; } }
 
+
+/* ambient flow ribbon — the deck's signature illustration motif */
+.deco { position: absolute; pointer-events: none; z-index: 0; user-select: none; }
+.deco.tr { right: -180px; top: -140px; width: 900px; opacity: 0.9; }
+.deco.bl { left: -260px; bottom: -220px; width: 820px; opacity: 0.55; transform: rotate(180deg); }
+.dark .deco { opacity: 0.28; filter: saturate(1.4) brightness(1.25); }
+.slide > *:not(.deco) { position: relative; z-index: 1; }
+
+/* light slides pick up the reference's airy ice-blue wash */
+.slide:not(.dark) {
+  background:
+    radial-gradient(1100px 700px at 88% 6%, #E6F0FE 0%, rgba(230,240,254,0) 62%),
+    radial-gradient(900px 620px at 4% 96%, #EDF4FF 0%, rgba(237,244,255,0) 58%),
+    var(--paper);
+}
+/* dark slides: deep navy with a blue bloom, like the reference's closing slide */
+.slide.dark {
+  background:
+    radial-gradient(900px 640px at 18% 78%, #16345F 0%, rgba(22,52,95,0) 62%),
+    radial-gradient(760px 560px at 86% 12%, #12294C 0%, rgba(18,41,76,0) 58%),
+    #0A1526;
+}
+
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
 .counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--font); font-size: 14px; color: #8FA1BC; letter-spacing: 0.06em; }
@@ -168,6 +191,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
   radial-gradient(1200px 800px at 78% 22%, #DCE9FF 0%, rgba(220,233,255,0) 62%),
   radial-gradient(900px 700px at 8% 90%, #E7F0FF 0%, rgba(231,240,255,0) 55%), var(--paper);
   justify-content: space-between;">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <!-- Liquid-glass cloud illustration -->
   <img src="cloud-glass.png" alt="" aria-hidden="true" class="float-cloud"
     style="position:absolute; right:20px; top:150px; width:820px; height:auto; z-index:0; pointer-events:none;">
@@ -199,6 +223,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 02 · THE FUNNEL ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Context</p>
   <div style="display:flex; gap:40px; flex:1; min-height:0;">
     <div class="reveal" style="width:460px; flex-shrink:0; padding-top:8px;">
@@ -254,6 +279,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 03 · TWELVE STEPS ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">The process</p>
   <div style="flex:1; display:flex; gap:56px; align-items:center; min-height:0;">
 
@@ -294,6 +320,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 04 · CAN WE SHORTEN IT? ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">First instinct</p>
   <div style="flex:1; display:flex; gap:80px; align-items:center; min-height:0;">
 
@@ -391,6 +418,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 05 · DEAD END (dark) ============ -->
 <section class="slide dark">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">First instinct · verdict</p>
   <div style="flex:1; display:flex; gap:80px; min-height:0; align-items:center;">
 
@@ -441,6 +469,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 06 · CHANGE THE QUESTION ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">The turn</p>
   <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:36px;">
     <p class="reveal" style="font-size:var(--subtitle); color:var(--ink-faint); text-decoration:line-through;">“Which steps can we cut?”</p>
@@ -451,6 +480,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 06B · RESEARCH SETUP ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Research · setup</p>
   <div style="flex:1; display:flex; gap:80px; align-items:center; min-height:0;">
     <div style="width:620px; flex-shrink:0;">
@@ -489,6 +519,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 07 · RESEARCH METHOD ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Research</p>
   <h2 class="t reveal">10 solid interviews, three disciplines.</h2>
   <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:36px; flex:1; align-content:start;">
@@ -513,6 +544,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 08 · THE QUOTE ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Research</p>
   <div style="flex:1; display:flex; gap:88px; align-items:center;">
     <div class="reveal" style="width:400px; flex-shrink:0;">
@@ -529,6 +561,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 09 · ATTEMPT 1 ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Iteration</p>
   <h2 class="t reveal">Attempt 1 — ordering on behalf.</h2>
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px; flex:1; align-content:start;">
@@ -546,6 +579,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 10 · ATTEMPT 2 (dark) ============ -->
 <section class="slide dark">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Iteration</p>
   <h2 class="t reveal">Attempt 2 — vouchers. Achievable, but too expensive.</h2>
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px; flex:1; align-content:start;">
@@ -563,6 +597,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 11 · THE SOLUTION ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Solution</p>
   <h2 class="t reveal">Pre-approval tickets.</h2>
   <p class="lead reveal" style="margin-bottom:48px;">A standard order requested once, approved by the tech owner who owns the AIT. The requester gets an approval email and orders without the wizard — identity stays the requester's own, so the backend is untouched.</p>
@@ -585,6 +620,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 12 · ONE CHECKBOX ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Design · entry point</p>
   <h2 class="t reveal">One checkbox in the existing wizard.</h2>
   <div style="flex:1; display:flex; gap:64px; align-items:center;">
@@ -610,6 +646,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 13 · TWO NEW TABS ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Design · information architecture</p>
   <h2 class="t reveal">Two new tabs.</h2>
   <div style="flex:1; display:flex; gap:72px; align-items:center;">
@@ -638,6 +675,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 14 · STATES ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Design · states</p>
   <h2 class="t reveal">Every click visibly lands.</h2>
   <p class="lead reveal" style="margin-bottom:40px;">Approval and deletion follow one state rule: act → processing → settled. The tech owner never wonders where a ticket stands; the requester's email arrives the moment a row settles into Approved.</p>
@@ -653,6 +691,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 15 · BEFORE / NOW ============ -->
 <section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Impact</p>
   <h2 class="t reveal">One path before — a branch now.</h2>
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:72px; flex:1; align-items:center;">
@@ -694,6 +733,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 16 · OUTCOMES (dark) ============ -->
 <section class="slide dark">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Outcomes</p>
   <h2 class="t reveal">The outcomes.</h2>
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:56px; flex:1; align-content:start;">
@@ -711,6 +751,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 17 · REFLECTION / CLOSE ============ -->
 <section class="slide" style="justify-content:center;">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Reflection</p>
   <p class="reveal" style="font-size:68px; font-weight:600; letter-spacing:-0.015em; line-height:1.2; max-width:1580px; margin-bottom:56px;">Dead ends led to the method: <span style="color:var(--ink-soft);">quantitative data showed what to fix,</span> <span style="color:var(--blue);">qualitative patterns showed the new way in.</span></p>
   <div class="reveal" style="display:flex; gap:24px; margin-bottom:64px;">
