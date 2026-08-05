@@ -27,7 +27,7 @@
   --red: #E24B4A;              /* dead-end accents */
   --font: 'Switzer', -apple-system, sans-serif;
 
-  --kicker: 24px; --title: 72px; --big: 150px; --subtitle: 38px; --body: 28px; --small: 22px;
+  --kicker: 24px; --title: 72px; --big: 118px; --subtitle: 38px; --body: 28px; --small: 22px;
   --pad-x: 140px; --pad-top: 92px; --pad-bottom: 84px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --stage-bg: #0B1526; --slide-bg: #F5F8FD;
@@ -193,6 +193,12 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
   padding-bottom:0 !important;
   border-width:0 !important;
 }
+
+
+@keyframes spin360 { to { transform: rotate(360deg); } }
+#deckCursor { position:absolute; width:26px; height:26px; z-index:40; pointer-events:none; opacity:0;
+  transition: transform .75s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
+#deckCursor.press { transform: scale(0.82); }
 
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
@@ -796,7 +802,11 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
               <div style="display:flex; align-items:center; gap:12px;"><div class="cbx"></div><span style="font-size:16px; color:var(--ink-soft);">Select all</span><span style="font-size:15px; color:var(--ink-faint); margin-left:8px;">4 items</span></div>
               <div class="act-cell" data-cell style="min-width:182px;" style="min-width:auto;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div>
             </div>
-            <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st appr" style="font-size:15px;">Approved</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-ghost" style="color:var(--ink-faint); font-size:18px;">—</span></div></div>
+            <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" id="r1Status" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span id="r1Actions" style="display:flex; gap:8px; transition:opacity .3s var(--ease);">
+                 <span class="act act-icon act-approve" id="r1Approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+                 <span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></span>
+               <span id="r1Spin" class="act act-icon act-ghost" style="display:none;"><span style="width:19px; height:19px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block; animation:spin360 .9s linear infinite;"></span></span>
+               <span id="r1Done" class="act act-icon act-ghost" style="display:none; color:var(--ink-faint); font-size:18px;">—</span></div></div>
             <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div></div>
             <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81238…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div></div>
             <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px; opacity:0.5;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81239…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st appr" style="font-size:15px;">Approved</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-ghost" style="color:var(--ink-faint); font-size:18px;">—</span></div></div>
@@ -854,13 +864,13 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
   <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Outcomes</p>
   <h2 class="t reveal">The outcomes.</h2>
-  <div style="display:grid; grid-template-columns:1fr 1fr; gap:56px; flex:1; align-content:start;">
-    <div class="reveal panel" style="padding:48px; border-top:6px solid var(--blue);">
-      <p style="font-size:var(--big); font-weight:600; line-height:1; color:#fff;">+23<span style="font-size:80px;">%</span></p>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-content:start;">
+    <div class="reveal panel" style="padding:40px; border-top:6px solid var(--blue);">
+      <p style="font-size:var(--big); font-weight:600; line-height:1; color:#fff;">+23<span style="font-size:66px;">%</span></p>
       <p style="font-size:var(--body); color:#A9B7CD; margin-top:18px;">ordering success rate after launch — 11% → 34%</p>
     </div>
-    <div class="reveal panel" style="padding:48px; border-top:6px solid var(--blue);">
-      <p style="font-size:var(--big); font-weight:600; line-height:1; color:#fff;">−32<span style="font-size:80px;">%</span></p>
+    <div class="reveal panel" style="padding:40px; border-top:6px solid var(--blue);">
+      <p style="font-size:var(--big); font-weight:600; line-height:1; color:#fff;">−32<span style="font-size:66px;">%</span></p>
       <p style="font-size:var(--body); color:#A9B7CD; margin-top:18px;">average ordering time across the platform</p>
     </div>
   </div>
@@ -871,7 +881,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 <section class="slide" style="justify-content:center;">
   <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Reflection</p>
-  <p class="reveal" style="font-size:68px; font-weight:600; letter-spacing:-0.015em; line-height:1.2; max-width:1580px; margin-bottom:56px;">Dead ends led to the method: <span style="color:var(--ink-soft);">quantitative data showed what to fix,</span> <span style="color:var(--blue);">qualitative patterns showed the new way in.</span></p>
+  <p class="reveal" style="font-size:58px; font-weight:600; letter-spacing:-0.015em; line-height:1.25; max-width:1500px; margin-bottom:44px;">Dead ends led to the method: <span style="color:var(--ink-soft);">quantitative data showed what to fix,</span> <span style="color:var(--blue);">qualitative patterns showed the new way in.</span></p>
   <div class="reveal" style="display:flex; gap:24px; margin-bottom:64px;">
     <span class="chip">Data flagged the funnel</span>
     <span class="chip">Users revealed the repeat-order pattern</span>
@@ -977,6 +987,61 @@ class SlidePresentation {
   }
 }
 new SlidePresentation();
+
+/* ============ tech-owner slide: approve interaction demo ============ */
+(function () {
+  const btn = document.getElementById('r1Approve');
+  if (!btn) return;
+  const slide = btn.closest('.slide');
+  const actions = document.getElementById('r1Actions');
+  const spin = document.getElementById('r1Spin');
+  const done = document.getElementById('r1Done');
+  const status = document.getElementById('r1Status');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const cursor = document.createElement('div');
+  cursor.id = 'deckCursor';
+  cursor.innerHTML = '<svg viewBox="0 0 24 24" fill="#101828" stroke="#fff" stroke-width="1.4"><path d="M4 2l7 18 2.5-7.5L21 10z"/></svg>';
+  slide.appendChild(cursor);
+
+  const timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const reset = () => {
+    timers.forEach(clearTimeout); timers.length = 0;
+    actions.style.display = 'flex'; actions.style.opacity = '1';
+    spin.style.display = 'none'; done.style.display = 'none';
+    status.className = 'st pend'; status.textContent = 'Pending';
+    cursor.style.opacity = '0'; cursor.classList.remove('press');
+    cursor.style.transform = 'translate(0,0)';
+  };
+
+  function play() {
+    reset();
+    if (reduced) { status.className = 'st appr'; status.textContent = 'Approved'; actions.style.display='none'; done.style.display='flex'; return; }
+    const sr = slide.getBoundingClientRect(), br = btn.getBoundingClientRect();
+    const scale = sr.width / 1920 || 1;
+    const x = (br.left - sr.left) / scale + 22, y = (br.top - sr.top) / scale + 22;
+    at(600,  () => { cursor.style.opacity = '1'; cursor.style.transform = `translate(${x - 120}px, ${y + 90}px)`; });
+    at(900,  () => { cursor.style.transform = `translate(${x}px, ${y}px)`; });
+    at(1750, () => cursor.classList.add('press'));
+    at(1950, () => {
+      cursor.classList.remove('press');
+      actions.style.opacity = '0';
+      at(200, () => { actions.style.display = 'none'; spin.style.display = 'flex'; });
+    });
+    at(2300, () => { cursor.style.opacity = '0'; });
+    at(3400, () => {
+      spin.style.display = 'none'; done.style.display = 'flex';
+      status.className = 'st appr'; status.textContent = 'Approved';
+    });
+    at(8000, play);
+  }
+  new MutationObserver(() => {
+    if (slide.classList.contains('visible')) play(); else reset();
+  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  if (slide.classList.contains('visible')) play();
+})();
+
 
 /* ============ requester slide: row-deletion demo ============ */
 (function () {
