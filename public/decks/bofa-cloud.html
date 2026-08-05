@@ -999,17 +999,19 @@ new SlidePresentation();
       }
       box.style.transform = 'none';
       box.style.width = '100%';
+      box.style.marginLeft = '0';
       const cs = getComputedStyle(slide);
       const availH = slide.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
       const availW = slide.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
       const needH = box.scrollHeight, needW = box.scrollWidth;
-      const s = Math.min(1, availH / needH, availW / needW);
-      if (s < 0.999) {
-        box.style.transform = 'scale(' + s.toFixed(4) + ')';
-        box.style.width = (100 / s) + '%';
-        box.style.marginLeft = ((100 - 100 / s) / 2) + '%';
-      } else {
-        box.style.marginLeft = '0';
+      // 3% tolerance: sub-pixel/flex rounding must never shrink a slide that already fits,
+      // otherwise some slides render smaller than the rest of the deck.
+      const s = Math.min(availH / needH, availW / needW);
+      if (s < 0.97) {
+        const k = Math.max(s, 0.8);
+        box.style.transform = 'scale(' + k.toFixed(4) + ')';
+        box.style.width = (100 / k) + '%';
+        box.style.marginLeft = ((100 - 100 / k) / 2) + '%';
       }
     });
   }
