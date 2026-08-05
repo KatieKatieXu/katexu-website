@@ -196,9 +196,9 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 
 @keyframes spin360 { to { transform: rotate(360deg); } }
-#deckCursor { position:absolute; width:26px; height:26px; z-index:40; pointer-events:none; opacity:0;
+#deckCursor, .demoCursor { position:absolute; width:26px; height:26px; z-index:40; pointer-events:none; opacity:0;
   transition: transform .75s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
-#deckCursor.press { transform: scale(0.82); }
+#deckCursor.press, .demoCursor.press { transform: scale(0.82) !important; }
 
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
@@ -769,8 +769,8 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
               <div style="display:flex; align-items:center; gap:12px;"><div class="cbx"></div><span style="font-size:16px; color:var(--ink-soft);">Select all</span><span style="font-size:15px; color:var(--ink-faint); margin-left:8px;">4 items</span></div>
               <div class="act-cell" style="min-width:auto;"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div>
             </div>
-            <div class="tRow" data-row="0" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st deling" style="font-size:15px;">Deleting</span><div class="act-cell"><span class="act act-ghost"><span style="width:22px; height:22px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block;"></span> Processing</span></div></div>
-            <div class="tRow" data-row="1" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px; opacity:0.5;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st deled" style="font-size:15px;">Deleted</span><div class="act-cell"><span class="act act-ghost">Complete</span></div></div>
+            <div class="tRow" data-row="0" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" id="q1Status" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-ghost"><span style="width:22px; height:22px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block;"></span> Processing</span></div></div>
+            <div class="tRow" data-row="1" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
             <div class="tRow" data-row="2" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81238…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
             <div class="tRow" data-row="3" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81239…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
           </div>
@@ -988,6 +988,59 @@ class SlidePresentation {
 }
 new SlidePresentation();
 
+/* ============ requester slide: delete interaction demo ============ */
+(function () {
+  const btn = document.getElementById('q1Delete');
+  if (!btn) return;
+  const slide = btn.closest('.slide');
+  const row = btn.closest('.tRow');
+  const actions = document.getElementById('q1Actions');
+  const spin = document.getElementById('q1Spin');
+  const status = document.getElementById('q1Status');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const cursor = document.createElement('div');
+  cursor.className = 'demoCursor';
+  cursor.innerHTML = '<svg viewBox="0 0 24 24" fill="#101828" stroke="#fff" stroke-width="1.4"><path d="M4 2l7 18 2.5-7.5L21 10z"/></svg>';
+  slide.appendChild(cursor);
+
+  const timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const reset = () => {
+    timers.forEach(clearTimeout); timers.length = 0;
+    row.classList.remove('gone');
+    actions.style.display = 'flex'; actions.style.opacity = '1';
+    spin.style.display = 'none';
+    status.className = 'st pend'; status.textContent = 'Pending';
+    cursor.style.opacity = '0'; cursor.classList.remove('press');
+  };
+
+  function play() {
+    reset();
+    if (reduced) { row.classList.add('gone'); return; }
+    const sr = slide.getBoundingClientRect(), br = btn.getBoundingClientRect();
+    const scale = sr.width / 1920 || 1;
+    const x = (br.left - sr.left) / scale + 40, y = (br.top - sr.top) / scale + 20;
+    at(700,  () => { cursor.style.opacity = '1'; cursor.style.transform = `translate(${x - 130}px, ${y + 110}px)`; });
+    at(1000, () => { cursor.style.transform = `translate(${x}px, ${y}px)`; });
+    at(1850, () => cursor.classList.add('press'));
+    at(2050, () => {
+      cursor.classList.remove('press');
+      status.className = 'st deling'; status.textContent = 'Deleting';
+      actions.style.opacity = '0';
+      at(200, () => { actions.style.display = 'none'; spin.style.display = 'flex'; });
+    });
+    at(2400, () => { cursor.style.opacity = '0'; });
+    at(3600, () => { row.classList.add('gone'); });          // spins, then the row leaves
+    at(8200, play);
+  }
+  new MutationObserver(() => {
+    if (slide.classList.contains('visible')) play(); else reset();
+  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  if (slide.classList.contains('visible')) play();
+})();
+
+
 /* ============ tech-owner slide: approve interaction demo ============ */
 (function () {
   const btn = document.getElementById('r1Approve');
@@ -1043,29 +1096,7 @@ new SlidePresentation();
 })();
 
 
-/* ============ requester slide: row-deletion demo ============ */
-(function () {
-  const first = document.querySelector('.tRow');
-  if (!first) return;
-  const slide = first.closest('.slide');
-  const rows = slide.querySelectorAll('.tRow');
-  const target = rows[1];
-  if (!target) return;
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let t1, t2;
-  function play() {
-    clearTimeout(t1); clearTimeout(t2);
-    target.classList.remove('gone');
-    if (reduced) return;
-    t1 = setTimeout(() => target.classList.add('gone'), 1800);
-    t2 = setTimeout(play, 8000);
-  }
-  new MutationObserver(() => {
-    if (slide.classList.contains('visible')) play();
-    else { clearTimeout(t1); clearTimeout(t2); target.classList.remove('gone'); }
-  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
-  if (slide.classList.contains('visible')) play();
-})();
+
 
 
 
