@@ -202,6 +202,16 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
   transition: transform .75s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
 #deckCursor.press, .demoCursor.press { transform: scale(0.82) !important; }
 
+
+/* impact-slide helpers (verified in the standalone test deck) */
+.lbl { font-size:19px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+.node { display:inline-flex; align-items:center; font-size:22px; font-weight:600; border:2px solid #101828; border-radius:12px; padding:14px 20px; white-space:nowrap; }
+.node.ghost { border-color:#E4EBF5; color:var(--ink-faint); font-weight:400; }
+.node.blue { border-color:var(--blue); color:var(--blue); background:#EFF5FF; }
+.node.fill { border:none; background:var(--blue); color:#fff; }
+.wire { width:40px; height:2px; background:#C7D3E4; flex-shrink:0; }
+.wire.b { background:var(--blue); }
+
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
 .counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--font); font-size: 14px; color: #8FA1BC; letter-spacing: 0.06em; }
@@ -819,83 +829,82 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
   <div class="foot reveal"><b>Role-based visibility is the authentication:</b> <span>the second tab doesn't gray out for a requester — it isn't rendered at all.</span></div>
 </section>
 
-<!-- ============ 15 · BEFORE / NOW ============ -->
-<section class="slide">
-  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
-  <p class="kicker reveal">Impact</p>
-  <h2 class="t reveal" style="margin-bottom:56px;">One path before — a branch now.</h2>
+  <!-- ============ 15 · IMPACT ============ -->
+  <section class="slide">
+    <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+    <p class="kicker reveal">Impact</p>
+    <h2 class="t reveal" style="margin-bottom:56px;">One path before — a branch now.</h2>
 
-  <div style="display:flex; flex-direction:column; gap:58px;">
-
-    <!-- BEFORE -->
-    <div class="reveal">
-      <p style="font-size:19px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:22px;">Before — one path for every order</p>
-      <div style="display:flex; align-items:center;">
-        <span style="display:inline-flex; align-items:center; font-size:22px; font-weight:600; border:2px solid #101828; border-radius:12px; padding:14px 20px; white-space:nowrap;">Start an order</span><div style="width:40px; height:2px; background:#C7D3E4; flex-shrink:0;"></div><span style="display:inline-flex; align-items:center; font-size:22px; border:2px solid #E4EBF5; border-radius:12px; padding:14px 20px; color:var(--ink-faint); white-space:nowrap;">12-step wizard</span><div style="width:40px; height:2px; background:#C7D3E4; flex-shrink:0;"></div><span style="display:inline-flex; align-items:center; font-size:22px; font-weight:600; border:2px solid #101828; border-radius:12px; padding:14px 20px; white-space:nowrap;">Submit</span>
+    <div class="reveal" style="display:flex;flex-direction:column;gap:56px;">
+      <div>
+        <p class="lbl" style="color:var(--ink-faint);margin-bottom:22px;">Before — one path for every order</p>
+        <div style="display:flex;align-items:center;">
+          <span class="node">Start an order</span><i class="wire"></i>
+          <span class="node ghost">12-step wizard</span><i class="wire"></i>
+          <span class="node">Submit</span>
+        </div>
       </div>
-    </div>
 
-    <!-- NOW -->
-    <div class="reveal" style="border-top:1px solid var(--line); padding-top:44px;">
-      <p style="font-size:19px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); margin-bottom:22px;">Now — a branch for repeats</p>
-      <div style="display:flex; align-items:center;">
-        <span style="display:inline-flex; align-items:center; font-size:22px; font-weight:600; border:2px solid #101828; border-radius:12px; padding:14px 20px; white-space:nowrap;">Start an order</span>
-        <div style="width:30px; height:2px; background:#C7D3E4; flex-shrink:0;"></div>
-        <div style="width:2px; align-self:stretch; background:#C7D3E4; margin:26px 0; flex-shrink:0;"></div>
-        <div style="display:flex; flex-direction:column; gap:24px;">
-          <div style="display:flex; align-items:center;"><div style="width:40px; height:2px; background:var(--blue); flex-shrink:0;"></div><span style="display:inline-flex; align-items:center; font-size:22px; font-weight:600; border:2px solid var(--blue); border-radius:12px; padding:14px 20px; color:var(--blue); background:#EFF5FF; white-space:nowrap;">Pre-approval ticket</span><div style="width:40px; height:2px; background:var(--blue); flex-shrink:0;"></div><span style="display:inline-flex; align-items:center; font-size:22px; font-weight:600; border-radius:12px; padding:14px 22px; background:var(--blue); color:#fff; white-space:nowrap;">Submit</span></div>
-          <div style="display:flex; align-items:center;"><div style="width:40px; height:2px; background:#C7D3E4; flex-shrink:0;"></div><span style="display:inline-flex; align-items:center; font-size:22px; border:2px solid #E4EBF5; border-radius:12px; padding:14px 20px; color:var(--ink-faint); white-space:nowrap;">12-step wizard</span><div style="width:40px; height:2px; background:#C7D3E4; flex-shrink:0;"></div><span style="display:inline-flex; align-items:center; font-size:22px; border:2px solid #E4EBF5; border-radius:12px; padding:14px 20px; color:var(--ink-faint); white-space:nowrap;">Submit</span></div>
+      <div style="border-top:1px solid var(--line);padding-top:44px;">
+        <p class="lbl" style="color:var(--blue);margin-bottom:22px;">Now — a branch for repeats</p>
+        <div style="display:flex;align-items:center;">
+          <span class="node">Start an order</span>
+          <i class="wire" style="width:30px;"></i>
+          <div style="width:2px;align-self:stretch;background:#C7D3E4;margin:26px 0;flex-shrink:0;"></div>
+          <div style="display:flex;flex-direction:column;gap:24px;">
+            <div style="display:flex;align-items:center;">
+              <i class="wire b"></i><span class="node blue">Pre-approval ticket</span><i class="wire b"></i><span class="node fill">Submit</span>
+            </div>
+            <div style="display:flex;align-items:center;">
+              <i class="wire"></i><span class="node ghost">12-step wizard</span><i class="wire"></i><span class="node ghost">Submit</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div class="foot reveal"><b>Nothing was taken away:</b> <span>the wizard still serves genuinely new orders — repeats just stopped paying its cost.</span></div>
-</section>
+    <div class="foot reveal"><b>Nothing was taken away:</b> <span>the wizard still serves genuinely new orders — repeats just stopped paying its cost.</span></div>
+  </section>
 
+  <!-- ============ 16 · OUTCOMES ============ -->
+  <section class="slide">
+    <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
+    <p class="kicker reveal">Outcomes</p>
+    <h2 class="t reveal" style="margin-bottom:44px;">The outcomes.</h2>
 
-<!-- ============ 16 · OUTCOMES ============ -->
-<section class="slide">
-  <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
-  <p class="kicker reveal">Outcomes</p>
-  <h2 class="t reveal" style="margin-bottom:36px;">The outcomes.</h2>
-
-  <div style="display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:80px; margin-top:12px;">
-    <div class="reveal" style="border-top:3px solid var(--blue); padding-top:38px;">
-      <p style="font-size:112px; font-weight:700; line-height:1; letter-spacing:-0.03em;">+23<span style="font-size:74px;">%</span></p>
-      <p style="font-size:26px; color:var(--ink-soft); margin-top:22px;">ordering success rate after launch — 11% → 34%</p>
+    <div class="reveal" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;">
+      <div style="border-top:3px solid var(--blue);padding-top:38px;">
+        <p style="font-size:112px;font-weight:700;line-height:1;letter-spacing:-0.03em;">+23<span style="font-size:74px;">%</span></p>
+        <p style="font-size:26px;color:var(--ink-soft);margin-top:22px;">ordering success rate after launch — 11% → 34%</p>
+      </div>
+      <div style="border-top:3px solid var(--blue);padding-top:38px;">
+        <p style="font-size:112px;font-weight:700;line-height:1;letter-spacing:-0.03em;">−32<span style="font-size:74px;">%</span></p>
+        <p style="font-size:26px;color:var(--ink-soft);margin-top:22px;">average ordering time</p>
+      </div>
     </div>
-    <div class="reveal" style="border-top:3px solid var(--blue); padding-top:38px;">
-      <p style="font-size:112px; font-weight:700; line-height:1; letter-spacing:-0.03em;">−32<span style="font-size:74px;">%</span></p>
-      <p style="font-size:26px; color:var(--ink-soft); margin-top:22px;">average ordering time</p>
-    </div>
-  </div>
 
-  <div class="foot reveal"><span>The time drop shows how much ordering volume was this category all along — standard setups placed by teams under the same AIT.</span></div>
-</section>
+    <div class="foot reveal"><span>The time drop shows how much ordering volume was this category all along — standard setups placed by teams under the same AIT.</span></div>
+  </section>
 
-<!-- ============ 17 · REFLECTION ============ -->
-<section class="slide">
-  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
-  <p class="kicker reveal">Reflection</p>
-  <h2 class="t reveal" style="margin-bottom:40px;">The reflection.</h2>
+  <!-- ============ 17 · REFLECTION ============ -->
+  <section class="slide">
+    <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+    <p class="kicker reveal">Reflection</p>
+    <h2 class="t reveal" style="margin-bottom:44px;">The reflection.</h2>
 
-  <div>
-    <p class="reveal" style="font-size:54px; font-weight:700; letter-spacing:-0.02em; line-height:1.26; max-width:1520px;">
-      Dead ends led to the method: <span style="color:var(--ink-soft); font-weight:600;">quantitative data showed what to fix, qualitative patterns showed the new way in.</span>
+    <p class="reveal" style="font-size:54px;font-weight:700;letter-spacing:-0.02em;line-height:1.26;max-width:1500px;">
+      Dead ends led to the method: <span style="color:var(--ink-soft);font-weight:600;">quantitative data showed what to fix, qualitative patterns showed the new way in.</span>
     </p>
-  </div>
 
-  <div class="reveal" style="display:flex; gap:56px; flex-wrap:wrap; font-size:21px; color:var(--ink-soft); border-top:1px solid var(--line); padding-top:26px; margin-bottom:22px;">
-    <span>Data flagged the funnel</span>
-    <span>Users revealed the repeat-order pattern</span>
-    <span>A backend wall reframed the design question</span>
-  </div>
-  <div class="reveal" style="display:flex; gap:36px; flex-wrap:wrap; font-size:20px; color:var(--ink-faint);">
-    <span style="font-weight:700; color:var(--ink);">Kate Xu</span><span>katexu.com</span><span>katherinexu09@gmail.com</span>
-  </div>
-</section>
-
+    <div class="reveal" style="display:flex;gap:56px;flex-wrap:wrap;font-size:21px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:26px;margin-top:auto;margin-bottom:22px;">
+      <span>Data flagged the funnel</span>
+      <span>Users revealed the repeat-order pattern</span>
+      <span>A backend wall reframed the design question</span>
+    </div>
+    <div class="reveal" style="display:flex;gap:36px;flex-wrap:wrap;font-size:20px;color:var(--ink-faint);">
+      <span style="font-weight:700;color:var(--ink);">Kate Xu</span><span>katexu.com</span><span>katherinexu09@gmail.com</span>
+    </div>
+  </section>
 
 </main>
 </div>
