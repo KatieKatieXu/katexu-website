@@ -988,6 +988,43 @@ class SlidePresentation {
 }
 new SlidePresentation();
 
+/* ============ AUTO-FIT: never let a slide overflow the 1920×1080 stage ============ */
+(function () {
+  function fitAll() {
+    document.querySelectorAll('.slide').forEach(slide => {
+      let box = slide.querySelector(':scope > .fitBox');
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'fitBox';
+        box.style.cssText = 'display:flex; flex-direction:column; width:100%; height:100%; transform-origin:top center;';
+        // move everything except the ambient decoration into the box
+        Array.from(slide.children).forEach(ch => { if (!ch.classList.contains('deco')) box.appendChild(ch); });
+        slide.appendChild(box);
+      }
+      box.style.transform = 'none';
+      box.style.width = '100%';
+      const cs = getComputedStyle(slide);
+      const availH = slide.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+      const availW = slide.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+      const needH = box.scrollHeight, needW = box.scrollWidth;
+      const s = Math.min(1, availH / needH, availW / needW);
+      if (s < 0.999) {
+        box.style.transform = 'scale(' + s.toFixed(4) + ')';
+        box.style.width = (100 / s) + '%';
+        box.style.marginLeft = ((100 - 100 / s) / 2) + '%';
+      } else {
+        box.style.marginLeft = '0';
+      }
+    });
+  }
+  window.addEventListener('resize', fitAll);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitAll);
+  window.addEventListener('load', fitAll);
+  setTimeout(fitAll, 60);
+  setTimeout(fitAll, 600);
+})();
+
+
 /* ============ requester slide: delete interaction demo ============ */
 (function () {
   const btn = document.getElementById('q1Delete');
