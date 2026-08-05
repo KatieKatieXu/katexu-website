@@ -191,71 +191,60 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 <!-- ============ 02 · THE FUNNEL ============ -->
 <section class="slide">
   <p class="kicker reveal">Context</p>
-  <div style="display:flex; gap:48px; flex:1; min-height:0;">
-
-    <!-- left: the story -->
-    <div class="reveal" style="width:520px; flex-shrink:0; padding-top:6px;">
-      <h2 class="t" style="margin-bottom:26px;">Losing users at<br>every stage.</h2>
-      <p class="lead" style="margin-bottom:32px;">Engineers order hosted services through a <span style="position:relative; display:inline-block; padding:2px 10px; font-weight:600; color:var(--ink);">12-step wizard<svg viewBox="0 0 200 60" preserveAspectRatio="none" style="position:absolute; inset:-8px -6px; width:calc(100% + 12px); height:calc(100% + 16px); pointer-events:none;" aria-hidden="true"><ellipse class="ink-circle" cx="100" cy="30" rx="96" ry="26" fill="none" stroke="var(--red)" stroke-width="3.5" transform="rotate(-2 100 30)" stroke-linecap="round"/></svg></span> — and Glassbox session data showed the funnel narrowing at every stage.</p>
-      <div style="border-left:4px solid var(--blue); padding-left:22px;">
-        <p style="font-size:26px; line-height:1.5; color:var(--ink-soft);">Quantitative data shows <b style="color:var(--ink);">where</b> users leave.<br>It can't show <b style="color:var(--ink);">why</b>.</p>
-      </div>
+  <div style="display:flex; gap:40px; flex:1; min-height:0;">
+    <div class="reveal" style="width:460px; flex-shrink:0; padding-top:8px;">
+      <h2 class="t" style="margin-bottom:28px;">The ordering<br>funnel.</h2>
+      <p class="lead">Engineers order hosted services through a <span style="position:relative; display:inline-block; padding:2px 10px; font-weight:600; color:var(--ink);">12-step wizard<svg viewBox="0 0 200 60" preserveAspectRatio="none" style="position:absolute; inset:-8px -6px; width:calc(100% + 12px); height:calc(100% + 16px); pointer-events:none;" aria-hidden="true"><ellipse class="ink-circle" cx="100" cy="30" rx="96" ry="26" fill="none" stroke="var(--red)" stroke-width="3.5" transform="rotate(-2 100 30)" stroke-linecap="round"/></svg></span> Glassbox session data showed we were losing users at every stage — only 11% of started orders reached submit.</p>
     </div>
 
-    <!-- right: funnel with stage labels pinned to its silhouette -->
+    <!-- 3D vortex funnel with metric callouts (Stratify reference) -->
     <div class="reveal" style="flex:1; position:relative; min-height:0;">
 
-      <img src="funnel-glass.png" alt="Ordering funnel narrowing from 100% to 11%" class="lq-stack"
-        style="position:absolute; left:50%; top:8px; transform:translateX(-50%); width:600px; height:auto; z-index:1;
-               filter:drop-shadow(0 40px 60px rgba(11,32,72,0.22));">
-
-      <!-- ENTRY (funnel mouth, wide top) -->
-      <div style="position:absolute; left:0; top:44px; display:flex; align-items:center; gap:14px; z-index:2;">
-        <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 22px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.3);">
-          <p style="font-size:40px; font-weight:600; line-height:1;">100%</p>
-          <p style="font-size:17px; color:var(--ink-faint); margin-top:4px;">Start an order</p>
-        </div>
-        <div style="width:96px; border-top:2px dashed #B9CBE8;"></div>
+      <!-- discs, stacked and centered -->
+      <div style="position:absolute; left:50%; top:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center;">
+        <div style="width:560px; height:178px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #22344F 0%, #0B1526 70%); z-index:7; box-shadow:0 30px 60px -20px rgba(11,21,38,0.45);"></div>
+        <div style="width:450px; height:142px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #4066E8 0%, #2748C6 70%); z-index:6; margin-top:-64px;"></div>
+        <div style="width:362px; height:114px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #5B82FF 0%, #3D6BFF 70%); z-index:5; margin-top:-50px;"></div>
+        <div style="width:286px; height:92px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #86A5FF 0%, #6E93FF 70%); z-index:4; margin-top:-40px;"></div>
+        <div style="width:218px; height:70px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #B1C6FF 0%, #9FB9FF 70%); z-index:3; margin-top:-30px;"></div>
+        <div style="width:158px; height:52px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #DCE7FF 0%, #C5D7FF 70%); z-index:2; margin-top:-22px;"></div>
+        <div style="width:54px; height:88px; border-radius:0 0 27px 27px; background:linear-gradient(#C5D7FF, #EDF3FF); z-index:1; margin-top:-14px;"></div>
       </div>
 
-      <!-- FIRST CLIFF (upper cone) -->
-      <div style="position:absolute; right:0; top:170px; display:flex; align-items:center; gap:14px; flex-direction:row-reverse; z-index:2;">
-        <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 22px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.3);">
-          <p style="font-size:40px; font-weight:600; line-height:1; color:var(--red);">−24 pts</p>
-          <p style="font-size:17px; color:var(--ink-faint); margin-top:4px;">Placement (AZ) · 76%</p>
-        </div>
-        <div style="width:110px; border-top:2px dashed #B9CBE8;"></div>
-      </div>
+      <!-- left callouts -->
+      <div style="position:absolute; left:0; top:48px; width:190px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.25);">
+        <p style="font-size:44px; font-weight:600; line-height:1;">100%</p><p style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Create</p></div>
+      <div style="position:absolute; left:214px; top:88px; width:130px; border-top:2px dashed #B9CBE8;"></div>
+      <div style="position:absolute; left:206px; top:80px; width:16px; height:16px; border-radius:50%; background:var(--blue-mist); border:2px solid var(--blue);"></div>
 
-      <!-- BIGGEST CLIFF (mid cone) -->
-      <div style="position:absolute; left:0; top:330px; display:flex; align-items:center; gap:14px; z-index:2;">
-        <div style="background:#fff; border:2px solid var(--red); border-radius:14px; padding:16px 22px; box-shadow:0 14px 34px -18px rgba(226,75,74,0.4);">
-          <p style="font-size:40px; font-weight:600; line-height:1; color:var(--red);">−31 pts</p>
-          <p style="font-size:17px; color:var(--ink-faint); margin-top:4px;">NAS mounts → Storage · 45→28%</p>
-        </div>
-        <div style="width:120px; border-top:2px dashed var(--red);"></div>
-      </div>
+      <div style="position:absolute; left:0; top:298px; width:190px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.25);">
+        <p style="font-size:44px; font-weight:600; line-height:1;">45%</p><p style="font-size:18px; color:var(--ink-faint); margin-top:6px;">NAS mounts</p></div>
+      <div style="position:absolute; left:214px; top:338px; width:170px; border-top:2px dashed #B9CBE8;"></div>
+      <div style="position:absolute; left:206px; top:330px; width:16px; height:16px; border-radius:50%; background:var(--blue-mist); border:2px solid var(--blue);"></div>
 
-      <!-- LOWER CLIFF -->
-      <div style="position:absolute; right:0; top:470px; display:flex; align-items:center; gap:14px; flex-direction:row-reverse; z-index:2;">
-        <div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px 22px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.3);">
-          <p style="font-size:40px; font-weight:600; line-height:1;">17%</p>
-          <p style="font-size:17px; color:var(--ink-faint); margin-top:4px;">Advanced parameters</p>
-        </div>
-        <div style="width:150px; border-top:2px dashed #B9CBE8;"></div>
-      </div>
+      <div style="position:absolute; left:0; top:520px; width:190px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.25);">
+        <p style="font-size:44px; font-weight:600; line-height:1;">17%</p><p style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Adv. parameters</p></div>
+      <div style="position:absolute; left:214px; top:560px; width:210px; border-top:2px dashed #B9CBE8;"></div>
+      <div style="position:absolute; left:206px; top:552px; width:16px; height:16px; border-radius:50%; background:var(--blue-mist); border:2px solid var(--blue);"></div>
 
-      <!-- EXIT (stem tip) -->
-      <div style="position:absolute; left:50%; bottom:-6px; transform:translateX(-50%); text-align:center; z-index:2;">
-        <div style="width:2px; height:28px; background:linear-gradient(#B9CBE8, var(--blue)); margin:0 auto 12px;"></div>
-        <div style="display:inline-block; background:linear-gradient(135deg,#7FA4FF 0%,#3D6BFF 100%); border-radius:16px; padding:18px 34px; box-shadow:0 16px 40px -16px rgba(47,107,255,0.55);">
-          <p style="font-size:52px; font-weight:700; line-height:1; color:#fff;">11%</p>
-          <p style="font-size:18px; color:rgba(255,255,255,0.88); margin-top:5px;">reach Submit</p>
-        </div>
-      </div>
+      <!-- right callouts -->
+      <div style="position:absolute; right:0; top:150px; width:190px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.25);">
+        <p style="font-size:44px; font-weight:600; line-height:1;">76%</p><p style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Placement (AZ)</p></div>
+      <div style="position:absolute; right:214px; top:190px; width:150px; border-top:2px dashed #B9CBE8;"></div>
+      <div style="position:absolute; right:206px; top:182px; width:16px; height:16px; border-radius:50%; background:var(--blue-mist); border:2px solid var(--blue);"></div>
+
+      <div style="position:absolute; right:0; top:388px; width:190px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px; box-shadow:0 12px 30px -18px rgba(16,24,40,0.25);">
+        <p style="font-size:44px; font-weight:600; line-height:1;">28%</p><p style="font-size:18px; color:var(--ink-faint); margin-top:6px;">Storage</p></div>
+      <div style="position:absolute; right:214px; top:428px; width:190px; border-top:2px dashed #B9CBE8;"></div>
+      <div style="position:absolute; right:206px; top:420px; width:16px; height:16px; border-radius:50%; background:var(--blue-mist); border:2px solid var(--blue);"></div>
+
+      <div style="position:absolute; right:0; top:566px; width:210px; background:linear-gradient(135deg,#7FA4FF 0%,#3D6BFF 100%); border-radius:16px; padding:22px 26px; box-shadow:0 16px 40px -16px rgba(47,107,255,0.55);">
+        <p style="font-size:52px; font-weight:700; line-height:1; color:#fff;">11%</p><p style="font-size:18px; color:rgba(255,255,255,0.85); margin-top:6px;">reach Submit</p></div>
+      <div style="position:absolute; right:234px; top:610px; width:220px; border-top:2px dashed #8FB0F5;"></div>
+      <div style="position:absolute; right:226px; top:602px; width:16px; height:16px; border-radius:50%; background:#fff; border:2px solid var(--blue);"></div>
     </div>
   </div>
-  <div class="foot reveal"><b>Where they go:</b> <span>the steepest losses sit at Placement, NAS mounts, and Storage — nine of every ten orders never reach submit.</span></div>
+  <div class="foot reveal"><b>Where:</b> <span>the cliffs sit at Placement, NAS mounts, and Storage — quantitative data shows where users leave, not why.</span></div>
 </section>
 
 <!-- ============ 03 · TWELVE STEPS ============ -->
