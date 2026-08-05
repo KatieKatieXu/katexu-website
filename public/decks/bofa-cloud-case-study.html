@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Service Ordering — Kate Xu · Case Study 01</title>
+<!-- Typography: Switzer (Fontshare) — clean grotesque matching the blue/white data aesthetic -->
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600,700&display=swap">
+<style>
+/* =========================================================
+   THEME — "Clean Data" blue/white (Stratify-style reference)
+   ========================================================= */
+:root {
+  --paper: #F5F8FD;            /* ice-blue page field */
+  --card: #FFFFFF;             /* white cards */
+  --navy: #0B1526;             /* dark analysis slides */
+  --navy-card: #12203A;        /* cards on dark slides */
+  --ink: #101828;              /* primary text */
+  --ink-soft: #5B6B82;         /* secondary text */
+  --ink-faint: #93A2B7;        /* captions */
+  --blue: #2F6BFF;             /* primary blue */
+  --blue-deep: #1B4FD8;
+  --blue-soft: #D9E6FF;        /* light fills */
+  --blue-mist: #EAF1FF;        /* softest fill */
+  --line: #E4EBF5;             /* hairlines on light */
+  --line-dark: rgba(255,255,255,0.12);
+  --red: #E24B4A;              /* dead-end accents */
+  --font: 'Switzer', -apple-system, sans-serif;
+
+  --kicker: 24px; --title: 72px; --big: 118px; --subtitle: 38px; --body: 28px; --small: 22px;
+  --pad-x: 140px; --pad-top: 92px; --pad-bottom: 84px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --stage-bg: #0B1526; --slide-bg: #F5F8FD;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ============ viewport-base.css (mandatory, in full) ============ */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
+@media print {
+  html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+  .deck-viewport { position: static; overflow: visible; background: #fff; }
+  .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+  .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .deck-controls { display: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+}
+/* ============ end viewport-base.css ============ */
+
+/* =========== SHARED SLIDE ANATOMY =========== */
+body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: antialiased; }
+.slide { padding: var(--pad-top) var(--pad-x) var(--pad-bottom); display: flex; flex-direction: column; }
+.slide.dark { background: var(--navy); color: #FFFFFF; }
+
+.kicker { font-size: var(--kicker); font-weight: 600; color: var(--ink); margin-bottom: 26px; align-self: flex-start; border-bottom: 3px solid var(--blue); padding-bottom: 8px; }
+.dark .kicker { color: #fff; border-color: var(--blue); }
+h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 44px; }
+.lead { font-size: var(--body); color: var(--ink-soft); line-height: 1.5; max-width: 1420px; }
+.dark .lead { color: #A9B7CD; }
+.foot { border-top: 1px solid var(--line); padding-top: 26px; margin-top: auto; font-size: var(--body); line-height: 1.5; }
+.dark .foot { border-color: var(--line-dark); }
+.foot b { font-weight: 600; }
+.foot span { color: var(--ink-soft); font-weight: 400; }
+.dark .foot span { color: #A9B7CD; }
+
+/* white content card (Stratify signature) */
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 20px; }
+.dark .panel { background: var(--navy-card); border-color: var(--line-dark); }
+
+/* step pills */
+.pill { font-size: 22px; border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 11px 16px; color: var(--ink); white-space: nowrap; }
+.pill.blue { border-color: var(--blue); color: var(--blue); font-weight: 600; background: var(--blue-mist); }
+.arrow { font-size: 22px; color: var(--ink-faint); align-self: center; }
+
+/* metric chip (small labeled pill, Stratify style) */
+.chip { display: inline-flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; background: var(--blue-mist); color: var(--blue-deep); border-radius: 999px; padding: 8px 18px; }
+.dark .chip { background: rgba(47,107,255,0.18); color: #9DBCFF; }
+
+/* hand-drawn ink circle: draws itself 1s after the slide appears */
+.ink-circle { stroke-dasharray: 430; stroke-dashoffset: 430; transition: stroke-dashoffset 0.9s var(--ease) 1s; }
+.slide.visible .ink-circle { stroke-dashoffset: 0; }
+
+/* reveal animation */
+.reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.6s var(--ease), transform 0.6s var(--ease); }
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal:nth-child(2) { transition-delay: 0.08s; } .reveal:nth-child(3) { transition-delay: 0.16s; }
+.reveal:nth-child(4) { transition-delay: 0.24s; } .reveal:nth-child(5) { transition-delay: 0.32s; }
+
+
+/* title slide on dark: glowing-cloud variant */
+#titleSlide { color: var(--ink); }
+#titleSlide .chip { background: var(--blue-mist); color: var(--blue-deep); }
+#titleSlide .stat-label { color: var(--ink-faint) !important; }
+#titleSlide .stat-before { color: var(--ink-faint) !important; }
+#titleSlide .meta { color: var(--ink-soft) !important; }
+#titleSlide .head-small { color: var(--ink-faint) !important; }
+
+/* liquid-glass cloud: slow drift */
+@keyframes cloud-float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-18px) rotate(-1.2deg); } }
+.float-cloud { animation: cloud-float 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .float-cloud { animation: none; } }
+
+
+/* frosted glass funnel discs — same material as the page-7 panel */
+.gd {
+  border-radius: 50%;
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.55),
+    inset 0 -16px 30px rgba(21,48,110,0.10);
+  position: relative;
+}
+.gd::after {
+  content: ""; position: absolute; left: 10%; top: 8%; width: 46%; height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 36% 34%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(8px); pointer-events: none;
+}
+@keyframes lq-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.lq-stack { animation: lq-float 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .lq-stack { animation: none; } }
+
+
+/* ambient flow ribbon — the deck's signature illustration motif */
+.deco { position: absolute; pointer-events: none; z-index: 0; user-select: none; }
+.deco.tr { right: -180px; top: -140px; width: 900px; opacity: 0.9; }
+.deco.bl { left: -260px; bottom: -220px; width: 820px; opacity: 0.55; transform: rotate(180deg); }
+.dark .deco { opacity: 0.28; filter: saturate(1.4) brightness(1.25); }
+.slide > *:not(.deco) { position: relative; z-index: 1; }
+
+/* light slides pick up the reference's airy ice-blue wash */
+.slide:not(.dark) {
+  background:
+    radial-gradient(1100px 700px at 88% 6%, #E6F0FE 0%, rgba(230,240,254,0) 62%),
+    radial-gradient(900px 620px at 4% 96%, #EDF4FF 0%, rgba(237,244,255,0) 58%),
+    var(--paper);
+}
+/* dark slides: deep navy with a blue bloom, like the reference's closing slide */
+.slide.dark {
+  background:
+    radial-gradient(900px 640px at 18% 78%, #16345F 0%, rgba(22,52,95,0) 62%),
+    radial-gradient(760px 560px at 86% 12%, #12294C 0%, rgba(18,41,76,0) 58%),
+    #0A1526;
+}
+
+
+/* ticket status pills — four states */
+.st.pend  { background:#FFF3D6; color:#8A5F00; }   /* pending  · amber */
+.st.sub   { background:#E3EEFF; color:#1B4FD8; }   /* submitted · blue */
+.st.deling{ background:#FDE9E7; color:#A3392F; }   /* deleting · warm red */
+.st.deled { background:#EDEFF3; color:#5B6B82; }   /* deleted  · grey */
+.st.appr  { background:#DCF5E4; color:#106B36; }   /* approved · green */
+
+
+/* row actions — pill buttons, consistent width so every row aligns */
+.act { display:inline-flex; align-items:center; justify-content:center; gap:7px; height:38px; padding:0 16px;
+  border-radius:10px; font-size:16px; font-weight:600; white-space:nowrap; }
+.act svg { width:16px; height:16px; }
+.act-approve { background:#17A34A; color:#fff; box-shadow:0 6px 14px -8px rgba(23,163,74,0.8); }
+.act-reject  { background:#fff; color:#C4362F; border:1.5px solid #F0B7B2; }
+.act-delete  { background:#fff; color:#C4362F; border:1.5px solid #F0B7B2; }
+.act-ghost   { background:#F2F5FA; color:var(--ink-faint); border:1.5px solid transparent; }
+.act-cell    { display:flex; gap:8px; justify-content:flex-end; align-items:center; min-width:220px; }
+
+
+/* icon-only action buttons */
+.act-icon { width:44px; padding:0; }
+.act-icon svg { width:18px; height:18px; }
+.act-cell[data-cell] { min-width:182px; }
+
+/* requester row removal: fade + collapse, rows below slide up */
+.tRow { transition: opacity .35s var(--ease), transform .35s var(--ease),
+        max-height .5s var(--ease) .15s, margin-bottom .5s var(--ease) .15s,
+        padding-top .5s var(--ease) .15s, padding-bottom .5s var(--ease) .15s,
+        border-width .3s var(--ease) .15s;
+        max-height:110px; overflow:hidden; }
+/* inline styles on the rows win by specificity — !important is required here */
+.tRow.gone {
+  opacity:0 !important;
+  transform:translateX(-30px) !important;
+  max-height:0 !important;
+  margin-bottom:0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  border-width:0 !important;
+}
+
+
+@keyframes spin360 { to { transform: rotate(360deg); } }
+#deckCursor, .demoCursor { position:absolute; width:26px; height:26px; z-index:40; pointer-events:none; opacity:0;
+  transition: transform .75s cubic-bezier(.4,0,.2,1), opacity .3s ease; }
+#deckCursor.press, .demoCursor.press { transform: scale(0.82) !important; }
+
+
+/* impact-slide helpers (verified in the standalone test deck) */
+.lbl { font-size:19px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
+.node { display:inline-flex; align-items:center; font-size:22px; font-weight:600; border:2px solid #101828; border-radius:12px; padding:14px 20px; white-space:nowrap; }
+.node.ghost { border-color:#E4EBF5; color:var(--ink-faint); font-weight:400; }
+.node.blue { border-color:var(--blue); color:var(--blue); background:#EFF5FF; }
+.node.fill { border:none; background:var(--blue); color:#fff; }
+.wire { width:40px; height:2px; background:#C7D3E4; flex-shrink:0; }
+.wire.b { background:var(--blue); }
+
+/* deck chrome outside the stage */
+.progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
+.counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--font); font-size: 14px; color: #8FA1BC; letter-spacing: 0.06em; }
+
+/* page selector — dot rail with hover labels */
+.dot-rail { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 1001; display: flex; gap: 8px; align-items: center; padding: 8px 14px; background: rgba(11,21,38,0.55); border-radius: 999px; backdrop-filter: blur(8px); }
+.dot { position: relative; width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.35); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease, width 0.25s var(--ease); }
+.dot:hover { background: rgba(255,255,255,0.7); }
+.dot.on { width: 26px; background: var(--blue); }
+.dot .tip { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(4px); background: #0B1526; color: #fff; font-family: var(--font); font-size: 13px; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.2s var(--ease); }
+.dot:hover .tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* mini wireframe primitives (CSS recreations of product UI) */
+.wf { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 20px 50px -30px rgba(16,24,40,0.25); }
+.wf-head { display: flex; gap: 26px; padding: 20px 28px; border-bottom: 1px solid var(--line); font-size: 20px; color: var(--ink-faint); }
+.wf-head .on { color: var(--blue); font-weight: 600; border-bottom: 3px solid var(--blue); padding-bottom: 6px; }
+.wf-row { display: grid; grid-template-columns: 44px 1.5fr 1fr 1fr 130px; gap: 18px; align-items: center; padding: 18px 28px; border-bottom: 1px solid #F0F4FA; font-size: 20px; }
+.wf-row .cbx { width: 22px; height: 22px; border: 2px solid #C9D5E6; border-radius: 6px; }
+.wf-row .nm { font-weight: 600; color: var(--ink); }
+.wf-row .mut { color: var(--ink-faint); }
+.st { font-size: 17px; font-weight: 600; border-radius: 999px; padding: 6px 14px; text-align: center; }
+.st.pend { background: #FFF3D6; color: #8A5F00; }
+.st.sub  { background: var(--blue-mist); color: var(--blue-deep); }
+.st.appr { background: #DCF5E4; color: #106B36; }
+.st.del  { background: #FDE3E3; color: #A32D2D; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="counter" id="counter">1 / 17</div>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ============ 01 · TITLE ============ -->
+<section class="slide active" id="titleSlide" style="background:
+  radial-gradient(1200px 800px at 78% 22%, #DCE9FF 0%, rgba(220,233,255,0) 62%),
+  radial-gradient(900px 700px at 8% 90%, #E7F0FF 0%, rgba(231,240,255,0) 55%), var(--paper);
+  justify-content: space-between;">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <!-- Liquid-glass cloud illustration -->
+  <img src="cloud-glass.png" alt="" aria-hidden="true" class="float-cloud"
+    style="position:absolute; right:20px; top:150px; width:820px; height:auto; z-index:0; pointer-events:none;">
+  <div class="reveal" style="display:flex; justify-content:space-between; align-items:baseline; position:relative; z-index:1;">
+    <p style="font-weight:700; font-size:30px;">Kate Xu</p>
+    <p class="head-small" style="font-size:22px;">Case Study 01 · Reading deck</p>
+  </div>
+  <div style="position:relative; z-index:1;">
+    <p class="reveal chip" style="margin-bottom:28px;">Enterprise · BofA private cloud · internal platform hosting 1,000+ apps</p>
+    <h1 class="reveal" style="font-size:128px; font-weight:700; letter-spacing:-0.035em; line-height:1.05; margin-bottom:24px;">
+      Cloud Service<br><span style="color:var(--blue);">Ordering.</span></h1>
+    <div class="reveal" style="display:flex; gap:64px; margin-top:52px; align-items:flex-end;">
+      <div><p class="stat-label" style="font-size:var(--small); margin-bottom:8px;">Before — ordering success</p>
+        <p class="stat-before" style="font-size:96px; font-weight:600; line-height:1;">11%</p></div>
+      <p style="font-size:48px; color:var(--blue); margin-bottom:8px;">→</p>
+      <div><p class="stat-label" style="font-size:var(--small); margin-bottom:8px;">After — ordering success</p>
+        <p style="font-size:96px; font-weight:600; line-height:1; color:var(--blue);">34%</p></div>
+    </div>
+    <!-- Presented-by pill (Stratify style): white capsule + name in blue gradient capsule -->
+    <div class="reveal" style="display:inline-flex; align-items:center; gap:18px; margin-top:48px; background:#FFFFFF; border-radius:999px; padding:10px 12px 10px 26px; box-shadow:0 10px 30px -12px rgba(16,24,40,0.25);">
+      <span style="font-size:24px; font-weight:600; color:var(--ink);">Deck designed by</span>
+      <span style="font-size:24px; font-weight:600; color:#FFFFFF; background:linear-gradient(135deg, #7FA4FF 0%, #3D6BFF 100%); border-radius:999px; padding:10px 30px;">Kate</span>
+    </div>
+  </div>
+  <div class="reveal" class="meta" style="display:flex; gap:52px; font-size:var(--small); border-top:1px solid var(--line); padding-top:26px; position:relative; z-index:1;">
+    <span>Lead Product Designer</span><span>Users: internal engineers at BofA</span><span>2025–2026</span>
+  </div>
+</section>
+
+<!-- ============ 02 · THE FUNNEL ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
+  <p class="kicker reveal">Context</p>
+  <div style="flex:1; display:flex; gap:70px; align-items:center; min-height:0;">
+
+    <!-- left: story + the three cliffs as a quiet list -->
+    <div style="width:560px; flex-shrink:0;">
+      <h2 class="t reveal" style="margin-bottom:24px;">Losing users at every step.</h2>
+      <p class="lead reveal" style="margin-bottom:40px;">Engineers order hosted services through a <span style="position:relative; display:inline-block; padding:2px 10px; font-weight:600; color:var(--ink);">12-step wizard<svg viewBox="0 0 200 60" preserveAspectRatio="none" style="position:absolute; inset:-8px -6px; width:calc(100% + 12px); height:calc(100% + 16px); pointer-events:none;" aria-hidden="true"><ellipse class="ink-circle" cx="100" cy="30" rx="96" ry="26" fill="none" stroke="var(--red)" stroke-width="3.5" transform="rotate(-2 100 30)" stroke-linecap="round"/></svg></span> — Glassbox session data showed the funnel narrowing at every stage.</p>
+
+    </div>
+
+    <!-- right: the funnel, every step named -->
+    <div class="reveal" style="flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+      <div class="lq-stack" style="display:flex; flex-direction:column; align-items:center; filter:drop-shadow(0 30px 48px rgba(11,32,72,0.14));">
+        <div style="display:flex; align-items:center; gap:18px; margin-top:0px; z-index:7; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Create</span>
+          <div class="gd" style="width:470px; height:150px; background:linear-gradient(155deg, rgba(96,140,224,0.42) 0%, rgba(44,85,184,0.38) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">100%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-50px; z-index:6; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Solution template</span>
+          <div class="gd" style="width:424px; height:132px; background:linear-gradient(155deg, rgba(110,152,230,0.41) 0%, rgba(52,95,193,0.36) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">96%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-46px; z-index:5; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--red); font-weight:600;">Placement (AZ)</span>
+          <div class="gd" style="width:378px; height:118px; background:linear-gradient(155deg, rgba(124,164,236,0.40) 0%, rgba(60,104,202,0.34) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--red); font-weight:600; font-variant-numeric:tabular-nums;">76%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-42px; z-index:4; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">OS base</span>
+          <div class="gd" style="width:340px; height:106px; background:linear-gradient(155deg, rgba(138,175,240,0.39) 0%, rgba(72,115,208,0.32) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">71%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-38px; z-index:3; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Hypervisor</span>
+          <div class="gd" style="width:304px; height:96px; background:linear-gradient(155deg, rgba(150,184,243,0.38) 0%, rgba(86,126,214,0.30) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">67%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-34px; z-index:2; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Hostnames</span>
+          <div class="gd" style="width:270px; height:86px; background:linear-gradient(155deg, rgba(162,194,245,0.37) 0%, rgba(98,136,220,0.29) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">63%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-31px; z-index:1; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--red); font-weight:600;">NAS mounts</span>
+          <div class="gd" style="width:238px; height:78px; background:linear-gradient(155deg, rgba(174,203,247,0.36) 0%, rgba(112,148,226,0.28) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--red); font-weight:600; font-variant-numeric:tabular-nums;">45%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-28px; z-index:0; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--red); font-weight:600;">Storage</span>
+          <div class="gd" style="width:206px; height:68px; background:linear-gradient(155deg, rgba(186,211,249,0.35) 0%, rgba(126,160,231,0.27) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--red); font-weight:600; font-variant-numeric:tabular-nums;">28%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-25px; z-index:0; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Maint. windows</span>
+          <div class="gd" style="width:176px; height:60px; background:linear-gradient(155deg, rgba(198,219,250,0.34) 0%, rgba(142,174,235,0.26) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">22%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-22px; z-index:0; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Adv. parameters</span>
+          <div class="gd" style="width:148px; height:52px; background:linear-gradient(155deg, rgba(210,227,252,0.33) 0%, rgba(158,188,239,0.25) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">17%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-19px; z-index:0; position:relative;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--ink-soft); font-weight:400;">Summary</span>
+          <div class="gd" style="width:122px; height:44px; background:linear-gradient(155deg, rgba(221,234,253,0.32) 0%, rgba(176,203,243,0.24) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--ink-soft); font-weight:400; font-variant-numeric:tabular-nums;">11%</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; margin-top:-16px; position:relative; z-index:0;">
+          <span style="width:210px; text-align:right; font-size:19px; color:var(--blue); font-weight:600;">Submit</span>
+          <div class="gd" style="width:46px; height:66px; border-radius:0 0 23px 23px; background:linear-gradient(180deg, rgba(198,219,250,0.32) 0%, rgba(236,244,255,0.24) 100%); flex-shrink:0;"></div>
+          <span style="width:64px; font-size:19px; color:var(--blue); font-weight:700; font-variant-numeric:tabular-nums;">11%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Quantitative data shows where users leave.</b> <span>It can never show why — that question needed the users themselves.</span></div>
+</section>
+
+<!-- ============ 03 · TWELVE STEPS ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">The process</p>
+  <div style="flex:1; display:flex; gap:56px; align-items:center; min-height:0;">
+
+    <!-- left: title, story, compact step flow -->
+    <div style="width:600px; flex-shrink:0; display:flex; flex-direction:column;">
+      <h2 class="t reveal" style="margin-bottom:28px;">12 steps to place one order.</h2>
+      <p class="lead reveal" style="margin-bottom:36px;">Placement, OS, hypervisor, hostnames, NAS mounts, storage, maintenance windows — before an engineer ever reaches submit. Power users walk this every week.</p>
+      <div class="reveal" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Create</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Solution template</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Placement (AZ)</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">OS base</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Hypervisor</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Hostnames</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">NAS mounts</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Storage</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Maint. windows</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Adv. parameters</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill" style="font-size:19px; padding:8px 13px;">Summary</span><span class="arrow" style="font-size:18px;">→</span>
+        <span class="pill blue" style="font-size:19px; padding:8px 13px;">Submit</span>
+      </div>
+      <p class="reveal" style="font-size:24px; color:var(--ink-soft); margin-top:36px; border-left:4px solid var(--blue); padding-left:20px; line-height:1.5;">The recording runs in real time — <b style="color:var(--ink);">the tedium is the point.</b></p>
+    </div>
+
+    <!-- right: MacBook frame with the real wizard recording -->
+    <div class="reveal" style="flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:0;">
+      <div style="width:850px; background:#161619; border-radius:22px 22px 0 0; padding:14px 14px 10px; box-shadow:0 36px 80px -28px rgba(11,21,38,0.5);">
+        <div style="width:110px; height:12px; background:#161619; border-radius:0 0 9px 9px; margin:-14px auto 5px;"></div>
+        <video src="bofa-cloud-wizard.mp4" autoplay muted loop playsinline
+          style="width:100%; display:block; border-radius:9px; background:#000;"></video>
+      </div>
+      <div style="width:960px; height:24px; background:linear-gradient(#E8EAEF, #C8CCD4); border-radius:0 0 16px 16px; position:relative;">
+        <div style="position:absolute; left:50%; top:0; transform:translateX(-50%); width:160px; height:10px; background:#AEB3BC; border-radius:0 0 10px 10px;"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · CAN WE SHORTEN IT? ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">First instinct</p>
+  <div style="flex:1; display:flex; gap:80px; align-items:center; min-height:0;">
+
+    <!-- left: the question and the hypotheses -->
+    <div style="flex:1; display:flex; flex-direction:column;">
+      <h2 class="t reveal" style="margin-bottom:28px;">Can we shorten<br>the wizard?</h2>
+      <p class="lead reveal" style="margin-bottom:44px;">If we lose users at every step, fewer steps should mean fewer losses. So I opened calls with the engineers and put every step on the table.</p>
+      <div style="display:flex; flex-direction:column; gap:20px;">
+        <div class="reveal panel" style="padding:26px 30px; display:flex; gap:18px; align-items:baseline;">
+          <span style="font-size:20px; font-weight:700; color:var(--blue);">H1</span>
+          <p style="font-size:25px; font-weight:600;">Drop steps entirely <span style="color:var(--ink-soft); font-weight:400;">— which ones are truly required?</span></p>
+        </div>
+        <div class="reveal panel" style="padding:26px 30px; display:flex; gap:18px; align-items:baseline;">
+          <span style="font-size:20px; font-weight:700; color:var(--blue);">H2</span>
+          <p style="font-size:25px; font-weight:600;">Ask later <span style="color:var(--ink-soft); font-weight:400;">— could some questions wait until after submission?</span></p>
+        </div>
+        <div class="reveal panel" style="padding:26px 30px; display:flex; gap:18px; align-items:baseline;">
+          <span style="font-size:20px; font-weight:700; color:var(--blue);">H3</span>
+          <p style="font-size:25px; font-weight:600;">Merge screens <span style="color:var(--ink-soft); font-weight:400;">— fewer stops, same inputs?</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- right: the wizard as a strip, scissors poised at candidate cuts -->
+    <div class="reveal" style="width:560px; flex-shrink:0; position:relative;">
+      <div class="panel" style="padding:16px 0; box-shadow:0 24px 60px -28px rgba(16,24,40,0.3);">
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">01</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Create</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">02</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Solution template</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">03</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Placement (AZ)</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">04</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">OS base</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:0 22px;">
+          <span style="font-size:22px; color:var(--red); transform:scaleX(-1);">✂</span>
+          <div style="flex:1; border-top:2.5px dashed var(--red);"></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">05</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Hypervisor</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">06</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Hostnames</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">07</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">NAS mounts</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">08</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Storage</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:0 22px;">
+          <span style="font-size:22px; color:var(--red); transform:scaleX(-1);">✂</span>
+          <div style="flex:1; border-top:2.5px dashed var(--red);"></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">09</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Maintenance windows</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">10</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Advanced parameters</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px; padding:0 22px;">
+          <span style="font-size:22px; color:var(--red); transform:scaleX(-1);">✂</span>
+          <div style="flex:1; border-top:2.5px dashed var(--red);"></div>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">11</span>
+          <span style="font-size:21px; font-weight:500; color:var(--ink);">Summary</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:14px; padding:9px 22px;">
+          <span style="font-size:17px; color:var(--ink-faint); width:30px;">12</span>
+          <span style="font-size:21px; font-weight:600; color:var(--blue);">Submit</span>
+        </div>
+      </div>
+      <!-- floating question badge -->
+      <div style="position:absolute; right:-46px; top:-46px; width:130px; height:130px; border-radius:50%; background:linear-gradient(135deg,#7FA4FF 0%,#3D6BFF 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 44px -14px rgba(47,107,255,0.6);">
+        <span style="font-size:74px; font-weight:700; color:#fff;">?</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · DEAD END (dark) ============ -->
+<section class="slide dark">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">First instinct · verdict</p>
+  <div style="flex:1; display:flex; gap:80px; min-height:0; align-items:center;">
+
+    <!-- left: how the verdict was reached -->
+    <div style="width:640px; flex-shrink:0;">
+      <h2 class="t reveal" style="margin-bottom:26px;">Dead end —<br>nothing could be cut.</h2>
+      <p class="lead reveal" style="margin-bottom:36px;">I took the three hypotheses into working sessions with engineering and the PM and we walked the wizard together — step by step, all twelve.</p>
+      <div class="reveal" style="display:flex; gap:14px; margin-bottom:44px;">
+        <span class="chip">Design</span>
+        <span style="align-self:center; color:#5B6B82;">×</span>
+        <span class="chip">Engineering</span>
+        <span style="align-self:center; color:#5B6B82;">×</span>
+        <span class="chip">PM</span>
+      </div>
+      <div class="reveal">
+        <p style="font-size:120px; font-weight:700; line-height:1; color:#fff;">12<span style="color:#5B6B82;">/12</span></p>
+        <p style="font-size:26px; color:#A9B7CD; margin-top:14px;">steps confirmed required before provisioning</p>
+      </div>
+    </div>
+
+    <!-- right: hypothesis verdicts -->
+    <div style="flex:1; display:flex; flex-direction:column; gap:22px;">
+      <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
+        <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
+        <div>
+          <p style="font-size:24px; font-weight:700; color:#fff; margin-bottom:8px;">H1 — Drop steps entirely</p>
+          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">Engineering, field by field: every input is a required technical parameter — placement, storage, compliance. Provisioning cannot start without them.</p>
+        </div>
+      </div>
+      <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
+        <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
+        <div>
+          <p style="font-size:24px; font-weight:700; color:#fff; margin-bottom:8px;">H2 — Ask later</p>
+          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">Deferring any question just moves the block downstream — the build stalls until the answer arrives. Same wait, worse place.</p>
+        </div>
+      </div>
+      <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
+        <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
+        <div>
+          <p style="font-size:24px; font-weight:700; color:#fff; margin-bottom:8px;">H3 — Merge screens</p>
+          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">The PM and engineers were right: cramming twelve steps of required inputs onto fewer screens made each screen worse, not the flow shorter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot reveal"><b>What a lost argument buys: certainty.</b> <span>The process was already as short as it could be — the problem wasn't the number of steps.</span></div>
+</section>
+
+<!-- ============ 06 · CHANGE THE QUESTION ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">The turn</p>
+  <div style="flex:1; display:flex; flex-direction:column; justify-content:center; gap:36px;">
+    <p class="reveal" style="font-size:var(--subtitle); color:var(--ink-faint); text-decoration:line-through;">“Which steps can we cut?”</p>
+    <p class="reveal" style="font-size:84px; font-weight:600; letter-spacing:-0.02em; line-height:1.15; max-width:1560px;">“Who is walking these steps — <span style="color:var(--blue);">what’s on their mind?</span>”</p>
+    <p class="reveal lead" style="max-width:1300px;">Quantitative data showed where users left. Only qualitative research could show why — so I went to the users.</p>
+  </div>
+</section>
+
+<!-- ============ 06B · RESEARCH SETUP ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Research · setup</p>
+  <div style="flex:1; display:flex; gap:80px; align-items:center; min-height:0;">
+    <div style="width:620px; flex-shrink:0;">
+      <h2 class="t reveal" style="margin-bottom:26px;">Two interns,<br>one protocol.</h2>
+      <p class="lead reveal" style="margin-bottom:36px;">I staffed the study with two UX interns and directed the research. Before a single session was approved, we sat down together and aligned on exactly what data we were collecting — so every interview would produce evidence, not anecdotes.</p>
+      <div class="reveal" style="display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+        <span class="chip" style="line-height:1;">Kate — research lead</span>
+        <span style="color:var(--ink-faint); line-height:1;">×</span>
+        <span class="chip" style="line-height:1;">2 UX interns — 5 solid interviews each</span>
+      </div>
+    </div>
+    <div class="reveal glass" style="flex:1; padding:48px 52px;">
+      <p style="font-size:var(--small); color:var(--blue-deep); font-weight:600; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:28px; position:relative; z-index:1;">Aligned before user research</p>
+      <div style="display:flex; flex-direction:column; gap:26px; position:relative; z-index:1;">
+        <div style="display:flex; gap:20px; align-items:flex-start;">
+          <span style="font-size:22px; font-weight:700; color:var(--blue); width:58px; flex-shrink:0; font-variant-numeric:tabular-nums;">01</span>
+          <p style="font-size:25px; line-height:1.45; flex:1;"><b>Who counts as a power user</b> <span style="color:var(--ink-soft);">— ordering frequency, not job title.</span></p>
+        </div>
+        <div style="display:flex; gap:20px; align-items:flex-start;">
+          <span style="font-size:22px; font-weight:700; color:var(--blue); width:58px; flex-shrink:0; font-variant-numeric:tabular-nums;">02</span>
+          <p style="font-size:25px; line-height:1.45; flex:1;"><b>What we observe</b> <span style="color:var(--ink-soft);">— time per step, re-entered configurations, workarounds, where hands hesitate.</span></p>
+        </div>
+        <div style="display:flex; gap:20px; align-items:flex-start;">
+          <span style="font-size:22px; font-weight:700; color:var(--blue); width:58px; flex-shrink:0; font-variant-numeric:tabular-nums;">03</span>
+          <p style="font-size:25px; line-height:1.45; flex:1;"><b>What we listen for</b> <span style="color:var(--ink-soft);">— hearing them talk is the priority: it’s the one thing session tracking can never capture.</span></p>
+        </div>
+        <div style="display:flex; gap:20px; align-items:flex-start;">
+          <span style="font-size:22px; font-weight:700; color:var(--blue); width:58px; flex-shrink:0; font-variant-numeric:tabular-nums;">04</span>
+          <p style="font-size:25px; line-height:1.45; flex:1;"><b>What counts as a pattern</b> <span style="color:var(--ink-soft);">— a behavior repeated across sessions, tagged per wizard step.</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Why align first:</b> <span>two interviewers, one protocol — findings stay comparable, and mentoring happens inside real work.</span></div>
+</section>
+
+<!-- ============ 07 · RESEARCH METHOD ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Research</p>
+  <h2 class="t reveal">10 solid interviews, three disciplines.</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:36px; flex:1; align-content:start;">
+    <div class="reveal panel" style="padding:40px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; margin-bottom:14px;">1 — Watch</p>
+      <p style="font-size:var(--subtitle); font-weight:600; line-height:1.3; margin-bottom:14px;">Watch what they do</p>
+      <p style="font-size:24px; color:var(--ink-soft); line-height:1.55;">Sit beside real sessions — no survey, no brainstorm. Hands don't perform for researchers.</p>
+    </div>
+    <div class="reveal panel" style="padding:40px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; margin-bottom:14px;">2 — Observe</p>
+      <p style="font-size:var(--subtitle); font-weight:600; line-height:1.3; margin-bottom:14px;">Observe the patterns</p>
+      <p style="font-size:24px; color:var(--ink-soft); line-height:1.55;">Across sessions, one behavior repeated: re-entering a configuration they already knew.</p>
+    </div>
+    <div class="reveal panel" style="padding:40px; border-color:var(--blue); border-width:2px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; margin-bottom:14px;">3 — Listen · the priority</p>
+      <p style="font-size:var(--subtitle); font-weight:600; line-height:1.3; margin-bottom:14px;">Listen to what they say</p>
+      <p style="font-size:24px; color:var(--ink-soft); line-height:1.55;">Glassbox already records what hands do — what it can never capture is what users are thinking. The interviews existed for this part.</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Why this order:</b> <span>what people do and what they say don't always match — the gap between them is where the insight lives.</span></div>
+</section>
+
+<!-- ============ 08 · THE QUOTE ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Research</p>
+  <div style="flex:1; display:flex; gap:88px; align-items:center;">
+    <div class="reveal" style="width:400px; flex-shrink:0;">
+      <p style="font-size:170px; font-weight:600; line-height:1;">7<span style="font-size:68px; color:var(--ink-faint);">/10</span></p>
+      <p class="lead" style="margin-top:14px;">said some version of the same thing, unprompted</p>
+    </div>
+    <div class="reveal" style="flex:1; border-left:4px solid var(--blue); padding-left:52px;">
+      <p style="font-size:56px; font-weight:600; font-style:italic; line-height:1.25; letter-spacing:-0.01em; margin-bottom:28px;">“I just want to repeat my last order — or place the same one for my teammates.”</p>
+      <p class="lead">The wizard treated every order as novel. Most orders aren't — they're repeats of a standard setup shared across a team.</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>The insight everything after this is built on:</b> <span>most ordering volume is repetition, not configuration.</span></div>
+</section>
+
+<!-- ============ 09 · ATTEMPT 1 ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Iteration</p>
+  <h2 class="t reveal">Attempt 1 — ordering on behalf.</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px; flex:1; align-content:start;">
+    <div class="reveal panel" style="padding:44px;">
+      <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">The idea</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.55;">Let one power user place a standard order for teammates — matching exactly what users asked for.</p>
+    </div>
+    <div class="reveal panel" style="padding:44px; border-top:6px solid var(--red);">
+      <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">Cut at the proposal stage</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.55;">Engineering review killed it before a single screen was built: every provisioning call authenticates with the requester's identity token — entitlements, quota, and compliance bound to whoever clicks submit. Separating requester from owner meant re-architecting entitlements across a dozen downstream systems. Quoted: two quarters.</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>What the dead end revealed:</b> <span>it's the approval that needs to transfer between people — not the order itself.</span></div>
+</section>
+
+<!-- ============ 10 · ATTEMPT 2 (dark) ============ -->
+<section class="slide dark">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Iteration</p>
+  <h2 class="t reveal">Attempt 2 — vouchers. Achievable, but ungovernable.</h2>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px; flex:1; align-content:start;">
+    <div class="reveal panel" style="padding:44px;">
+      <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">The idea</p>
+      <p style="font-size:26px; color:#A9B7CD; line-height:1.55;">If the approval is what transfers, make it a thing: configure a standard order once, mint vouchers. A teammate redeems one and orders under their own identity — no wizard, no identity problem. Engineering's first read: achievable.</p>
+    </div>
+    <div class="reveal panel" style="padding:44px; border-top:6px solid var(--red);">
+      <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">What the review surfaced</p>
+      <p style="font-size:25px; color:#A9B7CD; line-height:1.5; margin-bottom:20px;">A voucher lives <b style="color:#fff; font-weight:600;">outside the platform</b> — passed around in chat and email, it can be redeemed by someone the approval was never meant for. In a bank, an approval that travels unattached to identity is a governance gap, not a shortcut.</p>
+      <div style="display:flex; flex-direction:column; gap:11px;">
+        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Steps happen off-platform, outside the audit trail</p>
+        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Risk of misuse — a voucher can be shared or reused</p>
+        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Entitlement rules get bypassed instead of enforced</p>
+      </div>
+      <p style="font-size:22px; color:#8494AE; line-height:1.45; margin-top:20px; border-top:1px solid rgba(255,255,255,0.12); padding-top:16px;">On top of that, every voucher carried its own lifecycle — mint, validate, track, expire, reconcile — firing backend calls on each redemption.</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>The sharpened question:</b> <span>what's the lightest object that carries an approval from one person to a team — without ever leaving the platform?</span></div>
+</section>
+
+<!-- ============ 11 · THE SOLUTION ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Solution</p>
+  <h2 class="t reveal">Pre-approval tickets.</h2>
+  <p class="lead reveal" style="margin-bottom:48px;">A standard order requested once, approved by the tech owner who owns the AIT. The requester gets an approval email and orders without the wizard — identity stays the requester's own, so the backend is untouched.</p>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:36px;">
+    <div class="reveal panel" style="padding:40px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; margin-bottom:14px;">1 — Request</p>
+      <p style="font-size:30px; font-weight:600; line-height:1.3;">One checkbox at the end of ordering</p>
+    </div>
+    <div class="reveal panel" style="padding:40px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; margin-bottom:14px;">2 — Approve</p>
+      <p style="font-size:30px; font-weight:600; line-height:1.3;">Tech owner reviews under My Approvals</p>
+    </div>
+    <div class="reveal panel" style="padding:40px; border-color:var(--blue); border-width:2px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; margin-bottom:14px;">3 — Order</p>
+      <p style="font-size:30px; font-weight:600; line-height:1.3;">Requester gets the email — and skips the wizard</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>All the failures led here:</b> <span>the approval transfers, the identity doesn't. Smallest object that survives both dead ends.</span></div>
+</section>
+
+<!-- ============ 12 · ONE CHECKBOX ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Design · entry point</p>
+  <h2 class="t reveal">One checkbox in the existing wizard.</h2>
+  <div style="flex:1; display:flex; gap:64px; align-items:center;">
+    <div class="reveal wf" style="width:1000px; flex-shrink:0;">
+      <div class="wf-head"><span>Order Summary</span><span class="on">Review &amp; Submit</span></div>
+      <div style="padding:30px 28px; display:flex; flex-direction:column; gap:18px;">
+        <div style="display:flex; justify-content:space-between; font-size:21px; color:var(--ink-soft);"><span>Solution template</span><span style="color:var(--ink); font-weight:600;">Std. compute + NAS</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:21px; color:var(--ink-soft);"><span>Placement</span><span style="color:var(--ink); font-weight:600;">AZ-East · prod</span></div>
+        <div style="display:flex; justify-content:space-between; font-size:21px; color:var(--ink-soft);"><span>Storage</span><span style="color:var(--ink); font-weight:600;">500GB tiered</span></div>
+        <div style="border:3px solid var(--blue); background:var(--blue-mist); border-radius:12px; padding:20px 22px; display:flex; gap:16px; align-items:center; margin-top:8px;">
+          <div style="width:26px; height:26px; border-radius:7px; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:700;">✓</div>
+          <p style="font-size:22px; font-weight:600;">Request pre-approval ticket <span style="color:var(--ink-soft); font-weight:400;">— tracked in My Open Tickets</span></p>
+        </div>
+        <div style="align-self:flex-end; background:var(--blue); color:#fff; font-size:21px; font-weight:600; border-radius:10px; padding:14px 34px; margin-top:6px;">Submit</div>
+      </div>
+    </div>
+    <div class="reveal" style="flex:1;">
+      <p style="font-size:34px; font-weight:600; line-height:1.35; margin-bottom:22px;">Same ordering screen as before — the only addition sits in the Summary panel.</p>
+      <p class="lead">No new flow to learn: the order they just configured becomes the template. Smallest possible surface change, biggest behavioral change.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 13 · TWO NEW TABS ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Design · information architecture</p>
+  <h2 class="t reveal" style="margin-bottom:44px;">Two new tabs — and who sees them.</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px;">
+    <div class="reveal panel" style="padding:48px 52px;">
+      <p style="font-size:var(--small); color:var(--ink-faint); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:14px;">All roles</p>
+      <p style="font-size:46px; font-weight:600; margin-bottom:18px;">My Open Tickets</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.5;">Every pre-approval ticket you've submitted, with its status. You can delete one while it's still waiting — nothing else. A requester can't approve their own request.</p>
+    </div>
+    <div class="reveal panel" style="padding:48px 52px; border-color:var(--blue); border-width:2px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:14px;">Tech owner only</p>
+      <p style="font-size:46px; font-weight:600; margin-bottom:18px;">My Approvals</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.5;">Every ticket requested under their AIT — approve, reject with a reason, or decide in bulk across the whole queue.</p>
+    </div>
+  </div>
+
+  <div class="foot reveal"><b>Role-based visibility is the authentication:</b> <span>the second tab doesn't gray out for a requester — it simply doesn't exist.</span></div>
+</section>
+
+<!-- ============ 14 · ROLE: REQUESTER ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+  <p class="kicker reveal">Solution · role-based access</p>
+  <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px;">
+    <h2 class="t reveal" style="margin-bottom:0;">The requester sees one tab.</h2>
+    <p class="reveal" style="font-size:24px; color:var(--ink-soft); max-width:560px; text-align:left; border-left:4px solid var(--blue); padding-left:22px; line-height:1.45;">Status and delete only — a requester can never approve their own request.</p>
+  </div>
+  <div class="reveal wf" style="flex:1; display:flex; overflow:hidden; min-height:0;">
+        <div style="width:260px; flex-shrink:0; background:#FAFCFF; border-right:1px solid var(--line); padding:24px 16px; display:flex; flex-direction:column; gap:10px;">
+          <p style="font-size:14px; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; font-weight:600; padding:0 12px 8px;">Cloud platform</p>
+          <div style="display:flex; align-items:center; gap:11px; padding:13px 15px; border-radius:12px; font-size:19px; font-weight:600; color:var(--blue-deep); background:var(--blue-mist);">
+            <span style="width:8px; height:8px; border-radius:50%; background:currentColor;"></span> My Open Tickets</div>
+          <div style="padding:13px 15px; border:2px dashed #D7E1F0; border-radius:12px; font-size:17px; color:var(--ink-faint); line-height:1.35;">My Approvals<br><span style="font-size:15px;">not visible to this role</span></div>
+          <div style="margin-top:auto; font-size:15px; color:var(--ink-soft); background:#EEF3FB; border-radius:10px; padding:11px 13px;">Signed in as <b>requester</b></div>
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div class="paneStatic" style="padding:26px 30px;">
+            <p style="font-size:21px; font-weight:600; margin-bottom:14px;">My Open Tickets</p>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding:0 18px;">
+              <div style="display:flex; align-items:center; gap:12px;"><div class="cbx"></div><span style="font-size:16px; color:var(--ink-soft);">Select all</span><span style="font-size:15px; color:var(--ink-faint); margin-left:8px;">4 items</span></div>
+              <div class="act-cell" style="min-width:auto;"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div>
+            </div>
+            <div class="tRow" data-row="0" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" id="q1Status" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-ghost"><span style="width:22px; height:22px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block;"></span> Processing</span></div></div>
+            <div class="tRow" data-row="1" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
+            <div class="tRow" data-row="2" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81238…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
+            <div class="tRow" data-row="3" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81239…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
+          </div>
+        </div>
+  </div>
+  <div class="foot reveal"><b>Two states of their own:</b> <span>Deleting while the backend withdraws the request, then Deleted — the row settles and its actions disappear.</span></div>
+</section>
+
+<!-- ============ 15 · ROLE: TECH OWNER ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
+  <p class="kicker reveal">Solution · role-based access</p>
+  <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:24px;">
+    <h2 class="t reveal" style="margin-bottom:0;">The tech owner sees both.</h2>
+    <p class="reveal" style="font-size:24px; color:var(--ink-soft); max-width:560px; text-align:left; border-left:4px solid var(--blue); padding-left:22px; line-height:1.45;">Approve, reject with a reason, or decide in bulk across the AIT.</p>
+  </div>
+  <div class="reveal wf" style="flex:1; display:flex; overflow:hidden; min-height:0;">
+        <div style="width:260px; flex-shrink:0; background:#FAFCFF; border-right:1px solid var(--line); padding:24px 16px; display:flex; flex-direction:column; gap:10px;">
+          <p style="font-size:14px; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; font-weight:600; padding:0 12px 8px;">Cloud platform</p>
+          <div style="display:flex; align-items:center; gap:11px; padding:13px 15px; border-radius:12px; font-size:19px; font-weight:600; color:var(--ink-faint);">
+            <span style="width:8px; height:8px; border-radius:50%; background:currentColor;"></span> My Open Tickets</div>
+          <div style="display:flex; align-items:center; gap:11px; padding:13px 15px; border-radius:12px; font-size:19px; font-weight:600; color:var(--blue-deep); background:var(--blue-mist);"><span style="width:8px; height:8px; border-radius:50%; background:currentColor;"></span> My Approvals</div>
+          <div style="margin-top:auto; font-size:15px; color:var(--blue-deep); background:var(--blue-mist); border-radius:10px; padding:11px 13px;">Signed in as <b>tech owner</b></div>
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div class="paneStatic" style="padding:26px 30px;">
+            <p style="font-size:21px; font-weight:600; margin-bottom:14px;">My Approvals</p>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding:0 18px;">
+              <div style="display:flex; align-items:center; gap:12px;"><div class="cbx"></div><span style="font-size:16px; color:var(--ink-soft);">Select all</span><span style="font-size:15px; color:var(--ink-faint); margin-left:8px;">4 items</span></div>
+              <div class="act-cell" data-cell style="min-width:182px;" style="min-width:auto;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div>
+            </div>
+            <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" id="r1Status" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span id="r1Actions" style="display:flex; gap:8px; transition:opacity .3s var(--ease);">
+                 <span class="act act-icon act-approve" id="r1Approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+                 <span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></span>
+               <span id="r1Spin" class="act act-icon act-ghost" style="display:none;"><span style="width:19px; height:19px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block; animation:spin360 .9s linear infinite;"></span></span>
+               <span id="r1Done" class="act act-icon act-ghost" style="display:none; color:var(--ink-faint); font-size:18px;">—</span></div></div>
+            <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div></div>
+            <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81238…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div></div>
+            <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px; opacity:0.5;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid #D9E2F0;"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81239…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st appr" style="font-size:15px;">Approved</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-ghost" style="color:var(--ink-faint); font-size:18px;">—</span></div></div>
+          </div>
+          </div>
+        </div>
+  </div>
+  <div class="foot reveal"><b>Role-based visibility is the authentication:</b> <span>the second tab doesn't gray out for a requester — it isn't rendered at all.</span></div>
+</section>
+
+  <!-- ============ 15 · IMPACT ============ -->
+  <section class="slide">
+    <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+    <p class="kicker reveal">Impact</p>
+    <h2 class="t reveal" style="margin-bottom:56px;">One path before — a branch now.</h2>
+
+    <div class="reveal" style="display:flex;flex-direction:column;gap:56px;">
+      <div>
+        <p class="lbl" style="color:var(--ink-faint);margin-bottom:22px;">Before — one path for every order</p>
+        <div style="display:flex;align-items:center;">
+          <span class="node">Start an order</span><i class="wire"></i>
+          <span class="node ghost">12-step wizard</span><i class="wire"></i>
+          <span class="node">Submit</span>
+        </div>
+      </div>
+
+      <div style="border-top:1px solid var(--line);padding-top:44px;">
+        <p class="lbl" style="color:var(--blue);margin-bottom:22px;">Now — a branch for repeats</p>
+        <div style="display:flex;align-items:center;">
+          <span class="node">Start an order</span>
+          <i class="wire" style="width:30px;"></i>
+          <div style="width:2px;align-self:stretch;background:#C7D3E4;margin:26px 0;flex-shrink:0;"></div>
+          <div style="display:flex;flex-direction:column;gap:24px;">
+            <div style="display:flex;align-items:center;">
+              <i class="wire b"></i><span class="node blue">Pre-approval ticket</span><i class="wire b"></i><span class="node fill">Submit</span>
+            </div>
+            <div style="display:flex;align-items:center;">
+              <i class="wire"></i><span class="node ghost">12-step wizard</span><i class="wire"></i><span class="node ghost">Submit</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot reveal"><b>Nothing was taken away:</b> <span>the wizard still serves genuinely new orders — repeats just stopped paying its cost.</span></div>
+  </section>
+
+  <!-- ============ 16 · OUTCOMES ============ -->
+  <section class="slide">
+    <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
+    <p class="kicker reveal">Outcomes</p>
+    <h2 class="t reveal" style="margin-bottom:44px;">The outcomes.</h2>
+
+    <div class="reveal" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;">
+      <div style="border-top:3px solid var(--blue);padding-top:38px;">
+        <p style="font-size:112px;font-weight:700;line-height:1;letter-spacing:-0.03em;">+23<span style="font-size:74px;">%</span></p>
+        <p style="font-size:26px;color:var(--ink-soft);margin-top:22px;">ordering success rate after launch — 11% → 34%</p>
+      </div>
+      <div style="border-top:3px solid var(--blue);padding-top:38px;">
+        <p style="font-size:112px;font-weight:700;line-height:1;letter-spacing:-0.03em;">−32<span style="font-size:74px;">%</span></p>
+        <p style="font-size:26px;color:var(--ink-soft);margin-top:22px;">average ordering time</p>
+      </div>
+    </div>
+
+    <div class="foot reveal"><span>The time drop shows how much ordering volume was this category all along — standard setups placed by teams under the same AIT.</span></div>
+  </section>
+
+  <!-- ============ 17 · REFLECTION ============ -->
+  <section class="slide">
+    <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
+    <p class="kicker reveal">Reflection</p>
+    <h2 class="t reveal" style="margin-bottom:44px;">The reflection.</h2>
+
+    <p class="reveal" style="font-size:54px;font-weight:700;letter-spacing:-0.02em;line-height:1.26;max-width:1500px;">
+      Dead ends led to the method: <span style="color:var(--ink-soft);font-weight:600;">quantitative data showed what to fix, qualitative patterns showed the new way in.</span>
+    </p>
+
+    <div class="reveal" style="display:flex;gap:56px;flex-wrap:wrap;font-size:21px;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:26px;margin-top:auto;margin-bottom:22px;">
+      <span>Data flagged the funnel</span>
+      <span>Users revealed the repeat-order pattern</span>
+      <span>A backend wall reframed the design question</span>
+    </div>
+    <div class="reveal" style="display:flex;gap:36px;flex-wrap:wrap;font-size:20px;color:var(--ink-faint);">
+      <span style="font-weight:700;color:var(--ink);">Kate Xu</span><span>katexu.com</span><span>katherinexu09@gmail.com</span>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+/* =========================================================
+   SLIDE PRESENTATION CONTROLLER
+   Keyboard (arrows/space/pgup/pgdn/home/end), wheel, touch.
+   ========================================================= */
+class SlidePresentation {
+  constructor() {
+    this.slides = document.querySelectorAll('.slide');
+    this.current = 0;
+    this.stage = document.getElementById('deckStage');
+    this.progress = document.getElementById('progress');
+    this.counter = document.getElementById('counter');
+    this.wheelLock = false;
+    this.setupStageScale();
+    this.setupKeys();
+    this.setupWheel();
+    this.setupTouch();
+    this.buildDotRail();
+    this.show(0);
+  }
+  buildDotRail() {
+    const rail = document.createElement('nav');
+    rail.className = 'dot-rail';
+    rail.setAttribute('aria-label', 'Slide selector');
+    this.dots = [];
+    this.slides.forEach((s, i) => {
+      const kicker = s.querySelector('.kicker');
+      const heading = s.querySelector('h2.t, h1');
+      const label = (i + 1) + ' · ' + (heading ? heading.textContent.replace(/\s+/g, ' ').trim().slice(0, 42)
+        : kicker ? kicker.textContent.trim() : 'Slide');
+      const dot = document.createElement('button');
+      dot.className = 'dot';
+      dot.setAttribute('aria-label', label);
+      const tip = document.createElement('span');
+      tip.className = 'tip';
+      tip.textContent = label;
+      dot.appendChild(tip);
+      dot.addEventListener('click', () => this.show(i));
+      rail.appendChild(dot);
+      this.dots.push(dot);
+    });
+    document.body.appendChild(rail);
+  }
+  setupStageScale() {
+    const scale = () => {
+      const f = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      const x = (window.innerWidth - 1920 * f) / 2;
+      const y = (window.innerHeight - 1080 * f) / 2;
+      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+    };
+    scale();
+    window.addEventListener('resize', scale);
+  }
+  setupKeys() {
+    document.addEventListener('keydown', (e) => {
+      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); this.show(this.current + 1); }
+      else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.show(this.current - 1); }
+      else if (e.key === 'Home') this.show(0);
+      else if (e.key === 'End') this.show(this.slides.length - 1);
+    });
+  }
+  setupWheel() {
+    window.addEventListener('wheel', (e) => {
+      if (this.wheelLock || Math.abs(e.deltaY) < 24) return;
+      this.wheelLock = true;
+      this.show(this.current + (e.deltaY > 0 ? 1 : -1));
+      setTimeout(() => { this.wheelLock = false; }, 650);
+    }, { passive: true });
+  }
+  setupTouch() {
+    let startX = 0;
+    window.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    window.addEventListener('touchend', (e) => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 50) this.show(this.current + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+  show(i) {
+    this.current = Math.max(0, Math.min(i, this.slides.length - 1));
+    this.slides.forEach((s, idx) => {
+      s.classList.toggle('active', idx === this.current);
+      s.classList.toggle('visible', idx === this.current);
+    });
+    this.progress.style.width = ((this.current + 1) / this.slides.length * 100) + '%';
+    this.counter.textContent = (this.current + 1) + ' / ' + this.slides.length;
+    if (this.dots) this.dots.forEach((d, idx) => d.classList.toggle('on', idx === this.current));
+  }
+}
+new SlidePresentation();
+
+
+
+
+/* ============ requester slide: delete interaction demo ============ */
+(function () {
+  const btn = document.getElementById('q1Delete');
+  if (!btn) return;
+  const slide = btn.closest('.slide');
+  const row = btn.closest('.tRow');
+  const actions = document.getElementById('q1Actions');
+  const spin = document.getElementById('q1Spin');
+  const status = document.getElementById('q1Status');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const cursor = document.createElement('div');
+  cursor.className = 'demoCursor';
+  cursor.innerHTML = '<svg viewBox="0 0 24 24" fill="#101828" stroke="#fff" stroke-width="1.4"><path d="M4 2l7 18 2.5-7.5L21 10z"/></svg>';
+  slide.appendChild(cursor);
+
+  const timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const reset = () => {
+    timers.forEach(clearTimeout); timers.length = 0;
+    row.classList.remove('gone');
+    actions.style.display = 'flex'; actions.style.opacity = '1';
+    spin.style.display = 'none';
+    status.className = 'st pend'; status.textContent = 'Pending';
+    cursor.style.opacity = '0'; cursor.classList.remove('press');
+  };
+
+  function play() {
+    reset();
+    if (reduced) { row.classList.add('gone'); return; }
+    const sr = slide.getBoundingClientRect(), br = btn.getBoundingClientRect();
+    const scale = sr.width / 1920 || 1;
+    const x = (br.left - sr.left) / scale + 40, y = (br.top - sr.top) / scale + 20;
+    at(700,  () => { cursor.style.opacity = '1'; cursor.style.transform = `translate(${x - 130}px, ${y + 110}px)`; });
+    at(1000, () => { cursor.style.transform = `translate(${x}px, ${y}px)`; });
+    at(1850, () => cursor.classList.add('press'));
+    at(2050, () => {
+      cursor.classList.remove('press');
+      status.className = 'st deling'; status.textContent = 'Deleting';
+      actions.style.opacity = '0';
+      at(200, () => { actions.style.display = 'none'; spin.style.display = 'flex'; });
+    });
+    at(2400, () => { cursor.style.opacity = '0'; });
+    at(3600, () => { row.classList.add('gone'); });          // spins, then the row leaves
+    at(8200, play);
+  }
+  new MutationObserver(() => {
+    if (slide.classList.contains('visible')) play(); else reset();
+  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  if (slide.classList.contains('visible')) play();
+})();
+
+
+/* ============ tech-owner slide: approve interaction demo ============ */
+(function () {
+  const btn = document.getElementById('r1Approve');
+  if (!btn) return;
+  const slide = btn.closest('.slide');
+  const actions = document.getElementById('r1Actions');
+  const spin = document.getElementById('r1Spin');
+  const done = document.getElementById('r1Done');
+  const status = document.getElementById('r1Status');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const cursor = document.createElement('div');
+  cursor.id = 'deckCursor';
+  cursor.innerHTML = '<svg viewBox="0 0 24 24" fill="#101828" stroke="#fff" stroke-width="1.4"><path d="M4 2l7 18 2.5-7.5L21 10z"/></svg>';
+  slide.appendChild(cursor);
+
+  const timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const reset = () => {
+    timers.forEach(clearTimeout); timers.length = 0;
+    actions.style.display = 'flex'; actions.style.opacity = '1';
+    spin.style.display = 'none'; done.style.display = 'none';
+    status.className = 'st pend'; status.textContent = 'Pending';
+    cursor.style.opacity = '0'; cursor.classList.remove('press');
+    cursor.style.transform = 'translate(0,0)';
+  };
+
+  function play() {
+    reset();
+    if (reduced) { status.className = 'st appr'; status.textContent = 'Approved'; actions.style.display='none'; done.style.display='flex'; return; }
+    const sr = slide.getBoundingClientRect(), br = btn.getBoundingClientRect();
+    const scale = sr.width / 1920 || 1;
+    const x = (br.left - sr.left) / scale + 22, y = (br.top - sr.top) / scale + 22;
+    at(600,  () => { cursor.style.opacity = '1'; cursor.style.transform = `translate(${x - 120}px, ${y + 90}px)`; });
+    at(900,  () => { cursor.style.transform = `translate(${x}px, ${y}px)`; });
+    at(1750, () => cursor.classList.add('press'));
+    at(1950, () => {
+      cursor.classList.remove('press');
+      actions.style.opacity = '0';
+      at(200, () => { actions.style.display = 'none'; spin.style.display = 'flex'; });
+    });
+    at(2300, () => { cursor.style.opacity = '0'; });
+    at(3400, () => {
+      spin.style.display = 'none'; done.style.display = 'flex';
+      status.className = 'st appr'; status.textContent = 'Approved';
+    });
+    at(8000, play);
+  }
+  new MutationObserver(() => {
+    if (slide.classList.contains('visible')) play(); else reset();
+  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  if (slide.classList.contains('visible')) play();
+})();
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
