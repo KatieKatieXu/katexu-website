@@ -614,8 +614,14 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
       <p style="font-size:26px; color:#A9B7CD; line-height:1.55;">If the approval is what transfers, make it a thing: configure a standard order once, mint vouchers. A teammate redeems one and orders under their own identity — no wizard, no identity problem. Engineering's first read: achievable.</p>
     </div>
     <div class="reveal panel" style="padding:44px; border-top:6px solid var(--red);">
-      <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">What the numbers said</p>
-      <p style="font-size:26px; color:#A9B7CD; line-height:1.55;">Every voucher carries its own lifecycle — mint, validate, track, expire, reconcile. Each redemption fired a chain of backend calls, multiplied by every standard order on the platform. The infrastructure cost dwarfed the win.</p>
+      <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">What the review surfaced</p>
+      <p style="font-size:25px; color:#A9B7CD; line-height:1.5; margin-bottom:20px;">A voucher lives <b style="color:#fff; font-weight:600;">outside the platform</b> — passed around in chat and email, it can be redeemed by someone the approval was never meant for. In a bank, an approval that travels unattached to identity is a governance gap, not a shortcut.</p>
+      <div style="display:flex; flex-direction:column; gap:11px;">
+        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Steps happen off-platform, outside the audit trail</p>
+        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Risk of misuse — a voucher can be shared or reused</p>
+        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Entitlement rules get bypassed instead of enforced</p>
+      </div>
+      <p style="font-size:22px; color:#8494AE; line-height:1.45; margin-top:20px; border-top:1px solid rgba(255,255,255,0.12); padding-top:16px;">On top of that, every voucher carried its own lifecycle — mint, validate, track, expire, reconcile — firing backend calls on each redemption.</p>
     </div>
   </div>
   <div class="foot reveal"><b>The sharpened question:</b> <span>what's the lightest object that carries an approval from one person to a team — without ever leaving the platform?</span></div>
