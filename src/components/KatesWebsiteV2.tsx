@@ -88,7 +88,7 @@ interface AppStore {
 const projects: Project[] = [
   {
     key: "jobpilot",
-    caseStudyUrl: "/projects/jobpilot",
+    // caseStudyUrl: "/projects/jobpilot", // hidden until case studies are ready
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
@@ -112,7 +112,7 @@ const projects: Project[] = [
   },
   {
     key: "bofa-cloud",
-    caseStudyUrl: "/decks/bofa-cloud.html",
+    // caseStudyUrl: "/decks/bofa-cloud.html", // hidden until case studies are ready
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
@@ -132,7 +132,7 @@ const projects: Project[] = [
   },
   {
     key: "pawpaw-story",
-    caseStudyUrl: "/projects/pawpaw-story",
+    // caseStudyUrl: "/projects/pawpaw-story", // hidden until case studies are ready
     title: "PawPaw Story",
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
@@ -165,7 +165,7 @@ const projects: Project[] = [
   },
   {
     key: "ionboard",
-    caseStudyUrl: "/projects/ionboard",
+    // caseStudyUrl: "/projects/ionboard", // hidden until case studies are ready
     title: "Ionboard",
     description:
       "Electric skateboard brand — $57K+ Kickstarter (570% funded). End-to-end brand, design, and marketing.",
@@ -192,7 +192,7 @@ const projects: Project[] = [
   },
   {
     key: "bofa-workit",
-    caseStudyUrl: "/projects/bofa-workplace",
+    // caseStudyUrl: "/projects/bofa-workplace", // hidden until case studies are ready
     title: "BofA WorkIT",
     description:
       "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
@@ -216,7 +216,7 @@ const projects: Project[] = [
   },
   {
     key: "oneco",
-    caseStudyUrl: "/projects/oneco",
+    // caseStudyUrl: "/projects/oneco", // hidden until case studies are ready
     title: "OneCo",
     description:
       "Builder-archetype quiz in four languages — are you built to run a one-person company?",
