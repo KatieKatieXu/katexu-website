@@ -96,12 +96,17 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 
 /* title slide on dark: glowing-cloud variant */
-#titleSlide { color: #EAF2FF; }
-#titleSlide .chip { background: rgba(47,107,255,0.22); color: #A8C6FF; }
-#titleSlide .stat-label { color: #7E93B5 !important; }
-#titleSlide .stat-before { color: #7E93B5 !important; }
-#titleSlide .meta { color: #8A9DBC !important; border-color: rgba(255,255,255,0.14) !important; }
-#titleSlide .head-small { color: #8A9DBC !important; }
+#titleSlide { color: var(--ink); }
+#titleSlide .chip { background: var(--blue-mist); color: var(--blue-deep); }
+#titleSlide .stat-label { color: var(--ink-faint) !important; }
+#titleSlide .stat-before { color: var(--ink-faint) !important; }
+#titleSlide .meta { color: var(--ink-soft) !important; }
+#titleSlide .head-small { color: var(--ink-faint) !important; }
+
+/* liquid-glass cloud: slow drift */
+@keyframes cloud-float { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-18px) rotate(-1.2deg); } }
+.float-cloud { animation: cloud-float 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .float-cloud { animation: none; } }
 
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
@@ -139,25 +144,26 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
 <!-- ============ 01 · TITLE ============ -->
 <section class="slide active" id="titleSlide" style="background:
-  radial-gradient(1100px 780px at 68% 46%, #12305C 0%, rgba(18,48,92,0) 62%),
-  radial-gradient(900px 700px at 10% 88%, #0E203A 0%, rgba(14,32,58,0) 55%), #061024;
+  radial-gradient(1200px 800px at 78% 22%, #DCE9FF 0%, rgba(220,233,255,0) 62%),
+  radial-gradient(900px 700px at 8% 90%, #E7F0FF 0%, rgba(231,240,255,0) 55%), var(--paper);
   justify-content: space-between;">
-  <!-- 3D cloud (Three.js) — sits behind content -->
-  <div id="cloud3d" style="position:absolute; right:-60px; top:100px; width:1040px; height:680px; z-index:0; pointer-events:none;"></div>
+  <!-- Liquid-glass cloud illustration -->
+  <img src="cloud-glass.png" alt="" aria-hidden="true" class="float-cloud"
+    style="position:absolute; right:20px; top:150px; width:820px; height:auto; z-index:0; pointer-events:none;">
   <div class="reveal" style="display:flex; justify-content:space-between; align-items:baseline; position:relative; z-index:1;">
     <p style="font-weight:700; font-size:30px;">Kate Xu</p>
     <p class="head-small" style="font-size:22px;">Case Study 01 · Reading deck</p>
   </div>
   <div style="position:relative; z-index:1;">
     <p class="reveal chip" style="margin-bottom:28px;">Enterprise · BofA private cloud · internal platform hosting 1,000+ apps</p>
-    <h1 class="reveal" style="font-size:128px; font-weight:700; letter-spacing:-0.035em; line-height:1.05; margin-bottom:24px; color:#FFFFFF;">
-      Cloud Service<br><span style="color:#6E9BFF;">Ordering.</span></h1>
+    <h1 class="reveal" style="font-size:128px; font-weight:700; letter-spacing:-0.035em; line-height:1.05; margin-bottom:24px;">
+      Cloud Service<br><span style="color:var(--blue);">Ordering.</span></h1>
     <div class="reveal" style="display:flex; gap:64px; margin-top:52px; align-items:flex-end;">
       <div><p class="stat-label" style="font-size:var(--small); margin-bottom:8px;">Before — ordering success</p>
         <p class="stat-before" style="font-size:96px; font-weight:600; line-height:1;">11%</p></div>
       <p style="font-size:48px; color:var(--blue); margin-bottom:8px;">→</p>
       <div><p class="stat-label" style="font-size:var(--small); margin-bottom:8px;">After — ordering success</p>
-        <p style="font-size:96px; font-weight:600; line-height:1; color:#6E9BFF;">34%</p></div>
+        <p style="font-size:96px; font-weight:600; line-height:1; color:var(--blue);">34%</p></div>
     </div>
     <!-- Presented-by pill (Stratify style): white capsule + name in blue gradient capsule -->
     <div class="reveal" style="display:inline-flex; align-items:center; gap:18px; margin-top:48px; background:#FFFFFF; border-radius:999px; padding:10px 12px 10px 26px; box-shadow:0 10px 30px -12px rgba(16,24,40,0.25);">
@@ -797,58 +803,6 @@ class SlidePresentation {
 new SlidePresentation();
 </script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script>
-/* ============ 3D cloud on the title slide ============ */
-(function () {
-  const mount = document.getElementById('cloud3d');
-  if (!mount || typeof THREE === 'undefined') return;
-  const W = 1040, H = 680;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(32, W / H, 1, 3000);
-  camera.position.set(0, 30, 950);
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(W, H);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  mount.appendChild(renderer.domElement);
 
-  // Glowing ribbon loops — translucent tori, additively blended into a cloud silhouette
-  const cloud = new THREE.Group();
-  const loops = [
-    // [x, y, z, radius, tube, rotX, rotY, rotZ, color, opacity]
-    [   0,  60,   0, 190, 26,  0.22, -0.30,  0.10, 0xBFD8FF, 0.34],
-    [-215, -20,  40, 170, 24,  0.30,  0.42, -0.22, 0xA9CBFF, 0.30],
-    [ 215, -25, -30, 175, 24, -0.26, -0.48,  0.20, 0xA9CBFF, 0.30],
-    [ -60, -60,  70, 230, 20,  1.28,  0.10,  0.34, 0xD9E9FF, 0.26],
-    [  70, -70, -60, 240, 20, -1.24,  0.06, -0.30, 0xD9E9FF, 0.26],
-    [-330, -55,   0, 118, 20,  0.36,  0.60, -0.10, 0x9BC0FF, 0.28],
-    [ 330, -50,   0, 122, 20, -0.32, -0.62,  0.12, 0x9BC0FF, 0.28],
-  ];
-  loops.forEach(([x, y, z, r, tube, rx, ry, rz, color, opacity]) => {
-    const mat = new THREE.MeshBasicMaterial({
-      color, transparent: true, opacity,
-      blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
-    });
-    const m = new THREE.Mesh(new THREE.TorusGeometry(r, tube, 24, 140), mat);
-    m.position.set(x, y, z);
-    m.rotation.set(rx, ry, rz);
-    cloud.add(m);
-  });
-  scene.add(cloud);
-
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let t = 0;
-  function tick() {
-    if (!reduced) {
-      t += 0.008;
-      cloud.rotation.y = Math.sin(t * 0.6) * 0.16;
-      cloud.position.y = Math.sin(t) * 14;
-      requestAnimationFrame(tick);
-    }
-    renderer.render(scene, camera);
-  }
-  tick();
-})();
-</script>
 </body>
 </html>
