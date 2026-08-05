@@ -178,10 +178,21 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 .act-cell[data-cell] { min-width:112px; }
 
 /* requester row removal: fade + collapse, rows below slide up */
-.tRow { transition: opacity .45s var(--ease), transform .45s var(--ease),
-        max-height .55s var(--ease) .1s, margin .55s var(--ease) .1s, padding .55s var(--ease) .1s, border-width .3s var(--ease) .1s;
-        max-height:96px; overflow:hidden; }
-.tRow.gone { opacity:0; transform:translateX(-26px); max-height:0; margin-bottom:0; padding-top:0; padding-bottom:0; border-width:0; }
+.tRow { transition: opacity .35s var(--ease), transform .35s var(--ease),
+        max-height .5s var(--ease) .15s, margin-bottom .5s var(--ease) .15s,
+        padding-top .5s var(--ease) .15s, padding-bottom .5s var(--ease) .15s,
+        border-width .3s var(--ease) .15s;
+        max-height:110px; overflow:hidden; }
+/* inline styles on the rows win by specificity — !important is required here */
+.tRow.gone {
+  opacity:0 !important;
+  transform:translateX(-30px) !important;
+  max-height:0 !important;
+  margin-bottom:0 !important;
+  padding-top:0 !important;
+  padding-bottom:0 !important;
+  border-width:0 !important;
+}
 
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
@@ -981,8 +992,8 @@ new SlidePresentation();
     clearTimeout(t1); clearTimeout(t2);
     target.classList.remove('gone');
     if (reduced) return;
-    t1 = setTimeout(() => target.classList.add('gone'), 2000);
-    t2 = setTimeout(play, 7000);
+    t1 = setTimeout(() => target.classList.add('gone'), 1800);
+    t2 = setTimeout(play, 8000);
   }
   new MutationObserver(() => {
     if (slide.classList.contains('visible')) play();
