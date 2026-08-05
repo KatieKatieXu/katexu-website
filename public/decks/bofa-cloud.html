@@ -803,8 +803,8 @@ new SlidePresentation();
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   mount.appendChild(renderer.domElement);
 
-  const white = new THREE.MeshPhysicalMaterial({ color: 0xF5F8FF, roughness: 0.22, clearcoat: 1, clearcoatRoughness: 0.12 });
-  const blue  = new THREE.MeshPhysicalMaterial({ color: 0xC3D6F4, roughness: 0.28, clearcoat: 0.8, clearcoatRoughness: 0.2 });
+  const white = new THREE.MeshPhysicalMaterial({ color: 0xE8EEFA, roughness: 0.42, clearcoat: 0.55, clearcoatRoughness: 0.3 });
+  const blue  = new THREE.MeshPhysicalMaterial({ color: 0xB6CBEC, roughness: 0.48, clearcoat: 0.45, clearcoatRoughness: 0.35 });
 
   const cloud = new THREE.Group();
   const puffs = [
@@ -823,11 +823,11 @@ new SlidePresentation();
   });
   scene.add(cloud);
 
-  scene.add(new THREE.AmbientLight(0xffffff, 0.65));
-  const key = new THREE.DirectionalLight(0xffffff, 0.9);
+  scene.add(new THREE.AmbientLight(0xffffff, 0.42));
+  const key = new THREE.DirectionalLight(0xffffff, 0.5);
   key.position.set(300, 500, 600);
   scene.add(key);
-  const fill = new THREE.DirectionalLight(0xDCE9FF, 0.35);
+  const fill = new THREE.DirectionalLight(0xDCE9FF, 0.22);
   fill.position.set(-400, 100, 300);
   scene.add(fill);
 
