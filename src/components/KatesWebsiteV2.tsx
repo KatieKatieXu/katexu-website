@@ -92,7 +92,7 @@ const projects: Project[] = [
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
-    images: ["/jobpilot-design-demo.mp4", "/jobpilot-screens-showcase.mp4"],
+    images: ["/jobpilot-demo-v3.mp4", "/jobpilot-screens-showcase.mp4"],
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
       {
