@@ -109,36 +109,25 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 @media (prefers-reduced-motion: reduce) { .float-cloud { animation: none; } }
 
 
-/* liquid-sculpt funnel discs: glass tiers with rim light + inner shadow */
-.lq { border-radius: 50%; position: relative; }
-.lq::after { content: ""; position: absolute; inset: 6% 10% 55% 12%; border-radius: 50%;
-  background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.12) 70%, rgba(255,255,255,0) 100%);
-  filter: blur(3px); pointer-events: none; }
-.lq::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
-  box-shadow: inset 0 -14px 26px rgba(9,26,58,0.34), inset 0 8px 18px rgba(255,255,255,0.5); pointer-events: none; }
+/* frosted glass funnel discs — same material as the page-7 panel */
+.gd {
+  border-radius: 50%;
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  box-shadow:
+    inset 0 2px 0 rgba(255,255,255,0.55),
+    inset 0 -16px 30px rgba(21,48,110,0.10);
+  position: relative;
+}
+.gd::after {
+  content: ""; position: absolute; left: 10%; top: 8%; width: 46%; height: 46%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 36% 34%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 70%);
+  filter: blur(8px); pointer-events: none;
+}
 @keyframes lq-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 .lq-stack { animation: lq-float 7s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .lq-stack { animation: none; } }
-
-
-/* liquid-glass panel — matches the cloud & funnel illustrations */
-.glass {
-  position: relative;
-  background: linear-gradient(152deg, rgba(255,255,255,0.55) 0%, rgba(226,238,255,0.34) 48%, rgba(198,220,248,0.28) 100%);
-  backdrop-filter: blur(18px) saturate(1.15);
-  -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  border-radius: 40px;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.65),
-    inset 0 -26px 50px rgba(21,48,110,0.07),
-    0 26px 56px -34px rgba(11,32,72,0.3);
-}
-/* one soft highlight sweep — no edges, no outline */
-.glass::before {
-  content: ""; position: absolute; left: -6%; top: -34%; width: 62%; height: 118%;
-  background: radial-gradient(ellipse at 34% 34%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 66%);
-  transform: rotate(-14deg); filter: blur(22px); pointer-events: none; border-radius: 50%;
-}
 
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
@@ -220,15 +209,15 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
     <!-- 3D vortex funnel with metric callouts (Stratify reference) -->
     <div class="reveal" style="flex:1; position:relative; min-height:0;">
 
-      <!-- discs, stacked and centered -->
-      <div style="position:absolute; left:50%; top:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center;">
-        <div style="width:560px; height:178px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #22344F 0%, #0B1526 70%); z-index:7; box-shadow:0 30px 60px -20px rgba(11,21,38,0.45);"></div>
-        <div style="width:450px; height:142px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #4066E8 0%, #2748C6 70%); z-index:6; margin-top:-64px;"></div>
-        <div style="width:362px; height:114px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #5B82FF 0%, #3D6BFF 70%); z-index:5; margin-top:-50px;"></div>
-        <div style="width:286px; height:92px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #86A5FF 0%, #6E93FF 70%); z-index:4; margin-top:-40px;"></div>
-        <div style="width:218px; height:70px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #B1C6FF 0%, #9FB9FF 70%); z-index:3; margin-top:-30px;"></div>
-        <div style="width:158px; height:52px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #DCE7FF 0%, #C5D7FF 70%); z-index:2; margin-top:-22px;"></div>
-        <div style="width:54px; height:88px; border-radius:0 0 27px 27px; background:linear-gradient(#C5D7FF, #EDF3FF); z-index:1; margin-top:-14px;"></div>
+      <!-- frosted glass tiers, stacked and centered -->
+      <div class="lq-stack" style="position:absolute; left:50%; top:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; filter:drop-shadow(0 34px 54px rgba(11,32,72,0.18));">
+        <div class="gd" style="width:560px; height:178px; background:linear-gradient(155deg, rgba(96,140,224,0.42) 0%, rgba(44,85,184,0.38) 100%); z-index:7;"></div>
+        <div class="gd" style="width:450px; height:142px; background:linear-gradient(155deg, rgba(124,164,236,0.40) 0%, rgba(60,104,202,0.34) 100%); z-index:6; margin-top:-64px;"></div>
+        <div class="gd" style="width:362px; height:114px; background:linear-gradient(155deg, rgba(150,184,243,0.38) 0%, rgba(86,126,214,0.30) 100%); z-index:5; margin-top:-50px;"></div>
+        <div class="gd" style="width:286px; height:92px; background:linear-gradient(155deg, rgba(174,203,247,0.36) 0%, rgba(112,148,226,0.28) 100%); z-index:4; margin-top:-40px;"></div>
+        <div class="gd" style="width:218px; height:70px; background:linear-gradient(155deg, rgba(198,219,250,0.34) 0%, rgba(142,174,235,0.26) 100%); z-index:3; margin-top:-30px;"></div>
+        <div class="gd" style="width:158px; height:52px; background:linear-gradient(155deg, rgba(221,234,253,0.32) 0%, rgba(176,203,243,0.24) 100%); z-index:2; margin-top:-22px;"></div>
+        <div class="gd" style="width:54px; height:88px; border-radius:0 0 27px 27px; background:linear-gradient(180deg, rgba(198,219,250,0.30) 0%, rgba(236,244,255,0.22) 100%); z-index:1; margin-top:-14px;"></div>
       </div>
 
       <!-- left callouts -->
