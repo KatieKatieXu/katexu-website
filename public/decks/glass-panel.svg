@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 640" preserveAspectRatio="none">
+  <defs>
+    <!-- base glass body: pale lavender top-left → blue bottom-right -->
+    <linearGradient id="body" x1="0.08" y1="0" x2="0.85" y2="1">
+      <stop offset="0%"   stop-color="#F2F6FE"/>
+      <stop offset="38%"  stop-color="#E2EDFB"/>
+      <stop offset="72%"  stop-color="#CFE0F7"/>
+      <stop offset="100%" stop-color="#B9D2F2"/>
+    </linearGradient>
+
+    <!-- iridescent rim: lavender left, cyan-white top, soft blue right -->
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="#D9C8F5"/>
+      <stop offset="18%"  stop-color="#EAF6FF"/>
+      <stop offset="46%"  stop-color="#FFFFFF"/>
+      <stop offset="74%"  stop-color="#CFE6FA"/>
+      <stop offset="100%" stop-color="#E4D6F8"/>
+    </linearGradient>
+
+    <linearGradient id="waveFade" x1="0" y1="0" x2="1" y2="0.35">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="55%"  stop-color="#FFFFFF" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.15"/>
+    </linearGradient>
+
+    <radialGradient id="glowTL" cx="0.16" cy="0.2" r="0.55">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="irid" cx="0.06" cy="0.86" r="0.4">
+      <stop offset="0%"   stop-color="#E7CDF7" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#E7CDF7" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="deep" cx="0.9" cy="0.95" r="0.6">
+      <stop offset="0%"   stop-color="#7FA9DE" stop-opacity="0.45"/>
+      <stop offset="100%" stop-color="#7FA9DE" stop-opacity="0"/>
+    </radialGradient>
+
+    <filter id="soft" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+    <filter id="softer" x="-15%" y="-15%" width="130%" height="130%">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+
+    <clipPath id="panelClip">
+      <rect x="6" y="6" width="988" height="628" rx="44"/>
+    </clipPath>
+  </defs>
+
+  <!-- body -->
+  <rect x="6" y="6" width="988" height="628" rx="44" fill="url(#body)"/>
+
+  <g clip-path="url(#panelClip)">
+    <!-- flowing liquid bands -->
+    <path d="M-40,470 C170,360 330,560 520,470 C690,390 830,470 1040,400 L1040,700 L-40,700 Z"
+          fill="url(#waveFade)" opacity="0.55" filter="url(#soft)"/>
+    <path d="M-40,560 C200,470 340,640 560,560 C740,495 880,570 1040,510 L1040,700 L-40,700 Z"
+          fill="#FFFFFF" opacity="0.45" filter="url(#soft)"/>
+    <path d="M-40,300 C220,236 300,330 520,286 C700,250 860,300 1040,250"
+          fill="none" stroke="#FFFFFF" stroke-width="26" opacity="0.4" filter="url(#softer)"/>
+    <path d="M-40,392 C180,330 360,430 560,372 C740,320 900,376 1040,330"
+          fill="none" stroke="#FFFFFF" stroke-width="16" opacity="0.5" filter="url(#soft)"/>
+    <path d="M120,640 C240,540 420,610 640,556 C820,512 930,560 1040,530"
+          fill="none" stroke="#FFFFFF" stroke-width="12" opacity="0.45" filter="url(#soft)"/>
+
+    <!-- light pooling -->
+    <rect x="6" y="6" width="988" height="628" fill="url(#glowTL)"/>
+    <rect x="6" y="6" width="988" height="628" fill="url(#irid)"/>
+    <rect x="6" y="6" width="988" height="628" fill="url(#deep)"/>
+  </g>
+
+  <!-- iridescent edge -->
+  <rect x="6" y="6" width="988" height="628" rx="44" fill="none" stroke="url(#rim)" stroke-width="3.5"/>
+  <rect x="12" y="12" width="976" height="616" rx="38" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.55"/>
+</svg>
