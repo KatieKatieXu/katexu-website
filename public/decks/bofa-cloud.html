@@ -680,29 +680,62 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 <section class="slide">
   <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Design · information architecture</p>
-  <h2 class="t reveal">Two new tabs.</h2>
-  <div style="flex:1; display:flex; gap:72px; align-items:center;">
-    <div style="flex:1; display:flex; flex-direction:column; gap:32px;">
-      <div class="reveal panel" style="padding:36px;">
+  <h2 class="t reveal" style="margin-bottom:30px;">Two new tabs — and who sees them.</h2>
+  <div style="flex:1; display:flex; gap:64px; align-items:center; min-height:0;">
+
+    <!-- left: the role rule -->
+    <div style="width:520px; flex-shrink:0; display:flex; flex-direction:column; gap:22px;">
+      <div class="reveal panel" style="padding:32px 34px;">
         <p style="font-size:var(--small); color:var(--ink-faint); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">All roles</p>
         <p style="font-size:var(--subtitle); font-weight:600;">My Open Tickets</p>
-        <p style="font-size:23px; color:var(--ink-soft); line-height:1.5; margin-top:10px;">Every ticket you've submitted, with status — deletable while it's still waiting, so no orphaned requests.</p>
+        <p style="font-size:22px; color:var(--ink-soft); line-height:1.5; margin-top:10px;">See status, delete while still pending. Nothing else — a requester can't approve their own request.</p>
       </div>
-      <div class="reveal panel" style="padding:36px; border-color:var(--blue); border-width:2px;">
+      <div class="reveal panel" style="padding:32px 34px; border-color:var(--blue); border-width:2px;">
         <p style="font-size:var(--small); color:var(--blue); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">Tech owner only</p>
         <p style="font-size:var(--subtitle); font-weight:600;">My Approvals</p>
-        <p style="font-size:23px; color:var(--ink-soft); line-height:1.5; margin-top:10px;">Every ticket requested under their AIT — approve, reject with a reason, or bulk decisions.</p>
+        <p style="font-size:22px; color:var(--ink-soft); line-height:1.5; margin-top:10px;">Approve, reject with a reason, or decide in bulk across the AIT.</p>
+      </div>
+      <p class="reveal" style="font-size:23px; color:var(--ink-soft); line-height:1.5; border-left:4px solid var(--blue); padding-left:20px;">Role-based visibility <b style="color:var(--ink);">is</b> the authentication — the second tab simply doesn't exist for anyone but the tech owner.</p>
+    </div>
+
+    <!-- right: side-nav product view, tabs auto-switching -->
+    <div class="reveal" style="flex:1; min-width:0;">
+      <div class="wf" id="tabsDemo" style="display:flex; overflow:hidden; height:520px;">
+
+        <!-- side nav -->
+        <div style="width:290px; flex-shrink:0; background:#FAFCFF; border-right:1px solid var(--line); padding:26px 18px; display:flex; flex-direction:column; gap:10px;">
+          <p style="font-size:15px; color:var(--ink-faint); letter-spacing:0.08em; text-transform:uppercase; font-weight:600; padding:0 12px 10px;">Cloud platform</p>
+          <div class="navItem" data-tab="open" style="display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:12px; font-size:20px; font-weight:600; color:var(--blue-deep); background:var(--blue-mist); transition:background .35s var(--ease), color .35s var(--ease);">
+            <span style="width:8px; height:8px; border-radius:50%; background:currentColor;"></span> My Open Tickets
+          </div>
+          <div class="navItem" data-tab="appr" id="navAppr" style="display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:12px; font-size:20px; font-weight:600; color:var(--ink-faint); transition:background .35s var(--ease), color .35s var(--ease), opacity .5s var(--ease), max-height .5s var(--ease); overflow:hidden;">
+            <span style="width:8px; height:8px; border-radius:50%; background:currentColor;"></span> My Approvals
+          </div>
+          <div id="roleBadge" style="margin-top:auto; font-size:16px; color:var(--ink-soft); background:#EEF3FB; border-radius:10px; padding:12px 14px; transition:background .35s var(--ease), color .35s var(--ease);">Signed in as <b id="roleName">requester</b></div>
+        </div>
+
+        <!-- panel -->
+        <div style="flex:1; min-width:0; position:relative;">
+          <div class="tabPane" data-pane="open" style="position:absolute; inset:0; padding:26px 30px; transition:opacity .4s var(--ease), transform .4s var(--ease);">
+            <p style="font-size:22px; font-weight:600; margin-bottom:4px;">My Open Tickets</p>
+            <p style="font-size:17px; color:var(--ink-faint); margin-bottom:20px;">Status and delete only</p>
+            <div class="wf-row" style="grid-template-columns:1.6fr 1fr 130px 100px;"><span class="nm">Std. compute + NAS</span><span class="mut">May 12</span><span class="st pend">Pending</span><span style="font-size:17px; color:var(--red); font-weight:600;">Delete</span></div>
+            <div class="wf-row" style="grid-template-columns:1.6fr 1fr 130px 100px;"><span class="nm">Middleware bundle</span><span class="mut">May 12</span><span class="st pend">Pending</span><span style="font-size:17px; color:var(--red); font-weight:600;">Delete</span></div>
+            <div class="wf-row" style="grid-template-columns:1.6fr 1fr 130px 100px;"><span class="nm">DB replica set</span><span class="mut">May 10</span><span class="st appr">Approved</span><span style="font-size:17px; color:var(--ink-faint);">—</span></div>
+            <div class="wf-row" style="grid-template-columns:1.6fr 1fr 130px 100px; border-bottom:none;"><span class="nm">Cache cluster</span><span class="mut">May 09</span><span class="st appr">Approved</span><span style="font-size:17px; color:var(--ink-faint);">—</span></div>
+          </div>
+          <div class="tabPane" data-pane="appr" style="position:absolute; inset:0; padding:26px 30px; opacity:0; transform:translateY(12px); transition:opacity .4s var(--ease), transform .4s var(--ease);">
+            <p style="font-size:22px; font-weight:600; margin-bottom:4px;">My Approvals</p>
+            <p style="font-size:17px; color:var(--ink-faint); margin-bottom:20px;">Approve, reject with a reason, or bulk-decide</p>
+            <div class="wf-row" style="grid-template-columns:44px 1.5fr 1fr 190px;"><div class="cbx"></div><span class="nm">Std. compute + NAS</span><span class="mut">J. Rivera</span><span style="display:flex; gap:10px;"><span style="font-size:17px; color:#fff; background:var(--blue); border-radius:8px; padding:6px 14px; font-weight:600;">Approve</span><span style="font-size:17px; color:var(--red); border:1px solid var(--red); border-radius:8px; padding:5px 12px; font-weight:600;">Reject</span></span></div>
+            <div class="wf-row" style="grid-template-columns:44px 1.5fr 1fr 190px;"><div class="cbx"></div><span class="nm">Middleware bundle</span><span class="mut">team-payments</span><span style="display:flex; gap:10px;"><span style="font-size:17px; color:#fff; background:var(--blue); border-radius:8px; padding:6px 14px; font-weight:600;">Approve</span><span style="font-size:17px; color:var(--red); border:1px solid var(--red); border-radius:8px; padding:5px 12px; font-weight:600;">Reject</span></span></div>
+            <div class="wf-row" style="grid-template-columns:44px 1.5fr 1fr 190px;"><div class="cbx"></div><span class="nm">Object storage</span><span class="mut">A. Osei</span><span style="display:flex; gap:10px;"><span style="font-size:17px; color:#fff; background:var(--blue); border-radius:8px; padding:6px 14px; font-weight:600;">Approve</span><span style="font-size:17px; color:var(--red); border:1px solid var(--red); border-radius:8px; padding:5px 12px; font-weight:600;">Reject</span></span></div>
+            <div class="wf-row" style="grid-template-columns:44px 1.5fr 1fr 190px; border-bottom:none;"><div class="cbx" style="background:var(--blue); border-color:var(--blue);"></div><span class="nm mut">Select all · 3 tickets</span><span class="mut"></span><span style="font-size:17px; color:var(--blue); font-weight:600;">Bulk approve →</span></div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="reveal wf" style="width:860px; flex-shrink:0;">
-      <div class="wf-head"><span>Orders</span><span>Builds</span><span class="on">My Open Tickets</span><span class="on" style="color:var(--blue-deep);">My Approvals</span><span>Settings</span></div>
-      <div class="wf-row"><div class="cbx"></div><span class="nm">Std. compute + NAS</span><span class="mut">for J. Rivera</span><span class="mut">May 12</span><span class="st pend">Pending</span></div>
-      <div class="wf-row"><div class="cbx"></div><span class="nm">Middleware bundle</span><span class="mut">for team-payments</span><span class="mut">May 12</span><span class="st pend">Pending</span></div>
-      <div class="wf-row"><div class="cbx"></div><span class="nm">Std. compute + NAS</span><span class="mut">for A. Osei</span><span class="mut">May 11</span><span class="st appr">Approved</span></div>
-      <div class="wf-row" style="border-bottom:none;"><div class="cbx"></div><span class="nm">DB replica set</span><span class="mut">for L. Chen</span><span class="mut">May 10</span><span class="st appr">Approved</span></div>
-    </div>
   </div>
-  <div class="foot reveal"><b>Role-based visibility is the authentication:</b> <span>the interface itself enforces who can request and who can approve.</span></div>
 </section>
 
 <!-- ============ 14 · STATES ============ -->
@@ -891,6 +924,74 @@ class SlidePresentation {
   }
 }
 new SlidePresentation();
+
+/* ============ Role + tab switching demo (slide 13) ============ */
+(function () {
+  const demo = document.getElementById('tabsDemo');
+  if (!demo) return;
+  const slide = demo.closest('.slide');
+  const navs  = demo.querySelectorAll('.navItem');
+  const panes = demo.querySelectorAll('.tabPane');
+  const navAppr = document.getElementById('navAppr');
+  const badge = document.getElementById('roleBadge');
+  const roleName = document.getElementById('roleName');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const ON = { bg: 'var(--blue-mist)', fg: 'var(--blue-deep)' };
+  const OFF = { bg: 'transparent', fg: 'var(--ink-faint)' };
+
+  function setTab(tab) {
+    navs.forEach(n => {
+      const on = n.dataset.tab === tab;
+      n.style.background = on ? ON.bg : OFF.bg;
+      n.style.color = on ? ON.fg : OFF.fg;
+    });
+    panes.forEach(p => {
+      const on = p.dataset.pane === tab;
+      p.style.opacity = on ? '1' : '0';
+      p.style.transform = on ? 'translateY(0)' : 'translateY(12px)';
+      p.style.pointerEvents = on ? 'auto' : 'none';
+    });
+  }
+  function setRole(isOwner) {
+    roleName.textContent = isOwner ? 'tech owner' : 'requester';
+    badge.style.background = isOwner ? 'var(--blue-mist)' : '#EEF3FB';
+    badge.style.color = isOwner ? 'var(--blue-deep)' : 'var(--ink-soft)';
+    navAppr.style.opacity = isOwner ? '1' : '0';
+    navAppr.style.maxHeight = isOwner ? '64px' : '0px';
+    navAppr.style.marginBottom = isOwner ? '0' : '-10px';
+  }
+
+  navs.forEach(n => n.addEventListener('click', () => setTab(n.dataset.tab)));
+
+  // opening state: requester — only one tab exists
+  setRole(false); setTab('open');
+
+  if (reduced) { setRole(true); return; }
+
+  let timer;
+  const script = [
+    [2200, () => setRole(true)],            // tech owner signs in → second tab appears
+    [3600, () => setTab('appr')],           // switch to My Approvals
+    [7200, () => setTab('open')],           // back to My Open Tickets
+    [9200, () => setRole(false)],           // requester again → tab disappears
+    [11600, () => { setRole(false); setTab('open'); }],
+  ];
+  function run() {
+    clearTimeout(timer);
+    setRole(false); setTab('open');
+    script.forEach(([t, fn]) => setTimeout(fn, t));
+    timer = setTimeout(run, 13000);
+  }
+  // start when the slide becomes visible, restart on each return
+  const obs = new MutationObserver(() => {
+    if (slide.classList.contains('visible')) run();
+    else clearTimeout(timer);
+  });
+  obs.observe(slide, { attributes: true, attributeFilter: ['class'] });
+  if (slide.classList.contains('visible')) run();
+})();
+
 </script>
 
 
