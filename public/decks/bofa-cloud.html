@@ -108,6 +108,18 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 .float-cloud { animation: cloud-float 9s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .float-cloud { animation: none; } }
 
+
+/* liquid-sculpt funnel discs: glass tiers with rim light + inner shadow */
+.lq { border-radius: 50%; position: relative; }
+.lq::after { content: ""; position: absolute; inset: 6% 10% 55% 12%; border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.12) 70%, rgba(255,255,255,0) 100%);
+  filter: blur(3px); pointer-events: none; }
+.lq::before { content: ""; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: inset 0 -14px 26px rgba(9,26,58,0.34), inset 0 8px 18px rgba(255,255,255,0.5); pointer-events: none; }
+@keyframes lq-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.lq-stack { animation: lq-float 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .lq-stack { animation: none; } }
+
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
 .counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--font); font-size: 14px; color: #8FA1BC; letter-spacing: 0.06em; }
@@ -188,15 +200,15 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
     <!-- 3D vortex funnel with metric callouts (Stratify reference) -->
     <div class="reveal" style="flex:1; position:relative; min-height:0;">
 
-      <!-- discs, stacked and centered -->
-      <div style="position:absolute; left:50%; top:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center;">
-        <div style="width:560px; height:178px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #22344F 0%, #0B1526 70%); z-index:7; box-shadow:0 30px 60px -20px rgba(11,21,38,0.45);"></div>
-        <div style="width:450px; height:142px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #4066E8 0%, #2748C6 70%); z-index:6; margin-top:-64px;"></div>
-        <div style="width:362px; height:114px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #5B82FF 0%, #3D6BFF 70%); z-index:5; margin-top:-50px;"></div>
-        <div style="width:286px; height:92px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #86A5FF 0%, #6E93FF 70%); z-index:4; margin-top:-40px;"></div>
-        <div style="width:218px; height:70px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #B1C6FF 0%, #9FB9FF 70%); z-index:3; margin-top:-30px;"></div>
-        <div style="width:158px; height:52px; border-radius:50%; background:radial-gradient(ellipse at 50% 28%, #DCE7FF 0%, #C5D7FF 70%); z-index:2; margin-top:-22px;"></div>
-        <div style="width:54px; height:88px; border-radius:0 0 27px 27px; background:linear-gradient(#C5D7FF, #EDF3FF); z-index:1; margin-top:-14px;"></div>
+      <!-- liquid-sculpt tiers, stacked and centered -->
+      <div class="lq-stack" style="position:absolute; left:50%; top:12px; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; filter:drop-shadow(0 40px 60px rgba(11,32,72,0.28));">
+        <div class="lq" style="width:560px; height:178px; background:radial-gradient(ellipse at 38% 22%, #6C93E8 0%, #2C55B8 42%, #14306E 100%); z-index:7;"></div>
+        <div class="lq" style="width:450px; height:142px; background:radial-gradient(ellipse at 38% 22%, #7FA6F2 0%, #3765CE 44%, #1B3D86 100%); z-index:6; margin-top:-64px;"></div>
+        <div class="lq" style="width:362px; height:114px; background:radial-gradient(ellipse at 38% 22%, #96B8F7 0%, #4F7BDC 46%, #2A4F9E 100%); z-index:5; margin-top:-50px;"></div>
+        <div class="lq" style="width:286px; height:92px; background:radial-gradient(ellipse at 38% 22%, #AECBFB 0%, #6B93E9 48%, #3A63B6 100%); z-index:4; margin-top:-40px;"></div>
+        <div class="lq" style="width:218px; height:70px; background:radial-gradient(ellipse at 38% 22%, #C6DCFD 0%, #8CACF0 50%, #5178C4 100%); z-index:3; margin-top:-30px;"></div>
+        <div class="lq" style="width:158px; height:52px; background:radial-gradient(ellipse at 38% 22%, #DDEAFE 0%, #AEC7F6 52%, #7295D4 100%); z-index:2; margin-top:-22px;"></div>
+        <div style="width:54px; height:88px; border-radius:0 0 27px 27px; background:linear-gradient(180deg, #AEC7F6 0%, #E4EEFF 100%); box-shadow:inset 6px 0 12px rgba(255,255,255,0.7), inset -6px 0 12px rgba(21,48,110,0.28); z-index:1; margin-top:-14px;"></div>
       </div>
 
       <!-- left callouts -->
