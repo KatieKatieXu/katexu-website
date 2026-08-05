@@ -680,26 +680,30 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 <section class="slide">
   <img src="flow.svg" alt="" aria-hidden="true" class="deco tr">
   <p class="kicker reveal">Design · information architecture</p>
-  <h2 class="t reveal" style="margin-bottom:30px;">Two new tabs — and who sees them.</h2>
-  <div style="flex:1; display:flex; gap:64px; align-items:center; min-height:0;">
+  <h2 class="t reveal" style="margin-bottom:44px;">Two new tabs — and who sees them.</h2>
 
-    <!-- left: the role rule -->
-    <div style="width:520px; flex-shrink:0; display:flex; flex-direction:column; gap:22px;">
-      <div class="reveal panel" style="padding:32px 34px;">
-        <p style="font-size:var(--small); color:var(--ink-faint); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">All roles</p>
-        <p style="font-size:var(--subtitle); font-weight:600;">My Open Tickets</p>
-        <p style="font-size:22px; color:var(--ink-soft); line-height:1.5; margin-top:10px;">See status, delete while still pending. Nothing else — a requester can't approve their own request.</p>
-      </div>
-      <div class="reveal panel" style="padding:32px 34px; border-color:var(--blue); border-width:2px;">
-        <p style="font-size:var(--small); color:var(--blue); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:10px;">Tech owner only</p>
-        <p style="font-size:var(--subtitle); font-weight:600;">My Approvals</p>
-        <p style="font-size:22px; color:var(--ink-soft); line-height:1.5; margin-top:10px;">Approve, reject with a reason, or decide in bulk across the AIT.</p>
-      </div>
-      <p class="reveal" style="font-size:23px; color:var(--ink-soft); line-height:1.5; border-left:4px solid var(--blue); padding-left:20px;">Role-based visibility <b style="color:var(--ink);">is</b> the authentication — the second tab simply doesn't exist for anyone but the tech owner.</p>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px;">
+    <div class="reveal panel" style="padding:48px 52px;">
+      <p style="font-size:var(--small); color:var(--ink-faint); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:14px;">All roles</p>
+      <p style="font-size:46px; font-weight:600; margin-bottom:18px;">My Open Tickets</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.5;">Every pre-approval ticket you've submitted, with its status. You can delete one while it's still waiting — nothing else. A requester can't approve their own request.</p>
     </div>
+    <div class="reveal panel" style="padding:48px 52px; border-color:var(--blue); border-width:2px;">
+      <p style="font-size:var(--small); color:var(--blue); font-weight:600; letter-spacing:0.05em; text-transform:uppercase; margin-bottom:14px;">Tech owner only</p>
+      <p style="font-size:46px; font-weight:600; margin-bottom:18px;">My Approvals</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.5;">Every ticket requested under their AIT — approve, reject with a reason, or decide in bulk across the whole queue.</p>
+    </div>
+  </div>
 
-    <!-- right: side-nav product view, tabs auto-switching -->
-    <div class="reveal" style="flex:1; min-width:0;">
+  <div class="foot reveal"><b>Role-based visibility is the authentication:</b> <span>the second tab doesn't gray out for a requester — it simply doesn't exist.</span></div>
+</section>
+
+<!-- ============ 14 · THE TABS IN PRODUCT ============ -->
+<section class="slide">
+  <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
+  <p class="kicker reveal">Design · in product</p>
+  <h2 class="t reveal" style="margin-bottom:26px;">The nav decides what you can do.</h2>
+  <div class="reveal" style="flex:1; min-height:0; display:flex; align-items:center;">
       <div class="wf" id="tabsDemo" style="display:flex; overflow:hidden; height:520px;">
 
         <!-- side nav -->
@@ -734,71 +738,8 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
           </div>
         </div>
       </div>
-    </div>
   </div>
-</section>
-
-<!-- ============ 14 · STATES ============ -->
-<section class="slide">
-  <img src="flow.svg" alt="" aria-hidden="true" class="deco bl">
-  <p class="kicker reveal">Design · states</p>
-  <h2 class="t reveal" style="margin-bottom:22px;">Every click visibly lands.</h2>
-  <p class="lead reveal" style="margin-bottom:34px;">One state rule for approvals and deletions: act → processing → settled. Actions live in a fixed column on the right, so a row can carry its full record — ticket, resource, schedule, requester — without crowding the decision.</p>
-
-  <div class="reveal wf" style="align-self:center; width:100%;">
-    <!-- header -->
-    <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 26px; border-bottom:1px solid var(--line);">
-      <div style="display:flex; align-items:baseline; gap:18px;">
-        <p style="font-size:22px; font-weight:600;">My Approvals</p>
-        <span style="font-size:18px; color:var(--ink-faint);">4 items</span>
-      </div>
-      <div style="display:flex; align-items:center; gap:14px;">
-        <span style="font-size:18px; color:var(--ink-soft);">Select all</span>
-        <span style="width:40px; height:40px; border-radius:50%; background:#17A34A; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700;">✓</span><span style="width:40px; height:40px; border-radius:50%; background:#E24B4A; color:#fff; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700;">✕</span>
-      </div>
-    </div>
-    <!-- column labels -->
-    <div style="display:grid; grid-template-columns:44px 1.35fr 1fr 1.15fr 1fr 128px 150px; gap:16px; padding:12px 26px; border-bottom:1px solid var(--line); font-size:15px; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint);">
-      <span></span><span>Ticket</span><span>Resource</span><span>Schedule</span><span>Requester</span><span>Status</span><span style="text-align:right;">Actions</span>
-    </div>
-      <div style="display:grid; grid-template-columns:44px 1.35fr 1fr 1.15fr 1fr 128px 150px; gap:16px; align-items:center; padding:18px 26px; border-bottom:1px solid #F0F4FA; background:var(--blue-mist);">
-        <div class="cbx"></div>
-        <div><p style="font-size:19px; font-weight:600; color:var(--ink);">ARQ-81236</p></div>
-        <span style="font-size:18px; color:var(--ink-soft);">Resource operation</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Now / date</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Jennifer Doe</span>
-        <span class="st sub">Submitted</span>
-        <div style="display:flex; gap:10px; justify-content:flex-end;"><span style="width:40px; height:40px; border-radius:50%; border:3px solid #D5E1F5; border-top-color:var(--blue); display:inline-block;"></span></div>
-      </div>
-      <div style="display:grid; grid-template-columns:44px 1.35fr 1fr 1.15fr 1fr 128px 150px; gap:16px; align-items:center; padding:18px 26px; border-bottom:1px solid #F0F4FA;">
-        <div class="cbx"></div>
-        <div><p style="font-size:19px; font-weight:600; color:var(--ink);">ARQ-81237</p></div>
-        <span style="font-size:18px; color:var(--ink-soft);">Resource operation</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Now / date</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Jennifer Doe</span>
-        <span class="st pend">Pending</span>
-        <div style="display:flex; gap:10px; justify-content:flex-end;"><span style="width:40px; height:40px; border-radius:50%; background:#17A34A; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700;">✓</span><span style="width:40px; height:40px; border-radius:50%; background:#E24B4A; color:#fff; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700;">✕</span></div>
-      </div>
-      <div style="display:grid; grid-template-columns:44px 1.35fr 1fr 1.15fr 1fr 128px 150px; gap:16px; align-items:center; padding:18px 26px; border-bottom:1px solid #F0F4FA;">
-        <div class="cbx"></div>
-        <div><p style="font-size:19px; font-weight:600; color:var(--ink);">ARQ-81238</p></div>
-        <span style="font-size:18px; color:var(--ink-soft);">Resource operation</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Scheduled</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Marcus Lee</span>
-        <span class="st pend">Pending</span>
-        <div style="display:flex; gap:10px; justify-content:flex-end;"><span style="width:40px; height:40px; border-radius:50%; background:#17A34A; color:#fff; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700;">✓</span><span style="width:40px; height:40px; border-radius:50%; background:#E24B4A; color:#fff; display:flex; align-items:center; justify-content:center; font-size:19px; font-weight:700;">✕</span></div>
-      </div>
-      <div style="display:grid; grid-template-columns:44px 1.35fr 1fr 1.15fr 1fr 128px 150px; gap:16px; align-items:center; padding:18px 26px; border-bottom:1px solid #F0F4FA; opacity:0.55;">
-        <div class="cbx"></div>
-        <div><p style="font-size:19px; font-weight:600; color:var(--ink);">ARQ-81239</p></div>
-        <span style="font-size:18px; color:var(--ink-soft);">Resource operation</span>
-        <span style="font-size:18px; color:var(--ink-soft);">Now / date</span>
-        <span style="font-size:18px; color:var(--ink-soft);">A. Osei</span>
-        <span class="st appr">Approved</span>
-        <div style="display:flex; gap:10px; justify-content:flex-end;"><span style="font-size:17px; color:var(--ink-faint);">—</span></div>
-      </div>
-  </div>
-  <div class="foot reveal"><b>Ticket details travel with the actions:</b> <span>who requested it, the exact provisioning description, and the full approval history — informed approval, not rubber-stamping.</span></div>
+  <div class="foot reveal"><b>Same screen, two roles:</b> <span>sign in as a requester and My Approvals is absent; sign in as the tech owner and it appears with the decision actions.</span></div>
 </section>
 
 <!-- ============ 15 · BEFORE / NOW ============ -->
