@@ -230,6 +230,22 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 .wire { width:40px; height:1.5px; background:var(--line-strong); flex-shrink:0; }
 .wire.b { background:var(--blue); }
 
+
+/* ===== Swiss discipline (Guizang rules applied to this deck) =====
+   1. one accent only — blue; no second highlight colour
+   2. weight follows size: ExtraLight at display sizes, never bold above 4vw
+   3. locked type scale, no ad-hoc sizes
+   4. mono carries every label; sans carries every statement            */
+h2.t { font-weight: 250; letter-spacing: -0.03em; }
+.slide h1 { font-weight: 200; letter-spacing: -0.035em; }
+.st.pend  { background:rgba(255,255,255,0.07); color:var(--ink-soft); }   /* amber retired */
+.st.deling{ background:rgba(255,255,255,0.07); color:var(--ink-soft); }   /* coral retired */
+.st.appr  { background:var(--blue-mist); color:var(--blue-lit); }         /* green retired */
+.st.sub   { background:var(--blue-mist); color:var(--blue-lit); }
+.act-reject, .act-delete { color:var(--ink-soft); border-color:var(--line-strong); }
+.foot { font-size: 25px; }
+.lead { font-weight: 400; }
+
 /* deck chrome outside the stage */
 .progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--blue); z-index: 1001; transition: width 0.4s var(--ease); }
 .counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--mono); font-size: 13px; color: var(--ink-faint); letter-spacing: 0.1em; }
@@ -514,7 +530,7 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
       </div>
       <!-- floating question badge -->
       <div style="position:absolute; right:-46px; top:-46px; width:130px; height:130px; border-radius:50%; background:linear-gradient(135deg,#7FA4FF 0%,#3D6BFF 100%); display:flex; align-items:center; justify-content:center; box-shadow:0 18px 44px -14px rgba(47,107,255,0.6);">
-        <span style="font-size:74px; font-weight:700; color:var(--panel);">?</span>
+        <span style="font-size:64px; font-weight:700; color:var(--panel);">?</span>
       </div>
     </div>
   </div>
@@ -892,11 +908,11 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 
     <div class="reveal" style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:80px;">
       <div style="border-top:3px solid var(--blue);padding-top:38px;">
-        <p style="font-size:112px;font-weight:700;line-height:1;letter-spacing:-0.03em;">+23<span style="font-size:74px;">%</span></p>
+        <p style="font-size:112px;font-weight:200;line-height:1;letter-spacing:-0.03em;">+23<span style="font-size:64px;">%</span></p>
         <p style="font-size:26px;color:var(--ink-soft);margin-top:22px;">ordering success rate after launch — 11% → 34%</p>
       </div>
       <div style="border-top:3px solid var(--blue);padding-top:38px;">
-        <p style="font-size:112px;font-weight:700;line-height:1;letter-spacing:-0.03em;">−32<span style="font-size:74px;">%</span></p>
+        <p style="font-size:112px;font-weight:200;line-height:1;letter-spacing:-0.03em;">−32<span style="font-size:64px;">%</span></p>
         <p style="font-size:26px;color:var(--ink-soft);margin-top:22px;">average ordering time</p>
       </div>
     </div>
