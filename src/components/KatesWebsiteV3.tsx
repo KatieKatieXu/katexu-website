@@ -100,7 +100,7 @@ function TopBar() {
       </div>
 
       {/* my latest workflow */}
-      <div className="flex-shrink-0 max-w-[560px] rounded-[16px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
+      <div className="flex-shrink-0 max-w-[560px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
         <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
           My latest workflow
         </p>
