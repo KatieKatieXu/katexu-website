@@ -55,13 +55,13 @@ function TopBar() {
   }, []);
 
   return (
-    <header className="flex items-start justify-between gap-14 pt-7 pb-7">
+    <header className="flex items-start justify-between gap-14 pt-20 pb-10">
       {/* identity + brief + links */}
       <div className="min-w-0 max-w-[620px]">
         <div className="flex items-center gap-3.5 mb-3">
           <div className="relative w-[62px] select-none flex-shrink-0">
             <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
-            {playHello && (
+            {playHello ? (
               <motion.img
                 src={AVATAR_BUBBLE}
                 alt=""
@@ -71,6 +71,14 @@ function TopBar() {
                 initial={{ y: -38, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
+              />
+            ) : (
+              <img
+                src={AVATAR_BUBBLE}
+                alt=""
+                aria-hidden
+                className="absolute block"
+                style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
               />
             )}
           </div>
@@ -168,7 +176,7 @@ function Slide({
       )}
       </div>
       {caption && (
-        <figcaption className="mt-3 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
+        <figcaption className="mt-7 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
           <span className="font-semibold text-[#111]">{title}</span> {caption}
         </figcaption>
       )}
