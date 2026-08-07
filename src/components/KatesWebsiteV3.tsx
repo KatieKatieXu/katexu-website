@@ -100,7 +100,7 @@ function TopBar() {
       </div>
 
       {/* my latest workflow */}
-      <div className="flex-shrink-0 max-w-[560px] rounded-[14px] border border-[#e8e8e8] bg-[#fafafa] px-5 py-4">
+      <div className="flex-shrink-0 max-w-[560px] rounded-[16px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
         <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
           My latest workflow
         </p>
@@ -147,7 +147,7 @@ function Slide({
     <figure
       className={`snap-start shrink-0 m-0 ${media.phone ? "w-[340px]" : "w-[74%] max-w-[1080px]"}`}
     >
-      <div className="overflow-hidden rounded-[18px] border border-[#ececec] bg-[#fafafa]">
+      <div className="overflow-hidden rounded-[20px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
       {isVideo ? (
         <video
           src={media.src}
@@ -189,7 +189,7 @@ function ProjectCarousel({ project }: { project: Project }) {
   };
 
   return (
-    <section className="pt-2 pb-12 border-b border-[#f0f0f0] last:border-b-0">
+    <section className="pt-2 pb-12 border-b border-[#f2f2f4] last:border-b-0">
       {/* title only — the description rides under each slide, Apple-style */}
       <h2 className="text-[22px] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">{project.title}</h2>
 
@@ -214,14 +214,14 @@ function ProjectCarousel({ project }: { project: Project }) {
           <button
             onClick={() => scrollBy(-1)}
             aria-label={`Previous ${project.title} image`}
-            className="w-8 h-8 rounded-full bg-[#f1f1f0] flex items-center justify-center text-[13px] text-[#666] hover:bg-[#e6e6e4] hover:text-[#111] transition-colors"
+            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[14px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ‹
           </button>
           <button
             onClick={() => scrollBy(1)}
             aria-label={`Next ${project.title} image`}
-            className="w-8 h-8 rounded-full bg-[#f1f1f0] flex items-center justify-center text-[13px] text-[#666] hover:bg-[#e6e6e4] hover:text-[#111] transition-colors"
+            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[14px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ›
           </button>
@@ -260,7 +260,7 @@ function ProjectCarousel({ project }: { project: Project }) {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-[#f1f1f0] hover:bg-[#e9e9e6] px-4 py-1.5 text-[12px] font-medium text-[#555] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[12px] font-medium text-[#555] transition-colors"
           >
             {project.liveLabel ?? "Try it live"} ↗
           </a>

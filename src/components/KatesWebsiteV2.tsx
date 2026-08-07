@@ -394,7 +394,7 @@ function ImageCard({
   const isVideo = src.endsWith(".mp4") || src.endsWith(".webm");
   return (
     <div
-      className={`overflow-hidden rounded-[24px] border border-[#ececec] bg-[#fafafa] ${
+      className={`overflow-hidden rounded-[24px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] ${
         phone ? "mx-auto w-full max-w-[240px] md:max-w-[340px]" : ""
       } ${className}`}
     >
