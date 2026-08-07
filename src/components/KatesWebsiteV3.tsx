@@ -87,8 +87,7 @@ function TopBar() {
           Kate Xu — Product Designer &amp; Builder
         </h1>
         <p className="mt-1 text-[13.5px] text-[#888] leading-snug">
-          Enterprise products, shipped end to end — Figma through production
-          code.
+          I ask good questions and build things that make people more capable.
         </p>
         <nav className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
           <Link
