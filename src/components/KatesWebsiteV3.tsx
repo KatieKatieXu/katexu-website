@@ -2,6 +2,7 @@
 
 import { useLayoutEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import posthog from "posthog-js";
 import KatesWebsiteV2, {
   projects,
@@ -28,6 +29,9 @@ function track(event: string, props?: Record<string, unknown>) {
     /* no-op */
   }
 }
+
+const navClass =
+  "text-[#555] hover:text-[#111] underline underline-offset-[3px] decoration-[#d8d8d8] hover:decoration-[#111] transition-colors";
 
 const STATS: [string, string][] = [
   ["8 yrs", "Enterprise product design"],
@@ -76,35 +80,37 @@ function LeftColumn() {
         </div>
 
         {/* statement */}
-        <p className="text-[17px] leading-[1.55] text-[#111] mb-6">
+        <p className="text-[14px] leading-[1.6] text-[#111] mb-6">
           I design enterprise products where complexity is highest
           <span className="text-[#9a9a9a]"> — cloud platforms, approval systems, AI tooling — </span>
           and I ship them myself, from Figma through production code.
         </p>
 
-        {/* availability + contact */}
-        <div className="flex items-center gap-2 mb-5">
-          <span className="w-[7px] h-[7px] rounded-full bg-[#00bc7d] inline-block" />
-          <span className="text-[13px] text-[#666]">Open to senior &amp; staff design roles</span>
-        </div>
-        <a
-          href={`mailto:${EMAIL}`}
-          onClick={() => track("v3_get_in_touch_clicked")}
-          className="inline-flex items-center justify-center self-start rounded-full bg-[#111] text-white px-5 py-2.5 text-[13px] font-medium hover:bg-black transition-colors mb-8"
-        >
-          Get in touch
-        </a>
+        {/* links */}
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] mb-8">
+          <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
+            Resume
+          </Link>
+          <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
+            How I Think
+          </Link>
+          <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
+            Visual Lab
+          </Link>
+          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+        </nav>
 
-        {/* how I work */}
-        <div className="border-t border-[#ececec] pt-6 mb-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-4">
+        {/* how I work — framed, neutral until the layout is settled */}
+        <div className="rounded-[14px] border border-[#e8e8e8] bg-[#fafafa] p-5 mb-8">
+          <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-4">
             How I ship with engineers
           </p>
           <div className="flex flex-col gap-4">
             {workflows.map((w) => (
               <div key={w.title}>
-                <p className="text-[14px] font-semibold text-[#1a1a1a] mb-0.5">{w.title}</p>
-                <p className="text-[12px] font-medium text-[#00915f] leading-snug">{w.flow}</p>
+                <p className="text-[13.5px] font-semibold text-[#1a1a1a] mb-1">{w.title}</p>
+                <p className="text-[12px] text-[#777] leading-snug">{w.flow}</p>
               </div>
             ))}
           </div>
