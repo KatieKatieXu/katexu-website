@@ -39,8 +39,8 @@ function track(event: string, props?: Record<string, unknown>) {
 // ── Type scale — three sizes, plus one exception ───────────────────────────
 //   display  clamp(112px, 13.3vw, 191px)  "Kate Xu" only. The exception.
 //   1 title  22px   project names — the biggest thing on the page
-//   2 body   14px   everything else: nav, labels, workflow titles, pills, footer
-//   3 desc   12px   descriptions only: captions, flows, decision bodies, credits
+//   2 body   15px   everything else: nav, labels, workflow titles, pills, footer
+//   3 desc   13px   descriptions only: captions, flows, decision bodies, credits
 // Weight and color carry the hierarchy that size used to. Do not add a fourth.
 // ───────────────────────────────────────────────────────────────────────────
 
@@ -69,10 +69,10 @@ function TopBar() {
   return (
     <header className="pt-6 pb-10">
       <div className="flex items-start justify-between gap-10">
-        {/* ── left: the name does the work ── */}
-        <div className="min-w-0">
+        {/* ── left: the name sets the column width; nav inherits it ── */}
+        <div className="w-fit">
           <motion.h1
-            className="font-semibold leading-[1.2] tracking-[-0.02em] text-[#111] whitespace-nowrap"
+            className="w-fit font-semibold leading-[1.2] tracking-[-0.02em] text-[#111] whitespace-nowrap"
             style={{ fontSize: "clamp(112px, 13.3vw, 191px)" }}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -81,8 +81,8 @@ function TopBar() {
             Kate Xu
           </motion.h1>
 
-          {/* nav spreads the full width of the name block */}
-          <nav className="mt-[-2px] flex w-[760px] max-w-full justify-between text-[14px]">
+          {/* nav spans exactly the name's ink width — no overhang past "Xu" */}
+          <nav className="mt-[-2px] flex w-full justify-between text-[15px]">
             <Link
               href="/resume"
               className={navClass}
@@ -110,16 +110,16 @@ function TopBar() {
 
           {/* workflow — plain text now, no card, no shadow */}
           <div className="mt-[65px] w-[348px]">
-            <p className="text-[14px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-[11px]">
+            <p className="text-[15px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-[11px]">
               My latest workflow
             </p>
             <div className="flex flex-col gap-[11px]">
               {workflows.map((w) => (
                 <div key={w.title}>
-                  <p className="text-[14px] font-semibold leading-[1.375] text-[#1a1a1a] mb-[2px]">
+                  <p className="text-[15px] font-semibold leading-[1.375] text-[#1a1a1a] mb-[2px]">
                     {w.title}
                   </p>
-                  <p className="text-[12px] leading-[1.375] text-[#777]">
+                  <p className="text-[13px] leading-[1.375] text-[#777]">
                     {w.flow}
                   </p>
                 </div>
@@ -128,7 +128,7 @@ function TopBar() {
             <Link
               href="/how-i-think"
               onClick={() => track("v3_workflow_more")}
-              className="mt-4 inline-block text-[14px] leading-[1.375] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
+              className="mt-4 inline-block text-[15px] leading-[1.375] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
             >
               More
             </Link>
@@ -138,8 +138,8 @@ function TopBar() {
         {/* ── right: where I am, what I do, who I am ── */}
         <div className="flex shrink-0 items-stretch gap-[17px] pt-1.5">
           <div className="flex flex-col items-end justify-between text-right">
-            <p className="text-[14px] leading-[1.2] text-black">Based in U.S.</p>
-            <p className="text-[14px] leading-[1.2] text-[#111]">
+            <p className="text-[15px] leading-[1.2] text-black">Based in the U.S.</p>
+            <p className="text-[15px] leading-[1.2] text-[#111]">
               Product Designer &amp; Builder
             </p>
           </div>
@@ -165,7 +165,7 @@ function TopBar() {
 // as one object moving rather than two separate elements.
 // ───────────────────────────────────────────────────────────────────────────
 const pillLink =
-  "text-[14px] text-[#555] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
+  "text-[15px] text-[#555] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
 
 function FloatingNav() {
   const reduce = useReducedMotion();
@@ -234,7 +234,7 @@ function FloatingNav() {
           <a
             href={`mailto:${EMAIL}`}
             onClick={() => track("v3_floating_nav", { href: "contact" })}
-            className="ml-2 rounded-full bg-[#111] px-5 py-2 text-[14px] font-medium text-white hover:bg-black transition-colors"
+            className="ml-2 rounded-full bg-[#111] px-5 py-2 text-[15px] font-medium text-white hover:bg-black transition-colors"
           >
             Contact
           </a>
@@ -302,7 +302,7 @@ function Slide({
         )}
       </div>
       {caption && (
-        <figcaption className="mt-7 text-[12px] leading-[1.55] text-[#777] max-w-[460px]">
+        <figcaption className="mt-7 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
           <span className="font-semibold text-[#111]">{title}</span> {caption}
         </figcaption>
       )}
@@ -350,14 +350,14 @@ function ProjectCarousel({ project }: { project: Project }) {
           <button
             onClick={() => scrollBy(-1)}
             aria-label={`Previous ${project.title} image`}
-            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[14px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[15px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ‹
           </button>
           <button
             onClick={() => scrollBy(1)}
             aria-label={`Next ${project.title} image`}
-            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[14px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[15px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ›
           </button>
@@ -375,10 +375,10 @@ function ProjectCarousel({ project }: { project: Project }) {
             });
           }}
           aria-expanded={open}
-          className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[14px] font-medium hover:bg-black transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[15px] font-medium hover:bg-black transition-colors"
         >
           <span
-            className="text-[14px] leading-none text-[#00bc7d] transition-transform duration-300"
+            className="text-[15px] leading-none text-[#00bc7d] transition-transform duration-300"
             style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
             aria-hidden
           >
@@ -389,7 +389,7 @@ function ProjectCarousel({ project }: { project: Project }) {
         {project.caseStudyUrl && (
           <Link
             href={project.caseStudyUrl}
-            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[14px] font-medium hover:bg-[#e6f7f0] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[15px] font-medium hover:bg-[#e6f7f0] transition-colors"
           >
             Full case study →
           </Link>
@@ -399,7 +399,7 @@ function ProjectCarousel({ project }: { project: Project }) {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[14px] font-medium text-[#555] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[15px] font-medium text-[#555] transition-colors"
           >
             {project.liveLabel ?? "Try it live"} ↗
           </a>
@@ -420,15 +420,15 @@ function ProjectCarousel({ project }: { project: Project }) {
             <div className="pt-5 flex flex-col gap-4 max-w-[760px]">
               {project.reflection.map((d) => (
                 <div key={d.title}>
-                  <p className="text-[14px] font-semibold text-[#111] mb-1">
+                  <p className="text-[15px] font-semibold text-[#111] mb-1">
                     {d.title}
                   </p>
-                  <p className="text-[12px] text-[#666] leading-[1.6]">
+                  <p className="text-[13px] text-[#666] leading-[1.6]">
                     {d.body}
                   </p>
                 </div>
               ))}
-              <p className="text-[12px] text-[#999] pt-1">
+              <p className="text-[13px] text-[#999] pt-1">
                 {project.collaborators}
               </p>
             </div>
@@ -458,11 +458,11 @@ export default function KatesWebsiteV3() {
             ))}
           </main>
           <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">
-            <div className="flex items-center gap-5 text-[14px]">
+            <div className="flex items-center gap-5 text-[15px]">
               <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
               <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
             </div>
-            <p className="text-[12px] text-[#aaa]">© Kate Xu 2026</p>
+            <p className="text-[13px] text-[#aaa]">© Kate Xu 2026</p>
           </footer>
         </div>
       </div>
