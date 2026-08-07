@@ -105,7 +105,6 @@ function TopBar() {
             <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
             <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
           </nav>
-        </div>
 
           {/* my latest workflow — sits with the links, same left edge */}
           <div className="mt-5 max-w-[760px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
@@ -122,8 +121,7 @@ function TopBar() {
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
   );
 }
 
