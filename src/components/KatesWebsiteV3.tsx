@@ -21,6 +21,7 @@ import KatesWebsiteV2, {
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
 const AVATAR_ASTRONAUT = "/kate-avatar-astronaut.png";
+const AVATAR_BUBBLE = "/kate-avatar-bubble.png";
 
 function track(event: string, props?: Record<string, unknown>) {
   try {
@@ -40,21 +41,6 @@ const STATS: [string, string][] = [
   ["4.8★", "App Store rating"],
 ];
 
-// Speech bubble beside the avatar — swap GREETING to change the word.
-const GREETING = "Hi!";
-
-function Bubble() {
-  return (
-    <div className="relative">
-      <span className="block rounded-full bg-white border-[1.5px] border-[#111] px-2.5 py-1 text-[12px] font-bold leading-none text-[#111] whitespace-nowrap shadow-[0_2px_6px_-2px_rgba(0,0,0,0.25)]">
-        {GREETING}
-      </span>
-      {/* tail pointing back to the helmet */}
-      <span className="absolute left-[16%] -bottom-[5px] w-[9px] h-[9px] rotate-45 bg-white border-b-[1.5px] border-l-[1.5px] border-[#111]" />
-    </div>
-  );
-}
-
 function TopBar() {
   const [playHello, setPlayHello] = useState(false);
   useLayoutEffect(() => {
@@ -69,67 +55,71 @@ function TopBar() {
   }, []);
 
   return (
-    <header className="flex items-start justify-between gap-14 pt-20 pb-10">
-      {/* identity + brief + links */}
-      <div className="min-w-0 max-w-[620px]">
-        <div className="flex items-center gap-3.5 mb-3">
-          <div className="relative w-[70px] select-none flex-shrink-0 translate-y-[6px]">
-            <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
-            {/* speech bubble — text lives in markup so the greeting is editable */}
-            {playHello ? (
-              <motion.div
-                aria-hidden
-                className="absolute"
-                style={{ left: "58%", top: "-14%" }}
-                initial={{ y: -34, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
-              >
-                <Bubble />
-              </motion.div>
-            ) : (
-              <div aria-hidden className="absolute" style={{ left: "58%", top: "-14%" }}>
-                <Bubble />
-              </div>
-            )}
-          </div>
-          <div className="min-w-0">
-            <h1 className="text-[18px] font-semibold leading-tight text-[#111]">
-              Kate Xu — Product Designer &amp; Builder
-            </h1>
-            <p className="text-[13.5px] text-[#888] leading-snug">
-              Enterprise products, shipped end to end — Figma through production code.
-            </p>
-          </div>
+    <header className="pt-16 pb-10">
+      {/* avatar, centred at the top of the page */}
+      <div className="flex justify-center mb-9">
+        <div className="relative w-[150px] select-none">
+          <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
+          {playHello ? (
+            <motion.img
+              src={AVATAR_BUBBLE}
+              alt=""
+              aria-hidden
+              className="absolute block"
+              style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+              initial={{ y: -70, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
+            />
+          ) : (
+            <img
+              src={AVATAR_BUBBLE}
+              alt=""
+              aria-hidden
+              className="absolute block"
+              style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+            />
+          )}
         </div>
-
-        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px] pl-[84px]">
-          <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
-            Resume
-          </Link>
-          <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
-            How I Think
-          </Link>
-          <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
-            Visual Lab
-          </Link>
-          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
-        </nav>
       </div>
 
-      {/* my latest workflow */}
-      <div className="flex-shrink-0 max-w-[560px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
-        <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
-          My latest workflow
-        </p>
-        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-          {workflows.map((w) => (
-            <div key={w.title}>
-              <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">{w.title}</p>
-              <p className="text-[11.5px] text-[#777] leading-snug">{w.flow}</p>
-            </div>
-          ))}
+      {/* identity + links, flush left with the rest of the page */}
+      <div className="flex items-end justify-between gap-14">
+        <div className="min-w-0 max-w-[620px]">
+          <h1 className="text-[19px] font-semibold leading-tight text-[#111]">
+            Kate Xu — Product Designer &amp; Builder
+          </h1>
+          <p className="mt-1 text-[13.5px] text-[#888] leading-snug">
+            Enterprise products, shipped end to end — Figma through production code.
+          </p>
+          <nav className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
+            <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
+              Resume
+            </Link>
+            <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
+              How I Think
+            </Link>
+            <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
+              Visual Lab
+            </Link>
+            <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+            <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+          </nav>
+        </div>
+
+        {/* my latest workflow */}
+        <div className="flex-shrink-0 max-w-[560px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
+          <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
+            My latest workflow
+          </p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+            {workflows.map((w) => (
+              <div key={w.title}>
+                <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">{w.title}</p>
+                <p className="text-[11.5px] text-[#777] leading-snug">{w.flow}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </header>
