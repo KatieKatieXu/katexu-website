@@ -97,34 +97,43 @@ No borders anywhere on cards. The shadow does all the separating.
 
 ## Header
 
-Everything flush left against the container's inner edge — portrait, name, tagline,
-nav, workflow card all share one left edge.
+Rebuilt in Figma (`headerkatexu`, node `9:2`) and brought back into code. The name is
+now the whole gesture: **191px display type**, with everything else deliberately small
+around it. Two columns, top-aligned.
 
 ```
-padding-top          64px
+padding-top          24px
 padding-bottom       40px
-portrait width      116px   (transparent PNG cut-out, no frame, no circle)
-  hello bubble      42% of portrait width, at left 68% / top -2%
-  spring in         stiffness 340, damping 10, mass 0.8, delay 0.3s
-  plays once        per session (sessionStorage)
-portrait → name      12px
-name → tagline        4px
-tagline → nav        16px
-nav gaps             20px horizontal / 6px vertical
-nav → card           20px
-text column max     760px
+frame height        537px @ 1440
 ```
 
-### Workflow card
+### Left column
 
 ```
-max-width  760px
-radius      16px
-fill       #ffffff
-padding    20px horizontal / 16px vertical
-label → grid   12px
-grid       2 columns, 24px column gap, 12px row gap
-title → flow    2px
+name            clamp(112px, 13.3vw, 191px), 600, leading 1.2, tracking -0.02em
+                nowrap — "Kate Xu" must never break
+name → nav       -2px  (nav sits just inside the name's line-height slack)
+nav             13.5px, underlined, spread justify-between across 760px
+nav → workflow   65px
+workflow block  348px wide
+  label          10.5px / 600 / uppercase / 1.5px tracking / #888
+  label → items  11px
+  items gap      11px
+  title → flow    2px
+  items → More   16px
+  More           11.5px, underlined, #777
+```
+
+No tagline. No card, no white fill, no shadow — the workflow list is plain text now.
+
+### Right column
+
+```
+gap to photo     17px
+text column      right-aligned, justify-between over the photo's height
+  "Based in U.S."             16px, #000, top
+  "Product Designer & Builder" 19px, #111, bottom
+photo            187 × 187, object-cover, square, no radius
 ```
 
 ---

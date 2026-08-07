@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
@@ -20,8 +20,7 @@ import KatesWebsiteV2, {
 // ───────────────────────────────────────────────────────────────────────────
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
-const PORTRAIT = "/kate-portrait.png";
-const AVATAR_BUBBLE = "/kate-avatar-bubble.png";
+const PORTRAIT = "/kate-photo.jpg";
 
 function track(event: string, props?: Record<string, unknown>) {
   try {
@@ -34,109 +33,92 @@ function track(event: string, props?: Record<string, unknown>) {
 const navClass =
   "text-[#555] hover:text-[#111] underline underline-offset-[3px] decoration-[#d8d8d8] hover:decoration-[#111] transition-colors";
 
-const STATS: [string, string][] = [
-  ["8 yrs", "Enterprise product design"],
-  ["12+", "Teams on the design system"],
-  ["5", "AI products shipped solo"],
-  ["4.8★", "App Store rating"],
-];
-
 function TopBar() {
-  const [playHello, setPlayHello] = useState(false);
-  useLayoutEffect(() => {
-    try {
-      if (!window.sessionStorage.getItem("v3_hello_played")) {
-        window.sessionStorage.setItem("v3_hello_played", "1");
-        setPlayHello(true);
-      }
-    } catch {
-      /* private mode */
-    }
-  }, []);
-
   return (
-    <header className="pt-16 pb-10">
-      {/* portrait — a free-standing cut-out, no frame, no circle */}
-      <div className="mb-3 relative w-[116px] select-none">
-        <img
-          src={PORTRAIT}
-          alt="Kate Xu"
-          className="w-full h-auto block"
-          draggable={false}
-        />
-        {playHello ? (
-          <motion.img
-            src={AVATAR_BUBBLE}
-            alt=""
-            aria-hidden
-            className="absolute block"
-            style={{ left: "68%", top: "-2%", width: "42%" }}
-            initial={{ y: -60, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
-          />
-        ) : (
-          <img
-            src={AVATAR_BUBBLE}
-            alt=""
-            aria-hidden
-            className="absolute block"
-            style={{ left: "68%", top: "-2%", width: "42%" }}
-          />
-        )}
-      </div>
+    <header className="pt-6 pb-10">
+      <div className="flex items-start justify-between gap-10">
+        {/* ── left: the name does the work ── */}
+        <div className="min-w-0">
+          <motion.h1
+            className="font-semibold leading-[1.2] tracking-[-0.02em] text-[#111] whitespace-nowrap"
+            style={{ fontSize: "clamp(112px, 13.3vw, 191px)" }}
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Kate Xu
+          </motion.h1>
 
-      {/* identity + links + workflow, all flush left */}
-      <div className="min-w-0 max-w-[760px]">
-        <h1 className="text-[19px] font-semibold leading-tight text-[#111]">
-          Kate Xu — Product Designer &amp; Builder
-        </h1>
-        <p className="mt-1 text-[13.5px] text-[#888] leading-snug">
-          I ask good questions and build things that make people more capable.
-        </p>
-        <nav className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
-          <Link
-            href="/resume"
-            className={navClass}
-            onClick={() => track("v3_nav", { href: "/resume" })}
-          >
-            Resume
-          </Link>
-          <Link
-            href="/how-i-think"
-            className={navClass}
-            onClick={() => track("v3_nav", { href: "/how-i-think" })}
-          >
-            How I Think
-          </Link>
-          <Link
-            href="/lab"
-            className={navClass}
-            onClick={() => track("v3_nav", { href: "/lab" })}
-          >
-            Visual Lab
-          </Link>
-          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
-        </nav>
+          {/* nav spreads the full width of the name block */}
+          <nav className="mt-[-2px] flex w-[760px] max-w-full justify-between text-[13.5px]">
+            <Link
+              href="/resume"
+              className={navClass}
+              onClick={() => track("v3_nav", { href: "/resume" })}
+            >
+              Resume
+            </Link>
+            <Link
+              href="/how-i-think"
+              className={navClass}
+              onClick={() => track("v3_nav", { href: "/how-i-think" })}
+            >
+              How I Think
+            </Link>
+            <Link
+              href="/lab"
+              className={navClass}
+              onClick={() => track("v3_nav", { href: "/lab" })}
+            >
+              Visual Lab
+            </Link>
+            <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+            <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+          </nav>
 
-        {/* my latest workflow — sits with the links, same left edge */}
-        <div className="mt-5 max-w-[760px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
-          <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
-            My latest workflow
-          </p>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-            {workflows.map((w) => (
-              <div key={w.title}>
-                <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">
-                  {w.title}
-                </p>
-                <p className="text-[11.5px] text-[#777] leading-snug">
-                  {w.flow}
-                </p>
-              </div>
-            ))}
+          {/* workflow — plain text now, no card, no shadow */}
+          <div className="mt-[65px] w-[348px]">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-[11px]">
+              My latest workflow
+            </p>
+            <div className="flex flex-col gap-[11px]">
+              {workflows.map((w) => (
+                <div key={w.title}>
+                  <p className="text-[13px] font-semibold leading-[1.375] text-[#1a1a1a] mb-[2px]">
+                    {w.title}
+                  </p>
+                  <p className="text-[11.5px] leading-[1.375] text-[#777]">
+                    {w.flow}
+                  </p>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/how-i-think"
+              onClick={() => track("v3_workflow_more")}
+              className="mt-4 inline-block text-[11.5px] leading-[1.375] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
+            >
+              More
+            </Link>
           </div>
+        </div>
+
+        {/* ── right: where I am, what I do, who I am ── */}
+        <div className="flex shrink-0 items-stretch gap-[17px] pt-1.5">
+          <div className="flex flex-col items-end justify-between text-right">
+            <p className="text-[16px] leading-[1.2] text-black">Based in U.S.</p>
+            <p className="text-[19px] leading-[1.2] text-[#111]">
+              Product Designer &amp; Builder
+            </p>
+          </div>
+          <img
+            src={PORTRAIT}
+            alt="Kate Xu"
+            width={187}
+            height={187}
+            draggable={false}
+            className="w-[187px] h-[187px] object-cover select-none"
+          />
         </div>
       </div>
     </header>
