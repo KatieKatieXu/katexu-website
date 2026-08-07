@@ -21,7 +21,6 @@ import KatesWebsiteV2, {
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
 const AVATAR_ASTRONAUT = "/kate-avatar-astronaut.png";
-const AVATAR_BUBBLE = "/kate-avatar-bubble.png";
 
 function track(event: string, props?: Record<string, unknown>) {
   try {
@@ -40,6 +39,21 @@ const STATS: [string, string][] = [
   ["5", "AI products shipped solo"],
   ["4.8★", "App Store rating"],
 ];
+
+// Speech bubble beside the avatar — swap GREETING to change the word.
+const GREETING = "Hi!";
+
+function Bubble() {
+  return (
+    <div className="relative">
+      <span className="block rounded-full bg-white border-[1.5px] border-[#111] px-2.5 py-1 text-[12px] font-bold leading-none text-[#111] whitespace-nowrap shadow-[0_2px_6px_-2px_rgba(0,0,0,0.25)]">
+        {GREETING}
+      </span>
+      {/* tail pointing back to the helmet */}
+      <span className="absolute left-[16%] -bottom-[5px] w-[9px] h-[9px] rotate-45 bg-white border-b-[1.5px] border-l-[1.5px] border-[#111]" />
+    </div>
+  );
+}
 
 function TopBar() {
   const [playHello, setPlayHello] = useState(false);
@@ -61,25 +75,22 @@ function TopBar() {
         <div className="flex items-center gap-3.5 mb-3">
           <div className="relative w-[70px] select-none flex-shrink-0 translate-y-[6px]">
             <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
+            {/* speech bubble — text lives in markup so the greeting is editable */}
             {playHello ? (
-              <motion.img
-                src={AVATAR_BUBBLE}
-                alt=""
+              <motion.div
                 aria-hidden
-                className="absolute block"
-                style={{ left: "50%", top: "-6%", width: "60%" }}
-                initial={{ y: -38, opacity: 0 }}
+                className="absolute"
+                style={{ left: "58%", top: "-14%" }}
+                initial={{ y: -34, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
-              />
+              >
+                <Bubble />
+              </motion.div>
             ) : (
-              <img
-                src={AVATAR_BUBBLE}
-                alt=""
-                aria-hidden
-                className="absolute block"
-                style={{ left: "50%", top: "-6%", width: "60%" }}
-              />
+              <div aria-hidden className="absolute" style={{ left: "58%", top: "-14%" }}>
+                <Bubble />
+              </div>
             )}
           </div>
           <div className="min-w-0">
