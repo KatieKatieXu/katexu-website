@@ -99,10 +99,10 @@ function TopBar() {
         </nav>
       </div>
 
-      {/* how I ship with engineers */}
+      {/* my latest workflow */}
       <div className="flex-shrink-0 max-w-[560px] rounded-[14px] border border-[#e8e8e8] bg-[#fafafa] px-5 py-4">
         <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
-          How I ship with engineers
+          My latest workflow
         </p>
         <div className="grid grid-cols-2 gap-x-6 gap-y-3">
           {workflows.map((w) => (
