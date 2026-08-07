@@ -7,7 +7,6 @@ import posthog from "posthog-js";
 import { AnimatePresence } from "framer-motion";
 import KatesWebsiteV2, {
   projects,
-  workflows,
   ExternalLink,
   type Project,
 } from "@/components/KatesWebsiteV2";
@@ -41,7 +40,7 @@ const STATS: [string, string][] = [
   ["4.8★", "App Store rating"],
 ];
 
-function LeftColumn() {
+function TopBar() {
   const [playHello, setPlayHello] = useState(false);
   useLayoutEffect(() => {
     try {
@@ -55,100 +54,49 @@ function LeftColumn() {
   }, []);
 
   return (
-    <aside className="w-[400px] xl:w-[440px] flex-shrink-0">
-      <div className="sticky top-0 h-screen overflow-y-auto no-scrollbar pr-8 py-10 flex flex-col">
-        {/* identity */}
-        <div className="flex items-center gap-4 mb-7">
-          <div className="relative w-[76px] select-none flex-shrink-0">
-            <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
-            {playHello && (
-              <motion.img
-                src={AVATAR_BUBBLE}
-                alt=""
-                aria-hidden
-                className="absolute block"
-                style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
-                initial={{ y: -46, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
-              />
-            )}
-          </div>
-          <div>
-            <h1 className="text-[19px] font-semibold leading-tight text-[#111]">Kate Xu</h1>
-            <p className="text-[14px] text-[#888]">Product Designer &amp; Builder</p>
-          </div>
+    <header className="flex items-center justify-between gap-8 pt-7 pb-6">
+      <div className="flex items-center gap-3.5 min-w-0">
+        <div className="relative w-[62px] select-none flex-shrink-0">
+          <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
+          {playHello && (
+            <motion.img
+              src={AVATAR_BUBBLE}
+              alt=""
+              aria-hidden
+              className="absolute block"
+              style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+              initial={{ y: -38, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
+            />
+          )}
         </div>
-
-        {/* statement */}
-        <p className="text-[14px] leading-[1.6] text-[#111] mb-6">
-          I design enterprise products where complexity is highest
-          <span className="text-[#9a9a9a]"> — cloud platforms, approval systems, AI tooling — </span>
-          and I ship them myself, from Figma through production code.
-        </p>
-
-        {/* links */}
-        <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[14px] mb-8">
-          <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
-            Resume
-          </Link>
-          <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
-            How I Think
-          </Link>
-          <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
-            Visual Lab
-          </Link>
-          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
-        </nav>
-
-        {/* how I work — framed, neutral until the layout is settled */}
-        <div className="rounded-[14px] border border-[#e8e8e8] bg-[#fafafa] p-5 mb-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-4">
-            How I ship with engineers
+        <div className="min-w-0">
+          <h1 className="text-[18px] font-semibold leading-tight text-[#111] truncate">
+            Kate Xu — Product Designer &amp; Builder
+          </h1>
+          <p className="text-[13.5px] text-[#888] truncate">
+            Enterprise products, shipped end to end — Figma through production code.
           </p>
-          <div className="flex flex-col gap-4">
-            {workflows.map((w) => (
-              <div key={w.title}>
-                <p className="text-[13.5px] font-semibold text-[#1a1a1a] mb-1">{w.title}</p>
-                <p className="text-[12px] text-[#777] leading-snug">{w.flow}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* the numbers */}
-        <div className="border-t border-[#ececec] pt-6 mb-8">
-          <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#999] mb-4">
-            About me
-          </p>
-          <p className="text-[14px] leading-[1.6] text-[#555] mb-5">
-            VP &amp; Design Lead at Bank of America, Cognitive Science at UC San Diego, and a year of
-            shipping AI-native products end to end as a sole designer and developer.
-          </p>
-          <dl className="flex flex-col gap-2">
-            {STATS.map(([value, label]) => (
-              <div key={label} className="flex items-baseline gap-3 text-[13px]">
-                <dt className="w-[58px] font-semibold text-[#111] tabular-nums">{value}</dt>
-                <dd className="text-[#777]">{label}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        {/* footer pinned to the bottom of the column */}
-        <div className="mt-auto border-t border-[#ececec] pt-5 flex items-center justify-between">
-          <div className="flex items-center gap-4 text-[13px]">
-            <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-            <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
-          </div>
-          <p className="text-[12px] text-[#aaa]">© 2026</p>
         </div>
       </div>
-    </aside>
+
+      <nav className="flex items-center gap-x-5 text-[13.5px] flex-shrink-0">
+        <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
+          Resume
+        </Link>
+        <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
+          How I Think
+        </Link>
+        <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
+          Visual Lab
+        </Link>
+        <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+        <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+      </nav>
+    </header>
   );
 }
-
 
 // ───────────────────────────────────────────────────────────────────────────
 // Project card — a horizontal, snapping carousel of the project's media
@@ -178,7 +126,7 @@ function Slide({
   const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
   return (
     <figure
-      className={`snap-start shrink-0 m-0 ${media.phone ? "w-[300px]" : "w-[86%] max-w-[860px]"}`}
+      className={`snap-start shrink-0 m-0 ${media.phone ? "w-[340px]" : "w-[74%] max-w-[1080px]"}`}
     >
       <div className="overflow-hidden rounded-[18px] border border-[#ececec] bg-[#fafafa]">
       {isVideo ? (
@@ -217,14 +165,14 @@ function ProjectCarousel({ project }: { project: Project }) {
   const scrollBy = (dir: 1 | -1) => {
     const rail = railRef.current;
     if (!rail) return;
-    rail.scrollBy({ left: dir * rail.clientWidth * 0.82, behavior: "smooth" });
+    rail.scrollBy({ left: dir * rail.clientWidth * 0.76, behavior: "smooth" });
     track("v3_carousel_scrolled", { project: project.title, dir });
   };
 
   return (
-    <section className="pt-6 pb-14 border-b border-[#f0f0f0] last:border-b-0">
+    <section className="pt-2 pb-12 border-b border-[#f0f0f0] last:border-b-0">
       {/* title only — the description rides under each slide, Apple-style */}
-      <h2 className="text-[24px] font-semibold tracking-[-0.4px] text-[#111] mb-5">{project.title}</h2>
+      <h2 className="text-[22px] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">{project.title}</h2>
 
       {/* rail */}
       <div
@@ -335,16 +283,22 @@ export default function KatesWebsiteV3() {
         <KatesWebsiteV2 />
       </div>
 
-      {/* ── desktop: two columns ── */}
+      {/* ── desktop: one wide column, the work as close to the fold as possible ── */}
       <div className="hidden md:block min-h-screen bg-white text-[#111]">
-        <div className="mx-auto w-full max-w-[1560px] px-10 flex gap-12">
-          <LeftColumn />
-          <main className="flex-1 min-w-0 py-10">
+        <div className="mx-auto w-full max-w-[1440px] px-10">
+          <TopBar />
+          <main>
             {projects.map((project) => (
               <ProjectCarousel key={project.key} project={project} />
             ))}
-            <div className="h-24" />
           </main>
+          <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">
+            <div className="flex items-center gap-5 text-[13.5px]">
+              <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+              <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+            </div>
+            <p className="text-[12.5px] text-[#aaa]">© Kate Xu 2026</p>
+          </footer>
         </div>
       </div>
 
