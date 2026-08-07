@@ -48,24 +48,36 @@ fill color anywhere.
 
 ## Type scale
 
-| Role | Size | Weight | Tracking | Leading | Color |
-|---|---|---|---|---|---|
-| Name (h1) | 19px | 600 | — | tight | `#111` |
-| Tagline | 13.5px | 400 | — | snug | `#888` |
-| Nav link | 13.5px | 400 | — | — | `#555` |
-| Project title (h2) | 22px | 600 | -0.4px | — | `#111` |
-| Slide caption | 13px | 400 (title 600) | — | 1.55 | `#777` |
-| Section label | 10.5px | 600 | 1.5px, uppercase | — | `#888` |
-| Workflow title | 13px | 600 | — | snug | `#1a1a1a` |
-| Workflow flow | 11.5px | 400 | — | snug | `#777` |
-| Decision title | 14px | 600 | — | — | `#111` |
-| Decision body | 13.5px | 400 | — | 1.6 | `#666` |
-| Collaborators | 12.5px | 400 | — | — | `#999` |
-| Pill label | 12px | 500 | — | — | varies |
-| Copyright | 12.5px | 400 | — | — | `#aaa` |
+**Three sizes. Plus one exception.** Weight and color carry the hierarchy that size
+used to. Do not add a fourth.
 
-Half-pixel sizes (13.5, 12.5, 11.5, 10.5) are intentional. Round them in Figma and
-the rhythm shifts visibly.
+| Step | Size | Used for |
+|---|---|---|
+| display | `clamp(112px, 13.3vw, 191px)` | "Kate Xu" — the exception, nothing else |
+| **1 · title** | 22px | project names — the biggest thing on the page |
+| **2 · body** | 14px | everything else: nav, section labels, workflow titles, "Based in U.S.", role line, "More", pills, arrows, decision titles, footer links |
+| **3 · description** | 12px | descriptions only: slide captions, workflow flow lines, decision bodies, collaborators, copyright |
+
+Weight and color per role:
+
+| Role | Step | Weight | Tracking | Leading | Color |
+|---|---|---|---|---|---|
+| Name | display | 600 | -0.02em | 1.2 | `#111` |
+| Project title | 1 | 600 | -0.4px | — | `#111` |
+| Nav link | 2 | 400 | — | — | `#555` |
+| Section label | 2 | 600 | 1.5px, uppercase | — | `#888` |
+| Workflow title | 2 | 600 | — | 1.375 | `#1a1a1a` |
+| Role line / Based in | 2 | 400 | — | 1.2 | `#111` / `#000` |
+| Pill label | 2 | 500 | — | — | varies |
+| Decision title | 2 | 600 | — | — | `#111` |
+| Slide caption | 3 | 400 (name 600) | — | 1.55 | `#777` |
+| Workflow flow | 3 | 400 | — | 1.375 | `#777` |
+| Decision body | 3 | 400 | — | 1.6 | `#666` |
+| Collaborators | 3 | 400 | — | — | `#999` |
+| Copyright | 3 | 400 | — | — | `#aaa` |
+
+The earlier half-pixel sizes (13.5, 12.5, 11.5, 10.5) are gone — collapsed into the
+three steps above.
 
 ---
 

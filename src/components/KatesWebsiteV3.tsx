@@ -30,6 +30,14 @@ function track(event: string, props?: Record<string, unknown>) {
   }
 }
 
+// ── Type scale — three sizes, plus one exception ───────────────────────────
+//   display  clamp(112px, 13.3vw, 191px)  "Kate Xu" only. The exception.
+//   1 title  22px   project names — the biggest thing on the page
+//   2 body   14px   everything else: nav, labels, workflow titles, pills, footer
+//   3 desc   12px   descriptions only: captions, flows, decision bodies, credits
+// Weight and color carry the hierarchy that size used to. Do not add a fourth.
+// ───────────────────────────────────────────────────────────────────────────
+
 const navClass =
   "text-[#555] hover:text-[#111] underline underline-offset-[3px] decoration-[#d8d8d8] hover:decoration-[#111] transition-colors";
 
@@ -50,7 +58,7 @@ function TopBar() {
           </motion.h1>
 
           {/* nav spreads the full width of the name block */}
-          <nav className="mt-[-2px] flex w-[760px] max-w-full justify-between text-[13.5px]">
+          <nav className="mt-[-2px] flex w-[760px] max-w-full justify-between text-[14px]">
             <Link
               href="/resume"
               className={navClass}
@@ -78,16 +86,16 @@ function TopBar() {
 
           {/* workflow — plain text now, no card, no shadow */}
           <div className="mt-[65px] w-[348px]">
-            <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-[11px]">
+            <p className="text-[14px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-[11px]">
               My latest workflow
             </p>
             <div className="flex flex-col gap-[11px]">
               {workflows.map((w) => (
                 <div key={w.title}>
-                  <p className="text-[13px] font-semibold leading-[1.375] text-[#1a1a1a] mb-[2px]">
+                  <p className="text-[14px] font-semibold leading-[1.375] text-[#1a1a1a] mb-[2px]">
                     {w.title}
                   </p>
-                  <p className="text-[11.5px] leading-[1.375] text-[#777]">
+                  <p className="text-[12px] leading-[1.375] text-[#777]">
                     {w.flow}
                   </p>
                 </div>
@@ -96,7 +104,7 @@ function TopBar() {
             <Link
               href="/how-i-think"
               onClick={() => track("v3_workflow_more")}
-              className="mt-4 inline-block text-[11.5px] leading-[1.375] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
+              className="mt-4 inline-block text-[14px] leading-[1.375] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
             >
               More
             </Link>
@@ -106,8 +114,8 @@ function TopBar() {
         {/* ── right: where I am, what I do, who I am ── */}
         <div className="flex shrink-0 items-stretch gap-[17px] pt-1.5">
           <div className="flex flex-col items-end justify-between text-right">
-            <p className="text-[16px] leading-[1.2] text-black">Based in U.S.</p>
-            <p className="text-[19px] leading-[1.2] text-[#111]">
+            <p className="text-[14px] leading-[1.2] text-black">Based in U.S.</p>
+            <p className="text-[14px] leading-[1.2] text-[#111]">
               Product Designer &amp; Builder
             </p>
           </div>
@@ -183,7 +191,7 @@ function Slide({
         )}
       </div>
       {caption && (
-        <figcaption className="mt-7 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
+        <figcaption className="mt-7 text-[12px] leading-[1.55] text-[#777] max-w-[460px]">
           <span className="font-semibold text-[#111]">{title}</span> {caption}
         </figcaption>
       )}
@@ -256,10 +264,10 @@ function ProjectCarousel({ project }: { project: Project }) {
             });
           }}
           aria-expanded={open}
-          className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[14px] font-medium hover:bg-black transition-colors"
         >
           <span
-            className="text-[13px] leading-none text-[#00bc7d] transition-transform duration-300"
+            className="text-[14px] leading-none text-[#00bc7d] transition-transform duration-300"
             style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
             aria-hidden
           >
@@ -270,7 +278,7 @@ function ProjectCarousel({ project }: { project: Project }) {
         {project.caseStudyUrl && (
           <Link
             href={project.caseStudyUrl}
-            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[12px] font-medium hover:bg-[#e6f7f0] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[14px] font-medium hover:bg-[#e6f7f0] transition-colors"
           >
             Full case study →
           </Link>
@@ -280,7 +288,7 @@ function ProjectCarousel({ project }: { project: Project }) {
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[12px] font-medium text-[#555] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[14px] font-medium text-[#555] transition-colors"
           >
             {project.liveLabel ?? "Try it live"} ↗
           </a>
@@ -304,12 +312,12 @@ function ProjectCarousel({ project }: { project: Project }) {
                   <p className="text-[14px] font-semibold text-[#111] mb-1">
                     {d.title}
                   </p>
-                  <p className="text-[13.5px] text-[#666] leading-[1.6]">
+                  <p className="text-[12px] text-[#666] leading-[1.6]">
                     {d.body}
                   </p>
                 </div>
               ))}
-              <p className="text-[12.5px] text-[#999] pt-1">
+              <p className="text-[12px] text-[#999] pt-1">
                 {project.collaborators}
               </p>
             </div>
@@ -338,11 +346,11 @@ export default function KatesWebsiteV3() {
             ))}
           </main>
           <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">
-            <div className="flex items-center gap-5 text-[13.5px]">
+            <div className="flex items-center gap-5 text-[14px]">
               <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
               <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
             </div>
-            <p className="text-[12.5px] text-[#aaa]">© Kate Xu 2026</p>
+            <p className="text-[12px] text-[#aaa]">© Kate Xu 2026</p>
           </footer>
         </div>
       </div>
