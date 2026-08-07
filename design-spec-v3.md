@@ -109,48 +109,74 @@ No borders anywhere on cards. The shadow does all the separating.
 
 ## Header
 
-Rebuilt in Figma (`headerkatexu`, node `9:2`) and brought back into code. The name is
-now the whole gesture: **191px display type**, with everything else deliberately small
-around it. Two columns, top-aligned.
+Structure follows the Eizo Mori reference: a large uppercase name, a full-width
+rule, and a nav that hangs off the rule with short codes pinned to the far edge.
 
 ```
-padding-top          24px
-padding-bottom       40px
-frame height        537px @ 1440
+padding-top     24px
+padding-bottom  40px
 ```
 
-### Left column
+### The two custom properties
+
+Set on the `<header>` and used by both the name and the nav, so they can never
+drift apart:
+
+```css
+--name-size:  clamp(112px, 13.3vw, 191px);
+--name-width: calc(clamp(112px, 13.3vw, 191px) * 3.9797);
+```
+
+**3.9797** is the measured ink width of uppercase "KATE XU" in Instrument Sans
+SemiBold at -0.02em tracking, per unit of font-size (measured in Figma, not
+guessed). At 191px the name is 760px — 56% of the 1360px content column, the
+same proportion the reference gives its name. Re-measure this number if the
+family, weight, tracking, or the name itself ever changes.
+
+### Row 1 — name and identity, bottom-aligned
 
 ```
-name            clamp(112px, 13.3vw, 191px), 600, leading 1.2, tracking -0.02em
-                nowrap — "Kate Xu" must never break
-name → nav       -2px  (nav sits just inside the name's line-height slack)
-nav             15px, underlined, justify-between across the NAME'S INK WIDTH
-                ~668px at 191px — ratio 3.4955 x font-size, measured in Figma.
-                Implemented as w-fit on the column + w-full on the nav, so it
-                tracks the clamp automatically. Never hardcode 760px: that was
-                the Figma text box, not the glyphs, and it overhung "Xu" by 92px.
-nav → workflow   65px
-workflow block  348px wide
-  label          15px / 600 / uppercase / 1.5px tracking / #888
+name        var(--name-size), 600, UPPERCASE, leading 1, tracking -0.02em
+            nowrap — must never break
+right block bottom-aligned with the name's baseline, 17px gap to the photo
+  "Product Designer & Builder"  15px  #111
+  "Based in the U.S."           15px  #888
+photo       132 x 132, object-cover, square, no radius
+```
+
+The photo dropped from 187 to 132 so it sits inside the name's cap height rather
+than towering over it.
+
+### Row 2 — the rule and the nav
+
+```
+rule        1px #e6e6e6, full width of the content column
+name → rule  20px
+rule → nav   14px
+left group  width: var(--name-width), justify-between
+            Resume · How I Think · Visual Lab, 15px, underlined, #555
+right group pinned to the far edge, 16px apart
+            LI · EM, 15px, #888, 0.5px tracking
+```
+
+The left group spanning `--name-width` is the whole point: the nav ends exactly
+where the name ends, and the rule carries on to the edge. Never hardcode a px
+width here.
+
+### Row 3 — workflow
+
+```
+rule → workflow  56px
+block width     348px
+  label          15px / 600 / uppercase / 0.9px tracking / #888
   label → items  11px
-  items gap      11px
-  title → flow    2px
+  items gap      14px
+  title → flow    3px
   items → More   16px
   More           15px, underlined, #777
 ```
 
-No tagline. No card, no white fill, no shadow — the workflow list is plain text now.
-
-### Right column
-
-```
-gap to photo     17px
-text column      right-aligned, justify-between over the photo's height
-  "Based in the U.S."          15px, #000, top
-  "Product Designer & Builder" 15px, #111, bottom
-photo            187 × 187, object-cover, square, no radius
-```
+No tagline. No card, no white fill, no shadow.
 
 ---
 
