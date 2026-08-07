@@ -84,7 +84,7 @@ function TopBar() {
           </div>
         </div>
 
-        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px] pl-[76px]">
           <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
             Resume
           </Link>
