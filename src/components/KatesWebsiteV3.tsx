@@ -166,14 +166,21 @@ function flattenMedia(images: Project["images"]): Media[] {
   return out;
 }
 
-function Slide({ media, title }: { media: Media; title: string }) {
+function Slide({
+  media,
+  title,
+  caption,
+}: {
+  media: Media;
+  title: string;
+  caption?: string;
+}) {
   const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
   return (
-    <div
-      className={`snap-start shrink-0 overflow-hidden rounded-[18px] border border-[#ececec] bg-[#fafafa] ${
-        media.phone ? "w-[300px]" : "w-[86%] max-w-[860px]"
-      }`}
+    <figure
+      className={`snap-start shrink-0 m-0 ${media.phone ? "w-[300px]" : "w-[86%] max-w-[860px]"}`}
     >
+      <div className="overflow-hidden rounded-[18px] border border-[#ececec] bg-[#fafafa]">
       {isVideo ? (
         <video
           src={media.src}
@@ -192,7 +199,13 @@ function Slide({ media, title }: { media: Media; title: string }) {
       ) : (
         <img src={media.src} alt={title} loading="lazy" className="w-full h-auto block" />
       )}
-    </div>
+      </div>
+      {caption && (
+        <figcaption className="mt-3 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
+          <span className="font-semibold text-[#111]">{title}</span> {caption}
+        </figcaption>
+      )}
+    </figure>
   );
 }
 
@@ -210,41 +223,43 @@ function ProjectCarousel({ project }: { project: Project }) {
 
   return (
     <section className="pt-6 pb-14 border-b border-[#f0f0f0] last:border-b-0">
-      {/* header */}
-      <div className="flex items-start justify-between gap-8 mb-4">
-        <div className="min-w-0">
-          <h2 className="text-[22px] font-semibold tracking-[-0.3px] text-[#111]">{project.title}</h2>
-          <p className="mt-1 text-[14px] text-[#666] leading-[1.5] max-w-[620px]">{project.description}</p>
-        </div>
-        {media.length > 1 && (
-          <div className="flex items-center gap-2 flex-shrink-0 pt-1">
-            <button
-              onClick={() => scrollBy(-1)}
-              aria-label={`Previous ${project.title} image`}
-              className="w-9 h-9 rounded-full border border-[#e2e2e2] flex items-center justify-center text-[#666] hover:border-[#111] hover:text-[#111] transition-colors"
-            >
-              ←
-            </button>
-            <button
-              onClick={() => scrollBy(1)}
-              aria-label={`Next ${project.title} image`}
-              className="w-9 h-9 rounded-full border border-[#e2e2e2] flex items-center justify-center text-[#666] hover:border-[#111] hover:text-[#111] transition-colors"
-            >
-              →
-            </button>
-          </div>
-        )}
-      </div>
+      {/* title only — the description rides under each slide, Apple-style */}
+      <h2 className="text-[24px] font-semibold tracking-[-0.4px] text-[#111] mb-5">{project.title}</h2>
 
       {/* rail */}
       <div
         ref={railRef}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-2"
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-1"
       >
-        {media.map((m) => (
-          <Slide key={m.src} media={m} title={project.title} />
+        {media.map((m, i) => (
+          <Slide
+            key={m.src}
+            media={m}
+            title={project.title}
+            caption={i === 0 ? project.description : undefined}
+          />
         ))}
       </div>
+
+      {/* controls under the rail, right-aligned */}
+      {media.length > 1 && (
+        <div className="mt-3 flex items-center justify-end gap-2">
+          <button
+            onClick={() => scrollBy(-1)}
+            aria-label={`Previous ${project.title} image`}
+            className="w-8 h-8 rounded-full bg-[#f1f1f0] flex items-center justify-center text-[13px] text-[#666] hover:bg-[#e6e6e4] hover:text-[#111] transition-colors"
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => scrollBy(1)}
+            aria-label={`Next ${project.title} image`}
+            className="w-8 h-8 rounded-full bg-[#f1f1f0] flex items-center justify-center text-[13px] text-[#666] hover:bg-[#e6e6e4] hover:text-[#111] transition-colors"
+          >
+            ›
+          </button>
+        </div>
+      )}
 
       {/* actions */}
       <div className="mt-4 flex flex-wrap items-center gap-2.5">
