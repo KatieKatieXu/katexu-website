@@ -59,7 +59,7 @@ function TopBar() {
       {/* identity + brief + links */}
       <div className="min-w-0 max-w-[620px]">
         <div className="flex items-center gap-3.5 mb-3">
-          <div className="relative w-[62px] select-none flex-shrink-0">
+          <div className="relative w-[70px] select-none flex-shrink-0 translate-y-[6px]">
             <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
             {playHello ? (
               <motion.img
@@ -67,7 +67,7 @@ function TopBar() {
                 alt=""
                 aria-hidden
                 className="absolute block"
-                style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+                style={{ left: "50%", top: "-6%", width: "60%" }}
                 initial={{ y: -38, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
@@ -78,7 +78,7 @@ function TopBar() {
                 alt=""
                 aria-hidden
                 className="absolute block"
-                style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+                style={{ left: "50%", top: "-6%", width: "60%" }}
               />
             )}
           </div>
@@ -92,7 +92,7 @@ function TopBar() {
           </div>
         </div>
 
-        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px] pl-[76px]">
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px] pl-[84px]">
           <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
             Resume
           </Link>
