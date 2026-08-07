@@ -1,7 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useMotionValueEvent,
+  useReducedMotion,
+} from "framer-motion";
 import Link from "next/link";
 import posthog from "posthog-js";
 import { AnimatePresence } from "framer-motion";
@@ -41,7 +47,25 @@ function track(event: string, props?: Record<string, unknown>) {
 const navClass =
   "text-[#555] hover:text-[#111] underline underline-offset-[3px] decoration-[#d8d8d8] hover:decoration-[#111] transition-colors";
 
+// Where the header hands off to the floating pill. The photo shrinks toward its
+// top-right corner and fades out over this range; the pill springs in at the end.
+const HANDOFF_START = 120;
+const HANDOFF_END = 260;
+
 function TopBar() {
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const photoScale = useTransform(
+    scrollY,
+    [0, HANDOFF_END],
+    reduce ? [1, 1] : [1, 0.6],
+  );
+  const photoOpacity = useTransform(
+    scrollY,
+    [HANDOFF_START, HANDOFF_END],
+    reduce ? [1, 1] : [1, 0],
+  );
+
   return (
     <header className="pt-6 pb-10">
       <div className="flex items-start justify-between gap-10">
@@ -119,17 +143,104 @@ function TopBar() {
               Product Designer &amp; Builder
             </p>
           </div>
-          <img
+          <motion.img
             src={PORTRAIT}
             alt="Kate Xu"
             width={187}
             height={187}
             draggable={false}
+            style={{ scale: photoScale, opacity: photoOpacity, originX: 1, originY: 0 }}
             className="w-[187px] h-[187px] object-cover select-none"
           />
         </div>
       </div>
     </header>
+  );
+}
+
+// ───────────────────────────────────────────────────────────────────────────
+// Floating nav — what the header condenses into once you scroll past it.
+// The header photo shrinks and fades toward its top-right corner; this pill
+// springs down from above and the avatar pops in just after, so the two read
+// as one object moving rather than two separate elements.
+// ───────────────────────────────────────────────────────────────────────────
+const pillLink =
+  "text-[14px] text-[#555] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
+
+function FloatingNav() {
+  const reduce = useReducedMotion();
+  const { scrollY } = useScroll();
+  const [shown, setShown] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (y) => {
+    // small hysteresis so it can't flicker on a jittery trackpad
+    setShown((was) => (was ? y > HANDOFF_END - 40 : y > HANDOFF_END));
+  });
+
+  const spring = reduce
+    ? { duration: 0 }
+    : { type: "spring" as const, stiffness: 420, damping: 34, mass: 0.9 };
+
+  return (
+    <AnimatePresence>
+      {shown && (
+        <motion.nav
+          key="floating-nav"
+          style={{ x: "-50%" }}
+          initial={{ y: -72, opacity: 0, scale: 0.94 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          exit={{ y: -72, opacity: 0, scale: 0.94 }}
+          transition={spring}
+          className="fixed left-1/2 top-4 z-50 flex items-center gap-1 rounded-full bg-white/85 backdrop-blur-xl py-2 pl-2 pr-2 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
+        >
+          <motion.img
+            src={PORTRAIT}
+            alt="Kate Xu"
+            width={34}
+            height={34}
+            draggable={false}
+            initial={reduce ? false : { scale: 0.4, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={
+              reduce
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 520, damping: 26, delay: 0.06 }
+            }
+            className="w-[34px] h-[34px] rounded-full object-cover select-none mr-2"
+          />
+
+          <Link
+            href="/resume"
+            className={pillLink}
+            onClick={() => track("v3_floating_nav", { href: "/resume" })}
+          >
+            Resume
+          </Link>
+          <Link
+            href="/how-i-think"
+            className={pillLink}
+            onClick={() => track("v3_floating_nav", { href: "/how-i-think" })}
+          >
+            How I Think
+          </Link>
+          <Link
+            href="/lab"
+            className={pillLink}
+            onClick={() => track("v3_floating_nav", { href: "/lab" })}
+          >
+            Visual Lab
+          </Link>
+
+          <a
+            href={`mailto:${EMAIL}`}
+            onClick={() => track("v3_floating_nav", { href: "contact" })}
+            className="ml-2 rounded-full bg-[#111] px-5 py-2 text-[14px] font-medium text-white hover:bg-black transition-colors"
+          >
+            Contact
+          </a>
+        </motion.nav>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -338,6 +449,7 @@ export default function KatesWebsiteV3() {
 
       {/* ── desktop: one wide column, the work as close to the fold as possible ── */}
       <div className="hidden md:block min-h-screen bg-white text-[#111]">
+        <FloatingNav />
         <div className="mx-auto w-full max-w-[1440px] px-10">
           <TopBar />
           <main>
