@@ -42,6 +42,15 @@ function track(event: string, props?: Record<string, unknown>) {
 //   2 body   15px   everything else: nav, labels, workflow titles, pills, footer
 //   3 desc   13px   descriptions only: captions, flows, decision bodies, credits
 // Weight and color carry the hierarchy that size used to. Do not add a fourth.
+//
+// Leading is a system too — one value per step, never ad hoc:
+//   display 1.0    a single line; extra leading is just dead box
+//   title   1.25
+//   body    1.45
+//   desc    1.6    descriptions are read, not scanned — they get the most air
+//
+// Tracking scales INVERSELY with size. The uppercase label was tuned at 10.5px
+// with 1.5px; at 15px that reads as shouting, so it drops to 0.9px.
 // ───────────────────────────────────────────────────────────────────────────
 
 const navClass =
@@ -72,7 +81,7 @@ function TopBar() {
         {/* ── left: the name sets the column width; nav inherits it ── */}
         <div className="w-fit">
           <motion.h1
-            className="w-fit font-semibold leading-[1.2] tracking-[-0.02em] text-[#111] whitespace-nowrap"
+            className="w-fit font-semibold leading-[1] tracking-[-0.02em] text-[#111] whitespace-nowrap"
             style={{ fontSize: "clamp(112px, 13.3vw, 191px)" }}
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,7 +91,7 @@ function TopBar() {
           </motion.h1>
 
           {/* nav spans exactly the name's ink width — no overhang past "Xu" */}
-          <nav className="mt-[-2px] flex w-full justify-between text-[15px]">
+          <nav className="mt-[17px] flex w-full justify-between text-[15px] leading-[1.45]">
             <Link
               href="/resume"
               className={navClass}
@@ -110,16 +119,16 @@ function TopBar() {
 
           {/* workflow — plain text now, no card, no shadow */}
           <div className="mt-[65px] w-[348px]">
-            <p className="text-[15px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-[11px]">
+            <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888] mb-[11px]">
               My latest workflow
             </p>
-            <div className="flex flex-col gap-[11px]">
+            <div className="flex flex-col gap-[14px]">
               {workflows.map((w) => (
                 <div key={w.title}>
-                  <p className="text-[15px] font-semibold leading-[1.375] text-[#1a1a1a] mb-[2px]">
+                  <p className="text-[15px] font-semibold leading-[1.45] text-[#1a1a1a] mb-[3px]">
                     {w.title}
                   </p>
-                  <p className="text-[13px] leading-[1.375] text-[#777]">
+                  <p className="text-[13px] leading-[1.6] text-[#777]">
                     {w.flow}
                   </p>
                 </div>
@@ -128,7 +137,7 @@ function TopBar() {
             <Link
               href="/how-i-think"
               onClick={() => track("v3_workflow_more")}
-              className="mt-4 inline-block text-[15px] leading-[1.375] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
+              className="mt-4 inline-block text-[15px] leading-[1.45] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
             >
               More
             </Link>
@@ -138,8 +147,8 @@ function TopBar() {
         {/* ── right: where I am, what I do, who I am ── */}
         <div className="flex shrink-0 items-stretch gap-[17px] pt-1.5">
           <div className="flex flex-col items-end justify-between text-right">
-            <p className="text-[15px] leading-[1.2] text-black">Based in the U.S.</p>
-            <p className="text-[15px] leading-[1.2] text-[#111]">
+            <p className="text-[15px] leading-[1.45] text-black">Based in the U.S.</p>
+            <p className="text-[15px] leading-[1.45] text-[#111]">
               Product Designer &amp; Builder
             </p>
           </div>
@@ -165,7 +174,7 @@ function TopBar() {
 // as one object moving rather than two separate elements.
 // ───────────────────────────────────────────────────────────────────────────
 const pillLink =
-  "text-[15px] text-[#555] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
+  "text-[15px] leading-[1.45] text-[#555] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
 
 function FloatingNav() {
   const reduce = useReducedMotion();
@@ -302,7 +311,7 @@ function Slide({
         )}
       </div>
       {caption && (
-        <figcaption className="mt-7 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
+        <figcaption className="mt-7 text-[13px] leading-[1.6] text-[#777] max-w-[460px]">
           <span className="font-semibold text-[#111]">{title}</span> {caption}
         </figcaption>
       )}
@@ -325,7 +334,7 @@ function ProjectCarousel({ project }: { project: Project }) {
   return (
     <section className="pt-2 pb-12 border-b border-[#f2f2f4] last:border-b-0">
       {/* title only — the description rides under each slide, Apple-style */}
-      <h2 className="text-[22px] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">
+      <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">
         {project.title}
       </h2>
 
@@ -420,7 +429,7 @@ function ProjectCarousel({ project }: { project: Project }) {
             <div className="pt-5 flex flex-col gap-4 max-w-[760px]">
               {project.reflection.map((d) => (
                 <div key={d.title}>
-                  <p className="text-[15px] font-semibold text-[#111] mb-1">
+                  <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
                     {d.title}
                   </p>
                   <p className="text-[13px] text-[#666] leading-[1.6]">
@@ -428,7 +437,7 @@ function ProjectCarousel({ project }: { project: Project }) {
                   </p>
                 </div>
               ))}
-              <p className="text-[13px] text-[#999] pt-1">
+              <p className="text-[13px] leading-[1.6] text-[#999] pt-1">
                 {project.collaborators}
               </p>
             </div>
@@ -458,11 +467,11 @@ export default function KatesWebsiteV3() {
             ))}
           </main>
           <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">
-            <div className="flex items-center gap-5 text-[15px]">
+            <div className="flex items-center gap-5 text-[15px] leading-[1.45]">
               <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
               <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
             </div>
-            <p className="text-[13px] text-[#aaa]">© Kate Xu 2026</p>
+            <p className="text-[13px] leading-[1.6] text-[#aaa]">© Kate Xu 2026</p>
           </footer>
         </div>
       </div>
