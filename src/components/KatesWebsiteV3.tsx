@@ -20,7 +20,7 @@ import KatesWebsiteV2, {
 // ───────────────────────────────────────────────────────────────────────────
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
-const AVATAR_ASTRONAUT = "/kate-avatar-astronaut.png";
+const PORTRAIT = "/kate-portrait.png";
 const AVATAR_BUBBLE = "/kate-avatar-bubble.png";
 
 function track(event: string, props?: Record<string, unknown>) {
@@ -56,16 +56,21 @@ function TopBar() {
 
   return (
     <header className="pt-16 pb-10">
-      {/* avatar — left-aligned, sitting directly above the name */}
-      <div className="mb-4 relative w-[128px] select-none">
-        <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
+      {/* portrait — a free-standing cut-out, no frame, no circle */}
+      <div className="mb-3 relative w-[116px] select-none">
+        <img
+          src={PORTRAIT}
+          alt="Kate Xu"
+          className="w-full h-auto block"
+          draggable={false}
+        />
         {playHello ? (
           <motion.img
             src={AVATAR_BUBBLE}
             alt=""
             aria-hidden
             className="absolute block"
-            style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+            style={{ left: "68%", top: "-2%", width: "42%" }}
             initial={{ y: -60, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
@@ -76,7 +81,7 @@ function TopBar() {
             alt=""
             aria-hidden
             className="absolute block"
-            style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+            style={{ left: "68%", top: "-2%", width: "42%" }}
           />
         )}
       </div>
