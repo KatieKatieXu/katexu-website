@@ -43,13 +43,13 @@ interface Decision {
 }
 
 // An AI-native collaboration method, highlighted at the top of the portfolio.
-interface WorkflowHighlight {
+export interface WorkflowHighlight {
   title: string;
   body: string;
   flow: string; // arrow-separated pipeline, rendered as a small green line
 }
 
-const workflows: WorkflowHighlight[] = [
+export const workflows: WorkflowHighlight[] = [
   {
     title: "The AI-Verifiable Handoff",
     body: "Engineers receive a package of TSX, CSS, and design-system spec plus reference demo images — their coding agent validates the implementation against my design.",
@@ -62,7 +62,7 @@ const workflows: WorkflowHighlight[] = [
   },
 ];
 
-interface Project {
+export interface Project {
   key: string;
   title: string;
   description: string;
@@ -85,7 +85,7 @@ interface AppStore {
   review?: string;
 }
 
-const projects: Project[] = [
+export const projects: Project[] = [
   {
     key: "jobpilot",
     // caseStudyUrl: "/projects/jobpilot", // hidden until case studies are ready
@@ -247,7 +247,7 @@ const projects: Project[] = [
 const linkClass =
   "text-[#555] underline underline-offset-[3px] decoration-[#cfcfcf] hover:text-[#00915f] hover:decoration-[#00915f] transition-colors";
 
-function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
+export function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
@@ -470,7 +470,7 @@ function DownloadWidget({ app, project }: { app: AppStore; project: string }) {
 // ───────────────────────────────────────────────────────────────────────────
 // A single project block — small title, one-liner, gray pill, then big image
 // ───────────────────────────────────────────────────────────────────────────
-function ProjectBlock({ project }: { project: Project }) {
+export function ProjectBlock({ project }: { project: Project }) {
   const [open, setOpen] = useState(false);
 
   const toggle = () => {
