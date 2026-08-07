@@ -59,7 +59,11 @@ function TopBar() {
       {/* avatar, centred at the top of the page */}
       <div className="flex justify-center mb-9">
         <div className="relative w-[150px] select-none">
-          <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
+          <img
+            src={AVATAR_ASTRONAUT}
+            alt="Kate Xu"
+            className="w-full h-auto block"
+          />
           {playHello ? (
             <motion.img
               src={AVATAR_BUBBLE}
@@ -69,7 +73,13 @@ function TopBar() {
               style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
               initial={{ y: -70, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.3 }}
+              transition={{
+                type: "spring",
+                stiffness: 340,
+                damping: 10,
+                mass: 0.8,
+                delay: 0.3,
+              }}
             />
           ) : (
             <img
@@ -84,44 +94,60 @@ function TopBar() {
       </div>
 
       {/* identity + links + workflow, all flush left */}
-      <div>
-        <div className="min-w-0 max-w-[760px]">
-          <h1 className="text-[19px] font-semibold leading-tight text-[#111]">
-            Kate Xu — Product Designer &amp; Builder
-          </h1>
-          <p className="mt-1 text-[13.5px] text-[#888] leading-snug">
-            Enterprise products, shipped end to end — Figma through production code.
-          </p>
-          <nav className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
-            <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
-              Resume
-            </Link>
-            <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
-              How I Think
-            </Link>
-            <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
-              Visual Lab
-            </Link>
-            <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-            <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
-          </nav>
+      <div className="min-w-0 max-w-[760px]">
+        <h1 className="text-[19px] font-semibold leading-tight text-[#111]">
+          Kate Xu — Product Designer &amp; Builder
+        </h1>
+        <p className="mt-1 text-[13.5px] text-[#888] leading-snug">
+          Enterprise products, shipped end to end — Figma through production
+          code.
+        </p>
+        <nav className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
+          <Link
+            href="/resume"
+            className={navClass}
+            onClick={() => track("v3_nav", { href: "/resume" })}
+          >
+            Resume
+          </Link>
+          <Link
+            href="/how-i-think"
+            className={navClass}
+            onClick={() => track("v3_nav", { href: "/how-i-think" })}
+          >
+            How I Think
+          </Link>
+          <Link
+            href="/lab"
+            className={navClass}
+            onClick={() => track("v3_nav", { href: "/lab" })}
+          >
+            Visual Lab
+          </Link>
+          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+        </nav>
 
-          {/* my latest workflow — sits with the links, same left edge */}
-          <div className="mt-5 max-w-[760px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
-            <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
-              My latest workflow
-            </p>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-              {workflows.map((w) => (
-                <div key={w.title}>
-                  <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">{w.title}</p>
-                  <p className="text-[11.5px] text-[#777] leading-snug">{w.flow}</p>
-                </div>
-              ))}
-            </div>
+        {/* my latest workflow — sits with the links, same left edge */}
+        <div className="mt-5 max-w-[760px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
+          <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
+            My latest workflow
+          </p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+            {workflows.map((w) => (
+              <div key={w.title}>
+                <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">
+                  {w.title}
+                </p>
+                <p className="text-[11.5px] text-[#777] leading-snug">
+                  {w.flow}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
   );
 }
 
@@ -153,27 +179,34 @@ function Slide({
   const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
   return (
     <figure
-      className={`snap-start shrink-0 m-0 ${media.phone ? "w-[340px]" : "w-[74%] max-w-[1080px]"}`}
+      className={`snap-start shrink-0 m-0 ${
+        media.phone ? "w-[340px]" : "w-[74%] max-w-[1080px]"
+      }`}
     >
       <div className="overflow-hidden rounded-[20px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
-      {isVideo ? (
-        <video
-          src={media.src}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          aria-label={title}
-          onEnded={(e) => {
-            e.currentTarget.currentTime = 0;
-            void e.currentTarget.play();
-          }}
-          className="w-full h-auto block"
-        />
-      ) : (
-        <img src={media.src} alt={title} loading="lazy" className="w-full h-auto block" />
-      )}
+        {isVideo ? (
+          <video
+            src={media.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={title}
+            onEnded={(e) => {
+              e.currentTarget.currentTime = 0;
+              void e.currentTarget.play();
+            }}
+            className="w-full h-auto block"
+          />
+        ) : (
+          <img
+            src={media.src}
+            alt={title}
+            loading="lazy"
+            className="w-full h-auto block"
+          />
+        )}
       </div>
       {caption && (
         <figcaption className="mt-7 text-[13px] leading-[1.55] text-[#777] max-w-[460px]">
@@ -199,7 +232,9 @@ function ProjectCarousel({ project }: { project: Project }) {
   return (
     <section className="pt-2 pb-12 border-b border-[#f2f2f4] last:border-b-0">
       {/* title only — the description rides under each slide, Apple-style */}
-      <h2 className="text-[22px] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">{project.title}</h2>
+      <h2 className="text-[22px] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">
+        {project.title}
+      </h2>
 
       {/* rail */}
       <div
@@ -241,7 +276,10 @@ function ProjectCarousel({ project }: { project: Project }) {
         <button
           onClick={() => {
             setOpen((v) => !v);
-            track("v3_key_decisions_toggled", { project: project.title, open: !open });
+            track("v3_key_decisions_toggled", {
+              project: project.title,
+              open: !open,
+            });
           }}
           aria-expanded={open}
           className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
@@ -289,11 +327,17 @@ function ProjectCarousel({ project }: { project: Project }) {
             <div className="pt-5 flex flex-col gap-4 max-w-[760px]">
               {project.reflection.map((d) => (
                 <div key={d.title}>
-                  <p className="text-[14px] font-semibold text-[#111] mb-1">{d.title}</p>
-                  <p className="text-[13.5px] text-[#666] leading-[1.6]">{d.body}</p>
+                  <p className="text-[14px] font-semibold text-[#111] mb-1">
+                    {d.title}
+                  </p>
+                  <p className="text-[13.5px] text-[#666] leading-[1.6]">
+                    {d.body}
+                  </p>
                 </div>
               ))}
-              <p className="text-[12.5px] text-[#999] pt-1">{project.collaborators}</p>
+              <p className="text-[12.5px] text-[#999] pt-1">
+                {project.collaborators}
+              </p>
             </div>
           </motion.div>
         )}
