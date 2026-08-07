@@ -21,6 +21,7 @@ import KatesWebsiteV2, {
 const EMAIL = "katherinexu09@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
 const AVATAR_ASTRONAUT = "/kate-avatar-astronaut.png";
+const PORTRAIT = "/kate-portrait.jpg";
 const AVATAR_BUBBLE = "/kate-avatar-bubble.png";
 
 function track(event: string, props?: Record<string, unknown>) {
@@ -56,41 +57,24 @@ function TopBar() {
 
   return (
     <header className="pt-16 pb-10">
-      {/* avatar, centred at the top of the page */}
-      <div className="flex justify-center mb-9">
-        <div className="relative w-[150px] select-none">
-          <img
-            src={AVATAR_ASTRONAUT}
+      {/* portrait — left-aligned, sitting directly above the name */}
+      <div className="mb-5">
+        {playHello ? (
+          <motion.img
+            src={PORTRAIT}
             alt="Kate Xu"
-            className="w-full h-auto block"
+            className="w-[92px] h-[92px] rounded-full object-cover block select-none"
+            initial={{ scale: 0.86, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.15 }}
           />
-          {playHello ? (
-            <motion.img
-              src={AVATAR_BUBBLE}
-              alt=""
-              aria-hidden
-              className="absolute block"
-              style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
-              initial={{ y: -70, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 340,
-                damping: 10,
-                mass: 0.8,
-                delay: 0.3,
-              }}
-            />
-          ) : (
-            <img
-              src={AVATAR_BUBBLE}
-              alt=""
-              aria-hidden
-              className="absolute block"
-              style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
-            />
-          )}
-        </div>
+        ) : (
+          <img
+            src={PORTRAIT}
+            alt="Kate Xu"
+            className="w-[92px] h-[92px] rounded-full object-cover block select-none"
+          />
+        )}
       </div>
 
       {/* identity + links + workflow, all flush left */}
