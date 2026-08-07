@@ -83,9 +83,9 @@ function TopBar() {
         </div>
       </div>
 
-      {/* identity + links, flush left with the rest of the page */}
-      <div className="flex items-end justify-between gap-14">
-        <div className="min-w-0 max-w-[620px]">
+      {/* identity + links + workflow, all flush left */}
+      <div>
+        <div className="min-w-0 max-w-[760px]">
           <h1 className="text-[19px] font-semibold leading-tight text-[#111]">
             Kate Xu — Product Designer &amp; Builder
           </h1>
@@ -107,18 +107,19 @@ function TopBar() {
           </nav>
         </div>
 
-        {/* my latest workflow */}
-        <div className="flex-shrink-0 max-w-[560px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
-          <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
-            My latest workflow
-          </p>
-          <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-            {workflows.map((w) => (
-              <div key={w.title}>
-                <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">{w.title}</p>
-                <p className="text-[11.5px] text-[#777] leading-snug">{w.flow}</p>
-              </div>
-            ))}
+          {/* my latest workflow — sits with the links, same left edge */}
+          <div className="mt-5 max-w-[760px] rounded-[16px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] px-5 py-4">
+            <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
+              My latest workflow
+            </p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {workflows.map((w) => (
+                <div key={w.title}>
+                  <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">{w.title}</p>
+                  <p className="text-[11.5px] text-[#777] leading-snug">{w.flow}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
