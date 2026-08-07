@@ -3,21 +3,21 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --font-tinos: var(--font-inter);
-  --font-geist-sans: var(--font-inter);
+  --font-tinos: var(--font-instrument);
+  --font-geist-sans: var(--font-instrument);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-instrument);
   --font-mono: var(--font-geist-mono);
 }
 
 html, body {
   background: #ffffff;
   color: #1a1a1a;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-instrument), var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   overflow-x: hidden;
 }
 

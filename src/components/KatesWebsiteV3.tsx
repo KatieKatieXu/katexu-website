@@ -7,6 +7,7 @@ import posthog from "posthog-js";
 import { AnimatePresence } from "framer-motion";
 import KatesWebsiteV2, {
   projects,
+  workflows,
   ExternalLink,
   type Project,
 } from "@/components/KatesWebsiteV2";
@@ -54,46 +55,64 @@ function TopBar() {
   }, []);
 
   return (
-    <header className="flex items-center justify-between gap-8 pt-7 pb-6">
-      <div className="flex items-center gap-3.5 min-w-0">
-        <div className="relative w-[62px] select-none flex-shrink-0">
-          <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
-          {playHello && (
-            <motion.img
-              src={AVATAR_BUBBLE}
-              alt=""
-              aria-hidden
-              className="absolute block"
-              style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
-              initial={{ y: -38, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
-            />
-          )}
+    <header className="flex items-start justify-between gap-14 pt-7 pb-7">
+      {/* identity + brief + links */}
+      <div className="min-w-0 max-w-[620px]">
+        <div className="flex items-center gap-3.5 mb-3">
+          <div className="relative w-[62px] select-none flex-shrink-0">
+            <img src={AVATAR_ASTRONAUT} alt="Kate Xu" className="w-full h-auto block" />
+            {playHello && (
+              <motion.img
+                src={AVATAR_BUBBLE}
+                alt=""
+                aria-hidden
+                className="absolute block"
+                style={{ left: "56.1%", top: "6.4%", width: "43.6%" }}
+                initial={{ y: -38, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ type: "spring", stiffness: 340, damping: 10, mass: 0.8, delay: 0.25 }}
+              />
+            )}
+          </div>
+          <div className="min-w-0">
+            <h1 className="text-[18px] font-semibold leading-tight text-[#111]">
+              Kate Xu — Product Designer &amp; Builder
+            </h1>
+            <p className="text-[13.5px] text-[#888] leading-snug">
+              Enterprise products, shipped end to end — Figma through production code.
+            </p>
+          </div>
         </div>
-        <div className="min-w-0">
-          <h1 className="text-[18px] font-semibold leading-tight text-[#111] truncate">
-            Kate Xu — Product Designer &amp; Builder
-          </h1>
-          <p className="text-[13.5px] text-[#888] truncate">
-            Enterprise products, shipped end to end — Figma through production code.
-          </p>
-        </div>
+
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13.5px]">
+          <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
+            Resume
+          </Link>
+          <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
+            How I Think
+          </Link>
+          <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
+            Visual Lab
+          </Link>
+          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+        </nav>
       </div>
 
-      <nav className="flex items-center gap-x-5 text-[13.5px] flex-shrink-0">
-        <Link href="/resume" className={navClass} onClick={() => track("v3_nav", { href: "/resume" })}>
-          Resume
-        </Link>
-        <Link href="/how-i-think" className={navClass} onClick={() => track("v3_nav", { href: "/how-i-think" })}>
-          How I Think
-        </Link>
-        <Link href="/lab" className={navClass} onClick={() => track("v3_nav", { href: "/lab" })}>
-          Visual Lab
-        </Link>
-        <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-        <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
-      </nav>
+      {/* how I ship with engineers */}
+      <div className="flex-shrink-0 max-w-[560px] rounded-[14px] border border-[#e8e8e8] bg-[#fafafa] px-5 py-4">
+        <p className="text-[10.5px] font-semibold uppercase tracking-[1.5px] text-[#888] mb-3">
+          How I ship with engineers
+        </p>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+          {workflows.map((w) => (
+            <div key={w.title}>
+              <p className="text-[13px] font-semibold text-[#1a1a1a] leading-snug mb-0.5">{w.title}</p>
+              <p className="text-[11.5px] text-[#777] leading-snug">{w.flow}</p>
+            </div>
+          ))}
+        </div>
+      </div>
     </header>
   );
 }
