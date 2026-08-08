@@ -53,7 +53,7 @@ used to. Do not add a fourth.
 
 | Step | Size | Used for |
 |---|---|---|
-| display | `clamp(112px, 13.3vw, 191px)` | "Kate Xu" — the exception, nothing else |
+| display | `clamp(96px, 11.1vw, 160px)` | "Kate Xu" — the exception, nothing else |
 | **1 · title** | 22px | project names — the biggest thing on the page |
 | **2 · body** | 15px | everything else: nav, section labels, workflow titles, "Based in the U.S.", role line, "More", pills, arrows, decision titles, footer links |
 | **3 · description** | 13px | descriptions only: slide captions, workflow flow lines, decision bodies, collaborators, copyright |
@@ -109,8 +109,8 @@ No borders anywhere on cards. The shadow does all the separating.
 
 ## Header
 
-Structure follows the Eizo Mori reference: a large uppercase name, a full-width
-rule, and a nav that hangs off the rule with short codes pinned to the far edge.
+Built from Figma node `33:61` (`headerkatexu`). Title-case name, a full-width rule
+just under its baseline, nav hanging off the rule, then the workflow block.
 
 ```
 padding-top     24px
@@ -119,64 +119,60 @@ padding-bottom  40px
 
 ### The two custom properties
 
-Set on the `<header>` and used by both the name and the nav, so they can never
-drift apart:
+Set on the `<header>` so the name and the nav beneath it are driven by one number:
 
 ```css
---name-size:  clamp(112px, 13.3vw, 191px);
---name-width: calc(clamp(112px, 13.3vw, 191px) * 3.9797);
+--name-size:  clamp(96px, 11.1vw, 160px);
+--name-width: calc(clamp(96px, 11.1vw, 160px) * 3.4955);
 ```
 
-**3.9797** is the measured ink width of uppercase "KATE XU" in Instrument Sans
-SemiBold at -0.02em tracking, per unit of font-size (measured in Figma, not
-guessed). At 191px the name is 760px — 56% of the 1360px content column, the
-same proportion the reference gives its name. Re-measure this number if the
-family, weight, tracking, or the name itself ever changes.
+**3.4955** is the measured ink width of "Kate Xu" in Instrument Sans SemiBold at
+**zero** tracking, per unit of font-size (Figma node 33:62). At 160px the name is
+559px. Re-measure if the family, weight, tracking, or the name changes — the
+uppercase variant is 3.9797, and -0.02em tracking gives different numbers again.
 
-### Row 1 — name and identity, bottom-aligned
+### Row 1 — name and identity
 
 ```
-name        var(--name-size), 600, UPPERCASE, leading 1, tracking -0.02em
+name        var(--name-size), 600, TITLE CASE, leading 1, tracking 0
             nowrap — must never break
-right block bottom-aligned with the name's baseline, 17px gap to the photo
-  "Product Designer & Builder"  15px  #111
-  "Based in the U.S."           15px  #888
-photo       132 x 132, object-cover, square, no radius
+right block items-stretch, 13px gap to the photo, right-aligned,
+            justify-between over the photo height
+  "Based in the U.S."                    15px  #111  top
+  "8+ yrs - Product Designer & Builder"  15px  #111  bottom
+photo       136 x 136, object-cover, square, no radius, flush to the right edge
 ```
-
-The photo dropped from 187 to 132 so it sits inside the name's cap height rather
-than towering over it.
 
 ### Row 2 — the rule and the nav
 
 ```
 rule        1px #e6e6e6, full width of the content column
-name → rule  20px
-rule → nav   14px
+            margin-top -12px
+nav pt      22px
 left group  width: var(--name-width), justify-between
-            Resume · How I Think · Visual Lab, 15px, underlined, #555
+            Resume / How I Think / Visual Lab, 15px, underlined, #555
 right group pinned to the far edge, 16px apart
-            LI · EM, 15px, #888, 0.5px tracking
+            Email / LinkedIn
 ```
 
-The left group spanning `--name-width` is the whole point: the nav ends exactly
-where the name ends, and the rule carries on to the edge. Never hardcode a px
-width here.
+**Why the negative margin.** "Kate Xu" contains no descenders, so the font descender
+box overhangs the visible ink by ~12px at 160px. The -12px trims dead box so the
+rule sits ~9px under the baseline, matching Figma. This is trimming, not
+compensating for wrong leading — the distinction matters. If CSS `text-box:
+trim-both cap alphabetic` becomes safe to rely on, that replaces this.
 
 ### Row 3 — workflow
 
 ```
-rule → workflow  56px
-block width     348px
-  label          15px / 600 / uppercase / 0.9px tracking / #888
-  label → items  11px
-  items gap      14px
-  title → flow    3px
-  items → More   16px
-  More           15px, underlined, #777
+rule -> workflow  112px
+block width      348px
+  label           15px / 600 / uppercase / 0.9px tracking / #888
+  label -> items  13px
+  items gap       11px
+  title -> flow    3px
 ```
 
-No tagline. No card, no white fill, no shadow.
+No tagline, no card, no shadow, and no "More" link.
 
 ---
 
@@ -208,8 +204,10 @@ each project. Title runs inline in `#111` semibold, description follows in `#777
 
 ### Arrows
 
-32×32 circles, `#f5f5f7` → `#ebebef` on hover, glyphs `‹` `›` at 15px `#6e6e73`.
-Right-aligned, 12px under the rail. Hidden when a project has one slide.
+48×48 circles, `#f5f5f7` → `#ebebef` on hover, glyphs `‹` `›` at 22px/600 `#3a3a3c`,
+with their own softer shadow `0 2px 8px rgba(0,0,0,0.12)` — the only place that
+does not use the standard two-layer shadow. Right-aligned, 12px under the rail,
+8px apart. Hidden when a project has one slide.
 
 ### Action pills
 
