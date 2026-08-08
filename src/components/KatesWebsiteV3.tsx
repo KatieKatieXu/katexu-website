@@ -37,7 +37,7 @@ function track(event: string, props?: Record<string, unknown>) {
 }
 
 // ── Type scale — three sizes, plus one exception ───────────────────────────
-//   display  clamp(112px, 13.3vw, 191px)  "Kate Xu" only. The exception.
+//   display  clamp(96px, 11.1vw, 160px)   "Kate Xu" only. The exception.
 //   1 title  22px   project names — the biggest thing on the page
 //   2 body   15px   everything else: nav, labels, workflow titles, pills, footer
 //   3 desc   13px   descriptions only: captions, flows, decision bodies, credits
@@ -55,10 +55,6 @@ function track(event: string, props?: Record<string, unknown>) {
 
 const navClass =
   "text-[#555] hover:text-[#111] underline underline-offset-[3px] decoration-[#d8d8d8] hover:decoration-[#111] transition-colors";
-
-// the two-letter codes at the far right of the rule
-const navCode =
-  "text-[#888] hover:text-[#111] tracking-[0.5px] transition-colors";
 
 // Where the header hands off to the floating pill. The photo shrinks toward its
 // top-right corner and fades out over this range; the pill springs in at the end.
@@ -82,21 +78,22 @@ function TopBar() {
   return (
     <header
       className="pt-6 pb-10"
-      // NAME_SIZE drives two things: the display type, and the width of the nav
-      // group beneath it. NAME_RATIO is the measured ink width of "KATE XU" in
-      // Instrument Sans SemiBold at -0.02em (3.9797 x font-size, measured in
-      // Figma), so the nav always spans exactly the name and never overhangs.
+      // --name-size drives the display type; --name-width is its measured ink
+      // width, which the nav group below inherits so the two can never drift.
+      // 3.4955 = ink width per unit font-size for "Kate Xu" in Instrument Sans
+      // SemiBold at zero tracking (measured in Figma, node 33:62). Re-measure if
+      // the family, weight, tracking, or the name itself changes.
       style={
         {
-          "--name-size": "clamp(112px, 13.3vw, 191px)",
-          "--name-width": "calc(clamp(112px, 13.3vw, 191px) * 3.9797)",
+          "--name-size": "clamp(96px, 11.1vw, 160px)",
+          "--name-width": "calc(clamp(96px, 11.1vw, 160px) * 3.4955)",
         } as React.CSSProperties
       }
     >
-      {/* ── name, with location and portrait sitting on the same baseline ── */}
-      <div className="flex items-end justify-between gap-10">
+      {/* ── name, with identity and portrait to the right ── */}
+      <div className="flex items-start justify-between gap-10">
         <motion.h1
-          className="w-fit shrink-0 font-semibold uppercase leading-[1] tracking-[-0.02em] text-[#111] whitespace-nowrap"
+          className="w-fit shrink-0 font-semibold leading-[1] text-[#111] whitespace-nowrap"
           style={{ fontSize: "var(--name-size)" }}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -105,29 +102,31 @@ function TopBar() {
           Kate Xu
         </motion.h1>
 
-        <div className="flex shrink-0 items-end gap-[17px] pb-1">
-          <div className="flex flex-col items-end text-right">
+        <div className="flex shrink-0 items-stretch gap-[13px]">
+          <div className="flex flex-col items-end justify-between text-right">
             <p className="text-[15px] leading-[1.45] text-[#111]">
-              Product Designer &amp; Builder
-            </p>
-            <p className="text-[15px] leading-[1.45] text-[#888]">
               Based in the U.S.
+            </p>
+            <p className="text-[15px] leading-[1.45] text-[#111]">
+              8+ yrs · Product Designer &amp; Builder
             </p>
           </div>
           <motion.img
             src={PORTRAIT}
             alt="Kate Xu"
-            width={132}
-            height={132}
+            width={136}
+            height={136}
             draggable={false}
             style={{ scale: photoScale, opacity: photoOpacity, originX: 1, originY: 1 }}
-            className="w-[132px] h-[132px] object-cover select-none"
+            className="w-[136px] h-[136px] object-cover select-none"
           />
         </div>
       </div>
 
-      {/* ── the rule runs the full width; the nav hangs off it ── */}
-      <nav className="mt-5 flex items-center justify-between border-t border-[#e6e6e6] pt-3.5 text-[15px] leading-[1.45]">
+      {/* The rule sits just under the name's baseline. "Kate Xu" has no
+          descenders, so the font's descender box overhangs the ink by ~12px —
+          hence the negative margin. It is trimming dead box, not fixing leading. */}
+      <nav className="mt-[-12px] flex items-center justify-between border-t border-[#e6e6e6] pt-[22px] text-[15px] leading-[1.45]">
         <div
           className="flex justify-between"
           style={{ width: "var(--name-width)", maxWidth: "100%" }}
@@ -155,35 +154,18 @@ function TopBar() {
           </Link>
         </div>
 
-        {/* short codes, pinned to the far edge */}
         <div className="flex shrink-0 items-center gap-4">
-          <a
-            href={LINKEDIN}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn"
-            onClick={() => track("v3_nav", { href: "linkedin" })}
-            className={navCode}
-          >
-            LI
-          </a>
-          <a
-            href={`mailto:${EMAIL}`}
-            aria-label="Email"
-            onClick={() => track("v3_nav", { href: "email" })}
-            className={navCode}
-          >
-            EM
-          </a>
+          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
+          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
         </div>
       </nav>
 
       {/* ── workflow — plain text, no card, no shadow ── */}
-      <div className="mt-14 w-[348px]">
-        <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888] mb-[11px]">
+      <div className="mt-28 w-[348px]">
+        <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888] mb-[13px]">
           My latest workflow
         </p>
-        <div className="flex flex-col gap-[14px]">
+        <div className="flex flex-col gap-[11px]">
           {workflows.map((w) => (
             <div key={w.title}>
               <p className="text-[15px] font-semibold leading-[1.45] text-[#1a1a1a] mb-[3px]">
@@ -193,13 +175,6 @@ function TopBar() {
             </div>
           ))}
         </div>
-        <Link
-          href="/how-i-think"
-          onClick={() => track("v3_workflow_more")}
-          className="mt-4 inline-block text-[15px] leading-[1.45] text-[#777] underline underline-offset-[3px] decoration-[#d8d8d8] hover:text-[#111] hover:decoration-[#111] transition-colors"
-        >
-          More
-        </Link>
       </div>
     </header>
   );
@@ -397,14 +372,14 @@ function ProjectCarousel({ project }: { project: Project }) {
           <button
             onClick={() => scrollBy(-1)}
             aria-label={`Previous ${project.title} image`}
-            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[15px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ‹
           </button>
           <button
             onClick={() => scrollBy(1)}
             aria-label={`Next ${project.title} image`}
-            className="w-8 h-8 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[15px] text-[#6e6e73] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ›
           </button>
