@@ -324,17 +324,49 @@ function FloatingNav() {
           transition={spring}
           className={[
             "fixed left-1/2 top-4 z-50 isolate flex items-center gap-1 overflow-hidden rounded-full p-2",
-            // 1 + 2 — the glass itself
-            "bg-white/40 backdrop-blur-2xl backdrop-saturate-[180%]",
+            // 1 + 2 — the glass itself. High-clarity: a whisper of tint and a
+            // 4px blur, so content stays legible THROUGH the bar. The lens
+            // distortion comes from the SVG filter via .v3-liquid-glass
+            // (Chromium); Safari falls back to plain clear glass.
+            "v3-liquid-glass bg-white/[0.16]",
             // the rim, and the light caught inside the top and bottom edges
-            "ring-1 ring-white/60",
-            "shadow-[0_1px_1px_rgba(0,0,0,0.03),0_10px_28px_-14px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(0,0,0,0.05)]",
+            "ring-1 ring-white/70",
+            "shadow-[0_1px_1px_rgba(0,0,0,0.04),0_12px_32px_-16px_rgba(0,0,0,0.28),inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-1px_1px_rgba(0,0,0,0.06)]",
           ].join(" ")}
         >
+          {/* the lens — a displacement map the backdrop is pulled through.
+              Referenced by .v3-liquid-glass; Chromium-only, by design. */}
+          <svg aria-hidden className="absolute h-0 w-0 overflow-hidden">
+            <filter
+              id="v3-glass-lens"
+              x="-20%"
+              y="-20%"
+              width="140%"
+              height="140%"
+              colorInterpolationFilters="sRGB"
+            >
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.006 0.014"
+                numOctaves="2"
+                seed="7"
+                result="noise"
+              />
+              <feGaussianBlur in="noise" stdDeviation="3" result="soft" />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="soft"
+                scale="46"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+          </svg>
+
           {/* 3 — refraction: light collects at the top, shadow pools at the base */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/70 via-white/5 to-black/[0.035]"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/45 via-white/0 to-black/[0.03]"
           />
 
           {/* 4 — specular highlight, trailing the pointer */}
@@ -660,6 +692,15 @@ export default function KatesWebsiteV3() {
       </div>
 
       <style jsx global>{`
+        /* High-clarity liquid glass. Two declarations on purpose: Safari can't
+           run SVG filters in backdrop-filter and drops the second line at
+           parse, leaving clean clear glass; Chromium takes the lens. */
+        .v3-liquid-glass {
+          -webkit-backdrop-filter: blur(4px) saturate(190%) brightness(1.06);
+          backdrop-filter: blur(4px) saturate(190%) brightness(1.06);
+          backdrop-filter: url(#v3-glass-lens) blur(4px) saturate(190%)
+            brightness(1.06);
+        }
         .no-scrollbar::-webkit-scrollbar {
           display: none;
         }
