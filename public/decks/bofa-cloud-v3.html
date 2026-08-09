@@ -45,18 +45,21 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 /* ============ viewport-base.css (mandatory, in full) ============ */
-html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
-.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
-.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
-.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
-.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+/* Vertical one-pager. The 1920px stage is kept intact and scaled to the
+   window width; the slides stack down the page and the document scrolls. */
+html { scroll-behavior: smooth; }
+html, body { width: 100%; height: auto; margin: 0; overflow-x: hidden; overflow-y: auto; background: var(--stage-bg, #000); }
+.deck-viewport { position: relative; width: 100%; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: relative; width: 1920px; height: 1080px; overflow: hidden; display: block; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { z-index: 1; }
 img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 .deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
 @media print {
   html, body { width: 1920px; height: auto; overflow: visible; background: var(--panel); }
   .deck-viewport { position: static; overflow: visible; background: var(--panel); }
   .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
-  .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+  .slide { position: relative; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
   .slide:last-child { break-after: auto; page-break-after: auto; }
   .deck-controls { display: none !important; }
 }
@@ -253,12 +256,12 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
 .counter { position: fixed; right: 26px; bottom: 20px; z-index: 1001; font-family: var(--mono); font-size: 13px; color: var(--ink-faint); letter-spacing: 0.1em; }
 
 /* page selector — dot rail with hover labels */
-.dot-rail { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 1001; display: flex; gap: 8px; align-items: center; padding: 8px 14px; background: rgba(255,255,255,0.07); border-radius: 999px; backdrop-filter: blur(8px); }
-.dot { position: relative; width: 9px; height: 9px; border-radius: 999px; background: rgba(14,22,38,0.28); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease, width 0.25s var(--ease); }
+.dot-rail { position: fixed; left: 22px; top: 50%; transform: translateY(-50%); z-index: 1001; display: flex; flex-direction: column; gap: 9px; align-items: center; padding: 14px 9px; background: rgba(255,255,255,0.72); border: 1px solid var(--line); border-radius: 999px; backdrop-filter: blur(10px) saturate(1.6); -webkit-backdrop-filter: blur(10px) saturate(1.6); box-shadow: 0 10px 30px -18px rgba(14,22,38,0.4); }
+.dot { position: relative; width: 9px; height: 9px; border-radius: 999px; background: rgba(14,22,38,0.28); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease, height 0.25s var(--ease); }
 .dot:hover { background: rgba(14,22,38,0.6); }
-.dot.on { width: 26px; background: var(--blue); }
-.dot .tip { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(4px); background: #0B1526; color: var(--panel); font-family: var(--font); font-size: 13px; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.2s var(--ease); }
-.dot:hover .tip { opacity: 1; transform: translateX(-50%) translateY(0); }
+.dot.on { height: 26px; background: var(--blue); }
+.dot .tip { position: absolute; left: 22px; top: 50%; transform: translateY(-50%) translateX(-4px); background: #0B1526; color: #FFFFFF; font-family: var(--font); font-size: 13px; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.2s var(--ease); }
+.dot:hover .tip { opacity: 1; transform: translateY(-50%) translateX(0); }
 
 /* mini wireframe primitives (CSS recreations of product UI) */
 .wf { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; box-shadow: 0 30px 70px -40px #000; }
@@ -277,7 +280,7 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
 </head>
 <body>
 <div class="progress" id="progress"></div>
-<div class="counter" id="counter">1 / 17</div>
+<div class="counter" id="counter">1 / 19</div>
 
 <div class="deck-viewport">
 <main class="deck-stage" id="deckStage">
@@ -966,31 +969,44 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
    SLIDE PRESENTATION CONTROLLER
    Keyboard (arrows/space/pgup/pgdn/home/end), wheel, touch.
    ========================================================= */
-class SlidePresentation {
+class ScrollDeck {
   constructor() {
-    this.slides = document.querySelectorAll('.slide');
+    this.slides = [...document.querySelectorAll('.slide')];
     this.current = 0;
     this.stage = document.getElementById('deckStage');
+    this.viewport = this.stage.parentElement;
     this.progress = document.getElementById('progress');
     this.counter = document.getElementById('counter');
-    this.wheelLock = false;
     this.setupStageScale();
-    this.setupKeys();
-    this.setupWheel();
-    this.setupTouch();
     this.buildDotRail();
-    this.show(0);
+    this.observe();
+    this.setupKeys();
   }
+
+  /* The stage stays 1920 wide and is scaled to the window; the wrapper is given
+     the scaled height so the document scrolls the full length of the deck. */
+  setupStageScale() {
+    const fit = () => {
+      const f = window.innerWidth / 1920;
+      this.stage.style.transform = 'scale(' + f + ')';
+      this.viewport.style.height = (this.stage.offsetHeight * f) + 'px';
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
+    window.addEventListener('load', fit);
+  }
+
   buildDotRail() {
     const rail = document.createElement('nav');
     rail.className = 'dot-rail';
-    rail.setAttribute('aria-label', 'Slide selector');
+    rail.setAttribute('aria-label', 'Section selector');
     this.dots = [];
     this.slides.forEach((s, i) => {
       const kicker = s.querySelector('.kicker');
       const heading = s.querySelector('h2.t, h1');
       const label = (i + 1) + ' · ' + (heading ? heading.textContent.replace(/\s+/g, ' ').trim().slice(0, 42)
-        : kicker ? kicker.textContent.trim() : 'Slide');
+        : kicker ? kicker.textContent.trim() : 'Section');
       const dot = document.createElement('button');
       dot.className = 'dot';
       dot.setAttribute('aria-label', label);
@@ -998,58 +1014,60 @@ class SlidePresentation {
       tip.className = 'tip';
       tip.textContent = label;
       dot.appendChild(tip);
-      dot.addEventListener('click', () => this.show(i));
+      dot.addEventListener('click', () => this.goTo(i));
       rail.appendChild(dot);
       this.dots.push(dot);
     });
     document.body.appendChild(rail);
   }
-  setupStageScale() {
-    const scale = () => {
-      const f = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
-      const x = (window.innerWidth - 1920 * f) / 2;
-      const y = (window.innerHeight - 1080 * f) / 2;
-      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
-    };
-    scale();
-    window.addEventListener('resize', scale);
+
+  /* Two observers: one reveals a section's content as it arrives, the other
+     tracks which section owns the viewport so the rail and counter follow. */
+  observe() {
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) e.target.classList.add('visible', 'active');
+      });
+    }, { threshold: 0.18 });
+
+    const active = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) this.setCurrent(this.slides.indexOf(e.target));
+      });
+    }, { threshold: 0.5 });
+
+    const playing = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.target.classList.toggle('playing', e.isIntersecting));
+    }, { threshold: 0.4 });
+
+    this.slides.forEach((s) => { reveal.observe(s); active.observe(s); playing.observe(s); });
   }
+
+  setCurrent(i) {
+    if (i < 0 || i === this.current) return;
+    this.current = i;
+    if (this.progress) this.progress.style.width = ((i + 1) / this.slides.length * 100) + '%';
+    if (this.counter) this.counter.textContent = (i + 1) + ' / ' + this.slides.length;
+    if (this.dots) this.dots.forEach((d, idx) => d.classList.toggle('on', idx === i));
+  }
+
+  goTo(i) {
+    const t = this.slides[Math.max(0, Math.min(i, this.slides.length - 1))];
+    if (!t) return;
+    const f = window.innerWidth / 1920;
+    window.scrollTo({ top: this.viewport.offsetTop + t.offsetTop * f, behavior: 'smooth' });
+  }
+
   setupKeys() {
     document.addEventListener('keydown', (e) => {
-      if (['ArrowRight', 'ArrowDown', ' ', 'PageDown'].includes(e.key)) { e.preventDefault(); this.show(this.current + 1); }
-      else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.show(this.current - 1); }
-      else if (e.key === 'Home') this.show(0);
-      else if (e.key === 'End') this.show(this.slides.length - 1);
+      if (['ArrowRight', 'PageDown'].includes(e.key)) { e.preventDefault(); this.goTo(this.current + 1); }
+      else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); this.goTo(this.current - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); this.goTo(0); }
+      else if (e.key === 'End') { e.preventDefault(); this.goTo(this.slides.length - 1); }
     });
-  }
-  setupWheel() {
-    window.addEventListener('wheel', (e) => {
-      if (this.wheelLock || Math.abs(e.deltaY) < 24) return;
-      this.wheelLock = true;
-      this.show(this.current + (e.deltaY > 0 ? 1 : -1));
-      setTimeout(() => { this.wheelLock = false; }, 650);
-    }, { passive: true });
-  }
-  setupTouch() {
-    let startX = 0;
-    window.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
-    window.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - startX;
-      if (Math.abs(dx) > 50) this.show(this.current + (dx < 0 ? 1 : -1));
-    }, { passive: true });
-  }
-  show(i) {
-    this.current = Math.max(0, Math.min(i, this.slides.length - 1));
-    this.slides.forEach((s, idx) => {
-      s.classList.toggle('active', idx === this.current);
-      s.classList.toggle('visible', idx === this.current);
-    });
-    this.progress.style.width = ((this.current + 1) / this.slides.length * 100) + '%';
-    this.counter.textContent = (this.current + 1) + ' / ' + this.slides.length;
-    if (this.dots) this.dots.forEach((d, idx) => d.classList.toggle('on', idx === this.current));
   }
 }
-new SlidePresentation();
+new ScrollDeck();
 
 
 
@@ -1101,9 +1119,9 @@ new SlidePresentation();
     at(8200, play);
   }
   new MutationObserver(() => {
-    if (slide.classList.contains('visible')) play(); else reset();
+    if (slide.classList.contains('playing')) play(); else reset();
   }).observe(slide, { attributes: true, attributeFilter: ['class'] });
-  if (slide.classList.contains('visible')) play();
+  if (slide.classList.contains('playing')) play();
 })();
 
 
@@ -1156,9 +1174,9 @@ new SlidePresentation();
     at(8000, play);
   }
   new MutationObserver(() => {
-    if (slide.classList.contains('visible')) play(); else reset();
+    if (slide.classList.contains('playing')) play(); else reset();
   }).observe(slide, { attributes: true, attributeFilter: ['class'] });
-  if (slide.classList.contains('visible')) play();
+  if (slide.classList.contains('playing')) play();
 })();
 
 
