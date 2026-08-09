@@ -62,7 +62,7 @@ export default function HowIThinkPage() {
             <button
               key={tab}
               onClick={() => handleTabChange(tab)}
-              className={`relative px-4 py-1.5 text-[12px] font-semibold rounded-full transition-all ${
+              className={`relative px-4 py-1.5 text-[14px] font-semibold rounded-full transition-all ${
                 activeTab === tab
                   ? "text-white bg-[#111111]"
                   : "text-[#888] bg-transparent hover:text-[#444]"
@@ -99,7 +99,7 @@ export default function HowIThinkPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <span className="text-[10px] font-bold text-[#111111] tracking-[3px] uppercase">
+                <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
                   Where it started
                 </span>
                 <h2 className="mt-3 text-2xl md:text-3xl font-bold text-[#1a1a1a] leading-snug font-[family-name:var(--font-tinos)]">
@@ -138,7 +138,7 @@ export default function HowIThinkPage() {
                     alt="Kate Xu in conversation with Don Norman at the UCSD design competition"
                     className="w-full h-auto rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
                   />
-                  <figcaption className="mt-2 text-center text-[11px] text-[#999] italic">
+                  <figcaption className="mt-2 text-center text-[14px] text-[#999] italic">
                     2018 at UCSD design competition, with Don Norman
                   </figcaption>
                 </motion.figure>
@@ -156,10 +156,10 @@ export default function HowIThinkPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
               >
-                <span className="text-[10px] font-bold text-[#111111] tracking-[3px] uppercase">
+                <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
                   Latest thinking
                 </span>
-                <p className="mt-2 text-[13px] text-[#888]">
+                <p className="mt-2 text-[14px] text-[#888]">
                   Papers I&apos;m reading, filtered through a design lens.
                 </p>
 
@@ -173,10 +173,10 @@ export default function HowIThinkPage() {
                       transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
                     >
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="text-[10px] font-bold text-white bg-[#111111] px-2 py-0.5 rounded-full tracking-wider">
+                        <span className="text-[14px] font-bold text-white bg-[#111111] px-2 py-0.5 rounded-full tracking-[0.9px]">
                           {paper.year}
                         </span>
-                        <span className="text-[11px] text-[#999] italic">{paper.journal}</span>
+                        <span className="text-[14px] text-[#999] italic">{paper.journal}</span>
                       </div>
 
                       <a
@@ -189,15 +189,15 @@ export default function HowIThinkPage() {
                         {paper.title} ↗
                       </a>
 
-                      <p className="mt-3 text-[13px] text-[#555] leading-relaxed">
+                      <p className="mt-3 text-[14px] text-[#555] leading-relaxed">
                         {paper.summary}
                       </p>
 
                       <div className="mt-4 pt-4 border-t border-[#f0ece4]">
-                        <span className="text-[10px] font-bold text-[#111111] tracking-[2px] uppercase">
+                        <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
                           Kate&apos;s takeaway
                         </span>
-                        <p className="mt-1.5 text-[13px] text-[#444] leading-relaxed italic">
+                        <p className="mt-1.5 text-[14px] text-[#444] leading-relaxed italic">
                           {paper.takeaway}
                         </p>
                       </div>
@@ -207,7 +207,7 @@ export default function HowIThinkPage() {
               </motion.section>
 
               <motion.p
-                className="mt-16 text-center text-[11px] text-[#bbb] tracking-wide"
+                className="mt-16 text-center text-[14px] text-[#bbb] tracking-wide"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.5 }}
@@ -224,7 +224,7 @@ export default function HowIThinkPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-[10px] font-bold text-[#111111] tracking-[3px] uppercase">
+              <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
                 In practice
               </span>
               <p className="mt-3 text-[14px] text-[#555] leading-relaxed max-w-lg">
@@ -289,14 +289,14 @@ export default function HowIThinkPage() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
                   >
-                    <span className="text-[10px] font-bold text-[#111111] tracking-[2px] uppercase">
+                    <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
                       {workflow.purpose}
                     </span>
 
                     <div className="mt-4 flex flex-wrap items-center gap-y-3 gap-x-2">
                       {workflow.steps.map((step, j) => (
                         <div key={j} className="flex items-center gap-2">
-                          <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] px-3 py-1.5 rounded-full">
+                          <span className="text-[14px] font-medium text-[#333] bg-[#f4f1eb] px-3 py-1.5 rounded-full">
                             {step}
                           </span>
                           {j < workflow.steps.length - 1 && (
@@ -308,7 +308,7 @@ export default function HowIThinkPage() {
                       ))}
                     </div>
                     {workflow.detail && (
-                      <p className="mt-4 pt-4 border-t border-[#f0ece4] text-[13px] text-[#555] leading-relaxed">
+                      <p className="mt-4 pt-4 border-t border-[#f0ece4] text-[14px] text-[#555] leading-relaxed">
                         {workflow.detail}
                       </p>
                     )}
@@ -344,17 +344,17 @@ export default function HowIThinkPage() {
                       className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
                     >
                       <div className="flex items-center gap-3 mb-5">
-                        <span className="w-7 h-7 rounded-full bg-[#f0ece4] flex items-center justify-center text-[10px] font-bold text-[#111111]">
+                        <span className="w-7 h-7 rounded-full bg-[#f0ece4] flex items-center justify-center text-[14px] font-bold text-[#111111]">
                           {String(i + 4).padStart(2, "0")}
                         </span>
-                        <span className="text-[11px] font-bold text-[#111111] tracking-[2px] uppercase">
+                        <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
                           {fake.purpose}
                         </span>
                       </div>
                       <div className="flex flex-wrap items-center gap-y-3 gap-x-2">
                         {fake.steps.map((step, j) => (
                           <div key={j} className="flex items-center gap-2">
-                            <span className="text-[12px] font-medium text-[#333] bg-[#f7f5f0] px-3 py-1.5 rounded-full">
+                            <span className="text-[14px] font-medium text-[#333] bg-[#f7f5f0] px-3 py-1.5 rounded-full">
                               {step}
                             </span>
                             {j < fake.steps.length - 1 && (
@@ -373,7 +373,7 @@ export default function HowIThinkPage() {
                 <div className="absolute inset-0 rounded-2xl backdrop-blur-[4px] bg-[#fdfbf7]/60 flex items-center justify-center">
                   <a
                     href="mailto:katherinexu09@gmail.com"
-                    className="text-[12px] font-semibold text-[#111111] tracking-[2px] uppercase hover:underline"
+                    className="text-[14px] font-semibold text-[#111111] tracking-[0.9px] uppercase hover:underline"
                     onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow_locked" })}
                   >
                     Contact to know more
