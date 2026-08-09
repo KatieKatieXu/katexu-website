@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import {
+  MotionConfig,
   motion,
   useScroll,
   useTransform,
@@ -84,6 +85,38 @@ function ExternalLinkV3({
     </a>
   );
 }
+
+// ── Scroll reveal, learned from apple.com/mac ──────────────────────────────
+// Apple's sequence is always the same: the heading resolves first, then the
+// media follows a beat later. Nothing arrives at the same time, and nothing
+// bounces — a single long ease-out, no spring.
+//   ease      cubic-bezier(0.28, 0.11, 0.32, 1)  — long tail, no overshoot
+//   title     y 24 -> 0 over 0.7s
+//   media     x -40 -> 0 over 0.9s, staggered 0.12s apart, left to right
+//   trigger   once, at 20% visible
+const EASE = [0.28, 0.11, 0.32, 1] as const;
+
+const sectionReveal = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.14, delayChildren: 0.02 } },
+};
+
+const titleReveal = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: EASE } },
+};
+
+// The rail itself is a stagger parent; each slide slides in from the left, so
+// the row assembles in reading order rather than appearing all at once.
+const railReveal = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+
+const slideReveal = {
+  hidden: { opacity: 0, x: -40 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.9, ease: EASE } },
+};
 
 // Where the header hands off to the floating pill. The photo shrinks toward its
 // top-right corner and fades out over this range; the pill springs in at the end.
@@ -383,7 +416,8 @@ function Slide({
 }) {
   const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
   return (
-    <figure
+    <motion.figure
+      variants={slideReveal}
       className={`snap-start shrink-0 m-0 ${
         media.phone ? "w-[340px]" : "w-[74%] max-w-[1080px]"
       }`}
@@ -418,7 +452,7 @@ function Slide({
           <span className="font-semibold text-[#111]">{title}</span> {caption}
         </figcaption>
       )}
-    </figure>
+    </motion.figure>
   );
 }
 
@@ -441,12 +475,21 @@ function ProjectCarousel({
   };
 
   return (
-    <section className="pt-2 pb-12 border-b border-[#f2f2f4] last:border-b-0">
+    <motion.section
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={sectionReveal}
+      className={`${first ? "pt-2" : "pt-20"} pb-12 border-b border-[#f2f2f4] last:border-b-0`}
+    >
       {/* Title row spans the full column: title left, section label pinned to
           the far right edge, top-aligned (Figma 42:237 / 44:277). The label uses
           the same two-tone treatment as the slide captions — bold ink, then a
           quieter regular tail. */}
-      <div className="flex w-full items-start justify-between mb-4 pt-8">
+      <motion.div
+        variants={titleReveal}
+        className="flex w-full items-start justify-between mb-4 pt-8"
+      >
         <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111]">
           {project.title}
         </h2>
@@ -455,11 +498,12 @@ function ProjectCarousel({
             <span className="font-bold text-[#111]">Selected work</span> @ 2026
           </p>
         )}
-      </div>
+      </motion.div>
 
-      {/* rail */}
-      <div
+      {/* rail — slides arrive left to right */}
+      <motion.div
         ref={railRef}
+        variants={railReveal}
         className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-1"
       >
         {media.map((m, i) => (
@@ -470,7 +514,7 @@ function ProjectCarousel({
             caption={i === 0 ? project.description : undefined}
           />
         ))}
-      </div>
+      </motion.div>
 
       {/* controls under the rail, right-aligned */}
       {media.length > 1 && (
@@ -493,7 +537,10 @@ function ProjectCarousel({
       )}
 
       {/* actions */}
-      <div className="mt-4 flex flex-wrap items-center gap-2.5">
+      <motion.div
+        variants={titleReveal}
+        className="mt-4 flex flex-wrap items-center gap-2.5"
+      >
         <button
           onClick={() => {
             setOpen((v) => !v);
@@ -532,7 +579,7 @@ function ProjectCarousel({
             {project.liveLabel ?? "Try it live"} ↗
           </a>
         )}
-      </div>
+      </motion.div>
 
       {/* decisions */}
       <AnimatePresence initial={false}>
@@ -563,13 +610,13 @@ function ProjectCarousel({
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </motion.section>
   );
 }
 
 export default function KatesWebsiteV3() {
   return (
-    <>
+    <MotionConfig reducedMotion="user">
       {/* ── mobile: unchanged V2 ── */}
       <div className="md:hidden">
         <KatesWebsiteV2 />
@@ -608,6 +655,6 @@ export default function KatesWebsiteV3() {
           scrollbar-width: none;
         }
       `}</style>
-    </>
+    </MotionConfig>
   );
 }

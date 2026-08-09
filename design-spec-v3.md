@@ -210,8 +210,30 @@ No tagline, no card, no shadow, and no "More" link.
 
 ## Project section
 
+### Scroll reveal (learned from apple.com/mac)
+
+Apple's sequence is always the same: the heading resolves first, the media
+follows a beat later. Nothing arrives together, nothing bounces — one long
+ease-out, no spring.
+
 ```
-padding-top      8px  (+32px on the h2)
+ease      cubic-bezier(0.28, 0.11, 0.32, 1)   long tail, no overshoot
+trigger   whileInView, once: true, amount: 0.2
+title     opacity 0->1, y 24->0        0.7s
+rail      staggerChildren 0.12s
+  slide   opacity 0->1, x -40->0       0.9s   — the row assembles left to right
+actions   same as title, arriving after the media (section stagger 0.14s)
+```
+
+Wrapped in `<MotionConfig reducedMotion="user">`, so the whole page drops
+transforms when the OS asks for it.
+
+### Spacing
+
+```
+padding-top      8px on the FIRST section, 80px on every one after
+                 (the first stays tight so the workflow block does not float)
+                 (+32px on the h2)
 padding-bottom  48px
 divider         1px #f2f2f4, omitted on the last section
 title row       full column width, items-start
