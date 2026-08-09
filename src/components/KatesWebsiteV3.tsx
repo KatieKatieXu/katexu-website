@@ -123,7 +123,12 @@ function TopBar() {
       <div className="flex items-start justify-between gap-10">
         <motion.h1
           className="w-fit shrink-0 font-semibold leading-[1] text-[#111] whitespace-nowrap"
-          style={{ fontSize: "var(--name-size)" }}
+          // -0.062em cancels the K's left side bearing so the ink — not the glyph
+          // box — starts flush with the column edge. Scales with the clamp.
+          style={{
+            fontSize: "var(--name-size)",
+            marginLeft: "calc(var(--name-size) * -0.062)",
+          }}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
@@ -155,10 +160,17 @@ function TopBar() {
       {/* The rule sits just under the name's baseline. "Kate Xu" has no
           descenders, so the font's descender box overhangs the ink by ~12px —
           hence the negative margin. It is trimming dead box, not fixing leading. */}
-      <nav className="mt-[-12px] flex items-center justify-between border-t border-[#e6e6e6] pt-[22px] text-[15px] leading-[1.45]">
+      <nav className="mt-[-10px] flex items-center justify-between border-t border-[#e6e6e6] pt-5 text-[15px] leading-[1.45]">
+        {/* Optical, not geometric. The group is nudged left by "Resume"'s own
+            0.54-1.29px bearing and widened by "Visual Lab"'s trailing bearing, so
+            the R starts and the b ends on the same verticals as the name's ink. */}
         <div
           className="flex justify-between"
-          style={{ width: "var(--name-width)", maxWidth: "100%" }}
+          style={{
+            width: "calc(var(--name-width) + 2.53px)",
+            marginLeft: "-1.29px",
+            maxWidth: "100%",
+          }}
         >
           <Link
             href="/resume"
@@ -183,7 +195,7 @@ function TopBar() {
           </Link>
         </div>
 
-        <div className="flex shrink-0 items-center gap-4">
+        <div className="flex shrink-0 items-center gap-4 mr-[-1.04px]">
           <ExternalLinkV3 href={`mailto:${EMAIL}`}>Email</ExternalLinkV3>
           <ExternalLinkV3 href={LINKEDIN}>LinkedIn</ExternalLinkV3>
         </div>
