@@ -673,7 +673,7 @@ function ProjectCarousel({
 
       {/* controls under the rail, right-aligned */}
       {media.length > 1 && (
-        <div className="mt-3 flex items-center justify-end gap-2">
+        <div className="-mt-8 flex items-center justify-end gap-2">
           <button
             onClick={() => scrollBy(-1)}
             aria-label={`Previous ${project.title} image`}
