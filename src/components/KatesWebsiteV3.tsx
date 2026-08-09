@@ -43,7 +43,8 @@ function track(event: string, props?: Record<string, unknown>) {
 //   display  clamp(96px, 11.1vw, 160px)   "Kate Xu" only. The exception.
 //   1 title  22px   project names — the biggest thing on the page
 //   2 body   15px   everything else: nav, labels, workflow titles, pills, footer
-//   3 desc   13px   descriptions only: captions, flows, decision bodies, credits
+//   3 desc   14px   descriptions only: captions, flows, decision bodies, credits
+//                  14px is the floor — nothing on the page renders smaller.
 // Weight and color carry the hierarchy that size used to. Do not add a fourth.
 //
 // Leading is a system too — one value per step, never ad hoc:
@@ -79,7 +80,7 @@ function ExternalLinkV3({
       onClick={() => track("v3_nav", { href })}
     >
       {children}
-      <span aria-hidden className="text-[0.85em] translate-y-[-1px]">
+      <span aria-hidden className="text-[0.93em] translate-y-[-1px]">
         ↗
       </span>
     </a>
@@ -245,7 +246,7 @@ function TopBar() {
               <p className="text-[15px] font-semibold leading-[1.45] text-[#1a1a1a] mb-[3px]">
                 {w.title}
               </p>
-              <p className="text-[13px] leading-[1.6] text-[#777]">{w.flow}</p>
+              <p className="text-[14px] leading-[1.6] text-[#777]">{w.flow}</p>
             </div>
           ))}
         </div>
@@ -448,7 +449,7 @@ function Slide({
         )}
       </div>
       {caption && (
-        <figcaption className="mt-7 text-[13px] leading-[1.6] text-[#777] max-w-[460px]">
+        <figcaption className="mt-7 text-[14px] leading-[1.6] text-[#777] max-w-[460px]">
           <span className="font-semibold text-[#111]">{title}</span> {caption}
         </figcaption>
       )}
@@ -598,12 +599,12 @@ function ProjectCarousel({
                   <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
                     {d.title}
                   </p>
-                  <p className="text-[13px] text-[#666] leading-[1.6]">
+                  <p className="text-[14px] text-[#666] leading-[1.6]">
                     {d.body}
                   </p>
                 </div>
               ))}
-              <p className="text-[13px] leading-[1.6] text-[#999] pt-1">
+              <p className="text-[14px] leading-[1.6] text-[#999] pt-1">
                 {project.collaborators}
               </p>
             </div>
@@ -641,7 +642,7 @@ export default function KatesWebsiteV3() {
               <ExternalLinkV3 href={`mailto:${EMAIL}`}>Email</ExternalLinkV3>
               <ExternalLinkV3 href={LINKEDIN}>LinkedIn</ExternalLinkV3>
             </div>
-            <p className="text-[13px] leading-[1.6] text-[#aaa]">© Kate Xu 2026</p>
+            <p className="text-[14px] leading-[1.6] text-[#aaa]">© Kate Xu 2026</p>
           </footer>
         </div>
       </div>

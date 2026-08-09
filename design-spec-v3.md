@@ -56,7 +56,7 @@ used to. Do not add a fourth.
 | display | `clamp(96px, 11.1vw, 160px)` | "Kate Xu" — the exception, nothing else |
 | **1 · title** | 22px | project names — the biggest thing on the page |
 | **2 · body** | 15px | everything else: nav, section labels, workflow titles, "Based in the U.S.", role line, "More", pills, arrows, decision titles, footer links |
-| **3 · description** | 13px | descriptions only: slide captions, workflow flow lines, decision bodies, collaborators, copyright |
+| **3 · description** | 14px | descriptions only: slide captions, workflow flow lines, decision bodies, collaborators, copyright |
 
 Weight and color per role:
 
@@ -78,6 +78,12 @@ Weight and color per role:
 
 The earlier half-pixel sizes (13.5, 12.5, 11.5, 10.5) are gone — collapsed into the
 three steps above.
+
+**14px is a hard floor.** Nothing on the page renders smaller, including the
+decorative arrow on external links (`0.93em` of 15px = 13.95px, and it is
+`aria-hidden` anyway). The gap between step 2 and step 3 is now only 1px, so the
+two steps are separated by weight and colour, not size — which was already true
+in practice.
 
 ---
 
