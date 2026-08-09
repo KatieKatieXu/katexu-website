@@ -5,7 +5,10 @@ import {
   motion,
   useScroll,
   useTransform,
+  useMotionValue,
   useMotionValueEvent,
+  useMotionTemplate,
+  useSpring,
   useReducedMotion,
 } from "framer-motion";
 import Link from "next/link";
@@ -187,17 +190,43 @@ function TopBar() {
 // as one object moving rather than two separate elements.
 // ───────────────────────────────────────────────────────────────────────────
 const pillLink =
-  "text-[15px] leading-[1.45] text-[#555] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
+  "relative text-[15px] leading-[1.45] text-[#3a3a3c] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
 
+// Liquid glass. Four layers stacked inside one pill, back to front:
+//   1. backdrop-filter   blurs + saturates whatever scrolls underneath
+//   2. tint              a thin white wash so the glass has a body
+//   3. refraction        a top-light / bottom-shadow gradient, the "thickness"
+//   4. specular          a soft highlight that chases the pointer on a spring
+// The spring lag on layer 4 is what makes it read as liquid rather than a
+// hover state — the light arrives a beat after the cursor does.
 function FloatingNav() {
   const reduce = useReducedMotion();
   const { scrollY } = useScroll();
   const [shown, setShown] = useState(false);
+  const navRef = useRef<HTMLElement | null>(null);
 
   useMotionValueEvent(scrollY, "change", (y) => {
     // small hysteresis so it can't flicker on a jittery trackpad
     setShown((was) => (was ? y > HANDOFF_END - 40 : y > HANDOFF_END));
   });
+
+  // pointer position, softened — the highlight trails the cursor
+  const px = useMotionValue(0);
+  const py = useMotionValue(0);
+  const glareOpacity = useMotionValue(0);
+  const sx = useSpring(px, { stiffness: 260, damping: 28, mass: 0.6 });
+  const sy = useSpring(py, { stiffness: 260, damping: 28, mass: 0.6 });
+  const so = useSpring(glareOpacity, { stiffness: 180, damping: 30 });
+
+  const specular = useMotionTemplate`radial-gradient(120px circle at ${sx}px ${sy}px, rgba(255,255,255,0.95), rgba(255,255,255,0.35) 45%, rgba(255,255,255,0) 72%)`;
+
+  const handleMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (reduce) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    px.set(e.clientX - r.left);
+    py.set(e.clientY - r.top);
+    glareOpacity.set(1);
+  };
 
   const spring = reduce
     ? { duration: 0 }
@@ -208,13 +237,36 @@ function FloatingNav() {
       {shown && (
         <motion.nav
           key="floating-nav"
+          ref={navRef}
+          onMouseMove={handleMove}
+          onMouseLeave={() => glareOpacity.set(0)}
           style={{ x: "-50%" }}
           initial={{ y: -72, opacity: 0, scale: 0.94 }}
           animate={{ y: 0, opacity: 1, scale: 1 }}
           exit={{ y: -72, opacity: 0, scale: 0.94 }}
           transition={spring}
-          className="fixed left-1/2 top-4 z-50 flex items-center gap-1 rounded-full bg-white/85 backdrop-blur-xl py-2 pl-2 pr-2 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
+          className={[
+            "fixed left-1/2 top-4 z-50 isolate flex items-center gap-1 overflow-hidden rounded-full p-2",
+            // 1 + 2 — the glass itself
+            "bg-white/40 backdrop-blur-2xl backdrop-saturate-[180%]",
+            // the rim, and the light caught inside the top and bottom edges
+            "ring-1 ring-white/60",
+            "shadow-[0_1px_1px_rgba(0,0,0,0.03),0_10px_28px_-14px_rgba(0,0,0,0.22),inset_0_1px_0_rgba(255,255,255,0.95),inset_0_-1px_0_rgba(0,0,0,0.05)]",
+          ].join(" ")}
         >
+          {/* 3 — refraction: light collects at the top, shadow pools at the base */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/70 via-white/5 to-black/[0.035]"
+          />
+
+          {/* 4 — specular highlight, trailing the pointer */}
+          <motion.div
+            aria-hidden
+            style={{ background: specular, opacity: so }}
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full"
+          />
+
           <motion.img
             src={PORTRAIT}
             alt="Kate Xu"
@@ -228,7 +280,7 @@ function FloatingNav() {
                 ? { duration: 0 }
                 : { type: "spring", stiffness: 520, damping: 26, delay: 0.06 }
             }
-            className="w-[34px] h-[34px] rounded-full object-cover select-none mr-2"
+            className="w-[34px] h-[34px] rounded-full object-cover select-none mr-2 shadow-[0_0_0_1px_rgba(255,255,255,0.65)]"
           />
 
           <Link
@@ -256,7 +308,7 @@ function FloatingNav() {
           <a
             href={`mailto:${EMAIL}`}
             onClick={() => track("v3_floating_nav", { href: "contact" })}
-            className="ml-2 rounded-full bg-[#111] px-5 py-2 text-[15px] font-medium text-white hover:bg-black transition-colors"
+            className="ml-2 rounded-full bg-[#111]/90 px-5 py-2 text-[15px] font-medium text-white backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] hover:bg-black transition-colors"
           >
             Contact
           </a>
