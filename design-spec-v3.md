@@ -89,12 +89,15 @@ in practice.
 
 ## Radius
 
-| Token | Value | Applies to |
-|---|---|---|
-| media | 20px | carousel slide wells |
-| card | 16px | workflow card |
-| pill | full | all buttons |
-| circle | full | carousel arrows (32×32) |
+**One value: 4px. On everything.** Media wells, action buttons, carousel arrows,
+the floating nav, the avatar inside it. No pills, no circles.
+
+The old set was 20px wells, full-round buttons, full-round arrows and a
+full-round nav — four different corner treatments, which reads as accumulated
+rather than decided. A single tight radius reads as intent.
+
+The one exception is the header portrait and the ionboard/BofA imagery, which
+have no radius at all — square, hard-cropped.
 
 ---
 
@@ -261,7 +264,7 @@ Horizontal scroll, snap-x mandatory, scrollbar hidden.
 slide gap        16px
 slide width      74% of container, capped at 1080px
 phone slide      340px fixed
-media well       radius 20, fill #f5f5f7, shadow as above
+media well       radius 4, fill #f5f5f7, shadow as above
 caption offset   28px below the well
 caption width    max 460px
 scroll step      76% of rail width, smooth
@@ -272,14 +275,14 @@ each project. Title runs inline in `#111` semibold, description follows in `#777
 
 ### Arrows
 
-48×48 circles, `#f5f5f7` → `#ebebef` on hover, glyphs `‹` `›` at 22px/600 `#3a3a3c`,
+48×48 squares at radius 4, `#f5f5f7` → `#ebebef` on hover, glyphs `‹` `›` at 22px/600 `#3a3a3c`,
 with their own softer shadow `0 2px 8px rgba(0,0,0,0.12)` — the only place that
 does not use the standard two-layer shadow. Right-aligned, 12px under the rail,
 8px apart. Hidden when a project has one slide.
 
 ### Action pills
 
-All 15px/500, `px-16 py-6`, full radius, 10px apart.
+All 15px/500, `px-16 py-6`, radius 4, 10px apart.
 
 | Pill | Fill | Text | Note |
 |---|---|---|---|
