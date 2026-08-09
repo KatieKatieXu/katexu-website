@@ -384,7 +384,13 @@ function Slide({
   );
 }
 
-function ProjectCarousel({ project }: { project: Project }) {
+function ProjectCarousel({
+  project,
+  first = false,
+}: {
+  project: Project;
+  first?: boolean;
+}) {
   const railRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
   const media = flattenMedia(project.images);
@@ -398,10 +404,18 @@ function ProjectCarousel({ project }: { project: Project }) {
 
   return (
     <section className="pt-2 pb-12 border-b border-[#f2f2f4] last:border-b-0">
-      {/* title only — the description rides under each slide, Apple-style */}
-      <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111] mb-4 pt-8">
-        {project.title}
-      </h2>
+      {/* Title row. Its width matches the first slide (74%, capped at 1080) so
+          the section label's last character lands on the demo's right edge. */}
+      <div className="flex w-[74%] max-w-[1080px] items-baseline justify-between mb-4 pt-8">
+        <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111]">
+          {project.title}
+        </h2>
+        {first && (
+          <p className="shrink-0 pl-6 text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888]">
+            Selected work @2026
+          </p>
+        )}
+      </div>
 
       {/* rail */}
       <div
@@ -527,8 +541,12 @@ export default function KatesWebsiteV3() {
         <div className="mx-auto w-full max-w-[1440px] px-10">
           <TopBar />
           <main>
-            {projects.map((project) => (
-              <ProjectCarousel key={project.key} project={project} />
+            {projects.map((project, i) => (
+              <ProjectCarousel
+                key={project.key}
+                project={project}
+                first={i === 0}
+              />
             ))}
           </main>
           <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">

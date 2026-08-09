@@ -182,6 +182,10 @@ No tagline, no card, no shadow, and no "More" link.
 padding-top      8px  (+32px on the h2)
 padding-bottom  48px
 divider         1px #f2f2f4, omitted on the last section
+title row       width 74%, max 1080px — same as slide 1, so the right-hand
+                label ends exactly on the demo image edge
+                left:  project title, 22px
+                right: "Selected work @2026", 15px label style, FIRST PROJECT ONLY
 title → rail    16px
 ```
 
