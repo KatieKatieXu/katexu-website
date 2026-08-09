@@ -285,8 +285,8 @@ All 15px/500, `px-16 py-6`, full radius (control), 10px apart.
 
 | Pill | Fill | Text | Note |
 |---|---|---|---|
-| Key decisions | `#111` | white | primary, leftmost; leading `+` in `#00bc7d` rotates 45° when open |
-| Full case study | none, 1px `#111` | `#111` | live on BofA Cloud → `/decks/bofa-cloud-v3.html`. Plain `<a target="_blank">`, NOT next/link — the deck is a static file in `public/`, so the router would 404 on it |
+| Key decisions | `#111` | white | primary, leftmost; leading `+` in WHITE (ink is invisible on ink) rotates 45° when open |
+| Full case study | none — Apple-style text link, no capsule | `#111` | trailing `›` chevron that nudges right on hover, underline on hover. Live on BofA Cloud → `/decks/bofa-cloud-v3.html`. Plain `<a target="_blank">`, NOT next/link — the deck is a static file in `public/` |
 | Try it live | `#f5f5f7` | `#555` | trailing `↗` |
 
 ### Decisions drawer

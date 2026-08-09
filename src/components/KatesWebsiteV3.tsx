@@ -514,7 +514,7 @@ function ProjectCarousel({
           className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[15px] font-medium hover:bg-black transition-colors"
         >
           <span
-            className="text-[15px] leading-none text-[#111111] transition-transform duration-300"
+            className="text-[15px] leading-none text-white transition-transform duration-300"
             style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
             aria-hidden
           >
@@ -530,9 +530,12 @@ function ProjectCarousel({
             onClick={() =>
               track("v3_case_study_clicked", { project: project.title })
             }
-            className="inline-flex items-center gap-1 rounded-full border border-[#111] text-[#111] px-4 py-1.5 text-[15px] font-medium hover:bg-[#f5f5f7] transition-colors"
+            className="group inline-flex items-center gap-1 text-[15px] font-medium text-[#111] hover:underline underline-offset-[3px] transition-colors"
           >
-            Full case study ↗
+            Full case study
+            <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">
+              ›
+            </span>
           </a>
         )}
         {project.liveUrl && (
