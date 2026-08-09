@@ -284,7 +284,7 @@ export default function HowIThinkPage() {
                 ].map((workflow, i) => (
                   <motion.div
                     key={i}
-                    className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.05),0_24px_48px_-24px_rgba(0,0,0,0.22)] transition-shadow duration-300"
+                    className="rounded-2xl bg-white p-6"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
