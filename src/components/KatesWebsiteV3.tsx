@@ -493,7 +493,7 @@ function Slide({
               the phone breaks its top and bottom edges — popped out, not framed */}
           <div
             aria-hidden
-            className="absolute left-1/2 top-1/2 h-[calc(var(--rail-h)-96px)] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
+            className="absolute inset-x-0 top-1/2 h-[calc(var(--rail-h)-96px)] -translate-y-1/2 rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
           />
           <div className="relative w-[260px] rounded-[44px] bg-[#3b3b3d] p-[9px] shadow-[inset_0_0_2px_rgba(255,255,255,0.35),0_2px_4px_rgba(0,0,0,0.18),0_24px_48px_-20px_rgba(0,0,0,0.4)]">
             {/* side buttons, drawn in the frame's own metal */}
