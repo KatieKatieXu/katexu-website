@@ -47,10 +47,10 @@ function track(event: string, props?: Record<string, unknown>) {
 //                  14px is the floor — nothing on the page renders smaller.
 // Weight and color carry the hierarchy that size used to. Do not add a fourth.
 //
-// Radius: ONE value, 4px, on everything — media wells, pills, arrows, the glass
-// nav, the avatar. No pills, no circles. Corners are a place the eye reads
-// intent, and a single tight radius reads as deliberate where a mix of 20px,
-// full-round and square reads as accumulated.
+// Radius follows one rule: SURFACES are sharp, CONTROLS are round.
+//   4px    things that hold content — media wells, the header portrait
+//   full   things you press — action buttons, carousel arrows, the glass nav
+// Two values, and which one applies is never a judgement call.
 //
 // Leading is a system too — one value per step, never ad hoc:
 //   display 1.0    a single line; extra leading is just dead box
@@ -267,7 +267,7 @@ function TopBar() {
 // as one object moving rather than two separate elements.
 // ───────────────────────────────────────────────────────────────────────────
 const pillLink =
-  "relative text-[15px] leading-[1.45] text-[#3a3a3c] hover:text-[#111] transition-colors px-2.5 py-1 rounded-[4px]";
+  "relative text-[15px] leading-[1.45] text-[#3a3a3c] hover:text-[#111] transition-colors px-2.5 py-1 rounded-full";
 
 // Liquid glass. Four layers stacked inside one pill, back to front:
 //   1. backdrop-filter   blurs + saturates whatever scrolls underneath
@@ -323,7 +323,7 @@ function FloatingNav() {
           exit={{ y: -72, opacity: 0, scale: 0.94 }}
           transition={spring}
           className={[
-            "fixed left-1/2 top-4 z-50 isolate flex items-center gap-1 overflow-hidden rounded-[4px] p-2",
+            "fixed left-1/2 top-4 z-50 isolate flex items-center gap-1 overflow-hidden rounded-full p-2",
             // 1 + 2 — the glass itself
             "bg-white/40 backdrop-blur-2xl backdrop-saturate-[180%]",
             // the rim, and the light caught inside the top and bottom edges
@@ -334,14 +334,14 @@ function FloatingNav() {
           {/* 3 — refraction: light collects at the top, shadow pools at the base */}
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 -z-10 rounded-[4px] bg-gradient-to-b from-white/70 via-white/5 to-black/[0.035]"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-gradient-to-b from-white/70 via-white/5 to-black/[0.035]"
           />
 
           {/* 4 — specular highlight, trailing the pointer */}
           <motion.div
             aria-hidden
             style={{ background: specular, opacity: so }}
-            className="pointer-events-none absolute inset-0 -z-10 rounded-[4px]"
+            className="pointer-events-none absolute inset-0 -z-10 rounded-full"
           />
 
           <motion.img
@@ -357,7 +357,7 @@ function FloatingNav() {
                 ? { duration: 0 }
                 : { type: "spring", stiffness: 520, damping: 26, delay: 0.06 }
             }
-            className="w-[34px] h-[34px] rounded-[4px] object-cover select-none mr-2 shadow-[0_0_0_1px_rgba(255,255,255,0.65)]"
+            className="w-[34px] h-[34px] rounded-full object-cover select-none mr-2 shadow-[0_0_0_1px_rgba(255,255,255,0.65)]"
           />
 
           <Link
@@ -385,7 +385,7 @@ function FloatingNav() {
           <a
             href={`mailto:${EMAIL}`}
             onClick={() => track("v3_floating_nav", { href: "contact" })}
-            className="ml-2 rounded-[4px] bg-[#111]/90 px-5 py-2 text-[15px] font-medium text-white backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] hover:bg-black transition-colors"
+            className="ml-2 rounded-full bg-[#111]/90 px-5 py-2 text-[15px] font-medium text-white backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] hover:bg-black transition-colors"
           >
             Contact
           </a>
@@ -511,7 +511,7 @@ function ProjectCarousel({
             });
           }}
           aria-expanded={open}
-          className="inline-flex items-center gap-1.5 rounded-[4px] bg-[#111] text-white px-4 py-1.5 text-[15px] font-medium hover:bg-black transition-colors"
+          className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[15px] font-medium hover:bg-black transition-colors"
         >
           <span
             className="text-[15px] leading-none text-[#00bc7d] transition-transform duration-300"
@@ -525,7 +525,7 @@ function ProjectCarousel({
         {project.caseStudyUrl && (
           <Link
             href={project.caseStudyUrl}
-            className="inline-flex items-center gap-1 rounded-[4px] border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[15px] font-medium hover:bg-[#e6f7f0] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[15px] font-medium hover:bg-[#e6f7f0] transition-colors"
           >
             Full case study →
           </Link>
@@ -535,7 +535,7 @@ function ProjectCarousel({
             href={project.liveUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-[4px] bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[15px] font-medium text-[#555] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[15px] font-medium text-[#555] transition-colors"
           >
             {project.liveLabel ?? "Try it live"} ↗
           </a>
@@ -601,14 +601,14 @@ function ProjectCarousel({
           <button
             onClick={() => scrollBy(-1)}
             aria-label={`Previous ${project.title} image`}
-            className="w-12 h-12 rounded-[4px] bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ‹
           </button>
           <button
             onClick={() => scrollBy(1)}
             aria-label={`Next ${project.title} image`}
-            className="w-12 h-12 rounded-[4px] bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ›
           </button>

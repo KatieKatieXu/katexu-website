@@ -89,14 +89,16 @@ in practice.
 
 ## Radius
 
-**One value: 4px. On everything.** Media wells, action buttons, carousel arrows,
-the floating nav, the avatar inside it. No pills, no circles.
+**Surfaces are sharp, controls are round.** Two values, and which one applies is
+never a judgement call.
 
-The old set was 20px wells, full-round buttons, full-round arrows and a
-full-round nav — four different corner treatments, which reads as accumulated
-rather than decided. A single tight radius reads as intent.
+| | Radius | What |
+|---|---|---|
+| **Surface** | 4px | carousel media wells, the header portrait |
+| **Control** | full | Key decisions / Full case study / Try it live, carousel arrows, the floating glass nav and everything inside it |
 
-No exceptions — the header portrait carries it too.
+Anything that holds content gets the sharp corner. Anything you press stays
+round. The rule is what keeps it from drifting back into a mix.
 
 ---
 
@@ -263,7 +265,7 @@ Horizontal scroll, snap-x mandatory, scrollbar hidden.
 slide gap        16px
 slide width      74% of container, capped at 1080px
 phone slide      340px fixed
-media well       radius 4, fill #f5f5f7, shadow as above
+media well       radius 4 (surface), fill #f5f5f7, shadow as above
 caption offset   28px below the well
 caption width    max 460px
 scroll step      76% of rail width, smooth
@@ -274,14 +276,14 @@ each project. Title runs inline in `#111` semibold, description follows in `#777
 
 ### Arrows
 
-48×48 squares at radius 4, `#f5f5f7` → `#ebebef` on hover, glyphs `‹` `›` at 22px/600 `#3a3a3c`,
+48×48 circles (control), `#f5f5f7` → `#ebebef` on hover, glyphs `‹` `›` at 22px/600 `#3a3a3c`,
 with their own softer shadow `0 2px 8px rgba(0,0,0,0.12)` — the only place that
 does not use the standard two-layer shadow. Right-aligned, 12px under the rail,
 8px apart. Hidden when a project has one slide.
 
 ### Action pills
 
-All 15px/500, `px-16 py-6`, radius 4, 10px apart.
+All 15px/500, `px-16 py-6`, full radius (control), 10px apart.
 
 | Pill | Fill | Text | Note |
 |---|---|---|---|
