@@ -224,20 +224,24 @@ export default function HowIThinkPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
-                In practice
-              </span>
-              <p className="mt-3 text-[14px] text-[#555] leading-relaxed max-w-lg">
-                These are workflows I&apos;ve built, tested, and refined — each shaped for a different kind of problem. They&apos;re always evolving.{" "}
-                <a
-                  href="mailto:katherinexu09@gmail.com"
-                  className="text-[#111111] hover:underline"
-                  onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow" })}
-                >
-                  Get in touch
-                </a>{" "}
-                if you&apos;d like to know more.
-              </p>
+              {/* the intro shares the cards' left edge, so the whole section
+                  reads as one block rather than an inset paragraph above it */}
+              <div className="lg:-ml-[120px]">
+                <span className="text-[14px] font-bold text-[#111111] tracking-[0.9px] uppercase">
+                  In practice
+                </span>
+                <p className="mt-3 text-[14px] text-[#555] leading-relaxed max-w-lg">
+                  These are workflows I&apos;ve built, tested, and refined — each shaped for a different kind of problem. They&apos;re always evolving.{" "}
+                  <a
+                    href="mailto:katherinexu09@gmail.com"
+                    className="text-[#111111] hover:underline"
+                    onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow" })}
+                  >
+                    Get in touch
+                  </a>{" "}
+                  if you&apos;d like to know more.
+                </p>
+              </div>
 
               <div className="mt-10 flex flex-col gap-8 lg:w-[calc(100%+240px)] lg:-ml-[120px]">
                 {[
