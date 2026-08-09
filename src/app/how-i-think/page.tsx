@@ -239,7 +239,7 @@ export default function HowIThinkPage() {
                 if you&apos;d like to know more.
               </p>
 
-              <div className="mt-10 flex flex-col gap-6 lg:w-[calc(100%+240px)] lg:-ml-[120px]">
+              <div className="mt-10 flex flex-col gap-8 lg:w-[calc(100%+240px)] lg:-ml-[120px]">
                 {[
                   {
                     purpose: "Redesign an existing product",
@@ -284,7 +284,7 @@ export default function HowIThinkPage() {
                 ].map((workflow, i) => (
                   <motion.div
                     key={i}
-                    className="rounded-2xl bg-white p-6"
+                    className="rounded-2xl bg-white px-8 py-10"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
@@ -293,7 +293,7 @@ export default function HowIThinkPage() {
                       {workflow.purpose}
                     </span>
 
-                    <div className="mt-4 flex flex-wrap items-center gap-y-3 gap-x-2">
+                    <div className="mt-6 flex flex-wrap items-center gap-y-3 gap-x-2">
                       {workflow.steps.map((step, j) => (
                         <div key={j} className="flex items-center gap-2">
                           <span className="text-[14px] font-medium text-[#333] bg-[#f4f1eb] px-3 py-1.5 rounded-full">
@@ -308,7 +308,7 @@ export default function HowIThinkPage() {
                       ))}
                     </div>
                     {workflow.detail && (
-                      <p className="mt-4 pt-4 border-t border-[#f0ece4] text-[14px] text-[#555] leading-relaxed">
+                      <p className="mt-7 pt-7 border-t border-[#f0ece4] text-[14px] text-[#555] leading-relaxed">
                         {workflow.detail}
                       </p>
                     )}
