@@ -164,7 +164,7 @@ trim-both cap alphabetic` becomes safe to rely on, that replaces this.
 ### Row 3 — workflow
 
 ```
-rule -> workflow  180px
+rule -> workflow  250px
 block width      348px
   label           15px / 600 / uppercase / 0.9px tracking / #888
   label -> items  13px
