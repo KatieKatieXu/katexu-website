@@ -37,12 +37,10 @@ is **1360px**.
 | hairline | `#f2f2f4` | section divider |
 | hairline-footer | `#f0f0f0` | footer top border |
 | underline | `#d8d8d8` | nav link underline, resting |
-| accent | `#00bc7d` | the `+` glyph, case-study pill border |
-| accent-deep | `#00915f` | case-study pill text |
-| accent-wash | `#e6f7f0` | case-study pill hover |
+| accent | `#00bc7d` | the `+` glyph on Key decisions — the only colour left on the page |
 
-Accent is used sparingly and deliberately — one glyph and one outline. It is not a
-fill color anywhere.
+The case-study pill is ink now: 1px `#111` border, `#111` text, `#f5f5f7` hover.
+Accent survives in exactly one 15px glyph.
 
 ---
 
@@ -288,7 +286,7 @@ All 15px/500, `px-16 py-6`, full radius (control), 10px apart.
 | Pill | Fill | Text | Note |
 |---|---|---|---|
 | Key decisions | `#111` | white | primary, leftmost; leading `+` in `#00bc7d` rotates 45° when open |
-| Full case study | none, 1px `#00bc7d` | `#00915f` | live on BofA Cloud → `/decks/bofa-cloud-v3.html`. Plain `<a target="_blank">`, NOT next/link — the deck is a static file in `public/`, so the router would 404 on it |
+| Full case study | none, 1px `#111` | `#111` | live on BofA Cloud → `/decks/bofa-cloud-v3.html`. Plain `<a target="_blank">`, NOT next/link — the deck is a static file in `public/`, so the router would 404 on it |
 | Try it live | `#f5f5f7` | `#555` | trailing `↗` |
 
 ### Decisions drawer

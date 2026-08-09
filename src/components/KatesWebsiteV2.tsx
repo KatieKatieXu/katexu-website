@@ -520,7 +520,7 @@ export function ProjectBlock({ project }: { project: Project }) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => track("v2_case_study_clicked", { project: project.title })}
-            className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[12px] font-medium hover:bg-[#e6f7f0] transition-colors"
+            className="inline-flex items-center gap-1 rounded-full border border-[#111] text-[#111] px-4 py-1.5 text-[12px] font-medium hover:bg-[#f5f5f7] transition-colors"
           >
             Full case study
             <span aria-hidden className="translate-y-[-1px]">↗</span>
