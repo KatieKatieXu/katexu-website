@@ -96,8 +96,7 @@ The old set was 20px wells, full-round buttons, full-round arrows and a
 full-round nav — four different corner treatments, which reads as accumulated
 rather than decided. A single tight radius reads as intent.
 
-The one exception is the header portrait and the ionboard/BofA imagery, which
-have no radius at all — square, hard-cropped.
+No exceptions — the header portrait carries it too.
 
 ---
 
@@ -149,7 +148,7 @@ right block items-stretch, 13px gap to the photo, right-aligned,
             justify-between over the photo height
   "Based in the U.S."                    15px  #111  top
   "8+ yrs - Product Designer & Builder"  15px  #111  bottom
-photo       136 x 136, object-cover, square, no radius, flush to the right edge
+photo       136 x 136, object-cover, radius 4, flush to the right edge
 ```
 
 ### Optical alignment — the whole point of this header

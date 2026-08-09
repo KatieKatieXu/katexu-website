@@ -191,7 +191,7 @@ function TopBar() {
             height={136}
             draggable={false}
             style={{ scale: photoScale, opacity: photoOpacity, originX: 1, originY: 1 }}
-            className="w-[136px] h-[136px] object-cover select-none"
+            className="w-[136px] h-[136px] rounded-[4px] object-cover select-none"
           />
         </div>
       </div>
