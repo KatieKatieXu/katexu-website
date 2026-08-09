@@ -136,7 +136,7 @@ export default function HowIThinkPage() {
                   <img
                     src="/ucsd-design-competition-2018.jpg"
                     alt="Kate Xu in conversation with Don Norman at the UCSD design competition"
-                    className="w-full h-auto rounded-2xl border border-[#e8e4db]"
+                    className="w-full h-auto rounded-2xl shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
                   />
                   <figcaption className="mt-2 text-center text-[11px] text-[#999] italic">
                     2018 at UCSD design competition, with Don Norman
@@ -167,7 +167,7 @@ export default function HowIThinkPage() {
                   {papers.map((paper, i) => (
                     <motion.article
                       key={i}
-                      className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#111111]/40 transition-colors"
+                      className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.05),0_24px_48px_-24px_rgba(0,0,0,0.22)] transition-shadow duration-300"
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
@@ -284,7 +284,7 @@ export default function HowIThinkPage() {
                 ].map((workflow, i) => (
                   <motion.div
                     key={i}
-                    className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#111111]/40 transition-colors"
+                    className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)] hover:shadow-[0_1px_2px_rgba(0,0,0,0.05),0_24px_48px_-24px_rgba(0,0,0,0.22)] transition-shadow duration-300"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
@@ -296,7 +296,7 @@ export default function HowIThinkPage() {
                     <div className="mt-4 flex flex-wrap items-center gap-y-3 gap-x-2">
                       {workflow.steps.map((step, j) => (
                         <div key={j} className="flex items-center gap-2">
-                          <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] border border-[#e8e4db] px-3 py-1.5 rounded-full">
+                          <span className="text-[12px] font-medium text-[#333] bg-[#f4f1eb] px-3 py-1.5 rounded-full">
                             {step}
                           </span>
                           {j < workflow.steps.length - 1 && (
@@ -341,10 +341,10 @@ export default function HowIThinkPage() {
                   ].map((fake, i) => (
                     <div
                       key={i}
-                      className="rounded-2xl border border-[#e8e4db] bg-white p-6 shadow-sm"
+                      className="rounded-2xl bg-white p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
                     >
                       <div className="flex items-center gap-3 mb-5">
-                        <span className="w-7 h-7 rounded-full bg-[#f0fdf8] border border-[#111111]/30 flex items-center justify-center text-[10px] font-bold text-[#111111]">
+                        <span className="w-7 h-7 rounded-full bg-[#f0ece4] flex items-center justify-center text-[10px] font-bold text-[#111111]">
                           {String(i + 4).padStart(2, "0")}
                         </span>
                         <span className="text-[11px] font-bold text-[#111111] tracking-[2px] uppercase">
@@ -354,7 +354,7 @@ export default function HowIThinkPage() {
                       <div className="flex flex-wrap items-center gap-y-3 gap-x-2">
                         {fake.steps.map((step, j) => (
                           <div key={j} className="flex items-center gap-2">
-                            <span className="text-[12px] font-medium text-[#333] bg-[#f7f5f0] border border-[#e8e4db] px-3 py-1.5 rounded-full shadow-sm">
+                            <span className="text-[12px] font-medium text-[#333] bg-[#f7f5f0] px-3 py-1.5 rounded-full">
                               {step}
                             </span>
                             {j < fake.steps.length - 1 && (
