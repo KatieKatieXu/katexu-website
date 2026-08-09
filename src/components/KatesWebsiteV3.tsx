@@ -572,6 +572,16 @@ function ProjectCarousel({
           </span>
           {open ? "Hide key decisions" : "Key decisions"}
         </button>
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[15px] font-medium text-[#555] transition-colors"
+          >
+            {project.liveLabel ?? "Try it live"} ↗
+          </a>
+        )}
         {project.caseStudyUrl && (
           <a
             href={project.caseStudyUrl}
@@ -586,16 +596,6 @@ function ProjectCarousel({
             <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">
               ›
             </span>
-          </a>
-        )}
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full bg-[#f5f5f7] hover:bg-[#ebebef] px-4 py-1.5 text-[15px] font-medium text-[#555] transition-colors"
-          >
-            {project.liveLabel ?? "Try it live"} ↗
           </a>
         )}
           </div>

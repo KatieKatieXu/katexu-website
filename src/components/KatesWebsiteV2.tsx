@@ -92,7 +92,7 @@ export const projects: Project[] = [
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
-    images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
+    images: ["/bofa-cloud-demo.jpg", "/bofa-cloud-components.jpg"],
     reflection: [
       {
         title: "Nothing to cut → Pre-approval Tickets",
@@ -514,18 +514,6 @@ export function ProjectBlock({ project }: { project: Project }) {
           </span>
           {open ? "Hide key decisions" : "Key decisions"}
         </button>
-        {project.caseStudyUrl && (
-          <a
-            href={project.caseStudyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => track("v2_case_study_clicked", { project: project.title })}
-            className="group inline-flex items-center gap-1 text-[12px] font-medium text-[#111] hover:underline underline-offset-[3px] transition-colors"
-          >
-            Full case study
-            <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">›</span>
-          </a>
-        )}
         {project.liveUrl && (
           <a
             href={project.liveUrl}
@@ -538,6 +526,18 @@ export function ProjectBlock({ project }: { project: Project }) {
             <span aria-hidden className="text-[0.9em] translate-y-[-1px]">
               ↗
             </span>
+          </a>
+        )}
+        {project.caseStudyUrl && (
+          <a
+            href={project.caseStudyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => track("v2_case_study_clicked", { project: project.title })}
+            className="group inline-flex items-center gap-1 text-[12px] font-medium text-[#111] hover:underline underline-offset-[3px] transition-colors"
+          >
+            Full case study
+            <span aria-hidden className="transition-transform duration-200 group-hover:translate-x-0.5">›</span>
           </a>
         )}
       </div>
