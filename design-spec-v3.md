@@ -250,8 +250,8 @@ right        © Kate Xu 2026, 13px #aaa
 
 ## Project order
 
-1. Jobpilot
-2. BofA Cloud
+1. BofA Cloud
+2. Jobpilot
 3. PawPaw Story
 4. ionboard
 5. WorkIT

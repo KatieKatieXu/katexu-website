@@ -87,6 +87,26 @@ interface AppStore {
 
 export const projects: Project[] = [
   {
+    key: "bofa-cloud",
+    // caseStudyUrl: "/decks/bofa-cloud-case-study.html", // hidden until case studies are ready
+    title: "BofA Cloud",
+    description:
+      "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
+    images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
+    reflection: [
+      {
+        title: "Nothing to cut → Pre-approval Tickets",
+        body: "The resource-ordering wizard was long, and my tracking showed it was driving drop-off and support tickets. Using a standing 15-minute UX slot I'd carved out in the engineering standup, I pushed to cut steps — and lost that argument: engineering and the PM were right that every field was a required technical input, and cramming them onto one screen was worse. So I kept the goal (convenience) and dropped my fix, noticing that repeat orders ask the identical setup every time. Reusing that setup for frequent orders became this feature — our monthly build-success rate rose 23% and average ordering time fell 32%, all without dropping a single necessary step.",
+      },
+      {
+        title: "Grid of tiles → Comparison View",
+        body: "This came in as a vague mandate — a PM asking, on behalf of stakeholders, to “show more details on each machine” in the ordering flow, where users pick an OS image from a grid of logos. Instead of building the relayed request, I traced it to the source and pressed on what “details” even meant — price, provisioning time, specs? “All of it,” so I contacted a few of those stakeholders together with the PM and narrowed it to what actually drives the choice: cost, availability-zone capacity, and whether DMZ is enabled. That told me the real problem wasn't the tile at all — users couldn't decide which machine to pick, and no tile could hold enough to compare. So rather than decorate the grid, I designed this comparison view — specs as rows, machines as columns — to choose side by side. It added ~3% to the flow time, but order completion rose 6%: people finished because they could finally decide with confidence instead of abandoning.",
+      },
+    ],
+    collaborators:
+      "A 35-person platform org — product managers, cloud engineers, and the BofA design-system group.",
+  },
+  {
     key: "jobpilot",
     // caseStudyUrl: "/projects/jobpilot", // hidden until case studies are ready
     title: "Jobpilot",
@@ -109,26 +129,6 @@ export const projects: Project[] = [
       },
     ],
     collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
-  },
-  {
-    key: "bofa-cloud",
-    // caseStudyUrl: "/decks/bofa-cloud-case-study.html", // hidden until case studies are ready
-    title: "BofA Cloud",
-    description:
-      "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
-    images: ["/bofa-cloud-hero.png", "/bofa-cloud-components.jpg"],
-    reflection: [
-      {
-        title: "Nothing to cut → Pre-approval Tickets",
-        body: "The resource-ordering wizard was long, and my tracking showed it was driving drop-off and support tickets. Using a standing 15-minute UX slot I'd carved out in the engineering standup, I pushed to cut steps — and lost that argument: engineering and the PM were right that every field was a required technical input, and cramming them onto one screen was worse. So I kept the goal (convenience) and dropped my fix, noticing that repeat orders ask the identical setup every time. Reusing that setup for frequent orders became this feature — our monthly build-success rate rose 23% and average ordering time fell 32%, all without dropping a single necessary step.",
-      },
-      {
-        title: "Grid of tiles → Comparison View",
-        body: "This came in as a vague mandate — a PM asking, on behalf of stakeholders, to “show more details on each machine” in the ordering flow, where users pick an OS image from a grid of logos. Instead of building the relayed request, I traced it to the source and pressed on what “details” even meant — price, provisioning time, specs? “All of it,” so I contacted a few of those stakeholders together with the PM and narrowed it to what actually drives the choice: cost, availability-zone capacity, and whether DMZ is enabled. That told me the real problem wasn't the tile at all — users couldn't decide which machine to pick, and no tile could hold enough to compare. So rather than decorate the grid, I designed this comparison view — specs as rows, machines as columns — to choose side by side. It added ~3% to the flow time, but order completion rose 6%: people finished because they could finally decide with confidence instead of abandoning.",
-      },
-    ],
-    collaborators:
-      "A 35-person platform org — product managers, cloud engineers, and the BofA design-system group.",
   },
   {
     key: "pawpaw-story",
