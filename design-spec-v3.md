@@ -242,11 +242,14 @@ padding-top      8px on the FIRST section, 80px on every one after
                  (+32px on the h2)
 padding-bottom  48px
 divider         1px #f2f2f4, omitted on the last section
-title row       full column width, items-start
-                left:  project title, 22px
+title row       full column width, items-center
+                left:  project title (22px) + the action pills, 16px apart —
+                       they read as one unit
                 right: "Selected work @ 2026" — pinned to the far right edge,
                        FIRST PROJECT ONLY. Two-tone, same idea as the slide
                        caption: "Selected work" bold #111, " @ 2026" regular #777
+decisions       expand directly under the title row, ABOVE the media, so the
+                trigger and its content are adjacent
 title → rail    16px
 ```
 
@@ -287,8 +290,9 @@ All 15px/500, `px-16 py-6`, full radius, 10px apart.
 ### Decisions drawer
 
 Collapsed by default. Expands height `0 → auto` with opacity, **320ms**, easing
-`cubic-bezier(0.16, 1, 0.3, 1)`. Three decisions per project, 16px apart, 20px top
-padding, 760px max width, collaborators line last.
+`cubic-bezier(0.16, 1, 0.3, 1)`. Sits between the title row and the media, with
+24px bottom padding. Three decisions per project, 16px apart, 760px max width,
+collaborators line last.
 
 ---
 

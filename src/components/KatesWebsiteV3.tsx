@@ -489,59 +489,14 @@ function ProjectCarousel({
           quieter regular tail. */}
       <motion.div
         variants={titleReveal}
-        className="flex w-full items-start justify-between mb-4 pt-8"
+        className="flex w-full items-center justify-between gap-6 mb-4 pt-8"
       >
-        <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111]">
-          {project.title}
-        </h2>
-        {first && (
-          <p className="shrink-0 pl-6 text-[15px] leading-[1.45] text-[#777]">
-            <span className="font-bold text-[#111]">Selected work</span> @ 2026
-          </p>
-        )}
-      </motion.div>
-
-      {/* rail — slides arrive left to right */}
-      <motion.div
-        ref={railRef}
-        variants={railReveal}
-        className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-1"
-      >
-        {media.map((m, i) => (
-          <Slide
-            key={m.src}
-            media={m}
-            title={project.title}
-            caption={i === 0 ? project.description : undefined}
-          />
-        ))}
-      </motion.div>
-
-      {/* controls under the rail, right-aligned */}
-      {media.length > 1 && (
-        <div className="mt-3 flex items-center justify-end gap-2">
-          <button
-            onClick={() => scrollBy(-1)}
-            aria-label={`Previous ${project.title} image`}
-            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
-          >
-            ‹
-          </button>
-          <button
-            onClick={() => scrollBy(1)}
-            aria-label={`Next ${project.title} image`}
-            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
-          >
-            ›
-          </button>
-        </div>
-      )}
-
-      {/* actions */}
-      <motion.div
-        variants={titleReveal}
-        className="mt-4 flex flex-wrap items-center gap-2.5"
-      >
+        {/* the title and its actions read as one unit */}
+        <div className="flex min-w-0 flex-wrap items-center gap-4">
+          <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111]">
+            {project.title}
+          </h2>
+          <div className="flex flex-wrap items-center gap-2.5">
         <button
           onClick={() => {
             setOpen((v) => !v);
@@ -580,9 +535,16 @@ function ProjectCarousel({
             {project.liveLabel ?? "Try it live"} ↗
           </a>
         )}
+          </div>
+        </div>
+        {first && (
+          <p className="shrink-0 text-[15px] leading-[1.45] text-[#777]">
+            <span className="font-bold text-[#111]">Selected work</span> @ 2026
+          </p>
+        )}
       </motion.div>
 
-      {/* decisions */}
+      {/* decisions expand directly under their trigger, above the media */}
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
@@ -593,7 +555,7 @@ function ProjectCarousel({
             transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="pt-5 flex flex-col gap-4 max-w-[760px]">
+            <div className="pb-6 flex flex-col gap-4 max-w-[760px]">
               {project.reflection.map((d) => (
                 <div key={d.title}>
                   <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
@@ -611,6 +573,43 @@ function ProjectCarousel({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* rail — slides arrive left to right */}
+      <motion.div
+        ref={railRef}
+        variants={railReveal}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-1"
+      >
+        {media.map((m, i) => (
+          <Slide
+            key={m.src}
+            media={m}
+            title={project.title}
+            caption={i === 0 ? project.description : undefined}
+          />
+        ))}
+      </motion.div>
+
+      {/* controls under the rail, right-aligned */}
+      {media.length > 1 && (
+        <div className="mt-3 flex items-center justify-end gap-2">
+          <button
+            onClick={() => scrollBy(-1)}
+            aria-label={`Previous ${project.title} image`}
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+          >
+            ‹
+          </button>
+          <button
+            onClick={() => scrollBy(1)}
+            aria-label={`Next ${project.title} image`}
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+          >
+            ›
+          </button>
+        </div>
+      )}
+
     </motion.section>
   );
 }
