@@ -453,38 +453,56 @@ function Slide({
   caption?: string;
 }) {
   const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
+
+  const mediaEl = isVideo ? (
+    <video
+      src={media.src}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+      aria-label={title}
+      onEnded={(e) => {
+        e.currentTarget.currentTime = 0;
+        void e.currentTarget.play();
+      }}
+      className="w-full h-auto block"
+    />
+  ) : (
+    <img src={media.src} alt={title} loading="lazy" className="w-full h-auto block" />
+  );
+
   return (
     <motion.figure
       variants={slideReveal}
       className={`snap-start shrink-0 m-0 ${
-        media.phone ? "w-[340px]" : "w-[74%] max-w-[1080px]"
+        media.phone ? "w-full max-w-[1080px]" : "w-[74%] max-w-[1080px]"
       }`}
     >
-      <div className="overflow-hidden rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
-        {isVideo ? (
-          <video
-            src={media.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label={title}
-            onEnded={(e) => {
-              e.currentTarget.currentTime = 0;
-              void e.currentTarget.play();
-            }}
-            className="w-full h-auto block"
-          />
-        ) : (
-          <img
-            src={media.src}
-            alt={title}
-            loading="lazy"
-            className="w-full h-auto block"
-          />
-        )}
-      </div>
+      {media.phone ? (
+        /* Phone slides: the screen recording sits inside a device frame — a
+           dark titanium body with a bezel and Dynamic Island — centred in the
+           same grey well every other slide uses, so the rail keeps one width. */
+        <div className="flex items-center justify-center rounded-[4px] bg-[#f5f5f7] py-14 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
+          <div className="relative w-[320px] rounded-[54px] bg-[#3b3b3d] p-[11px] shadow-[inset_0_0_2px_rgba(255,255,255,0.35),0_2px_4px_rgba(0,0,0,0.18),0_24px_48px_-20px_rgba(0,0,0,0.4)]">
+            {/* side buttons, drawn in the frame's own metal */}
+            <div aria-hidden className="absolute -left-[2px] top-[104px] h-[26px] w-[3px] rounded-l bg-[#2e2e30]" />
+            <div aria-hidden className="absolute -left-[2px] top-[146px] h-[48px] w-[3px] rounded-l bg-[#2e2e30]" />
+            <div aria-hidden className="absolute -left-[2px] top-[204px] h-[48px] w-[3px] rounded-l bg-[#2e2e30]" />
+            <div aria-hidden className="absolute -right-[2px] top-[160px] h-[72px] w-[3px] rounded-r bg-[#2e2e30]" />
+            <div className="relative overflow-hidden rounded-[43px] bg-black">
+              {/* Dynamic Island */}
+              <div aria-hidden className="absolute left-1/2 top-[12px] z-10 h-[24px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
+              {mediaEl}
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="overflow-hidden rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
+          {mediaEl}
+        </div>
+      )}
       {caption && (
         <figcaption className="mt-7 text-[14px] leading-[1.6] text-[#777] max-w-[460px]">
           <span className="font-semibold text-[#111]">{title}</span> {caption}
