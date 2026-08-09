@@ -243,7 +243,7 @@ padding-top      8px on the FIRST section, 80px on every one after
                  (the first stays tight so the workflow block does not float)
                  (+32px on the h2)
 padding-bottom  48px
-divider         1px #f2f2f4, omitted on the last section
+divider         none — whitespace alone separates projects
 title row       full column width, items-center
                 left:  project title (22px) + the action pills, 16px apart —
                        they read as one unit

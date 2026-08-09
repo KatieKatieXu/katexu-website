@@ -553,7 +553,7 @@ function ProjectCarousel({
       whileInView="show"
       viewport={{ once: true, amount: 0.2 }}
       variants={sectionReveal}
-      className={`${first ? "pt-2" : "pt-20"} pb-12 border-b border-[#f2f2f4] last:border-b-0`}
+      className={`${first ? "pt-2" : "pt-20"} pb-12`}
     >
       {/* Title row spans the full column: title left, section label pinned to
           the far right edge, top-aligned (Figma 42:237 / 44:277). The label uses
