@@ -15,21 +15,23 @@
    THEME — "Clean Data" blue/white (Stratify-style reference)
    ========================================================= */
 :root {
-  /* Infrastructure dark — blueprint grid, product blue accent */
-  --ink-bg:#0B0E14;            /* deck canvas */
-  --panel:#111725;             /* raised surface */
-  --panel-2:#0E1420;           /* recessed surface */
-  --grid:rgba(90,120,160,0.09);/* blueprint lines */
-  --ink:#E9EEF7;               /* primary text */
-  --ink-soft:#9AAAC4;          /* secondary text */
-  --ink-faint:#61708C;         /* captions, labels */
-  --blue:#2F6BFF;              /* product blue — the single accent */
-  --blue-lit:#6E9BFF;          /* lifted blue for text on dark */
-  --blue-deep:#1B4FD8;
-  --blue-mist:rgba(47,107,255,0.14);
-  --line:rgba(255,255,255,0.10);
-  --line-strong:rgba(255,255,255,0.18);
-  --red:#FF6B5E;
+  /* Infrastructure day — blueprint grid on paper, product blue accent.
+     Every text token below clears WCAG AA on its intended surface:
+     ink 15.9:1 · ink-soft 5.6:1 · ink-faint 4.6:1 · blue 4.8:1 (on paper). */
+  --ink-bg:#F7F9FC;            /* deck canvas — paper, not pure white */
+  --panel:#FFFFFF;             /* raised surface */
+  --panel-2:#EEF2F8;           /* recessed surface */
+  --grid:rgba(47,84,140,0.07); /* blueprint lines */
+  --ink:#0E1626;               /* primary text        15.9:1 on canvas */
+  --ink-soft:#4A5C77;          /* secondary text       5.6:1 on canvas */
+  --ink-faint:#5B6B82;         /* captions, labels     4.6:1 on canvas */
+  --blue:#1D53D9;              /* product blue         4.8:1 on canvas */
+  --blue-lit:#1642B8;          /* blue text on tinted fills */
+  --blue-deep:#12379A;
+  --blue-mist:rgba(29,83,217,0.10);
+  --line:rgba(14,22,38,0.12);
+  --line-strong:rgba(14,22,38,0.22);
+  --red:#C2352A;               /* 5.3:1 on canvas */
   --paper:var(--ink-bg); --card:var(--panel); --navy:var(--ink-bg); --navy-card:var(--panel);
   --blue-soft:var(--blue-mist);
   --font:'Switzer',-apple-system,sans-serif;
@@ -38,7 +40,7 @@
   --kicker: 22px; --title: 68px; --big: 118px; --subtitle: 36px; --body: 27px; --small: 21px;
   --pad-x: 140px; --pad-top: 88px; --pad-bottom: 80px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --stage-bg: #05070C; --slide-bg: var(--ink-bg);
+  --stage-bg: #E4E9F1; --slide-bg: var(--ink-bg);
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -68,17 +70,17 @@ body { font-family: var(--font); color: var(--ink); -webkit-font-smoothing: anti
 .slide { padding: var(--pad-top) var(--pad-x) var(--pad-bottom); display: flex; flex-direction: column; }
 .slide.dark {
   background:
-    radial-gradient(1000px 700px at 20% 80%, rgba(47,107,255,0.16) 0%, rgba(47,107,255,0) 60%),
+    radial-gradient(1000px 700px at 20% 80%, rgba(29,83,217,0.09) 0%, rgba(29,83,217,0) 60%),
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px),
-    #070A11;
+    #EDF1F8;
   background-size: auto, 52px 52px, 52px 52px, auto;
 }
 
 .kicker { font-family: var(--mono); font-size: 17px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--blue-lit); margin-bottom: 26px; align-self: flex-start; border-bottom: none; padding-bottom: 0; }
 .kicker::before { content: "/ "; color: var(--ink-faint); }
-.dark .kicker { color: var(--panel); border-color: var(--blue); }
+.dark .kicker { color: var(--blue-lit); border-color: var(--blue); }
 h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 44px; }
 .lead { font-size: var(--body); color: var(--ink-soft); line-height: 1.5; max-width: 1420px; }
 .dark .lead { color: var(--ink-soft); }
@@ -167,28 +169,28 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
 /* dark slides: deep navy with a blue bloom, like the reference's closing slide */
 .slide.dark {
   background:
-    radial-gradient(900px 640px at 18% 78%, #16345F 0%, rgba(22,52,95,0) 62%),
-    radial-gradient(760px 560px at 86% 12%, #12294C 0%, rgba(18,41,76,0) 58%),
-    #0A1526;
+    radial-gradient(900px 640px at 18% 78%, #DCE6F7 0%, rgba(220,230,247,0) 62%),
+    radial-gradient(760px 560px at 86% 12%, #E2E9F6 0%, rgba(226,233,246,0) 58%),
+    #EDF1F8;
 }
 
 
 /* ticket status pills — four states */
-.st.pend  { background:rgba(255,199,58,0.16); color:#FFC73A; }   /* pending  · amber */
-.st.sub   { background:var(--blue-mist); color:var(--blue-lit); }   /* submitted · blue */
-.st.deling{ background:rgba(255,107,94,0.16); color:var(--red); }   /* deleting · warm red */
-.st.deled { background:rgba(255,255,255,0.07); color:var(--ink-faint); }   /* deleted  · grey */
-.st.appr  { background:rgba(46,213,115,0.15); color:#3FDD8A; }   /* approved · green */
+.st.pend  { background:#FFF3D6; color:#7A5200; }   /* pending  · amber  5.9:1 */
+.st.sub   { background:#E4EBFB; color:#1642B8; }   /* submitted · blue  6.6:1 */
+.st.deling{ background:#FCE7E4; color:#A32B21; }   /* deleting · red    6.2:1 */
+.st.deled { background:#E9EDF3; color:#4A5C77; }   /* deleted  · grey   5.2:1 */
+.st.appr  { background:#DDF3E6; color:#146B3F; }   /* approved · green  5.4:1 */
 
 
 /* row actions — pill buttons, consistent width so every row aligns */
 .act { display:inline-flex; align-items:center; justify-content:center; gap:7px; height:38px; padding:0 16px;
   border-radius:10px; font-size:16px; font-weight:600; white-space:nowrap; }
 .act svg { width:16px; height:16px; }
-.act-approve { background:var(--blue); color:var(--panel); box-shadow:0 8px 18px -8px rgba(47,107,255,0.9); }
-.act-reject  { background:transparent; color:var(--red); border:1.5px solid rgba(255,107,94,0.45); }
-.act-delete  { background:transparent; color:var(--red); border:1.5px solid rgba(255,107,94,0.45); }
-.act-ghost   { background:rgba(255,255,255,0.05); color:var(--ink-faint); border:1.5px solid transparent; }
+.act-approve { background:var(--blue); color:#FFFFFF; box-shadow:0 8px 18px -8px rgba(29,83,217,0.55); }
+.act-reject  { background:transparent; color:var(--red); border:1.5px solid rgba(194,53,42,0.40); }
+.act-delete  { background:transparent; color:var(--red); border:1.5px solid rgba(194,53,42,0.40); }
+.act-ghost   { background:#EEF2F8; color:#4A5C77; border:1.5px solid transparent; }
 .act-cell    { display:flex; gap:8px; justify-content:flex-end; align-items:center; min-width:220px; }
 
 
@@ -238,8 +240,8 @@ h2.t { font-size: var(--title); font-weight: 700; letter-spacing: -0.03em; line-
    4. mono carries every label; sans carries every statement            */
 h2.t { font-weight: 250; letter-spacing: -0.03em; }
 .slide h1 { font-weight: 200; letter-spacing: -0.035em; }
-.st.pend  { background:rgba(255,255,255,0.07); color:var(--ink-soft); }   /* amber retired */
-.st.deling{ background:rgba(255,255,255,0.07); color:var(--ink-soft); }   /* coral retired */
+.st.pend  { background:#E9EDF3; color:#4A5C77; }   /* amber retired */
+.st.deling{ background:#E9EDF3; color:#4A5C77; }   /* coral retired */
 .st.appr  { background:var(--blue-mist); color:var(--blue-lit); }         /* green retired */
 .st.sub   { background:var(--blue-mist); color:var(--blue-lit); }
 .act-reject, .act-delete { color:var(--ink-soft); border-color:var(--line-strong); }
@@ -252,8 +254,8 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
 
 /* page selector — dot rail with hover labels */
 .dot-rail { position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 1001; display: flex; gap: 8px; align-items: center; padding: 8px 14px; background: rgba(255,255,255,0.07); border-radius: 999px; backdrop-filter: blur(8px); }
-.dot { position: relative; width: 9px; height: 9px; border-radius: 999px; background: rgba(255,255,255,0.35); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease, width 0.25s var(--ease); }
-.dot:hover { background: rgba(255,255,255,0.7); }
+.dot { position: relative; width: 9px; height: 9px; border-radius: 999px; background: rgba(14,22,38,0.28); border: none; cursor: pointer; padding: 0; transition: background 0.2s ease, width 0.25s var(--ease); }
+.dot:hover { background: rgba(14,22,38,0.6); }
 .dot.on { width: 26px; background: var(--blue); }
 .dot .tip { position: absolute; bottom: 22px; left: 50%; transform: translateX(-50%) translateY(4px); background: #0B1526; color: var(--panel); font-family: var(--font); font-size: 13px; font-weight: 500; white-space: nowrap; padding: 6px 12px; border-radius: 8px; opacity: 0; pointer-events: none; transition: opacity 0.15s ease, transform 0.2s var(--ease); }
 .dot:hover .tip { opacity: 1; transform: translateX(-50%) translateY(0); }
@@ -267,7 +269,7 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
 .wf-row .nm { font-weight: 600; color: var(--ink); }
 .wf-row .mut { color: var(--ink-faint); }
 .st { font-size: 17px; font-weight: 600; border-radius: 999px; padding: 6px 14px; text-align: center; }
-.st.pend { background: #FFF3D6; color: #8A5F00; }
+.st.pend { background: #FFF3D6; color: #7A5200; }
 .st.sub  { background: var(--blue-mist); color: var(--blue-deep); }
 .st.appr { background: #DCF5E4; color: #106B36; }
 .st.del  { background: #FDE3E3; color: #A32D2D; }
@@ -554,8 +556,8 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
         <span class="chip">PM</span>
       </div>
       <div class="reveal">
-        <p style="font-size:120px; font-weight:700; line-height:1; color:var(--panel);">12<span style="color:#5B6B82;">/12</span></p>
-        <p style="font-size:26px; color:#A9B7CD; margin-top:14px;">steps confirmed required before provisioning</p>
+        <p style="font-size:120px; font-weight:700; line-height:1; color:var(--ink);">12<span style="color:#5B6B82;">/12</span></p>
+        <p style="font-size:26px; color:var(--ink-soft); margin-top:14px;">steps confirmed required before provisioning</p>
       </div>
     </div>
 
@@ -564,22 +566,22 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
       <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
         <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
         <div>
-          <p style="font-size:24px; font-weight:700; color:var(--panel); margin-bottom:8px;">H1 — Drop steps entirely</p>
-          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">Engineering, field by field: every input is a required technical parameter — placement, storage, compliance. Provisioning cannot start without them.</p>
+          <p style="font-size:24px; font-weight:700; color:var(--ink); margin-bottom:8px;">H1 — Drop steps entirely</p>
+          <p style="font-size:23px; color:var(--ink-soft); line-height:1.5;">Engineering, field by field: every input is a required technical parameter — placement, storage, compliance. Provisioning cannot start without them.</p>
         </div>
       </div>
       <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
         <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
         <div>
-          <p style="font-size:24px; font-weight:700; color:var(--panel); margin-bottom:8px;">H2 — Ask later</p>
-          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">Deferring any question just moves the block downstream — the build stalls until the answer arrives. Same wait, worse place.</p>
+          <p style="font-size:24px; font-weight:700; color:var(--ink); margin-bottom:8px;">H2 — Ask later</p>
+          <p style="font-size:23px; color:var(--ink-soft); line-height:1.5;">Deferring any question just moves the block downstream — the build stalls until the answer arrives. Same wait, worse place.</p>
         </div>
       </div>
       <div class="reveal panel" style="padding:30px 34px; display:flex; gap:24px; align-items:flex-start;">
         <span style="font-size:34px; color:var(--red); font-weight:700; line-height:1;">✕</span>
         <div>
-          <p style="font-size:24px; font-weight:700; color:var(--panel); margin-bottom:8px;">H3 — Merge screens</p>
-          <p style="font-size:23px; color:#A9B7CD; line-height:1.5;">The PM and engineers were right: cramming twelve steps of required inputs onto fewer screens made each screen worse, not the flow shorter.</p>
+          <p style="font-size:24px; font-weight:700; color:var(--ink); margin-bottom:8px;">H3 — Merge screens</p>
+          <p style="font-size:23px; color:var(--ink-soft); line-height:1.5;">The PM and engineers were right: cramming twelve steps of required inputs onto fewer screens made each screen worse, not the flow shorter.</p>
         </div>
       </div>
     </div>
@@ -705,17 +707,17 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
   <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px; flex:1; align-content:start;">
     <div class="reveal panel" style="padding:44px;">
       <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">The idea</p>
-      <p style="font-size:26px; color:#A9B7CD; line-height:1.55;">If the approval is what transfers, make it a thing: configure a standard order once, mint vouchers. A teammate redeems one and orders under their own identity — no wizard, no identity problem. Engineering's first read: achievable.</p>
+      <p style="font-size:26px; color:var(--ink-soft); line-height:1.55;">If the approval is what transfers, make it a thing: configure a standard order once, mint vouchers. A teammate redeems one and orders under their own identity — no wizard, no identity problem. Engineering's first read: achievable.</p>
     </div>
     <div class="reveal panel" style="padding:44px; border-top:6px solid var(--red);">
       <p style="font-size:var(--body); font-weight:600; margin-bottom:14px;">What the review surfaced</p>
-      <p style="font-size:25px; color:#A9B7CD; line-height:1.5; margin-bottom:20px;">A voucher lives <b style="color:var(--panel); font-weight:600;">outside the platform</b> — passed around in chat and email, it can be redeemed by someone the approval was never meant for. In a bank, an approval that travels unattached to identity is a governance gap, not a shortcut.</p>
+      <p style="font-size:25px; color:var(--ink-soft); line-height:1.5; margin-bottom:20px;">A voucher lives <b style="color:var(--ink); font-weight:600;">outside the platform</b> — passed around in chat and email, it can be redeemed by someone the approval was never meant for. In a bank, an approval that travels unattached to identity is a governance gap, not a shortcut.</p>
       <div style="display:flex; flex-direction:column; gap:11px;">
-        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Steps happen off-platform, outside the audit trail</p>
-        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Risk of misuse — a voucher can be shared or reused</p>
-        <p style="font-size:22px; color:#A9B7CD; line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Entitlement rules get bypassed instead of enforced</p>
+        <p style="font-size:22px; color:var(--ink-soft); line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Steps happen off-platform, outside the audit trail</p>
+        <p style="font-size:22px; color:var(--ink-soft); line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Risk of misuse — a voucher can be shared or reused</p>
+        <p style="font-size:22px; color:var(--ink-soft); line-height:1.4;"><span style="color:var(--red); font-weight:700;">✕</span>&nbsp; Entitlement rules get bypassed instead of enforced</p>
       </div>
-      <p style="font-size:22px; color:#8494AE; line-height:1.45; margin-top:20px; border-top:1px solid rgba(255,255,255,0.12); padding-top:16px;">On top of that, every voucher carried its own lifecycle — mint, validate, track, expire, reconcile — firing backend calls on each redemption.</p>
+      <p style="font-size:22px; color:var(--ink-faint); line-height:1.45; margin-top:20px; border-top:1px solid var(--line); padding-top:16px;">On top of that, every voucher carried its own lifecycle — mint, validate, track, expire, reconcile — firing backend calls on each redemption.</p>
     </div>
   </div>
   <div class="foot reveal"><b>The sharpened question:</b> <span>what's the lightest object that carries an approval from one person to a team — without ever leaving the platform?</span></div>
@@ -806,7 +808,7 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
           <div style="display:flex; align-items:center; gap:11px; padding:13px 15px; border-radius:12px; font-size:19px; font-weight:600; color:var(--blue-deep); background:var(--blue-mist);">
             <span style="width:8px; height:8px; border-radius:50%; background:currentColor;"></span> My Open Tickets</div>
           <div style="padding:13px 15px; border:2px dashed var(--line); border-radius:12px; font-size:17px; color:var(--ink-faint); line-height:1.35;">My Approvals<br><span style="font-size:15px;">not visible to this role</span></div>
-          <div style="margin-top:auto; font-size:15px; color:var(--ink-soft); background:rgba(255,255,255,0.06); border-radius:10px; padding:11px 13px;">Signed in as <b>requester</b></div>
+          <div style="margin-top:auto; font-size:15px; color:var(--ink-soft); background:var(--panel-2); border-radius:10px; padding:11px 13px;">Signed in as <b>requester</b></div>
         </div>
         <div style="flex:1; min-width:0;">
           <div class="paneStatic" style="padding:26px 30px;">
@@ -815,7 +817,7 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
               <div style="display:flex; align-items:center; gap:12px;"><div class="cbx"></div><span style="font-size:16px; color:var(--ink-soft);">Select all</span><span style="font-size:15px; color:var(--ink-faint); margin-left:8px;">4 items</span></div>
               <div class="act-cell" style="min-width:auto;"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div>
             </div>
-            <div class="tRow" data-row="0" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" id="q1Status" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-ghost"><span style="width:22px; height:22px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block;"></span> Processing</span></div></div>
+            <div class="tRow" data-row="0" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" id="q1Status" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-ghost"><span style="width:22px; height:22px; border-radius:50%; border:2.5px solid var(--ink); border-top-color:var(--blue); display:inline-block;"></span> Processing</span></div></div>
             <div class="tRow" data-row="1" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
             <div class="tRow" data-row="2" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81238…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
             <div class="tRow" data-row="3" style="display:grid; grid-template-columns:34px 44px 0.95fr 0.85fr 1.05fr 0.85fr 122px 232px; gap:13px; align-items:center; padding:13px 18px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81239…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">My name</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell"><span class="act act-delete"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/></svg> Delete</span></div></div>
@@ -851,7 +853,7 @@ h2.t { font-weight: 250; letter-spacing: -0.03em; }
             <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81236…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" id="r1Status" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span id="r1Actions" style="display:flex; gap:8px; transition:opacity .3s var(--ease);">
                  <span class="act act-icon act-approve" id="r1Approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
                  <span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></span>
-               <span id="r1Spin" class="act act-icon act-ghost" style="display:none;"><span style="width:19px; height:19px; border-radius:50%; border:2.5px solid #D5E1F5; border-top-color:var(--blue); display:inline-block; animation:spin360 .9s linear infinite;"></span></span>
+               <span id="r1Spin" class="act act-icon act-ghost" style="display:none;"><span style="width:19px; height:19px; border-radius:50%; border:2.5px solid var(--ink); border-top-color:var(--blue); display:inline-block; animation:spin360 .9s linear infinite;"></span></span>
                <span id="r1Done" class="act act-icon act-ghost" style="display:none; color:var(--ink-faint); font-size:18px;">—</span></div></div>
             <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81237…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div></div>
             <div style="display:grid; grid-template-columns:32px 40px 0.8fr 0.7fr 0.85fr 0.72fr 112px 190px; gap:10px; align-items:center; padding:13px 16px; border:1px solid var(--line); border-radius:12px; margin-bottom:10px;"><div class="cbx"></div><div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--line-strong);"></div><p style="font-size:17px; font-weight:600; color:var(--ink);">ARQ-81238…</p><div><p style="font-size:15px; color:var(--ink-soft);">Resource</p><p style="font-size:15px; color:var(--ink-soft);">Operation</p></div><div><p style="font-size:15px; color:var(--ink-soft);">70698</p><p style="font-size:15px; color:var(--ink-soft);">Schedule (now/date)</p></div><span style="font-size:15px; color:var(--ink-soft);">Jennifer Doe</span><span class="st pend" style="font-size:15px;">Pending</span><div class="act-cell" data-cell style="min-width:182px;"><span class="act act-icon act-approve" aria-label="Approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span><span class="act act-icon act-reject" aria-label="Reject"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg></span></div></div>
