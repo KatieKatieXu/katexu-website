@@ -430,7 +430,7 @@ function FloatingNav() {
 // ───────────────────────────────────────────────────────────────────────────
 // Project card — a horizontal, snapping carousel of the project's media
 // ───────────────────────────────────────────────────────────────────────────
-type Media = { src: string; phone?: boolean };
+type Media = { src: string; phone?: boolean; bare?: boolean };
 
 function flattenMedia(images: Project["images"]): Media[] {
   const out: Media[] = [];
@@ -500,6 +500,11 @@ function Slide({
               {mediaEl}
             </div>
           </div>
+        </div>
+      ) : media.bare ? (
+        /* naked media: no well, no fill, no shadow — the picture on the page */
+        <div className="h-[var(--rail-h)] overflow-hidden rounded-[4px]">
+          {mediaEl}
         </div>
       ) : (
         <div className="h-[var(--rail-h)] overflow-hidden rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">

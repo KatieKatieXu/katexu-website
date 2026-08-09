@@ -29,7 +29,7 @@ function track(event: string, props?: Record<string, unknown>) {
 // A hero image is either a plain src (rendered full-width, for landscape shots)
 // or an object flagged `phone` for portrait phone captures, which get capped
 // width + centered so they stay crisp and fit a mobile screen.
-type ProjectImage = string | { src: string; phone?: boolean };
+type ProjectImage = string | { src: string; phone?: boolean; bare?: boolean };
 
 // Each entry in a project's `images` is either a single image (full-width row)
 // or an array of images rendered side-by-side (a two-up row, like Nelson). Rows
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     // Both letterboxed onto a 1600x1000 white canvas so the rail keeps one
     // aspect: the board is centred with air around it, and the two low-res
     // event photos are stacked small in one column where the pixels don't show.
-    images: ["/ionboard-cover-v2.png", "/ionboard-events.jpg"],
+    images: ["/ionboard-cover-v2.png", { src: "/ionboard-stack.jpg", bare: true }],
     liveUrl:
       "https://www.kickstarter.com/projects/1728725377/ionboard?ref=discovery&term=ionboard",
     liveLabel: "View Kickstarter",
