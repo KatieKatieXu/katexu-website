@@ -239,7 +239,7 @@ export default function HowIThinkPage() {
                 if you&apos;d like to know more.
               </p>
 
-              <div className="mt-10 flex flex-col gap-6">
+              <div className="mt-10 flex flex-col gap-6 lg:w-[calc(100%+240px)] lg:-ml-[120px]">
                 {[
                   {
                     purpose: "Redesign an existing product",
