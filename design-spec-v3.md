@@ -143,13 +143,40 @@ right block items-stretch, 13px gap to the photo, right-aligned,
 photo       136 x 136, object-cover, square, no radius, flush to the right edge
 ```
 
+### Optical alignment — the whole point of this header
+
+Both edges align to the **ink**, not the glyph box. Measured bearings in
+Instrument Sans (Figma):
+
+| Text | size | left bearing | right bearing |
+|---|---|---|---|
+| Kate Xu (SemiBold) | 160px | 9.92px = **0.062em** | 10.80px |
+| Resume | 15px | 1.29px | 1.43px |
+| Visual Lab | 15px | 0.54px | **1.24px** |
+| LinkedIn arrow | 15px | 1.29px | **1.04px** |
+
+So:
+
+```
+h1            margin-left: calc(var(--name-size) * -0.062)
+              cancels the K's bearing; the ink starts at the column edge, and
+              because it is em-relative it survives the clamp
+nav left grp  margin-left: -1.29px
+              width: calc(var(--name-width) + 2.53px)   (1.29 + 1.24)
+              the R starts and the b ends on the same verticals as the name ink
+nav right grp margin-right: -1.04px
+              LinkedIn arrow ends on the column right edge
+```
+
+Geometric alignment is visibly wrong here — the name bearing alone is ~10px.
+
 ### Row 2 — the rule and the nav
 
 ```
 rule        1px #e6e6e6, full width of the content column
-            margin-top -12px
-nav pt      22px
-left group  width: var(--name-width), justify-between
+            margin-top -10px   (~10px below the name baseline)
+nav pt      20px
+left group  width: calc(var(--name-width) + 2.53px), justify-between
             Resume / How I Think / Visual Lab
 right group pinned to the far edge, 16px apart
             Email / LinkedIn, each with a trailing arrow
