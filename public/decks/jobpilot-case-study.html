@@ -3,34 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jobpilot — Designing the Atmosphere First · Kate Xu</title>
-<!-- Case study 02 · Dopamine Bauhaus: the deck wears the product's own language.
-     Vertical one-pager, left dot rail — same runtime as the BofA deck. -->
+<title>Jobpilot — Cutting the Product Down to What's Worth Building · Kate Xu</title>
+<!-- Case study 02 · main story from the Meta portfolio deck (pp. 30–44),
+     with the v2 atmosphere argument nested as a sub-story (recessed cream).
+     Dopamine Bauhaus skin · vertical one-pager · BofA-style motion demos. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Dopamine Bauhaus — 70% paper, 20% ink, 10% colour.
-     Text pairs verified AA: ink 13.9:1 · ink-soft 6.2:1 · ink-faint 4.7:1
-     blue 5.6:1 · red 5.0:1 on paper. Yellow is a fill, never text. */
-  --paper:#FAF6EF;            /* the cream field — 70 */
-  --paper-deep:#F1EBDF;       /* recessed cream */
-  --panel:#FFFFFF;            /* raised card */
-  --ink:#1A1A1A;              /* the 20 — lines and text */
-  --ink-soft:#5B5344;         /* warm secondary text */
-  --ink-faint:#75695A;        /* captions */
-  --blue:#1F4FD8;             /* primary blue  — the 10, rationed */
-  --red:#C23A22;              /* primary red */
-  --yellow:#F5B821;           /* primary yellow — fill only */
-  --line:#1A1A1A;             /* 2px ink lines, always */
-  --shadow:4px 4px 0 var(--ink);   /* hard offset — no blur, ever */
+  /* Dopamine Bauhaus — 70% paper, 20% ink, 10% colour. All text pairs AA. */
+  --paper:#FAF6EF; --paper-deep:#F1EBDF; --panel:#FFFFFF;
+  --ink:#1A1A1A; --ink-soft:#5B5344; --ink-faint:#75695A;
+  --blue:#1F4FD8; --red:#C23A22; --yellow:#F5B821;
+  --line:#1A1A1A; --shadow:4px 4px 0 var(--ink);
   --font:'Instrument Sans',-apple-system,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,monospace;
-
-  --kicker:22px; --title:68px; --big:118px; --body:27px; --small:21px;
+  --kicker:22px; --title:68px; --body:27px; --small:21px;
   --pad-x:140px; --pad-top:88px; --pad-bottom:80px;
   --ease:cubic-bezier(0.16, 1, 0.3, 1);
+  --mech:cubic-bezier(0.3, 0, 0.2, 1); /* mechanical — furniture, not jelly */
   --stage-bg:#EFE8DB; --slide-bg:var(--paper);
 }
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -61,12 +53,12 @@ body { font-family:var(--font); color:var(--ink); -webkit-font-smoothing:antiali
 .kicker { font-family:var(--mono); font-size:17px; font-weight:500; letter-spacing:0.16em; text-transform:uppercase;
   color:var(--blue); margin-bottom:26px; align-self:flex-start; }
 .kicker::before { content:"/ "; color:var(--ink-faint); }
+/* the sub-story chapter runs on recessed cream with a red kicker */
+.sub .kicker { color:var(--red); }
 h2.t { font-size:var(--title); font-weight:700; letter-spacing:-0.03em; line-height:1.08; margin-bottom:44px; }
 .lead { font-size:var(--body); color:var(--ink-soft); line-height:1.55; max-width:1040px; }
 .foot { margin-top:auto; border-top:2px solid var(--line); padding-top:26px; font-size:22px; color:var(--ink-soft); }
 .foot b { color:var(--ink); }
-
-/* Bauhaus cards: white, 2px ink line, hard offset shadow — no blur, no radius creep */
 .card { background:var(--panel); border:2px solid var(--line); border-radius:14px; box-shadow:var(--shadow); }
 .chip { display:inline-flex; align-items:center; font-family:var(--mono); font-size:16px; font-weight:500;
   border:2px solid var(--line); border-radius:999px; padding:7px 16px; background:var(--panel); }
@@ -77,32 +69,56 @@ h2.t { font-size:var(--title); font-weight:700; letter-spacing:-0.03em; line-hei
 .reveal:nth-child(2) { transition-delay:0.08s; } .reveal:nth-child(3) { transition-delay:0.16s; }
 .reveal:nth-child(4) { transition-delay:0.24s; } .reveal:nth-child(5) { transition-delay:0.32s; }
 
-/* progress + counter */
+/* progress + counter + left rail */
 .progress { position:fixed; left:0; top:0; height:4px; background:var(--blue); z-index:1001; transition:width 0.4s var(--ease); }
 .counter { position:fixed; right:26px; bottom:20px; z-index:1001; font-family:var(--mono); font-size:13px; color:var(--ink-faint); letter-spacing:0.1em; }
-
-/* left dot rail */
 .dot-rail { position:fixed; left:22px; top:50%; transform:translateY(-50%); z-index:1001; display:flex; flex-direction:column; gap:9px; align-items:center; padding:14px 9px; background:rgba(255,255,255,0.82); border:2px solid var(--line); border-radius:999px; box-shadow:var(--shadow); }
 .dot { position:relative; width:9px; height:9px; border-radius:999px; background:rgba(26,26,26,0.25); border:none; cursor:pointer; padding:0; transition:background 0.2s ease, height 0.25s var(--ease); }
 .dot:hover { background:rgba(26,26,26,0.55); }
 .dot.on { height:26px; background:var(--blue); }
+.dot.sub-dot { background:rgba(194,58,34,0.35); }
+.dot.sub-dot.on { background:var(--red); }
 .dot .tip { position:absolute; left:22px; top:50%; transform:translateY(-50%) translateX(-4px); background:var(--ink); color:#FFFFFF; font-family:var(--font); font-size:13px; font-weight:500; white-space:nowrap; padding:6px 12px; border-radius:8px; opacity:0; pointer-events:none; transition:opacity 0.15s ease, transform 0.2s var(--ease); }
 .dot:hover .tip { opacity:1; transform:translateY(-50%) translateX(0); }
 
-/* moodboard wells — drop the real images in, keep the labels */
+/* moodboard wells */
 .well { border:2px dashed rgba(26,26,26,0.35); border-radius:14px; background:var(--paper-deep); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px; color:var(--ink-faint); }
 .well .tag { font-family:var(--mono); font-size:15px; letter-spacing:0.08em; }
 
 /* atmosphere chain node */
-.node { border:2px solid var(--line); border-radius:14px; background:var(--panel); box-shadow:var(--shadow); padding:30px 38px; }
+.node { border:2px solid var(--line); border-radius:14px; background:var(--panel); box-shadow:var(--shadow); padding:26px 34px; }
 .node .nl { font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px; }
-.node .nt { font-size:30px; font-weight:700; }
-.arrow-d { font-size:34px; color:var(--ink-faint); text-align:center; line-height:1; }
+.node .nt { font-size:28px; font-weight:700; }
+.arrow-d { font-size:32px; color:var(--ink-faint); text-align:center; line-height:1; }
+
+/* ============ THE CUT — self-playing demo ============ */
+.pillar { flex:1; min-width:0; background:var(--panel); border:2px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:26px 24px; position:relative; transition:opacity 0.5s var(--mech), transform 0.5s var(--mech), flex-grow 0.6s var(--mech), border-color 0.4s ease, box-shadow 0.4s ease; }
+.pillar .pn { font-family:var(--mono); font-size:15px; color:var(--ink-faint); margin-bottom:10px; }
+.pillar .pt { font-size:23px; font-weight:700; line-height:1.2; }
+.pillar .stamp { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:64px; font-weight:700; color:var(--red); opacity:0; transform:scale(1.6) rotate(-8deg); transition:opacity 0.18s ease, transform 0.18s var(--mech); pointer-events:none; }
+.pillar.dead { opacity:0.35; transform:translateY(10px); }
+.pillar.dead .stamp { opacity:1; transform:scale(1) rotate(-8deg); }
+.pillar.kept { border-color:var(--blue); box-shadow:4px 4px 0 var(--blue); }
+
+/* ============ TRACKING — self-playing demo ============ */
+.kcol { flex:1; display:flex; flex-direction:column; gap:12px; min-width:0; }
+.kcol .kh { font-family:var(--mono); font-size:15px; letter-spacing:0.1em; display:flex; justify-content:space-between; }
+.kcard { background:var(--panel); border:2px solid var(--line); border-radius:12px; box-shadow:var(--shadow); padding:16px 18px; font-size:18px; font-weight:600; transition:transform 0.5s var(--mech), box-shadow 0.3s ease, border-color 0.3s ease; }
+.kcard.lift { box-shadow:8px 10px 0 rgba(26,26,26,0.25); transform:translateY(-6px); }
+.kcard.landed { border-color:var(--blue); box-shadow:4px 4px 0 var(--blue); }
+
+/* fake cursor — same trick as the BofA deck */
+.demoCursor { position:absolute; width:28px; height:28px; z-index:20; opacity:0; transition:left 0.7s var(--mech), top 0.7s var(--mech), opacity 0.25s ease, transform 0.12s ease; pointer-events:none; }
+.demoCursor.press { transform:scale(0.82); }
+
+/* market number — the one sanctioned overshoot */
+@keyframes winPop { 0%{transform:scale(1);} 55%{transform:scale(1.15);} 100%{transform:scale(1);} }
+.winpop { animation:winPop 0.45s var(--ease); }
 </style>
 </head>
 <body>
 <div class="progress" id="progress"></div>
-<div class="counter" id="counter">1 / 10</div>
+<div class="counter" id="counter">1 / 18</div>
 
 <div class="deck-viewport">
 <main class="deck-stage" id="deckStage">
@@ -110,15 +126,15 @@ h2.t { font-size:var(--title); font-weight:700; letter-spacing:-0.03em; line-hei
 <!-- ============ 01 · COVER ============ -->
 <section class="slide">
   <div class="reveal" style="display:flex; justify-content:space-between; align-items:baseline;">
-    <span class="chip">Case study 02 · Jobpilot v2</span>
-    <span style="font-family:var(--mono); font-size:17px; color:var(--ink-faint);">solo design + build</span>
+    <span class="chip">Case study 02 · Jobpilot</span>
+    <span style="font-family:var(--mono); font-size:17px; color:var(--ink-faint);">designer · builder · founder</span>
   </div>
   <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-    <h1 class="reveal" style="font-size:128px; font-weight:700; letter-spacing:-0.035em; line-height:1.04; max-width:1500px;">Designing the<br>atmosphere first.</h1>
-    <p class="reveal lead" style="margin-top:44px; max-width:1180px;">A job-search coach rebuilt from a moodboard out — because the mood of the room <b style="color:var(--ink);">is</b> the emotional value of the product.</p>
-    <div class="reveal" style="display:flex; gap:14px; margin-top:52px;">
-      <span class="chip" style="background:var(--blue); color:#fff; border-color:var(--blue);">Dopamine Bauhaus</span>
-      <span class="chip">Claude Design ↔ codebase</span>
+    <h1 class="reveal" style="font-size:120px; font-weight:700; letter-spacing:-0.035em; line-height:1.05; max-width:1560px;">Cutting the product down<br>to what's worth building.</h1>
+    <p class="reveal lead" style="margin-top:44px; max-width:1200px;">A solo-built AI job-search coach — shipped, live, and better for losing two of its five features.</p>
+    <div class="reveal" style="display:flex; gap:14px; margin-top:52px; align-items:center;">
+      <span class="chip" style="background:var(--ink); color:#fff; border-color:var(--ink); font-size:20px; padding:10px 20px;">5 features → 3</span>
+      <span class="chip">Shipped &amp; live</span>
       <span class="chip">jobpilot.katexu.com</span>
     </div>
   </div>
@@ -127,46 +143,183 @@ h2.t { font-size:var(--title); font-weight:700; letter-spacing:-0.03em; line-hei
   </div>
 </section>
 
-<!-- ============ 02 · THE THESIS ============ -->
+<!-- ============ 02 · ORIGIN ============ -->
 <section class="slide">
-  <p class="kicker reveal">The argument</p>
-  <h2 class="t reveal">Walk into a room.<br>You feel something before you read anything.</h2>
+  <p class="kicker reveal">Origin</p>
+  <h2 class="t reveal">40+ applications in flight —<br>my own job search.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <div style="flex:1;">
+      <p class="lead reveal" style="margin-bottom:40px;">Six disconnected tools: a resume editor here, salary data there, a tracking spreadsheet, prep notes scattered across apps. The product idea was the frustration itself:</p>
+      <div class="reveal card" style="padding:38px 44px;">
+        <p style="font-size:40px; font-weight:700; line-height:1.3;">"Why isn't there <span style="color:var(--blue);">one place</span> that coaches you through the whole journey?"</p>
+      </div>
+    </div>
+    <div class="reveal" style="width:440px; flex-shrink:0; display:flex; flex-wrap:wrap; gap:12px; align-content:center;">
+      <span class="chip">resume editor</span><span class="chip">salary sites</span><span class="chip">tracking sheet</span>
+      <span class="chip">prep notes</span><span class="chip">job boards</span><span class="chip">calendar</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 · V1 — FIVE PILLARS ============ -->
+<section class="slide">
+  <p class="kicker reveal">V1</p>
+  <h2 class="t reveal">Five pillars. I was proud of the scope.</h2>
+  <div class="reveal" style="flex:1; display:flex; gap:18px; align-items:center;">
+    <div class="pillar"><p class="pn">01</p><p class="pt">AI job search</p></div>
+    <div class="pillar"><p class="pn">02</p><p class="pt">Resume optimization</p></div>
+    <div class="pillar"><p class="pn">03</p><p class="pt">Interview story bank</p></div>
+    <div class="pillar"><p class="pn">04</p><p class="pt">Market insights</p></div>
+    <div class="pillar"><p class="pn">05</p><p class="pt">Application tracking</p></div>
+  </div>
+  <div class="foot reveal"><b>Then reality hit from two directions.</b></div>
+</section>
+
+<!-- ============ 04 · THE FEATURE I WAS PROUDEST OF ============ -->
+<section class="slide">
+  <p class="kicker reveal">Reality · blow zero</p>
+  <h2 class="t reveal">The feature I was proudest of.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <div style="flex:1;">
+      <p class="lead reveal" style="margin-bottom:36px;"><b style="color:var(--ink);">AI job search</b> — personalized matching that ran your full profile against live listings, with a reason attached to every match.</p>
+      <p class="lead reveal">The most ambitious build in v1. The technical centerpiece. The feature I showed people first.</p>
+    </div>
+    <div class="reveal card" style="width:560px; flex-shrink:0; padding:40px 44px;">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:18px;">The pitch</p>
+      <p style="font-size:30px; font-weight:700; line-height:1.35;">Your profile × live listings<br><span style="color:var(--blue);">= a reason for every match</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · THE REALITY CHECK ============ -->
+<section class="slide" style="background:var(--paper-deep);">
+  <p class="kicker reveal" style="color:var(--red);">Reality</p>
+  <h2 class="t reveal">The reality check.</h2>
+  <div style="flex:1; display:flex; gap:24px; align-items:center;">
+    <div class="reveal card" style="flex:1; padding:40px 44px; border-color:var(--red); box-shadow:4px 4px 0 var(--red);">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--red); margin-bottom:16px;">Blow 1 · user testing</p>
+      <p style="font-size:32px; font-weight:700; margin-bottom:16px;">Too slow — and not better.</p>
+      <p style="font-size:23px; color:var(--ink-soft); line-height:1.5;">Processing a profile against listings takes time, and the results weren't better than LinkedIn — whose data moat I can't match.</p>
+    </div>
+    <div class="reveal card" style="flex:1; padding:40px 44px; border-color:var(--red); box-shadow:4px 4px 0 var(--red);">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--red); margin-bottom:16px;">Blow 2 · unit economics</p>
+      <p style="font-size:32px; font-weight:700; margin-bottom:16px;">Burning tokens on every search.</p>
+      <p style="font-size:23px; color:var(--ink-soft); line-height:1.5;">Personalized search is expensive to run. A solo builder on freemium can't carry a feature that costs money on every use.</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Expensive. Slow. Worse than the incumbent.</b> <span>Any one is survivable — all three is a verdict.</span></div>
+</section>
+
+<!-- ============ 06 · AI'S BLINDSPOT ============ -->
+<section class="slide">
+  <p class="kicker reveal">Method</p>
+  <h2 class="t reveal">AI builds whatever you ask.<br>It never pushes back on scope.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <p class="lead reveal" style="flex:1;">Saying no stayed my job. So instead of asking AI to build, I asked it to <b style="color:var(--ink);">evaluate</b> — turning the machine that never questions scope into the scope's harshest critic.</p>
+    <div class="reveal card" style="width:760px; flex-shrink:0; padding:40px 44px; background:var(--ink); border-color:var(--ink);">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--yellow); margin-bottom:20px;">The prompt that reshaped the product</p>
+      <p style="font-family:var(--mono); font-size:24px; color:#FFFFFF; line-height:1.6;">"Rank every feature I have by market uniqueness vs. cost to run. Predict which ones people can already get elsewhere."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · KILLING A FEATURE THAT WORKED ============ -->
+<section class="slide">
+  <p class="kicker reveal">Decision</p>
+  <h2 class="t reveal">Killing a feature that worked.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <div style="flex:1;">
+      <p class="lead reveal" style="margin-bottom:36px;">My second-proudest feature: the <b style="color:var(--ink);">resume editor</b>. AI-assisted, line by line. It shipped, it functioned, users liked it. Nothing about it argued for its own death.</p>
+      <p class="lead reveal">Then the market spoke: <b style="color:var(--ink);">Teal — $20M in funding, 4M users</b> — a crowded, well-funded category doing exactly this. A solo builder is always behind.</p>
+    </div>
+    <div class="reveal card" style="width:600px; flex-shrink:0; padding:44px 48px;">
+      <p style="font-size:34px; font-weight:700; line-height:1.4;">Working isn't a reason to keep something —<br><span style="color:var(--red);">being worth building is.</span></p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>The hardest features to kill are the ones that function.</b></div>
+</section>
+
+<!-- ============ 08 · MARKET RESEARCH ============ -->
+<section class="slide">
+  <p class="kicker reveal">Research</p>
+  <h2 class="t reveal">Every competitor is strong in 1–2 pillars — weak in the rest.</h2>
+  <div class="reveal" style="flex:1; display:flex; align-items:center;">
+    <div style="width:100%; display:grid; grid-template-columns:280px repeat(5, 1fr); gap:10px; font-size:20px;">
+      <div></div>
+      <div style="font-family:var(--mono); font-size:15px; text-align:center; color:var(--ink-faint); padding:8px 0;">AI SEARCH</div>
+      <div style="font-family:var(--mono); font-size:15px; text-align:center; color:var(--ink-faint); padding:8px 0;">RESUME</div>
+      <div style="font-family:var(--mono); font-size:15px; text-align:center; color:var(--ink-faint); padding:8px 0;">STORY BANK</div>
+      <div style="font-family:var(--mono); font-size:15px; text-align:center; color:var(--ink-faint); padding:8px 0;">MARKET</div>
+      <div style="font-family:var(--mono); font-size:15px; text-align:center; color:var(--ink-faint); padding:8px 0;">TRACKING</div>
+
+      <div style="font-weight:700; padding:16px 0;">LinkedIn</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; background:var(--ink); color:#fff; font-weight:700;">strong</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">weak</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">—</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">weak</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">weak</div>
+
+      <div style="font-weight:700; padding:16px 0;">Teal</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">weak</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; background:var(--ink); color:#fff; font-weight:700;">strong</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">—</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">weak</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; font-weight:600;">ok</div>
+
+      <div style="font-weight:700; padding:16px 0;">Salary sites</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">—</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">—</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">—</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; background:var(--ink); color:#fff; font-weight:700;">strong</div>
+      <div class="card" style="box-shadow:none; display:flex; align-items:center; justify-content:center; padding:14px; color:var(--ink-faint);">—</div>
+
+      <div style="font-weight:700; padding:16px 0; color:var(--blue);">Whitespace</div>
+      <div style="padding:14px;"></div>
+      <div style="padding:14px;"></div>
+      <div class="card" style="display:flex; align-items:center; justify-content:center; padding:14px; border-color:var(--blue); box-shadow:4px 4px 0 var(--blue); color:var(--blue); font-weight:700;">open</div>
+      <div class="card" style="display:flex; align-items:center; justify-content:center; padding:14px; border-color:var(--blue); box-shadow:4px 4px 0 var(--blue); color:var(--blue); font-weight:700;">open*</div>
+      <div class="card" style="display:flex; align-items:center; justify-content:center; padding:14px; border-color:var(--blue); box-shadow:4px 4px 0 var(--blue); color:var(--blue); font-weight:700;">open*</div>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Three whitespaces fell out.</b> <span>* strong alone, unbeatable connected — no one ties them into one loop.</span></div>
+</section>
+
+<!-- ============ 09 · THE CUT — self-playing demo ============ -->
+<section class="slide" id="cutSlide">
+  <p class="kicker reveal">Decision</p>
+  <h2 class="t reveal">The cut.</h2>
+  <div class="reveal" style="flex:1; display:flex; gap:18px; align-items:center; position:relative;" id="cutRow">
+    <div class="pillar" data-cut><p class="pn">01 · LinkedIn owns the data moat</p><p class="pt">AI job search</p><span class="stamp">✕</span></div>
+    <div class="pillar" data-cut><p class="pn">02 · Teal: $20M funding, 4M users</p><p class="pt">Resume optimization</p><span class="stamp">✕</span></div>
+    <div class="pillar" data-keep><p class="pn">03 · no one offers structured STAR stories</p><p class="pt">Interview story bank</p></div>
+    <div class="pillar" data-keep><p class="pn">04 · woven into coaching, not a destination</p><p class="pt">Market insights</p></div>
+    <div class="pillar" data-keep><p class="pn">05 · the spine connecting the other two</p><p class="pt">Application tracking</p></div>
+    <svg class="demoCursor" id="cutCursor" viewBox="0 0 24 24" fill="var(--ink)" stroke="#fff" stroke-width="1.4"><path d="M4 2l7 18 2.5-7.5L21 10z"/></svg>
+  </div>
+  <div class="foot reveal"><b>Killed the two the market already owned.</b> <span>Kept the three no one else connects.</span></div>
+</section>
+
+<!-- ══════════ SUB-STORY · THE ATMOSPHERE (10–13, recessed cream) ══════════ -->
+
+<!-- ============ 10 · SUB-STORY OPEN · THE THESIS ============ -->
+<section class="slide sub" style="background:var(--paper-deep);">
+  <p class="kicker reveal">Sub-story · v2, the atmosphere</p>
+  <h2 class="t reveal">The cut decided what to build.<br>Then: how should it feel?</h2>
   <div style="flex:1; display:flex; gap:90px; align-items:center; min-height:0;">
-    <p class="lead reveal" style="flex:1;">Every interface is a space. Its light, its materials, its noise decide how a person feels before a single feature loads. That feeling isn't decoration on top of the product — for a product people open on their worst days, <b style="color:var(--ink);">the feeling is the product.</b> And a feeling can be designed, systematised, and taught to an AI.</p>
-    <div class="reveal" style="width:520px; flex-shrink:0; display:flex; flex-direction:column; gap:16px;">
+    <p class="lead reveal" style="flex:1;">Walk into a room — you feel something before you read anything. Every interface is a space; its light, materials and noise set a mood before any feature loads. For a product people open on their worst days, <b style="color:var(--ink);">the mood is the emotional value.</b> So the v2 redesign started from a moodboard, not a wireframe.</p>
+    <div class="reveal" style="width:480px; flex-shrink:0; display:flex; flex-direction:column; gap:14px;">
       <div class="node"><p class="nl">Space</p><p class="nt">The interface as a room</p></div>
       <p class="arrow-d">↓</p>
       <div class="node"><p class="nl">Atmosphere</p><p class="nt">Light, material, noise</p></div>
       <p class="arrow-d">↓</p>
-      <div class="node" style="border-color:var(--blue); box-shadow:4px 4px 0 var(--blue);"><p class="nl" style="color:var(--blue);">Mood</p><p class="nt">The emotional value of the product</p></div>
+      <div class="node" style="border-color:var(--red); box-shadow:4px 4px 0 var(--red);"><p class="nl" style="color:var(--red);">Mood</p><p class="nt">The emotional value of the product</p></div>
     </div>
   </div>
 </section>
 
-<!-- ============ 03 · CONTEXT ============ -->
-<section class="slide" style="background:var(--paper-deep);">
-  <p class="kicker reveal" style="color:var(--red);">Context</p>
-  <h2 class="t reveal">Job hunting is a high-anxiety loop.</h2>
-  <div style="flex:1; display:flex; gap:80px; align-items:center;">
-    <div style="flex:1;">
-      <p class="lead reveal" style="margin-bottom:40px;">Rejection, silence, self-doubt — on repeat. And v1 made it worse by promising <i>"auto-apply"</i> and <i>"smart matching"</i>: automation the product didn't do. Wrong promise, wrong mood, broken trust.</p>
-      <div class="reveal card" style="padding:34px 40px;">
-        <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px;">The design brief, one sentence</p>
-        <p style="font-size:34px; font-weight:700; line-height:1.3;">Lower cortisol before asking for effort — then deliver dopamine at <span style="color:var(--blue);">real</span> moments of progress.</p>
-      </div>
-    </div>
-    <div class="reveal" style="width:480px; flex-shrink:0; display:flex; flex-direction:column; gap:14px;">
-      <div style="border:2px solid var(--line); border-radius:14px; padding:24px 30px; background:var(--panel);"><p style="font-size:24px; font-weight:600;">Saved a job <span style="color:var(--ink-faint); font-weight:400;">→ small spark</span></p></div>
-      <div style="border:2px solid var(--line); border-radius:14px; padding:24px 30px; background:var(--panel);"><p style="font-size:24px; font-weight:600;">Finished an analysis <span style="color:var(--ink-faint); font-weight:400;">→ small spark</span></p></div>
-      <div style="border:2px solid var(--line); border-radius:14px; padding:24px 30px; background:var(--panel);"><p style="font-size:24px; font-weight:600;">Moved a card <span style="color:var(--ink-faint); font-weight:400;">→ small spark</span></p></div>
-    </div>
-  </div>
-  <div class="foot reveal"><b>Calm first, then a spark.</b> <span>Everything downstream answers to that order.</span></div>
-</section>
-
-<!-- ============ 04 · THE MOODBOARD ============ -->
-<section class="slide">
-  <p class="kicker reveal">Where it started</p>
+<!-- ============ 11 · SUB-STORY · MOODBOARD ============ -->
+<section class="slide sub" style="background:var(--paper-deep);">
+  <p class="kicker reveal">Sub-story · where v2 started</p>
   <h2 class="t reveal">The moodboard came before the wireframes.</h2>
   <div style="flex:1; display:grid; grid-template-columns:repeat(3, 1fr); grid-template-rows:1fr 1fr; gap:20px; min-height:0;" class="reveal">
     <div class="well" style="grid-row:span 2;"><span class="tag">moodboard · 01</span><span style="font-size:15px;">drop image here</span></div>
@@ -175,141 +328,169 @@ h2.t { font-size:var(--title); font-weight:700; letter-spacing:-0.03em; line-hei
     <div class="well"><span class="tag">moodboard · 04</span><span style="font-size:15px;">drop image here</span></div>
     <div class="well"><span class="tag">moodboard · 05</span><span style="font-size:15px;">drop image here</span></div>
   </div>
-  <div class="foot reveal"><b>Fed to Claude Design connected to the live codebase</b> <span>— so the machine learned the vibe before it generated a single screen.</span></div>
+  <div class="foot reveal"><b>Fed to Claude Design connected to the live codebase</b> <span>— the machine learns the vibe before it generates a screen.</span></div>
 </section>
 
-<!-- ============ 05 · TEACHING THE AI ============ -->
-<section class="slide">
-  <p class="kicker reveal">Method</p>
+<!-- ============ 12 · SUB-STORY · TEACHING THE AI + THE SYSTEM ============ -->
+<section class="slide sub" style="background:var(--paper-deep);">
+  <p class="kicker reveal">Sub-story · method</p>
   <h2 class="t reveal">Teaching the machine to feel the room.</h2>
-  <p class="lead reveal" style="margin-bottom:56px;">An AI can't be told "make it cozy." It can be shown a space and taught to extract what makes the atmosphere — then hold that as a system while I keep the judgment calls.</p>
-  <div class="reveal" style="display:flex; align-items:center; gap:18px; flex-wrap:wrap;">
-    <span class="chip" style="font-size:20px; padding:14px 24px;">Moodboard</span><span style="font-size:26px; color:var(--ink-faint);">→</span>
-    <span class="chip" style="font-size:20px; padding:14px 24px;">Stylescape</span><span style="font-size:26px; color:var(--ink-faint);">→</span>
-    <span class="chip" style="font-size:20px; padding:14px 24px;">Style tiles</span><span style="font-size:26px; color:var(--ink-faint);">→</span>
-    <span class="chip" style="font-size:20px; padding:14px 24px; background:var(--yellow); border-color:var(--line);">Key visual decisions · human</span><span style="font-size:26px; color:var(--ink-faint);">→</span>
-    <span class="chip" style="font-size:20px; padding:14px 24px;">Tokens &amp; rules</span><span style="font-size:26px; color:var(--ink-faint);">→</span>
-    <span class="chip" style="font-size:20px; padding:14px 24px; background:var(--blue); color:#fff; border-color:var(--blue);">Build on a new branch</span>
-  </div>
-  <div style="flex:1;"></div>
-  <div class="foot reveal"><b>The atmosphere becomes tokens; the taste stays human.</b> <span>Colour ratios, line weight, shadow behaviour, motion rules — extracted, named, enforced.</span></div>
-</section>
-
-<!-- ============ 06 · THE SYSTEM ============ -->
-<section class="slide">
-  <p class="kicker reveal">The system</p>
-  <h2 class="t reveal">Dopamine Bauhaus.</h2>
   <div style="flex:1; display:flex; gap:70px; min-height:0; align-items:center;">
-    <div style="flex:1; display:flex; flex-direction:column; gap:18px;">
-      <div class="reveal card" style="padding:28px 34px; display:flex; justify-content:space-between; align-items:center;">
-        <p style="font-size:26px; font-weight:700;">70 · 20 · 10</p>
-        <p style="font-size:21px; color:var(--ink-soft);">paper · ink · colour — a fixed ratio, not a vibe</p>
-      </div>
-      <div class="reveal card" style="padding:28px 34px; display:flex; justify-content:space-between; align-items:center;">
-        <p style="font-size:26px; font-weight:700;">2px ink lines</p>
-        <p style="font-size:21px; color:var(--ink-soft);">structure you can see — nothing floats</p>
-      </div>
-      <div class="reveal card" style="padding:28px 34px; display:flex; justify-content:space-between; align-items:center;">
-        <p style="font-size:26px; font-weight:700;">Hard offset shadows</p>
-        <p style="font-size:21px; color:var(--ink-soft);">no blur — objects sit, they don't hover</p>
-      </div>
-      <div class="reveal card" style="padding:28px 34px; display:flex; justify-content:space-between; align-items:center;">
-        <p style="font-size:26px; font-weight:700;">Motion like furniture</p>
-        <p style="font-size:21px; color:var(--ink-soft);">mechanical, axis-aligned; overshoot reserved for real wins</p>
+    <div style="flex:1;">
+      <p class="lead reveal" style="margin-bottom:44px;">An AI can't be told "make it cozy." It can be shown a space and taught to extract what makes the atmosphere — held as a system, while the taste calls stay human.</p>
+      <div class="reveal" style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <span class="chip">Moodboard</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip">Stylescape</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip" style="background:var(--yellow);">Key decisions · human</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip">Tokens</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip" style="background:var(--blue); color:#fff; border-color:var(--blue);">Build</span>
       </div>
     </div>
-    <div class="reveal" style="width:460px; flex-shrink:0; display:flex; flex-direction:column; gap:16px;">
-      <div style="height:150px; border:2px solid var(--line); border-radius:14px; background:var(--paper); box-shadow:var(--shadow); display:flex; align-items:flex-end; padding:14px 18px;"><span style="font-family:var(--mono); font-size:15px;">#FAF6EF · the field · 70</span></div>
-      <div style="height:96px; border:2px solid var(--line); border-radius:14px; background:var(--ink); box-shadow:var(--shadow); display:flex; align-items:flex-end; padding:14px 18px;"><span style="font-family:var(--mono); font-size:15px; color:#fff;">#1A1A1A · ink · 20</span></div>
-      <div style="display:flex; gap:16px;">
-        <div style="flex:1; height:76px; border:2px solid var(--line); border-radius:14px; background:var(--blue); box-shadow:var(--shadow);"></div>
-        <div style="flex:1; height:76px; border:2px solid var(--line); border-radius:14px; background:var(--red); box-shadow:var(--shadow);"></div>
-        <div style="flex:1; height:76px; border:2px solid var(--line); border-radius:14px; background:var(--yellow); box-shadow:var(--shadow);"></div>
+    <div class="reveal" style="width:460px; flex-shrink:0; display:flex; flex-direction:column; gap:14px;">
+      <div style="height:120px; border:2px solid var(--line); border-radius:14px; background:var(--paper); box-shadow:var(--shadow); display:flex; align-items:flex-end; padding:12px 16px;"><span style="font-family:var(--mono); font-size:14px;">#FAF6EF · paper · 70</span></div>
+      <div style="height:80px; border:2px solid var(--line); border-radius:14px; background:var(--ink); box-shadow:var(--shadow); display:flex; align-items:flex-end; padding:12px 16px;"><span style="font-family:var(--mono); font-size:14px; color:#fff;">#1A1A1A · ink · 20</span></div>
+      <div style="display:flex; gap:14px;">
+        <div style="flex:1; height:64px; border:2px solid var(--line); border-radius:14px; background:var(--blue); box-shadow:var(--shadow);"></div>
+        <div style="flex:1; height:64px; border:2px solid var(--line); border-radius:14px; background:var(--red); box-shadow:var(--shadow);"></div>
+        <div style="flex:1; height:64px; border:2px solid var(--line); border-radius:14px; background:var(--yellow); box-shadow:var(--shadow);"></div>
       </div>
-      <p style="font-family:var(--mono); font-size:15px; color:var(--ink-faint); text-align:right;">the 10 — rationed, so it still means something</p>
+      <p style="font-family:var(--mono); font-size:14px; color:var(--ink-faint); text-align:right;">Dopamine Bauhaus · 70/20/10</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Calm first, then a spark:</b> <span>lower cortisol before asking for effort; dopamine only at real progress.</span></div>
+</section>
+
+<!-- ============ 13 · SUB-STORY · MOOD → FUNCTION — self-playing demo ============ -->
+<section class="slide sub" id="marketSlide" style="background:var(--paper-deep);">
+  <p class="kicker reveal">Sub-story · mood → function</p>
+  <h2 class="t reveal">Every response corrects your position.</h2>
+  <div style="flex:1; display:flex; gap:60px; align-items:center; min-height:0;">
+    <div style="flex:1; display:flex; flex-direction:column; gap:24px;">
+      <p class="lead reveal">The mood earns its keep in function. Tracking isn't a filing cabinet — every answer that comes back, rejection or next step, is <b style="color:var(--ink);">a data point about your standing.</b> The market feature accumulates them into a continuously corrected position: where you actually are, updated as the market keeps talking.</p>
+      <div class="reveal" style="display:flex; gap:16px; position:relative;" id="kanban">
+        <div class="kcol">
+          <p class="kh"><span>APPLIED</span><span id="cApplied">3</span></p>
+          <div class="kcard">Staff PD · fintech</div>
+          <div class="kcard" id="moverCard">Design Eng · AI</div>
+          <div class="kcard">Sr PD · dev tools</div>
+        </div>
+        <div class="kcol">
+          <p class="kh" style="color:var(--blue);"><span>INTERVIEW</span><span id="cInterview">1</span></p>
+          <div class="kcard">Sr PD · platform</div>
+          <div class="kcard" id="ghostSlot" style="opacity:0; pointer-events:none;">Design Eng · AI</div>
+        </div>
+        <div class="kcol">
+          <p class="kh" style="color:var(--red);"><span>CLOSED</span><span>2</span></p>
+          <div class="kcard" style="opacity:0.6;">Sr PD · social</div>
+        </div>
+        <svg class="demoCursor" id="kanbanCursor" viewBox="0 0 24 24" fill="var(--ink)" stroke="#fff" stroke-width="1.4"><path d="M4 2l7 18 2.5-7.5L21 10z"/></svg>
+      </div>
+    </div>
+    <div class="reveal card" style="width:560px; flex-shrink:0; padding:40px 44px;">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:18px;">Your market position</p>
+      <div style="display:flex; align-items:baseline; gap:16px; margin-bottom:26px;">
+        <span style="font-size:88px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1;" id="mpNum">68</span>
+        <span style="font-size:22px; color:var(--blue); font-weight:600; opacity:0; transition:opacity 0.3s ease;" id="mpTick">▲ updated after 1 response</span>
+      </div>
+      <div style="height:18px; border:2px solid var(--line); border-radius:999px; overflow:hidden; background:var(--paper);">
+        <div style="width:68%; height:100%; background:var(--blue); transition:width 0.6s var(--mech);" id="mpBar"></div>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-top:12px; font-family:var(--mono); font-size:14px; color:var(--ink-faint);">
+        <span>signal: 14 applications</span><span>confidence rising</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot reveal"><b>Numbers are the dopamine:</b> <span>oversized, tabular, one colour — and the overshoot is reserved for real wins.</span></div>
+</section>
+
+<!-- ══════════ MAIN STORY RESUMES ══════════ -->
+
+<!-- ============ 14 · JD STORAGE ============ -->
+<section class="slide">
+  <p class="kicker reveal">Design decision</p>
+  <h2 class="t reveal">JD storage.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <div style="flex:1;">
+      <p class="lead reveal" style="margin-bottom:36px;">The interview call comes weeks later — and by then the job posting is gone. Jobpilot saves the JD at application time and builds the prep page around it.</p>
+      <div class="reveal card" style="padding:34px 40px; display:inline-block;">
+        <p style="font-size:30px; font-weight:700;">"Save this now — <span style="color:var(--blue);">future you</span> will thank you."</p>
+      </div>
+    </div>
+    <div class="reveal card" style="width:560px; flex-shrink:0; padding:40px 44px; background:var(--yellow); border-color:var(--line);">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink); margin-bottom:16px;">Principle</p>
+      <p style="font-size:32px; font-weight:700; line-height:1.35;">Design for the high-anxiety moment, not the entry moment.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ 07 · FUNCTION 01 · TRACKING ============ -->
+<!-- ============ 15 · NO SIGN-UP WALL ============ -->
+<section class="slide">
+  <p class="kicker reveal">Design decision</p>
+  <h2 class="t reveal">No sign-up wall.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <div style="flex:1;">
+      <p class="lead reveal" style="margin-bottom:32px;">The full product works anonymously — job seekers are drowning in logins, and <b style="color:var(--ink);">value comes before the ask.</b> Sign-up appears only when it buys the user something: opening your story bank on another device. Build stories on your phone, rehearse from your laptop.</p>
+      <p class="lead reveal">The cost: dual-mode storage — local-first, with a seamless merge on account creation. The user never feels it.</p>
+    </div>
+    <div class="reveal card" style="width:600px; flex-shrink:0; padding:44px 48px;">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px;">Worth noticing</p>
+      <p style="font-size:32px; font-weight:700; line-height:1.4;">Here, the design decision and the technical decision were <span style="color:var(--blue);">the same decision.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 16 · THE KILLER FEATURES ============ -->
+<section class="slide">
+  <p class="kicker reveal">Opportunity</p>
+  <h2 class="t reveal">Why these two are the killer features.</h2>
+  <div style="flex:1; display:flex; gap:24px; align-items:center;">
+    <div class="reveal card" style="flex:1; padding:40px 44px;">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--blue); margin-bottom:16px;">The habit loop</p>
+      <p style="font-size:28px; font-weight:700; margin-bottom:14px;">JD storage &amp; story bank</p>
+      <p style="font-size:22px; color:var(--ink-soft); line-height:1.5;">Both demand frequent return visits — check, update, rehearse. Not one-shot tools: a loop that builds toward a moment.</p>
+    </div>
+    <div class="reveal card" style="flex:1; padding:40px 44px; background:var(--ink); border-color:var(--ink);">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--yellow); margin-bottom:16px;">The moment AI can't take</p>
+      <p style="font-size:28px; font-weight:700; margin-bottom:14px; color:#fff;">The interview itself.</p>
+      <p style="font-size:22px; color:rgba(255,255,255,0.75); line-height:1.5;">Real-time human interaction. AI can prepare you for it; it can't do it for you.</p>
+    </div>
+  </div>
+  <div class="foot reveal"><b>The opportunity:</b> <span>own the preparation loop that sits closest to the irreplaceable human moment.</span></div>
+</section>
+
+<!-- ============ 17 · WHAT I LEARNED ============ -->
+<section class="slide">
+  <p class="kicker reveal">Reflection</p>
+  <h2 class="t reveal">The product got better<br>when it got smaller.</h2>
+  <div style="flex:1; display:flex; gap:90px; align-items:center;">
+    <p class="lead reveal" style="flex:1;">AI made it easy to say yes to everything — the hard part was saying no. And the atmosphere chapter is the same lesson from the other side: once the product was small enough to be honest, it could afford to <b style="color:var(--ink);">feel like somewhere.</b></p>
+    <div class="reveal card" style="width:640px; flex-shrink:0; padding:44px 48px;">
+      <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:18px;">The question I now ask first</p>
+      <p style="font-size:34px; font-weight:700; line-height:1.35;">Where in this product is the <span style="color:var(--red);">irreplaceable human moment?</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 18 · HOW I BUILD + CLOSE ============ -->
 <section class="slide" style="background:var(--paper-deep);">
-  <p class="kicker reveal">Function 01 · built on the mood</p>
-  <h2 class="t reveal">Every response is information.</h2>
-  <div style="flex:1; display:flex; gap:80px; align-items:center; min-height:0;">
-    <p class="lead reveal" style="flex:1;">Tracking isn't a filing cabinet. Each application you move — and each answer that comes back, a rejection or a next step — is <b style="color:var(--ink);">a data point about your standing in the market.</b> The board collects what the market is telling you, one card at a time.</p>
-    <div class="reveal" style="width:760px; flex-shrink:0; display:flex; gap:16px;">
-      <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
-        <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.1em; color:var(--ink-faint);">APPLIED</p>
-        <div class="card" style="padding:18px 20px; font-size:19px; font-weight:600;">Staff PD · fintech</div>
-        <div class="card" style="padding:18px 20px; font-size:19px; font-weight:600;">Sr PD · dev tools</div>
+  <p class="kicker reveal">How I build</p>
+  <h2 class="t reveal">Live, instrumented, from day one.</h2>
+  <div style="flex:1; display:flex; gap:60px; align-items:center; min-height:0;">
+    <div style="width:600px; flex-shrink:0; display:flex; flex-direction:column; gap:14px;">
+      <div class="reveal" style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+        <span class="chip">Figma · source of truth</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip">Cursor via MCP</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip">Claude API</span><span style="font-size:22px; color:var(--ink-faint);">→</span>
+        <span class="chip" style="background:var(--blue); color:#fff; border-color:var(--blue);">Next.js · deployed</span>
       </div>
-      <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
-        <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.1em; color:var(--blue);">INTERVIEW</p>
-        <div class="card" style="padding:18px 20px; font-size:19px; font-weight:600; border-color:var(--blue); box-shadow:4px 4px 0 var(--blue);">Design Eng · AI</div>
-      </div>
-      <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
-        <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.1em; color:var(--red);">CLOSED</p>
-        <div class="card" style="padding:18px 20px; font-size:19px; font-weight:600; opacity:0.65;">Sr PD · social</div>
-      </div>
+      <p class="reveal lead" style="font-size:23px;">User-testing data loops back in, and AI reviews scope against market uniqueness and running cost <b style="color:var(--ink);">before</b> anything gets built. Design keeps the veto.</p>
     </div>
-  </div>
-  <div class="foot reveal"><b>An outcome is never just news.</b> <span>It's the market speaking — and the product is listening.</span></div>
-</section>
-
-<!-- ============ 08 · FUNCTION 02 · MARKET POSITION ============ -->
-<section class="slide">
-  <p class="kicker reveal">Function 02 · built on the signal</p>
-  <h2 class="t reveal">A continuously corrected<br>market position.</h2>
-  <div style="flex:1; display:flex; gap:90px; align-items:center; min-height:0;">
-    <p class="lead reveal" style="flex:1;">Responses accumulate, and the market feature turns them into position: where you actually stand, recalibrated with every answer. Not a one-time score — <b style="color:var(--ink);">a living estimate that gets more honest as the market keeps talking.</b> The user always knows where they are.</p>
-    <div class="reveal" style="width:640px; flex-shrink:0;">
-      <div class="card" style="padding:44px 48px;">
-        <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:20px;">Your market position</p>
-        <div style="display:flex; align-items:baseline; gap:18px; margin-bottom:30px;">
-          <span style="font-size:96px; font-weight:700; font-variant-numeric:tabular-nums; line-height:1;">72</span>
-          <span style="font-size:26px; color:var(--blue); font-weight:600;">▲ updated after 2 responses</span>
-        </div>
-        <div style="height:20px; border:2px solid var(--line); border-radius:999px; overflow:hidden; background:var(--paper);">
-          <div style="width:72%; height:100%; background:var(--blue);"></div>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-top:14px; font-family:var(--mono); font-size:15px; color:var(--ink-faint);">
-          <span>signal: 14 applications</span><span>confidence rising</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="foot reveal"><b>Numbers are the dopamine:</b> <span>oversized, tabular, one colour max — progress you can feel.</span></div>
-</section>
-
-<!-- ============ 09 · THE ROOM, WALKED THROUGH ============ -->
-<section class="slide">
-  <p class="kicker reveal">The result</p>
-  <h2 class="t reveal">The room, walked through.</h2>
-  <div class="reveal" style="flex:1; display:flex; align-items:center; justify-content:center; min-height:0;">
-    <div class="card" style="padding:16px; max-width:1480px;">
+    <div class="reveal card" style="flex:1; padding:14px; min-width:0;">
       <video src="/jobpilot-demo-v3.mp4" autoplay muted loop playsinline style="width:100%; display:block; border-radius:8px;"></video>
     </div>
   </div>
-</section>
-
-<!-- ============ 10 · REFLECTION ============ -->
-<section class="slide" style="background:var(--paper-deep);">
-  <p class="kicker reveal">Reflection</p>
-  <h2 class="t reveal">Honest about the boundary.</h2>
-  <div style="flex:1; display:flex; gap:80px; align-items:center;">
-    <div style="flex:1;">
-      <p class="lead reveal" style="margin-bottom:36px;">Jobpilot is a coach, not a tool that finds you a job — and the design keeps that honesty structural. In onboarding, one of the four journey arches is drawn in <b style="color:var(--ink);">dashed outline: "You apply — out there."</b> The product doesn't pretend to do the part it doesn't do.</p>
-      <p class="lead reveal">The atmosphere argument holds the whole way down: the space sets the mood, the mood carries the emotional value, and the functions — tracking, market position — earn their keep <b style="color:var(--ink);">inside</b> that mood, not despite it.</p>
-    </div>
-    <div class="reveal" style="width:520px; flex-shrink:0;">
-      <div class="card" style="padding:40px 44px;">
-        <p style="font-family:var(--mono); font-size:15px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px;">Shipped verbatim, design → production</p>
-        <p style="font-size:38px; font-weight:700; line-height:1.25;">"The job search is lonely.<br><span style="color:var(--blue);">This one isn't."</span></p>
-      </div>
-    </div>
-  </div>
   <div class="reveal foot" style="display:flex; justify-content:space-between;">
-    <span><b>Kate Xu</b> · designed and built solo · Claude Design ↔ Cowork workflow</span><span>katexu.com</span>
+    <span><b>Kate Xu</b> · designed and built solo · jobpilot.katexu.com</span><span>katexu.com</span>
   </div>
 </section>
 
@@ -317,7 +498,8 @@ h2.t { font-size:var(--title); font-weight:700; letter-spacing:-0.03em; line-hei
 </div>
 
 <script>
-/* Vertical scroll runtime — same as the BofA deck. */
+/* Vertical scroll runtime — same as the BofA deck, plus the .playing flag
+   that starts and stops the self-driving demos. */
 class ScrollDeck {
   constructor() {
     this.slides = [...document.querySelectorAll('.slide')];
@@ -353,7 +535,7 @@ class ScrollDeck {
       const label = (i + 1) + ' · ' + (heading ? heading.textContent.replace(/\s+/g, ' ').trim().slice(0, 42)
         : kicker ? kicker.textContent.trim() : 'Section');
       const dot = document.createElement('button');
-      dot.className = 'dot';
+      dot.className = 'dot' + (s.classList.contains('sub') ? ' sub-dot' : '');
       dot.setAttribute('aria-label', label);
       const tip = document.createElement('span');
       tip.className = 'tip';
@@ -372,7 +554,10 @@ class ScrollDeck {
     const active = new IntersectionObserver((entries) => {
       entries.forEach((e) => { if (e.isIntersecting) this.setCurrent(this.slides.indexOf(e.target)); });
     }, { threshold: 0.5 });
-    this.slides.forEach((s) => { reveal.observe(s); active.observe(s); });
+    const playing = new IntersectionObserver((entries) => {
+      entries.forEach((e) => e.target.classList.toggle('playing', e.isIntersecting));
+    }, { threshold: 0.4 });
+    this.slides.forEach((s) => { reveal.observe(s); active.observe(s); playing.observe(s); });
   }
   setCurrent(i) {
     if (i < 0 || i === this.current) return;
@@ -397,6 +582,109 @@ class ScrollDeck {
   }
 }
 new ScrollDeck();
+
+/* ============ demo helpers ============ */
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function demoLoop(slide, play, reset) {
+  let timers = [];
+  const at = (ms, fn) => timers.push(setTimeout(fn, ms));
+  const stop = () => { timers.forEach(clearTimeout); timers = []; reset(); };
+  const run = () => { stop(); if (!reduced) play(at); else reset(true); };
+  new MutationObserver(() => {
+    if (slide.classList.contains('playing')) run(); else stop();
+  }).observe(slide, { attributes: true, attributeFilter: ['class'] });
+  if (slide.classList.contains('playing')) run();
+  return { at };
+}
+/* position the fake cursor over a target, in unscaled 1920-stage pixels */
+function aimCursor(cursor, container, target, dx, dy) {
+  const c = container.getBoundingClientRect();
+  const t = target.getBoundingClientRect();
+  const f = window.innerWidth / 1920;
+  cursor.style.left = ((t.left - c.left) / f + dx) + 'px';
+  cursor.style.top = ((t.top - c.top) / f + dy) + 'px';
+}
+
+/* ============ THE CUT — cursor kills two pillars, three close ranks ============ */
+(function () {
+  const slide = document.getElementById('cutSlide');
+  if (!slide) return;
+  const row = document.getElementById('cutRow');
+  const cursor = document.getElementById('cutCursor');
+  const cuts = [...slide.querySelectorAll('.pillar[data-cut]')];
+  const keeps = [...slide.querySelectorAll('.pillar[data-keep]')];
+  const reset = (final) => {
+    cuts.forEach(p => p.classList.toggle('dead', !!final));
+    keeps.forEach(p => p.classList.toggle('kept', !!final));
+    cursor.style.opacity = '0'; cursor.classList.remove('press');
+  };
+  demoLoop(slide, (at) => {
+    reset(false);
+    at(600, () => { aimCursor(cursor, row, cuts[0], 140, 60); cursor.style.opacity = '1'; });
+    at(1500, () => cursor.classList.add('press'));
+    at(1650, () => { cursor.classList.remove('press'); cuts[0].classList.add('dead'); });
+    at(2100, () => aimCursor(cursor, row, cuts[1], 140, 60));
+    at(2900, () => cursor.classList.add('press'));
+    at(3050, () => { cursor.classList.remove('press'); cuts[1].classList.add('dead'); });
+    at(3600, () => { cursor.style.opacity = '0'; });
+    at(4000, () => keeps.forEach((p, i) => setTimeout(() => p.classList.add('kept'), i * 140)));
+    at(9000, () => { reset(false); });
+    at(9600, () => slide.classList.contains('playing') && slide.dispatchEvent(new Event('replay')));
+  }, reset);
+  // simple relooping: MutationObserver restarts on class flicker; also loop on timer end
+  slide.addEventListener('replay', () => { slide.classList.remove('playing'); void slide.offsetWidth; slide.classList.add('playing'); });
+})();
+
+/* ============ MARKET — a card moves to Interview, the number corrects ============ */
+(function () {
+  const slide = document.getElementById('marketSlide');
+  if (!slide) return;
+  const board = document.getElementById('kanban');
+  const cursor = document.getElementById('kanbanCursor');
+  const card = document.getElementById('moverCard');
+  const slot = document.getElementById('ghostSlot');
+  const num = document.getElementById('mpNum');
+  const bar = document.getElementById('mpBar');
+  const tick = document.getElementById('mpTick');
+  const cA = document.getElementById('cApplied');
+  const cI = document.getElementById('cInterview');
+  const reset = (final) => {
+    cursor.style.opacity = '0'; cursor.classList.remove('press');
+    card.classList.remove('lift', 'landed');
+    card.style.transform = ''; card.style.opacity = final ? '0' : '1';
+    slot.style.opacity = final ? '1' : '0';
+    if (final) { slot.classList.add('landed'); } else { slot.classList.remove('landed'); }
+    num.textContent = final ? '72' : '68';
+    bar.style.width = final ? '72%' : '68%';
+    tick.style.opacity = final ? '1' : '0';
+    cA.textContent = final ? '2' : '3'; cI.textContent = final ? '2' : '1';
+    num.classList.remove('winpop');
+  };
+  demoLoop(slide, (at) => {
+    reset(false);
+    at(700, () => { aimCursor(cursor, board, card, 180, 30); cursor.style.opacity = '1'; });
+    at(1600, () => { cursor.classList.add('press'); card.classList.add('lift'); });
+    at(2100, () => {
+      // slide the card into the ghost slot: measure the gap in stage pixels
+      const a = card.getBoundingClientRect(), b = slot.getBoundingClientRect();
+      const f = window.innerWidth / 1920;
+      card.style.transform = 'translate(' + ((b.left - a.left) / f) + 'px,' + ((b.top - a.top) / f) + 'px)';
+      aimCursor(cursor, board, slot, 180, 30);
+    });
+    at(2850, () => {
+      cursor.classList.remove('press');
+      card.style.opacity = '0'; slot.style.opacity = '1'; slot.classList.add('landed');
+      cA.textContent = '2'; cI.textContent = '2';
+    });
+    at(3200, () => { cursor.style.opacity = '0'; });
+    at(3700, () => {
+      num.textContent = '72'; num.classList.add('winpop');
+      bar.style.width = '72%'; tick.style.opacity = '1';
+    });
+    at(9500, () => slide.classList.contains('playing') && slide.dispatchEvent(new Event('replay')));
+  }, reset);
+  slide.addEventListener('replay', () => { slide.classList.remove('playing'); void slide.offsetWidth; slide.classList.add('playing'); });
+})();
 </script>
 </body>
 </html>
