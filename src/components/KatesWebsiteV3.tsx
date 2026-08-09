@@ -480,23 +480,28 @@ function Slide({
     <motion.figure
       variants={slideReveal}
       // Each slide takes its media's natural width at the shared rail height:
-      // free widths, straight row.
-      className="snap-start shrink-0 m-0 w-auto"
+      // free widths, straight row. A phone slide fills the rail instead, so a
+      // single-slide project (OneCo) centres on the whole column.
+      className={`snap-start shrink-0 m-0 ${media.phone ? "w-full" : "w-auto"}`}
     >
       {media.phone ? (
         /* Phone slides: the screen recording sits inside a device frame — a
            dark titanium body with a bezel and Dynamic Island — centred in the
            same grey well every other slide uses, so the rail keeps one width. */
-        <div className="flex h-[var(--rail-h)] w-[640px] items-center justify-center rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
+        <div className="relative flex h-[var(--rail-h)] w-full items-center justify-center">
+          {/* the panel sits BEHIND the device and is deliberately shorter, so
+              the phone breaks its top and bottom edges — popped out, not framed */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-1/2 h-[calc(var(--rail-h)-96px)] w-[640px] -translate-x-1/2 -translate-y-1/2 rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]"
+          />
           <div className="relative w-[260px] rounded-[44px] bg-[#3b3b3d] p-[9px] shadow-[inset_0_0_2px_rgba(255,255,255,0.35),0_2px_4px_rgba(0,0,0,0.18),0_24px_48px_-20px_rgba(0,0,0,0.4)]">
             {/* side buttons, drawn in the frame's own metal */}
             <div aria-hidden className="absolute -left-[2px] top-[84px] h-[22px] w-[3px] rounded-l bg-[#2e2e30]" />
             <div aria-hidden className="absolute -left-[2px] top-[118px] h-[39px] w-[3px] rounded-l bg-[#2e2e30]" />
             <div aria-hidden className="absolute -left-[2px] top-[165px] h-[39px] w-[3px] rounded-l bg-[#2e2e30]" />
             <div aria-hidden className="absolute -right-[2px] top-[130px] h-[58px] w-[3px] rounded-r bg-[#2e2e30]" />
-            <div className="relative overflow-hidden rounded-[35px] bg-black">
-              {/* Dynamic Island */}
-              <div aria-hidden className="absolute left-1/2 top-[10px] z-10 h-[20px] w-[68px] -translate-x-1/2 rounded-full bg-black" />
+            <div className="relative overflow-hidden rounded-[24px] bg-black">
               {mediaEl}
             </div>
           </div>
