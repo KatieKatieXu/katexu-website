@@ -404,15 +404,17 @@ function ProjectCarousel({
 
   return (
     <section className="pt-2 pb-12 border-b border-[#f2f2f4] last:border-b-0">
-      {/* Title row. Its width matches the first slide (74%, capped at 1080) so
-          the section label's last character lands on the demo's right edge. */}
-      <div className="flex w-[74%] max-w-[1080px] items-baseline justify-between mb-4 pt-8">
+      {/* Title row spans the full column: title left, section label pinned to
+          the far right edge, top-aligned (Figma 42:237 / 44:277). The label uses
+          the same two-tone treatment as the slide captions — bold ink, then a
+          quieter regular tail. */}
+      <div className="flex w-full items-start justify-between mb-4 pt-8">
         <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111]">
           {project.title}
         </h2>
         {first && (
-          <p className="shrink-0 pl-6 text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888]">
-            Selected work @2026
+          <p className="shrink-0 pl-6 text-[15px] leading-[1.45] text-[#777]">
+            <span className="font-bold text-[#111]">Selected work</span> @ 2026
           </p>
         )}
       </div>
