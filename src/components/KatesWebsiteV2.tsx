@@ -124,11 +124,15 @@ export const projects: Project[] = [
         body: "User research kept showing the same behavior: people build multiple storylines at once. Slides mode borrows the mental model everyone already owns — a vertical page selector, like every deck tool. Video mode needed something new: parallel story rows, one row per storyline, that deliberately are not editing timelines. Elements copy-paste across rows, so building three versions of your launch video is one flow, not three projects.",
       },
       {
+        title: "Decoding taste into an algorithm",
+        body: "Beyond the product surface, I design Vetra's aesthetic system — the rules that decide how every generated slide and video looks. The work is decoding human aesthetic judgment into on-screen decisions a machine can execute: what a story's mood implies for its palette, type, and pacing, and where the craft floors sit that keep output from feeling generated. Every visual this platform produces runs through rules I wrote. The rulebook itself stays proprietary; the field — teaching machines taste — is where my design practice is heading.",
+      },
+      {
         title: "Filter the landing to what converts",
         body: "Every candidate message went through one filter: does this convert traffic or make the brand stand out? The few that passed took the primary positions; everything else was cut or demoted. And the landing shares one design system with the product itself — so the promise and the product look like the same thing, and the first session doesn't break the spell the landing cast.",
       },
     ],
-    collaborators: "Redesign for the Vetra team — landing page and product, on their live codebase.",
+    collaborators: "For the Vetra team — product, landing, and the aesthetic algorithm behind every generated visual.",
   },
   {
     key: "jobpilot",
