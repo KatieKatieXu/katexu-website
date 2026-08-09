@@ -564,7 +564,7 @@ function ProjectCarousel({
         className="flex w-full items-center justify-between gap-6 mb-4 pt-8"
       >
         {/* the title and its actions read as one unit */}
-        <div className="flex min-w-0 flex-wrap items-center gap-4">
+        <div className="flex min-w-0 flex-wrap items-center gap-8">
           <h2 className="text-[22px] leading-[1.25] font-semibold tracking-[-0.4px] text-[#111]">
             {project.title}
           </h2>
