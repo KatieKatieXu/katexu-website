@@ -447,14 +447,15 @@ function Slide({
   media,
   title,
   caption,
-  offset = false,
 }: {
   media: Media;
   title: string;
   caption?: string;
-  offset?: boolean;
 }) {
   const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
+  // Inside the device frame the media is width-driven (the frame sets width);
+  // in an open well it is height-driven (the rail sets height).
+  const mediaClass = media.phone ? "w-full h-auto block" : "h-full w-auto block";
 
   const mediaEl = isVideo ? (
     <video
@@ -469,34 +470,33 @@ function Slide({
         e.currentTarget.currentTime = 0;
         void e.currentTarget.play();
       }}
-      className="h-full w-auto block"
+      className={mediaClass}
     />
   ) : (
-    <img src={media.src} alt={title} loading="lazy" className="h-full w-auto block" />
+    <img src={media.src} alt={title} loading="lazy" className={mediaClass} />
   );
 
   return (
     <motion.figure
       variants={slideReveal}
-      // Freestyle rail: each slide takes its media's natural width at the
-      // project's rail height, so the gaps land wherever the content says —
-      // deliberately NOT on one shared vertical line. Odd slides drop 40px.
-      className={`snap-start shrink-0 m-0 w-auto ${offset ? "mt-10" : ""}`}
+      // Each slide takes its media's natural width at the shared rail height:
+      // free widths, straight row.
+      className="snap-start shrink-0 m-0 w-auto"
     >
       {media.phone ? (
         /* Phone slides: the screen recording sits inside a device frame — a
            dark titanium body with a bezel and Dynamic Island — centred in the
            same grey well every other slide uses, so the rail keeps one width. */
-        <div className="flex w-[640px] items-center justify-center rounded-[4px] bg-[#f5f5f7] py-14 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
-          <div className="relative w-[320px] rounded-[54px] bg-[#3b3b3d] p-[11px] shadow-[inset_0_0_2px_rgba(255,255,255,0.35),0_2px_4px_rgba(0,0,0,0.18),0_24px_48px_-20px_rgba(0,0,0,0.4)]">
+        <div className="flex h-[var(--rail-h)] w-[640px] items-center justify-center rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
+          <div className="relative w-[260px] rounded-[44px] bg-[#3b3b3d] p-[9px] shadow-[inset_0_0_2px_rgba(255,255,255,0.35),0_2px_4px_rgba(0,0,0,0.18),0_24px_48px_-20px_rgba(0,0,0,0.4)]">
             {/* side buttons, drawn in the frame's own metal */}
-            <div aria-hidden className="absolute -left-[2px] top-[104px] h-[26px] w-[3px] rounded-l bg-[#2e2e30]" />
-            <div aria-hidden className="absolute -left-[2px] top-[146px] h-[48px] w-[3px] rounded-l bg-[#2e2e30]" />
-            <div aria-hidden className="absolute -left-[2px] top-[204px] h-[48px] w-[3px] rounded-l bg-[#2e2e30]" />
-            <div aria-hidden className="absolute -right-[2px] top-[160px] h-[72px] w-[3px] rounded-r bg-[#2e2e30]" />
-            <div className="relative overflow-hidden rounded-[43px] bg-black">
+            <div aria-hidden className="absolute -left-[2px] top-[84px] h-[22px] w-[3px] rounded-l bg-[#2e2e30]" />
+            <div aria-hidden className="absolute -left-[2px] top-[118px] h-[39px] w-[3px] rounded-l bg-[#2e2e30]" />
+            <div aria-hidden className="absolute -left-[2px] top-[165px] h-[39px] w-[3px] rounded-l bg-[#2e2e30]" />
+            <div aria-hidden className="absolute -right-[2px] top-[130px] h-[58px] w-[3px] rounded-r bg-[#2e2e30]" />
+            <div className="relative overflow-hidden rounded-[35px] bg-black">
               {/* Dynamic Island */}
-              <div aria-hidden className="absolute left-1/2 top-[12px] z-10 h-[24px] w-[84px] -translate-x-1/2 rounded-full bg-black" />
+              <div aria-hidden className="absolute left-1/2 top-[10px] z-10 h-[20px] w-[68px] -translate-x-1/2 rounded-full bg-black" />
               {mediaEl}
             </div>
           </div>
@@ -515,18 +515,16 @@ function Slide({
   );
 }
 
-// Rail heights cycle so neighbouring projects don't share a height either —
-// the page reads as a loose grid, not rows of one module.
-const RAIL_HEIGHTS = [620, 540, 600, 560, 610, 550];
+// One height for every rail. Slides keep their natural widths, so the gaps
+// still fall wherever the media says — but the rows themselves run straight.
+const RAIL_H = 600;
 
 function ProjectCarousel({
   project,
   first = false,
-  idx = 0,
 }: {
   project: Project;
   first?: boolean;
-  idx?: number;
 }) {
   const railRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
@@ -650,8 +648,8 @@ function ProjectCarousel({
       <motion.div
         ref={railRef}
         variants={railReveal}
-        style={{ "--rail-h": `${RAIL_HEIGHTS[idx % RAIL_HEIGHTS.length]}px` } as React.CSSProperties}
-        className="flex items-start gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-12"
+        style={{ "--rail-h": `${RAIL_H}px` } as React.CSSProperties}
+        className="flex items-start gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar scroll-smooth -mx-1 px-1 pb-1"
       >
         {media.map((m, i) => (
           <Slide
@@ -659,7 +657,6 @@ function ProjectCarousel({
             media={m}
             title={project.title}
             caption={i === 0 ? project.description : undefined}
-            offset={i % 2 === 1}
           />
         ))}
       </motion.div>
@@ -707,7 +704,6 @@ export default function KatesWebsiteV3() {
                 key={project.key}
                 project={project}
                 first={i === 0}
-                idx={i}
               />
             ))}
           </main>
