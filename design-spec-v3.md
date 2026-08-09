@@ -37,10 +37,10 @@ is **1360px**.
 | hairline | `#f2f2f4` | section divider |
 | hairline-footer | `#f0f0f0` | footer top border |
 | underline | `#d8d8d8` | nav link underline, resting |
-| accent | `#00bc7d` | the `+` glyph on Key decisions — the only colour left on the page |
-
-The case-study pill is ink now: 1px `#111` border, `#111` text, `#f5f5f7` hover.
-Accent survives in exactly one 15px glyph.
+**There is no accent colour.** The green (`#00bc7d` / `#00915f` / `#e6f7f0`) is gone
+from the homepage, /lab, /resume and /how-i-think — replaced by ink and surface.
+The page is now entirely black, greys and white. Hierarchy comes from weight,
+size and value, never hue.
 
 ---
 

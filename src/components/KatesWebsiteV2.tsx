@@ -248,7 +248,7 @@ export const projects: Project[] = [
 // Links — gray, underlined, hover-green; external ones get a ↗
 // ───────────────────────────────────────────────────────────────────────────
 const linkClass =
-  "text-[#555] underline underline-offset-[3px] decoration-[#cfcfcf] hover:text-[#00915f] hover:decoration-[#00915f] transition-colors";
+  "text-[#555] underline underline-offset-[3px] decoration-[#cfcfcf] hover:text-[#111111] hover:decoration-[#111111] transition-colors";
 
 export function ExternalLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -352,21 +352,21 @@ function WorkflowHighlightBlock() {
   return (
     <section className="pt-12 md:pt-14">
       <div className="max-w-[620px] rounded-[18px] bg-white p-4 md:p-5 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)] hover:scale-[1.01] transition-all duration-300 ease-[cubic-bezier(0,0,0.5,1)]">
-        <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-3">
+        <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#111111] mb-3">
           How I ship with engineers — AI-native workflow
         </h3>
         <div className="divide-y divide-[#e9e9e6]">
           {workflows.map((w, i) => (
             <div key={i} className="py-2.5 first:pt-0 last:pb-0">
               <h4 className="text-[14px] font-semibold text-[#1a1a1a] mb-0.5">{w.title}</h4>
-              <p className="text-[12px] font-medium text-[#00915f]">{w.flow}</p>
+              <p className="text-[12px] font-medium text-[#111111]">{w.flow}</p>
             </div>
           ))}
         </div>
         <div className="mt-3 pt-3 border-t border-[#e9e9e6]">
           <Link
             href="/how-i-think"
-            className="inline-flex items-center gap-1 text-[12px] font-medium text-[#00915f] hover:underline underline-offset-[3px]"
+            className="inline-flex items-center gap-1 text-[12px] font-medium text-[#111111] hover:underline underline-offset-[3px]"
             onClick={() => track("v2_workflow_see_more_clicked", { href: "/how-i-think" })}
           >
             See more AI workflows
@@ -439,7 +439,7 @@ function DownloadWidget({ app, project }: { app: AppStore; project: string }) {
           <div className="text-[15px] font-semibold text-[#111] leading-tight">{app.name}</div>
           <div className="text-[12.5px] text-[#888] truncate">{app.subtitle}</div>
           <div className="flex items-center gap-1.5 mt-1.5">
-            <span className="text-[12px] leading-none tracking-[1px] text-[#00bc7d]" aria-hidden>
+            <span className="text-[12px] leading-none tracking-[1px] text-[#111111]" aria-hidden>
               ★★★★★
             </span>
             <span className="text-[11.5px] text-[#999]">{app.ratingLabel}</span>
@@ -460,7 +460,7 @@ function DownloadWidget({ app, project }: { app: AppStore; project: string }) {
       </div>
       {app.review && (
         <p className="mt-3.5 pt-3.5 border-t border-[#f1f1f1] text-[13px] leading-[1.55] text-[#555]">
-          <span className="text-[#00bc7d]" aria-hidden>
+          <span className="text-[#111111]" aria-hidden>
             ★★★★★
           </span>{" "}
           “{app.review}” <span className="text-[#aaa]">— App Store review</span>
@@ -506,7 +506,7 @@ export function ProjectBlock({ project }: { project: Project }) {
           className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[12px] font-medium hover:bg-black transition-colors"
         >
           <span
-            className="text-[13px] leading-none text-[#00bc7d] transition-transform duration-300"
+            className="text-[13px] leading-none text-[#111111] transition-transform duration-300"
             style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
             aria-hidden
           >
@@ -554,7 +554,7 @@ export function ProjectBlock({ project }: { project: Project }) {
             className="overflow-hidden"
           >
             <div className="mt-6 max-w-[620px]">
-              <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-3">
+              <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#111111] mb-3">
                 Key decisions
               </h3>
               <div className="divide-y divide-[#eeeeee]">
@@ -568,7 +568,7 @@ export function ProjectBlock({ project }: { project: Project }) {
                 ))}
               </div>
 
-              <h3 className="mt-6 text-[11px] font-semibold uppercase tracking-[1.5px] text-[#00915f] mb-2">
+              <h3 className="mt-6 text-[11px] font-semibold uppercase tracking-[1.5px] text-[#111111] mb-2">
                 Collaborators
               </h3>
               <p className="text-[15px] leading-[1.65] text-[#3a3a3a]">{project.collaborators}</p>

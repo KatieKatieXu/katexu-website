@@ -28,7 +28,7 @@ export default function HowIThinkPage() {
         <div className="flex items-center justify-between p-4 md:p-6">
           <Link href="/">
             <motion.button
-              className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-md flex items-center justify-center border border-gray-100 hover:border-[#00bc7d] transition-colors"
+              className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-md flex items-center justify-center border border-gray-100 hover:border-[#111111] transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Go back to home"
@@ -38,7 +38,7 @@ export default function HowIThinkPage() {
                 height="20"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#00bc7d"
+                stroke="#111111"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -64,7 +64,7 @@ export default function HowIThinkPage() {
               onClick={() => handleTabChange(tab)}
               className={`relative px-4 py-1.5 text-[12px] font-semibold rounded-full transition-all ${
                 activeTab === tab
-                  ? "text-white bg-[#00915f]"
+                  ? "text-white bg-[#111111]"
                   : "text-[#888] bg-transparent hover:text-[#444]"
               }`}
             >
@@ -72,7 +72,7 @@ export default function HowIThinkPage() {
               {activeTab === tab && (
                 <motion.div
                   layoutId="tab-indicator"
-                  className="absolute inset-0 bg-[#00915f] rounded-full -z-10"
+                  className="absolute inset-0 bg-[#111111] rounded-full -z-10"
                   transition={{ type: "spring", bounce: 0.2, duration: 0.4 }}
                 />
               )}
@@ -99,7 +99,7 @@ export default function HowIThinkPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
               >
-                <span className="text-[10px] font-bold text-[#00915f] tracking-[3px] uppercase">
+                <span className="text-[10px] font-bold text-[#111111] tracking-[3px] uppercase">
                   Where it started
                 </span>
                 <h2 className="mt-3 text-2xl md:text-3xl font-bold text-[#1a1a1a] leading-snug font-[family-name:var(--font-tinos)]">
@@ -145,7 +145,7 @@ export default function HowIThinkPage() {
               </motion.section>
 
               <motion.div
-                className="my-12 h-px bg-gradient-to-r from-transparent via-[#00bc7d]/30 to-transparent"
+                className="my-12 h-px bg-gradient-to-r from-transparent via-[#111111]/30 to-transparent"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
@@ -156,7 +156,7 @@ export default function HowIThinkPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.5, ease: "easeOut" }}
               >
-                <span className="text-[10px] font-bold text-[#00915f] tracking-[3px] uppercase">
+                <span className="text-[10px] font-bold text-[#111111] tracking-[3px] uppercase">
                   Latest thinking
                 </span>
                 <p className="mt-2 text-[13px] text-[#888]">
@@ -167,13 +167,13 @@ export default function HowIThinkPage() {
                   {papers.map((paper, i) => (
                     <motion.article
                       key={i}
-                      className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#00bc7d]/40 transition-colors"
+                      className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#111111]/40 transition-colors"
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 + i * 0.1, duration: 0.4 }}
                     >
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="text-[10px] font-bold text-white bg-[#00915f] px-2 py-0.5 rounded-full tracking-wider">
+                        <span className="text-[10px] font-bold text-white bg-[#111111] px-2 py-0.5 rounded-full tracking-wider">
                           {paper.year}
                         </span>
                         <span className="text-[11px] text-[#999] italic">{paper.journal}</span>
@@ -183,7 +183,7 @@ export default function HowIThinkPage() {
                         href={paper.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block text-[15px] font-bold text-[#1a1a1a] leading-snug hover:text-[#00915f] transition-colors font-[family-name:var(--font-tinos)]"
+                        className="block text-[15px] font-bold text-[#1a1a1a] leading-snug hover:text-[#111111] transition-colors font-[family-name:var(--font-tinos)]"
                         onClick={() => posthog.capture("research_paper_clicked", { paper_year: paper.year, paper_journal: paper.journal })}
                       >
                         {paper.title} ↗
@@ -194,7 +194,7 @@ export default function HowIThinkPage() {
                       </p>
 
                       <div className="mt-4 pt-4 border-t border-[#f0ece4]">
-                        <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                        <span className="text-[10px] font-bold text-[#111111] tracking-[2px] uppercase">
                           Kate&apos;s takeaway
                         </span>
                         <p className="mt-1.5 text-[13px] text-[#444] leading-relaxed italic">
@@ -224,14 +224,14 @@ export default function HowIThinkPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-[10px] font-bold text-[#00915f] tracking-[3px] uppercase">
+              <span className="text-[10px] font-bold text-[#111111] tracking-[3px] uppercase">
                 In practice
               </span>
               <p className="mt-3 text-[14px] text-[#555] leading-relaxed max-w-lg">
                 These are workflows I&apos;ve built, tested, and refined — each shaped for a different kind of problem. They&apos;re always evolving.{" "}
                 <a
                   href="mailto:katherinexu09@gmail.com"
-                  className="text-[#00915f] hover:underline"
+                  className="text-[#111111] hover:underline"
                   onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow" })}
                 >
                   Get in touch
@@ -284,12 +284,12 @@ export default function HowIThinkPage() {
                 ].map((workflow, i) => (
                   <motion.div
                     key={i}
-                    className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#00bc7d]/40 transition-colors"
+                    className="rounded-2xl border border-[#e8e4db] bg-white/60 p-6 hover:border-[#111111]/40 transition-colors"
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: i * 0.1, duration: 0.4 }}
                   >
-                    <span className="text-[10px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                    <span className="text-[10px] font-bold text-[#111111] tracking-[2px] uppercase">
                       {workflow.purpose}
                     </span>
 
@@ -344,10 +344,10 @@ export default function HowIThinkPage() {
                       className="rounded-2xl border border-[#e8e4db] bg-white p-6 shadow-sm"
                     >
                       <div className="flex items-center gap-3 mb-5">
-                        <span className="w-7 h-7 rounded-full bg-[#f0fdf8] border border-[#00bc7d]/30 flex items-center justify-center text-[10px] font-bold text-[#00915f]">
+                        <span className="w-7 h-7 rounded-full bg-[#f0fdf8] border border-[#111111]/30 flex items-center justify-center text-[10px] font-bold text-[#111111]">
                           {String(i + 4).padStart(2, "0")}
                         </span>
-                        <span className="text-[11px] font-bold text-[#00915f] tracking-[2px] uppercase">
+                        <span className="text-[11px] font-bold text-[#111111] tracking-[2px] uppercase">
                           {fake.purpose}
                         </span>
                       </div>
@@ -373,7 +373,7 @@ export default function HowIThinkPage() {
                 <div className="absolute inset-0 rounded-2xl backdrop-blur-[4px] bg-[#fdfbf7]/60 flex items-center justify-center">
                   <a
                     href="mailto:katherinexu09@gmail.com"
-                    className="text-[12px] font-semibold text-[#00915f] tracking-[2px] uppercase hover:underline"
+                    className="text-[12px] font-semibold text-[#111111] tracking-[2px] uppercase hover:underline"
                     onClick={() => posthog.capture("contact_email_clicked", { source: "how_i_think_ai_workflow_locked" })}
                   >
                     Contact to know more

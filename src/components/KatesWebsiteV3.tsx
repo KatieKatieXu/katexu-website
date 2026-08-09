@@ -514,7 +514,7 @@ function ProjectCarousel({
           className="inline-flex items-center gap-1.5 rounded-full bg-[#111] text-white px-4 py-1.5 text-[15px] font-medium hover:bg-black transition-colors"
         >
           <span
-            className="text-[15px] leading-none text-[#00bc7d] transition-transform duration-300"
+            className="text-[15px] leading-none text-[#111111] transition-transform duration-300"
             style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
             aria-hidden
           >

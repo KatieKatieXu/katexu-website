@@ -45,7 +45,7 @@ function LabCard({
     <div
       onClick={onExpand}
       className={`border border-gray-200 rounded-lg overflow-hidden bg-white ${
-        onExpand ? "cursor-pointer hover:border-[#00bc7d] transition-colors" : ""
+        onExpand ? "cursor-pointer hover:border-[#111111] transition-colors" : ""
       }`}
     >
       <div
@@ -62,13 +62,13 @@ function LabCard({
           <p className="text-[11px] text-[#b4b2a9] font-[family-name:var(--font-geist-mono)]">
             {number} · {date}
           </p>
-          <span className="text-[11px] text-[#00915f] bg-[#e6f7f0] px-2 py-[2px] rounded-full">
+          <span className="text-[11px] text-[#111111] bg-[#f5f5f7] px-2 py-[2px] rounded-full">
             {category}
           </span>
         </div>
         <h3 className="text-[15px] font-semibold text-gray-900 mb-1.5">{title}</h3>
         <p className="text-[13px] text-[#5f5e5a] leading-relaxed mb-3">
-          <span className="text-[#00915f] font-semibold">Why: </span>
+          <span className="text-[#111111] font-semibold">Why: </span>
           {why}
         </p>
         <div className="flex flex-wrap gap-1.5 mb-3">
@@ -95,7 +95,7 @@ function SpatialDemo() {
           setOpen(!open);
           posthog.capture("lab_demo_interacted", { demo: "spatial" });
         }}
-        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#00bc7d] transition-colors flex items-center gap-1.5"
+        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#111111] transition-colors flex items-center gap-1.5"
       >
         Options
         <motion.svg
@@ -176,7 +176,7 @@ function CausalityDemo() {
       <button
         ref={btnRef}
         onClick={fire}
-        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#00bc7d] transition-colors"
+        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#111111] transition-colors"
       >
         Add to cart
       </button>
@@ -201,7 +201,7 @@ function CausalityDemo() {
           initial={{ scale: count > 0 ? 1.4 : 1 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.2, ease: [0.34, 1.56, 0.64, 1] }}
-          className="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-[#00bc7d] text-white text-[11px] flex items-center justify-center px-1"
+          className="absolute -top-1 -right-1 min-w-[18px] h-[18px] rounded-full bg-[#111111] text-white text-[11px] flex items-center justify-center px-1"
         >
           {count}
         </motion.span>
@@ -217,7 +217,7 @@ function CausalityDemo() {
             scale: { duration: 0.4 },
             opacity: { duration: 0.1, delay: 0.35 },
           }}
-          className="absolute left-8 top-1/2 w-3.5 h-3.5 rounded-full bg-[#00bc7d] pointer-events-none"
+          className="absolute left-8 top-1/2 w-3.5 h-3.5 rounded-full bg-[#111111] pointer-events-none"
         />
       )}
     </div>
@@ -248,7 +248,7 @@ function StateDemo() {
           posthog.capture("lab_demo_interacted", { demo: "state" });
         }}
         className="w-12 h-7 rounded-full relative transition-colors duration-200"
-        style={{ backgroundColor: on ? "#00bc7d" : "#d4d4d4" }}
+        style={{ backgroundColor: on ? "#111111" : "#d4d4d4" }}
       >
         <motion.div
           className="absolute top-[3px] left-[3px] w-[22px] h-[22px] rounded-full bg-white shadow-sm"
@@ -258,7 +258,7 @@ function StateDemo() {
       </button>
       <button
         onClick={save}
-        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#00bc7d] transition-colors min-w-[110px] flex items-center justify-center gap-1.5"
+        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#111111] transition-colors min-w-[110px] flex items-center justify-center gap-1.5"
       >
         <AnimatePresence mode="wait">
           {saveState === "idle" && (
@@ -286,7 +286,7 @@ function StateDemo() {
                 height="14"
                 viewBox="0 0 24 24"
                 fill="none"
-                stroke="#00915f"
+                stroke="#111111"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 animate={{ rotate: 360 }}
@@ -304,7 +304,7 @@ function StateDemo() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.15, ease: "easeOut" }}
-              className="flex items-center gap-1.5 text-[#00915f]"
+              className="flex items-center gap-1.5 text-[#111111]"
             >
               <svg
                 width="14"
@@ -340,7 +340,7 @@ type Particle = {
 
 function DecorationDemo() {
   const [particles, setParticles] = useState<Particle[]>([]);
-  const colors = ["#00bc7d", "#378add", "#ef9f27", "#d4537e"];
+  const colors = ["#111111", "#378add", "#ef9f27", "#d4537e"];
 
   const celebrate = () => {
     posthog.capture("lab_demo_interacted", { demo: "decoration" });
@@ -360,7 +360,7 @@ function DecorationDemo() {
     <div className="relative flex items-center justify-center">
       <button
         onClick={celebrate}
-        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#00bc7d] transition-colors"
+        className="px-4 py-2 text-[13px] bg-white border border-gray-300 rounded-md hover:border-[#111111] transition-colors"
       >
         Complete task
       </button>
@@ -550,7 +550,7 @@ function Wheel({
       <button
         onClick={onOpenList}
         aria-label={`View ${category} as list`}
-        className={`shrink-0 text-[#b4b2a9] hover:text-[#00915f] transition-colors flex items-center justify-center ${
+        className={`shrink-0 text-[#b4b2a9] hover:text-[#111111] transition-colors flex items-center justify-center ${
           big ? "w-7 h-7" : "w-5 h-5"
         }`}
       >
@@ -628,7 +628,7 @@ function OrderingDemo({ ipad = false }: { ipad?: boolean }) {
               <button
                 onClick={() => setListCategory(null)}
                 aria-label="Back to wheels"
-                className="text-[11px] text-[#00915f] hover:underline"
+                className="text-[11px] text-[#111111] hover:underline"
               >
                 Back to table
               </button>
@@ -652,14 +652,14 @@ function OrderingDemo({ ipad = false }: { ipad?: boolean }) {
                   </div>
                   <div className="flex items-center gap-2">
                     {(order[item.id] || 0) > 0 && (
-                      <span className="text-[11px] font-semibold text-[#00915f]">
+                      <span className="text-[11px] font-semibold text-[#111111]">
                         ×{order[item.id]}
                       </span>
                     )}
                     <button
                       onClick={() => add(item.id)}
                       aria-label={`Add ${item.name}`}
-                      className={`rounded-full border border-gray-300 text-[#00915f] hover:border-[#00bc7d] hover:bg-[#e6f7f0] transition-colors flex items-center justify-center leading-none ${
+                      className={`rounded-full border border-gray-300 text-[#111111] hover:border-[#111111] hover:bg-[#f5f5f7] transition-colors flex items-center justify-center leading-none ${
                         ipad ? "w-7 h-7 text-[15px]" : "w-6 h-6 text-[13px]"
                       }`}
                     >
@@ -788,7 +788,7 @@ export default function LabPage() {
       <div className="sticky top-0 z-20 flex items-center justify-between p-4 md:p-6 bg-white/80 backdrop-blur-md border-b border-gray-200/50">
         <Link href="/">
           <motion.button
-            className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-md flex items-center justify-center border border-gray-100 hover:border-[#00bc7d] transition-colors"
+            className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-md flex items-center justify-center border border-gray-100 hover:border-[#111111] transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             aria-label="Go back to home"
@@ -798,7 +798,7 @@ export default function LabPage() {
               height="20"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#00bc7d"
+              stroke="#111111"
               strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -816,7 +816,7 @@ export default function LabPage() {
 
       <div className="bg-graph-paper border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-10 md:py-14">
-          <p className="text-[11px] font-bold text-[#00915f] tracking-[3px] font-[family-name:var(--font-geist-mono)] mb-2">
+          <p className="text-[11px] font-bold text-[#111111] tracking-[3px] font-[family-name:var(--font-geist-mono)] mb-2">
             MANIFEST → BUILD → SHIP
           </p>
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 font-[family-name:var(--font-tinos)]">
@@ -875,7 +875,7 @@ export default function LabPage() {
             href="https://www.linkedin.com/in/katherinexu99"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[13px] text-[#00915f] hover:underline"
+            className="text-[13px] text-[#111111] hover:underline"
           >
             Follow along on LinkedIn →
           </a>
@@ -982,7 +982,7 @@ export default function LabPage() {
               </div>
               <div className="px-5 py-4">
                 <p className="text-[13px] text-[#5f5e5a] leading-relaxed mb-3">
-                  <span className="text-[#00915f] font-semibold">Why: </span>
+                  <span className="text-[#111111] font-semibold">Why: </span>
                   {expanded.why}
                 </p>
                 <div className="flex flex-wrap gap-1.5 mb-3">
