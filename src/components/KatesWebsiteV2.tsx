@@ -108,7 +108,7 @@ export const projects: Project[] = [
   },
   {
     key: "jobpilot",
-    // caseStudyUrl: "/projects/jobpilot", // hidden until case studies are ready
+    caseStudyUrl: "/decks/jobpilot-case-study.html",
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
