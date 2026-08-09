@@ -80,7 +80,7 @@ function TopBar() {
 
   return (
     <header
-      className="pt-6 pb-10"
+      className="pt-6 pb-0"
       // --name-size drives the display type; --name-width is its measured ink
       // width, which the nav group below inherits so the two can never drift.
       // 3.4955 = ink width per unit font-size for "Kate Xu" in Instrument Sans

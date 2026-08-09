@@ -114,7 +114,7 @@ just under its baseline, nav hanging off the rule, then the workflow block.
 
 ```
 padding-top     24px
-padding-bottom  40px
+padding-bottom   0px   — the project section supplies the gap below (40px total)
 ```
 
 ### The two custom properties
