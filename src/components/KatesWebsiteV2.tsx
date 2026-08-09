@@ -107,6 +107,30 @@ export const projects: Project[] = [
       "A 35-person platform org — product managers, cloud engineers, and the BofA design-system group.",
   },
   {
+    key: "vetra",
+    title: "Vetra",
+    description:
+      "AI studio turning screenshots into launch-ready slides and demo videos — product + landing redesign for a startup, shipped in two weeks.",
+    images: ["/vetra-placeholder-1.png", "/vetra-placeholder-2.png"],
+    liveUrl: "https://www.vetraai.com/",
+    liveLabel: "Visit Vetra",
+    reflection: [
+      {
+        title: "Mental model over magic",
+        body: "The old product scattered parameters everywhere — users couldn't form a mental model of where to control what, so they fell back on asking the overall AI to do everything. Research showed that wasn't the fix: prompting is great for finishing, terrible for orienting. So the redesign gives the product two explicit modes — Slides and Video — and keeps the AI as a polish pass inside each. Structure for creating, AI for finishing. Users always know where they are before they ask for magic.",
+      },
+      {
+        title: "One row per story, not editor timelines",
+        body: "User research kept showing the same behavior: people build multiple storylines at once. Slides mode borrows the mental model everyone already owns — a vertical page selector, like every deck tool. Video mode needed something new: parallel story rows, one row per storyline, that deliberately are not editing timelines. Elements copy-paste across rows, so building three versions of your launch video is one flow, not three projects.",
+      },
+      {
+        title: "Filter the landing to what converts",
+        body: "Every candidate message went through one filter: does this convert traffic or make the brand stand out? The few that passed took the primary positions; everything else was cut or demoted. And the landing shares one design system with the product itself — so the promise and the product look like the same thing, and the first session doesn't break the spell the landing cast.",
+      },
+    ],
+    collaborators: "Redesign for the Vetra team — landing page and product, on their live codebase.",
+  },
+  {
     key: "jobpilot",
     caseStudyUrl: "/decks/jobpilot-case-study.html",
     title: "Jobpilot",
