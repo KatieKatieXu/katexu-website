@@ -136,7 +136,7 @@ export const projects: Project[] = [
     title: "PawPaw Story",
     description:
       "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
-    images: ["/pawpaw-hero.mp4", "/pawpaw-collage.mp4"],
+    images: ["/pawpaw-hero.mp4", "/pawpaw-collage-43.mp4"],
     reflection: [
       {
         title: "Why I'm making this app",
