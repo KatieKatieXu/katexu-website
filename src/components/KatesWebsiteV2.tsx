@@ -88,7 +88,7 @@ interface AppStore {
 export const projects: Project[] = [
   {
     key: "bofa-cloud",
-    // caseStudyUrl: "/decks/bofa-cloud-case-study.html", // hidden until case studies are ready
+    caseStudyUrl: "/decks/bofa-cloud-v3.html",
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
@@ -515,14 +515,16 @@ export function ProjectBlock({ project }: { project: Project }) {
           {open ? "Hide key decisions" : "Key decisions"}
         </button>
         {project.caseStudyUrl && (
-          <Link
+          <a
             href={project.caseStudyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={() => track("v2_case_study_clicked", { project: project.title })}
             className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[12px] font-medium hover:bg-[#e6f7f0] transition-colors"
           >
             Full case study
-            <span aria-hidden className="translate-y-[-1px]">→</span>
-          </Link>
+            <span aria-hidden className="translate-y-[-1px]">↗</span>
+          </a>
         )}
         {project.liveUrl && (
           <a

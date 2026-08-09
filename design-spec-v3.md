@@ -288,7 +288,7 @@ All 15px/500, `px-16 py-6`, full radius (control), 10px apart.
 | Pill | Fill | Text | Note |
 |---|---|---|---|
 | Key decisions | `#111` | white | primary, leftmost; leading `+` in `#00bc7d` rotates 45° when open |
-| Full case study | none, 1px `#00bc7d` | `#00915f` | currently hidden — `caseStudyUrl` commented out |
+| Full case study | none, 1px `#00bc7d` | `#00915f` | live on BofA Cloud → `/decks/bofa-cloud-v3.html`. Plain `<a target="_blank">`, NOT next/link — the deck is a static file in `public/`, so the router would 404 on it |
 | Try it live | `#f5f5f7` | `#555` | trailing `↗` |
 
 ### Decisions drawer

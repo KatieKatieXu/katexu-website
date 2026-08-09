@@ -523,12 +523,17 @@ function ProjectCarousel({
           {open ? "Hide key decisions" : "Key decisions"}
         </button>
         {project.caseStudyUrl && (
-          <Link
+          <a
             href={project.caseStudyUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              track("v3_case_study_clicked", { project: project.title })
+            }
             className="inline-flex items-center gap-1 rounded-full border border-[#00bc7d] text-[#00915f] px-4 py-1.5 text-[15px] font-medium hover:bg-[#e6f7f0] transition-colors"
           >
-            Full case study →
-          </Link>
+            Full case study ↗
+          </a>
         )}
         {project.liveUrl && (
           <a
