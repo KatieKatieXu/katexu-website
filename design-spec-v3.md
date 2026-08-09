@@ -64,7 +64,7 @@ Weight and color per role:
 |---|---|---|---|---|---|
 | Name | display | 600 | -0.02em | 1.2 | `#111` |
 | Project title | 1 | 600 | -0.4px | — | `#111` |
-| Nav link | 2 | 400 | — | — | `#555` |
+| Nav link | 2 | 400 | — | 1.45 | `#111`, no underline, hover `#777` |
 | Section label | 2 | 600 | 1.5px, uppercase | — | `#888` |
 | Workflow title | 2 | 600 | — | 1.375 | `#1a1a1a` |
 | Role line / Based in the U.S. | 2 | 400 | — | 1.2 | `#111` / `#000` |
@@ -150,9 +150,14 @@ rule        1px #e6e6e6, full width of the content column
             margin-top -12px
 nav pt      22px
 left group  width: var(--name-width), justify-between
-            Resume / How I Think / Visual Lab, 15px, underlined, #555
+            Resume / How I Think / Visual Lab
 right group pinned to the far edge, 16px apart
-            Email / LinkedIn
+            Email / LinkedIn, each with a trailing arrow
+
+ALL nav links: 15px, NO underline, #111 ink, hover fades to #777.
+The hover fade is the affordance the underline used to carry. Email and LinkedIn
+use a V3-local ExternalLinkV3, NOT the ExternalLink exported from V2 — that one
+is shared with the mobile site and keeps its underline.
 ```
 
 **Why the negative margin.** "Kate Xu" contains no descenders, so the font descender

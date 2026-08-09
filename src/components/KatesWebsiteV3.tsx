@@ -17,7 +17,6 @@ import { AnimatePresence } from "framer-motion";
 import KatesWebsiteV2, {
   projects,
   workflows,
-  ExternalLink,
   type Project,
 } from "@/components/KatesWebsiteV2";
 
@@ -56,8 +55,35 @@ function track(event: string, props?: Record<string, unknown>) {
 // with 1.5px; at 15px that reads as shouting, so it drops to 0.9px.
 // ───────────────────────────────────────────────────────────────────────────
 
-const navClass =
-  "text-[#555] hover:text-[#111] underline underline-offset-[3px] decoration-[#d8d8d8] hover:decoration-[#111] transition-colors";
+// Nav links: no underline, full ink, and a quiet fade on hover (Figma 42:239 —
+// every link is #111 with textDecoration NONE). The hover fade is the affordance
+// the underline used to provide.
+const navClass = "text-[#111] hover:text-[#777] transition-colors";
+
+// V3's own external link. Deliberately NOT the ExternalLink exported from V2 —
+// that one is shared with the mobile site and must keep its underline.
+function ExternalLinkV3({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-0.5 ${navClass}`}
+      onClick={() => track("v3_nav", { href })}
+    >
+      {children}
+      <span aria-hidden className="text-[0.85em] translate-y-[-1px]">
+        ↗
+      </span>
+    </a>
+  );
+}
 
 // Where the header hands off to the floating pill. The photo shrinks toward its
 // top-right corner and fades out over this range; the pill springs in at the end.
@@ -158,8 +184,8 @@ function TopBar() {
         </div>
 
         <div className="flex shrink-0 items-center gap-4">
-          <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-          <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+          <ExternalLinkV3 href={`mailto:${EMAIL}`}>Email</ExternalLinkV3>
+          <ExternalLinkV3 href={LINKEDIN}>LinkedIn</ExternalLinkV3>
         </div>
       </nav>
 
@@ -553,8 +579,8 @@ export default function KatesWebsiteV3() {
           </main>
           <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">
             <div className="flex items-center gap-5 text-[15px] leading-[1.45]">
-              <ExternalLink href={`mailto:${EMAIL}`}>Email</ExternalLink>
-              <ExternalLink href={LINKEDIN}>LinkedIn</ExternalLink>
+              <ExternalLinkV3 href={`mailto:${EMAIL}`}>Email</ExternalLinkV3>
+              <ExternalLinkV3 href={LINKEDIN}>LinkedIn</ExternalLinkV3>
             </div>
             <p className="text-[13px] leading-[1.6] text-[#aaa]">© Kate Xu 2026</p>
           </footer>
