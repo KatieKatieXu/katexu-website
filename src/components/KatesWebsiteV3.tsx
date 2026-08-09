@@ -467,10 +467,10 @@ function Slide({
         e.currentTarget.currentTime = 0;
         void e.currentTarget.play();
       }}
-      className="w-full h-auto block"
+      className="max-h-full w-auto max-w-full block"
     />
   ) : (
-    <img src={media.src} alt={title} loading="lazy" className="w-full h-auto block" />
+    <img src={media.src} alt={title} loading="lazy" className="max-h-full w-auto max-w-full block" />
   );
 
   return (
@@ -499,7 +499,10 @@ function Slide({
           </div>
         </div>
       ) : (
-        <div className="overflow-hidden rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
+        /* One aspect for every well (1.6:1). Odd-shaped media — PawPaw's 4:3
+           hero, its taller-than-wide collage — letterboxes on the grey instead
+           of dictating the rail's height, so slides stop jumping size. */
+        <div className="flex aspect-[1.6] items-center justify-center overflow-hidden rounded-[4px] bg-[#f5f5f7] shadow-[0_1px_2px_rgba(0,0,0,0.04),0_18px_36px_-24px_rgba(0,0,0,0.18)]">
           {mediaEl}
         </div>
       )}
