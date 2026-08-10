@@ -695,6 +695,180 @@ function ProjectCarousel({
   );
 }
 
+
+// ───────────────────────────────────────────────────────────────────────────
+// Project grid — the branch experiment. Three tiles per row; each project is
+// one cell. The action buttons live BEHIND the tile and surface on hover (and
+// on keyboard focus). Key decisions expand as a full-width band under the grid.
+// ───────────────────────────────────────────────────────────────────────────
+function tileMedia(project: Project): Media {
+  return flattenMedia(project.images)[0];
+}
+
+function ProjectTile({
+  project,
+  onToggle,
+  open,
+}: {
+  project: Project;
+  onToggle: () => void;
+  open: boolean;
+}) {
+  const media = tileMedia(project);
+  const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
+  return (
+    <motion.div variants={titleReveal} className="group flex flex-col">
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
+        {isVideo ? (
+          <video
+            src={media.src}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            aria-label={project.title}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <img
+            src={media.src}
+            alt={project.title}
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+
+        {/* hover layer: scrim + the buttons that normally sit in the title row */}
+        <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/45 via-black/0 to-black/0 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              onClick={onToggle}
+              aria-expanded={open}
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#111] px-3.5 py-1.5 text-[14px] font-medium text-white hover:bg-black transition-colors"
+            >
+              <span
+                className="leading-none text-white transition-transform duration-300"
+                style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
+                aria-hidden
+              >
+                +
+              </span>
+              Key decisions
+            </button>
+            {project.caseStudyUrl && (
+              <a
+                href={project.caseStudyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  track("v3_case_study_clicked", { project: project.title })
+                }
+                className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[14px] font-medium text-[#111] hover:bg-white transition-colors"
+              >
+                Case study ›
+              </a>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[14px] font-medium text-[#111] hover:bg-white transition-colors"
+              >
+                {project.liveLabel ?? "Try it live"} ↗
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+
+      <h2 className="mt-3 text-[15px] font-semibold leading-[1.45] text-[#111]">
+        {project.title}
+      </h2>
+      <p className="mt-0.5 text-[14px] leading-[1.6] text-[#777]">
+        {project.description}
+      </p>
+    </motion.div>
+  );
+}
+
+function ProjectGrid() {
+  const [openKey, setOpenKey] = useState<string | null>(null);
+  const openProject = projects.find((p) => p.key === openKey);
+  return (
+    <motion.section
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.05 }}
+      variants={sectionReveal}
+      className="pt-2 pb-12"
+    >
+      <motion.div
+        variants={titleReveal}
+        className="flex w-full items-center justify-between mb-6 pt-8"
+      >
+        <p className="text-[15px] leading-[1.45] text-[#777]">
+          <span className="font-bold text-[#111]">Selected work</span> @ 2026
+        </p>
+      </motion.div>
+
+      <div className="grid grid-cols-3 gap-x-5 gap-y-10">
+        {projects.map((project) => (
+          <ProjectTile
+            key={project.key}
+            project={project}
+            open={openKey === project.key}
+            onToggle={() =>
+              setOpenKey((k) => {
+                const next = k === project.key ? null : project.key;
+                track("v3_key_decisions_toggled", {
+                  project: project.title,
+                  open: next === project.key,
+                });
+                return next;
+              })
+            }
+          />
+        ))}
+      </div>
+
+      {/* decisions expand full-width beneath the grid */}
+      <AnimatePresence initial={false}>
+        {openProject && (
+          <motion.div
+            key={openProject.key}
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+            className="overflow-hidden"
+          >
+            <div className="mt-10 border-t border-[#e6e6e6] pt-8 flex flex-col gap-4 max-w-[760px]">
+              <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
+                {openProject.title} — key decisions
+              </p>
+              {openProject.reflection.map((d) => (
+                <div key={d.title}>
+                  <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
+                    {d.title}
+                  </p>
+                  <p className="text-[14px] text-[#666] leading-[1.6]">
+                    {d.body}
+                  </p>
+                </div>
+              ))}
+              <p className="text-[14px] leading-[1.6] text-[#999] pt-1">
+                {openProject.collaborators}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.section>
+  );
+}
+
 export default function KatesWebsiteV3() {
   return (
     <MotionConfig reducedMotion="user">
@@ -709,13 +883,7 @@ export default function KatesWebsiteV3() {
         <div className="mx-auto w-full max-w-[1440px] px-10">
           <TopBar />
           <main>
-            {projects.map((project, i) => (
-              <ProjectCarousel
-                key={project.key}
-                project={project}
-                first={i === 0}
-              />
-            ))}
+            <ProjectGrid />
           </main>
           <footer className="py-10 flex items-center justify-between border-t border-[#f0f0f0]">
             <div className="flex items-center gap-5 text-[15px] leading-[1.45]">
