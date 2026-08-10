@@ -815,6 +815,20 @@ function ProjectTile({
               <span className="leading-none text-white" aria-hidden>+</span>
               Key decisions
             </button>
+            {project.caseStudyUrl && (
+              <a
+                href={project.caseStudyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  track("v3_case_study_clicked", { project: project.title });
+                }}
+                className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[14px] font-medium text-[#111] hover:bg-white transition-colors"
+              >
+                Case study ›
+              </a>
+            )}
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
