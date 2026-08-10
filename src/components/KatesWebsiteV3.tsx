@@ -786,47 +786,24 @@ function TileShow({ project }: { project: Project }) {
 function ProjectTile({
   project,
   onToggle,
-  open,
 }: {
   project: Project;
   onToggle: () => void;
-  open: boolean;
 }) {
   return (
-    <motion.div variants={titleReveal} className="group flex flex-col">
+    <motion.div layout transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }} className="group flex flex-col">
       <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
         <TileShow project={project} />
-
-        {/* hover layer: scrim + the buttons that normally sit in the title row */}
         <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/45 via-black/0 to-black/0 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
           <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={onToggle}
-              aria-expanded={open}
+              aria-expanded={false}
               className="inline-flex items-center gap-1.5 rounded-full bg-[#111] px-3.5 py-1.5 text-[14px] font-medium text-white hover:bg-black transition-colors"
             >
-              <span
-                className="leading-none text-white transition-transform duration-300"
-                style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-                aria-hidden
-              >
-                +
-              </span>
+              <span className="leading-none text-white" aria-hidden>+</span>
               Key decisions
             </button>
-            {project.caseStudyUrl && (
-              <a
-                href={project.caseStudyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() =>
-                  track("v3_case_study_clicked", { project: project.title })
-                }
-                className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[14px] font-medium text-[#111] hover:bg-white transition-colors"
-              >
-                Case study ›
-              </a>
-            )}
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
@@ -840,7 +817,6 @@ function ProjectTile({
           </div>
         </div>
       </div>
-
       <h2 className="mt-3 text-[15px] font-semibold leading-[1.45] text-[#111]">
         {project.title}
       </h2>
@@ -851,9 +827,120 @@ function ProjectTile({
   );
 }
 
+// The expanded state, per the Figma reference (56:2246): the clicked project
+// shifts to the very left of its own row and the decisions fill the rest —
+// the panel spans all three columns AT that row's position, so the layout
+// always reads the same, only the row changes.
+function ExpandedProject({
+  project,
+  onClose,
+}: {
+  project: Project;
+  onClose: () => void;
+}) {
+  return (
+    <motion.div
+      layout
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }, duration: 0.35 }}
+      className="col-span-3 grid grid-cols-3 gap-x-5"
+    >
+      {/* left third — the tile, shifted to the very left, with the project's card */}
+      <div className="flex flex-col">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
+          <TileShow project={project} />
+        </div>
+        <h2 className="mt-3 text-[15px] font-semibold leading-[1.45] text-[#111]">
+          {project.title}
+        </h2>
+        <p className="mt-0.5 text-[14px] leading-[1.6] text-[#777]">
+          {project.description}
+        </p>
+        {(project.timeline || project.role) && (
+          <div className="mt-4 text-[14px] leading-[1.6] text-[#777]">
+            {project.timeline && <p>Timeline: {project.timeline}</p>}
+            {project.role && <p>Role: {project.role}</p>}
+          </div>
+        )}
+        <p className="mt-4 text-[14px] leading-[1.6] text-[#777]">
+          Team: {project.collaborators}
+        </p>
+      </div>
+
+      {/* right two thirds — the decisions, with close and case study */}
+      <div className="col-span-2 flex flex-col">
+        <div className="flex items-start justify-between">
+          <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
+            {project.title} — key decisions
+          </p>
+          <button
+            onClick={onClose}
+            aria-label="Close key decisions"
+            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f7] text-[16px] leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+          >
+            ✕
+          </button>
+        </div>
+        <div className="mt-5 flex flex-col gap-5">
+          {project.reflection.map((d) => (
+            <div key={d.title}>
+              <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
+                {d.title}
+              </p>
+              <p className="text-[14px] text-[#666] leading-[1.6]">{d.body}</p>
+            </div>
+          ))}
+        </div>
+        {(project.caseStudyUrl || project.liveUrl) && (
+          <div className="mt-8 flex justify-end">
+            {project.caseStudyUrl ? (
+              <a
+                href={project.caseStudyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  track("v3_case_study_clicked", { project: project.title })
+                }
+                className="inline-flex items-center rounded-full bg-[#f5f5f7] px-5 py-2.5 text-[15px] font-medium text-[#111] hover:bg-[#ebebef] transition-colors"
+              >
+                Case Study
+              </a>
+            ) : (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full bg-[#f5f5f7] px-5 py-2.5 text-[15px] font-medium text-[#111] hover:bg-[#ebebef] transition-colors"
+              >
+                {project.liveLabel ?? "Try it live"} ↗
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
 function ProjectGrid() {
   const [openKey, setOpenKey] = useState<string | null>(null);
-  const openProject = projects.find((p) => p.key === openKey);
+  const openIdx = projects.findIndex((p) => p.key === openKey);
+
+  // Build the render order: the expanded panel replaces its project and sits
+  // at the START of that project's row; everyone else reflows around it.
+  const items: { kind: "tile" | "open"; project: Project }[] = [];
+  if (openIdx < 0) {
+    projects.forEach((p) => items.push({ kind: "tile", project: p }));
+  } else {
+    const rowStart = Math.floor(openIdx / 3) * 3;
+    const others = projects.filter((_, i) => i !== openIdx);
+    others.slice(0, rowStart).forEach((p) => items.push({ kind: "tile", project: p }));
+    items.push({ kind: "open", project: projects[openIdx] });
+    others.slice(rowStart).forEach((p) => items.push({ kind: "tile", project: p }));
+  }
+
   return (
     <motion.section
       initial="hidden"
@@ -863,57 +950,29 @@ function ProjectGrid() {
       className="pt-2 pb-12"
     >
       <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-2.5">
-        {projects.map((project) => (
-          <ProjectTile
-            key={project.key}
-            project={project}
-            open={openKey === project.key}
-            onToggle={() =>
-              setOpenKey((k) => {
-                const next = k === project.key ? null : project.key;
+        {items.map(({ kind, project }) =>
+          kind === "open" ? (
+            <AnimatePresence key={"open-" + project.key} initial={false}>
+              <ExpandedProject
+                project={project}
+                onClose={() => setOpenKey(null)}
+              />
+            </AnimatePresence>
+          ) : (
+            <ProjectTile
+              key={project.key}
+              project={project}
+              onToggle={() => {
                 track("v3_key_decisions_toggled", {
                   project: project.title,
-                  open: next === project.key,
+                  open: true,
                 });
-                return next;
-              })
-            }
-          />
-        ))}
-      </div>
-
-      {/* decisions expand full-width beneath the grid */}
-      <AnimatePresence initial={false}>
-        {openProject && (
-          <motion.div
-            key={openProject.key}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="mt-10 border-t border-[#e6e6e6] pt-8 flex flex-col gap-4 max-w-[760px]">
-              <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
-                {openProject.title} — key decisions
-              </p>
-              {openProject.reflection.map((d) => (
-                <div key={d.title}>
-                  <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
-                    {d.title}
-                  </p>
-                  <p className="text-[14px] text-[#666] leading-[1.6]">
-                    {d.body}
-                  </p>
-                </div>
-              ))}
-              <p className="text-[14px] leading-[1.6] text-[#999] pt-1">
-                {openProject.collaborators}
-              </p>
-            </div>
-          </motion.div>
+                setOpenKey(project.key);
+              }}
+            />
+          )
         )}
-      </AnimatePresence>
+      </div>
     </motion.section>
   );
 }

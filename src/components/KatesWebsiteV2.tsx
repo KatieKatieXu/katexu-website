@@ -73,6 +73,8 @@ export interface Project {
   liveLabel?: string; // button text (defaults to "Try it live")
   caseStudyUrl?: string; // internal link to the full process case study
   tile?: string; // dedicated 4:3 cover for grid layouts (falls back to images[0])
+  timeline?: string; // e.g. "2025 – 2026", shown in the expanded grid panel
+  role?: string; // e.g. "Design Lead", shown in the expanded grid panel
   appStore?: AppStore; // renders a download widget when set
 }
 
@@ -91,6 +93,8 @@ export const projects: Project[] = [
     key: "bofa-cloud",
     caseStudyUrl: "/decks/bofa-cloud-v3.html",
     tile: "/bofa-cloud-tile.jpg",
+    timeline: "2025 – 2026",
+    role: "Design Lead (with 2 UX interns)",
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
@@ -111,6 +115,8 @@ export const projects: Project[] = [
   {
     key: "vetra",
     tile: "/vetra-tile.png",
+    timeline: "2026",
+    role: "Product designer · aesthetic system",
     title: "Vetra",
     description:
       "AI studio turning screenshots into launch-ready slides and demo videos — product + landing redesign for a startup, shipped in two weeks.",
@@ -141,6 +147,8 @@ export const projects: Project[] = [
     key: "jobpilot",
     caseStudyUrl: "/decks/jobpilot-case-study.html",
     tile: "/jobpilot-tile.mp4",
+    timeline: "2026",
+    role: "Designer · builder · founder",
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
@@ -164,6 +172,8 @@ export const projects: Project[] = [
   },
   {
     key: "pawpaw-story",
+    timeline: "2026 · four weeks",
+    role: "Solo — design and build",
     // caseStudyUrl: "/projects/pawpaw-story", // hidden until case studies are ready
     title: "PawPaw Story",
     description:
