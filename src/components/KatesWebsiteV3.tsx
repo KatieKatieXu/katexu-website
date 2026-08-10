@@ -883,10 +883,11 @@ function ExpandedProject({
             ✕
           </button>
         </div>
-        <div className="mt-5 flex flex-col gap-5">
+        {/* decisions run side by side in columns, per Figma 59:2336 */}
+        <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-6">
           {project.reflection.map((d) => (
             <div key={d.title}>
-              <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1">
+              <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1.5">
                 {d.title}
               </p>
               <p className="text-[14px] text-[#666] leading-[1.6]">{d.body}</p>
