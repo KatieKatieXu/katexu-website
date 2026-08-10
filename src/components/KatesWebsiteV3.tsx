@@ -863,11 +863,29 @@ function ExpandedProject({
   project: Project;
   onClose: () => void;
 }) {
+  const reduce = useReducedMotion();
+  const panelRef = useRef<HTMLDivElement | null>(null);
+
+  // Bring the panel to the middle of the viewport as it opens, so the detail
+  // lands where the user is looking instead of below the fold. The native
+  // smooth scroll runs alongside the cover's glide — two motions, one journey.
+  useEffect(() => {
+    const t = setTimeout(() => {
+      panelRef.current?.scrollIntoView({
+        behavior: reduce ? "auto" : "smooth",
+        block: "center",
+      });
+    }, 120);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <motion.div
+      ref={panelRef}
       layout
       transition={{ layout: GLIDE }}
-      className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px]"
+      className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px] scroll-mt-24"
     >
       {/* left third — the cover glides in via the shared layoutId */}
       <div className="flex flex-col">
