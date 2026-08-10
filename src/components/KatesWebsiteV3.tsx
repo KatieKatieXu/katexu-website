@@ -1053,23 +1053,25 @@ function ProjectGrid() {
     closingRef.current = null;
     // Round trip: the viewport returns to the exact position the user was at
     // when they clicked, clamped to the collapsed document's height.
-    const target = Math.max(
-      0,
-      Math.min(
-        scrollBeforeOpen.current,
-        document.documentElement.scrollHeight - window.innerHeight,
-      ),
-    );
+    const target = Math.max(0, scrollBeforeOpen.current);
+    const releaseHeight = () => {
+      document.body.style.minHeight = "";
+    };
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       window.scrollTo(0, target);
+      releaseHeight();
       return;
     }
     const controls = animate(window.scrollY, target, {
       duration: 0.5,
       ease: GLIDE.ease,
       onUpdate: (v) => window.scrollTo(0, v),
+      onComplete: releaseHeight,
     });
-    const cancel = () => controls.stop();
+    const cancel = () => {
+      controls.stop();
+      releaseHeight();
+    };
     window.addEventListener("wheel", cancel, { once: true, passive: true });
     window.addEventListener("touchstart", cancel, { once: true, passive: true });
   }, [openKey]);
@@ -1112,6 +1114,12 @@ function ProjectGrid() {
               key={"open-" + project.key}
               project={project}
               onClose={() => {
+                // Freeze the page height BEFORE the panel unmounts: without
+                // this the document shrinks in the same frame and the browser
+                // hard-clamps the scroll — the shake. The lock releases after
+                // the ride home lands.
+                document.body.style.minHeight =
+                  document.documentElement.scrollHeight + "px";
                 closingRef.current = project.key;
                 setOpenKey(null);
               }}
