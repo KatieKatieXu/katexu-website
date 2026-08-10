@@ -959,8 +959,8 @@ function ExpandedProject({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, transition: { duration: 0.12 } }}
               transition={{
-                delay: 1.3 + (i % 2) * 0.55 + Math.floor(i / 2) * 0.15,
-                duration: 0.9,
+                delay: 1.3 + (i % 2) * 0.95 + Math.floor(i / 2) * 0.15,
+                duration: i % 2 === 1 ? 1.2 : 0.9,
                 ease: GLIDE.ease,
               }}
             >
@@ -976,7 +976,7 @@ function ExpandedProject({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.12 } }}
-            transition={{ delay: 2.3, duration: 0.7, ease: GLIDE.ease }}
+            transition={{ delay: 3.0, duration: 0.7, ease: GLIDE.ease }}
             className="mt-8 flex justify-end"
           >
             {project.caseStudyUrl ? (
