@@ -1036,7 +1036,7 @@ function ExpandedProject({
 
 function ProjectGrid() {
   const [openKey, setOpenKey] = useState<string | null>(null);
-  const [closingKey, setClosingKey] = useState<string | null>(null);
+  const closingRef = useRef<string | null>(null);
   const tileRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const openIdx = projects.findIndex((p) => p.key === openKey);
 
@@ -1045,9 +1045,9 @@ function ProjectGrid() {
   // shake. Instead we ride the viewport DOWN to the cover's landing slot on
   // the same curve the cover glides home on.
   useLayoutEffect(() => {
-    if (openKey !== null || !closingKey) return;
-    const node = tileRefs.current[closingKey];
-    setClosingKey(null);
+    if (openKey !== null || !closingRef.current) return;
+    const node = tileRefs.current[closingRef.current];
+    closingRef.current = null;
     if (!node) return;
     let top = 0;
     let el: HTMLElement | null = node;
@@ -1074,7 +1074,7 @@ function ProjectGrid() {
     const cancel = () => controls.stop();
     window.addEventListener("wheel", cancel, { once: true, passive: true });
     window.addEventListener("touchstart", cancel, { once: true, passive: true });
-  }, [openKey, closingKey]);
+  }, [openKey]);
 
   // Build the render order: the expanded panel replaces its project and sits
   // at the START of that project's row; everyone else reflows around it.
@@ -1114,7 +1114,7 @@ function ProjectGrid() {
               key={"open-" + project.key}
               project={project}
               onClose={() => {
-                setClosingKey(project.key);
+                closingRef.current = project.key;
                 setOpenKey(null);
               }}
             />
