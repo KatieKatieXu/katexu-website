@@ -1040,6 +1040,7 @@ function ExpandedProject({
 function ProjectGrid() {
   const [openKey, setOpenKey] = useState<string | null>(null);
   const closingRef = useRef<string | null>(null);
+  const scrollBeforeOpen = useRef<number>(0);
   const tileRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const openIdx = projects.findIndex((p) => p.key === openKey);
 
@@ -1049,20 +1050,14 @@ function ProjectGrid() {
   // the same curve the cover glides home on.
   useLayoutEffect(() => {
     if (openKey !== null || !closingRef.current) return;
-    const node = tileRefs.current[closingRef.current];
     closingRef.current = null;
-    if (!node) return;
-    let top = 0;
-    let el: HTMLElement | null = node;
-    while (el) {
-      top += el.offsetTop;
-      el = el.offsetParent as HTMLElement | null;
-    }
+    // Round trip: the viewport returns to the exact position the user was at
+    // when they clicked, clamped to the collapsed document's height.
     const target = Math.max(
       0,
       Math.min(
-        top + node.offsetHeight / 2 - window.innerHeight / 2,
-        document.documentElement.scrollHeight - window.innerHeight - 400,
+        scrollBeforeOpen.current,
+        document.documentElement.scrollHeight - window.innerHeight,
       ),
     );
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -1129,6 +1124,7 @@ function ProjectGrid() {
               }}
               project={project}
               onToggle={() => {
+                scrollBeforeOpen.current = window.scrollY;
                 track("v3_key_decisions_toggled", {
                   project: project.title,
                   open: true,
