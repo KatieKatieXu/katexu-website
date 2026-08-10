@@ -876,15 +876,24 @@ function ExpandedProject({
         <p className="mt-2 text-[14px] leading-[1.6] text-[#777]">
           {project.description}
         </p>
-        {(project.timeline || project.role) && (
-          <div className="mt-9 text-[14px] leading-[1.6] text-[#777]">
-            {project.timeline && <p>Timeline: {project.timeline}</p>}
-            {project.role && <p>Role: {project.role}</p>}
-          </div>
-        )}
-        <p className="mt-9 text-[14px] leading-[1.6] text-[#777]">
-          Team: {project.collaborators}
-        </p>
+        {/* label column + value column on a shared tab stop, per the reference */}
+        <div className="mt-9 grid grid-cols-[100px_1fr] gap-x-4 gap-y-1 text-[14px] leading-[1.6] text-[#777]">
+          {project.timeline && (
+            <>
+              <p>Timeline:</p>
+              <p>{project.timeline}</p>
+            </>
+          )}
+          {project.role && (
+            <>
+              <p>Role:</p>
+              <p>{project.role}</p>
+            </>
+          )}
+          <div aria-hidden className="col-span-2 h-3" />
+          <p>Team size:</p>
+          <p>{project.collaborators}</p>
+        </div>
         </motion.div>
       </div>
 
