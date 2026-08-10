@@ -240,8 +240,10 @@ function TopBar() {
         </div>
       </nav>
 
-      {/* ── workflow — plain text, no card, no shadow ── */}
-      <div className="mt-[250px] w-[348px]">
+      {/* ── workflow (left) + section label (right), bottom-aligned so the
+             label sits level with the workflow's last row of text ── */}
+      <div className="mt-[250px] flex items-end justify-between">
+        <div className="w-[348px]">
         <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888] mb-[13px]">
           My latest workflow
         </p>
@@ -254,7 +256,12 @@ function TopBar() {
               <p className="text-[14px] leading-[1.6] text-[#777]">{w.flow}</p>
             </div>
           ))}
+          </div>
         </div>
+
+        <p className="shrink-0 text-[15px] leading-[1.45] text-[#777]">
+          <span className="font-bold text-[#111]">Selected work</span> @ 2026
+        </p>
       </div>
     </header>
   );
@@ -844,16 +851,7 @@ function ProjectGrid() {
       variants={sectionReveal}
       className="pt-2 pb-12"
     >
-      <motion.div
-        variants={titleReveal}
-        className="flex w-full items-center justify-end mb-6 pt-8"
-      >
-        <p className="text-[15px] leading-[1.45] text-[#777]">
-          <span className="font-bold text-[#111]">Selected work</span> @ 2026
-        </p>
-      </motion.div>
-
-      <div className="grid grid-cols-3 gap-x-5 gap-y-10">
+      <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-10">
         {projects.map((project) => (
           <ProjectTile
             key={project.key}
