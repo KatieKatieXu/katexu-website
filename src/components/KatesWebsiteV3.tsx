@@ -790,6 +790,9 @@ function TileShow({ project }: { project: Project }) {
 // left card first, decisions next, button last — context arriving at the pace
 // the eye travels, so the user is led, not teleported.
 const GLIDE = { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const };
+// The cover itself travels on a slower clock than the reflow around it — the
+// hero of the transition gets the longest note; everything else stays quick.
+const COVER_GLIDE = { duration: 0.85, ease: GLIDE.ease };
 
 function ProjectTile({
   project,
@@ -804,7 +807,7 @@ function ProjectTile({
     <motion.div ref={innerRef} layout transition={{ layout: GLIDE }} className="group flex flex-col">
       <motion.div
         layoutId={"cover-" + project.key}
-        transition={{ layout: GLIDE }}
+        transition={{ layout: COVER_GLIDE }}
         className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]"
       >
         <TileShow project={project} />
@@ -917,7 +920,7 @@ function ExpandedProject({
       <div className="flex flex-col">
         <motion.div
           layoutId={"cover-" + project.key}
-          transition={{ layout: GLIDE }}
+          transition={{ layout: COVER_GLIDE }}
           className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]"
         >
           <TileShow project={project} />
