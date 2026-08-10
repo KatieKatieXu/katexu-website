@@ -176,14 +176,14 @@ function TopBar() {
         </motion.h1>
 
         {/* The photo spans exactly the name's INK: measured in Instrument Sans
-            at leading 1, "Kate Xu" ink height = 0.73em, with 0.195em of dead box
-            above the cap and 0.075em of empty descender below. The block offsets
+            at leading 1, "Kate Xu" ink height = 0.73em, with 0.1425em of dead box
+            above the cap and 0.1275em of empty descender box below. The block offsets
             by the top slack and sizes to the ink, so photo top = K's top and
             photo bottom = baseline — at every clamp size. */}
         <div
           className="flex shrink-0 items-stretch gap-[13px]"
           style={{
-            marginTop: "calc(var(--name-size) * 0.195)",
+            marginTop: "calc(var(--name-size) * 0.1425)",
             height: "calc(var(--name-size) * 0.73)",
           }}
         >
