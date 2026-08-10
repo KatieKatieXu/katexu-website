@@ -862,7 +862,7 @@ function ProjectGrid() {
       variants={sectionReveal}
       className="pt-2 pb-12"
     >
-      <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-10">
+      <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-5">
         {projects.map((project) => (
           <ProjectTile
             key={project.key}
