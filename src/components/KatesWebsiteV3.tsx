@@ -868,7 +868,7 @@ function ExpandedProject({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, transition: { duration: 0.12 } }}
-          transition={{ delay: 0.9, duration: 0.5, ease: GLIDE.ease }}
+          transition={{ delay: 1.0, duration: 0.9, ease: GLIDE.ease }}
         >
         <h2 className="mt-[38px] text-[15px] font-semibold leading-[1.45] text-[#111]">
           {project.title}
@@ -902,7 +902,7 @@ function ExpandedProject({
         initial={{ opacity: 0, y: 18 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, transition: { duration: 0.12 } }}
-        transition={{ delay: 1.05, duration: 0.55, ease: GLIDE.ease }}
+        transition={{ delay: 1.25, duration: 1.0, ease: GLIDE.ease }}
         className="flex flex-col"
       >
         <div className="flex items-start justify-between">
