@@ -783,6 +783,13 @@ function TileShow({ project }: { project: Project }) {
   );
 }
 
+// The expansion choreography: the clicked cover GLIDES to its landing slot
+// (shared layoutId, 0.85s, long ease) while the band gap widens and siblings
+// reflow on the same clock. The panel's text waits, then follows the cover in:
+// left card first, decisions next, button last — context arriving at the pace
+// the eye travels, so the user is led, not teleported.
+const GLIDE = { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const };
+
 function ProjectTile({
   project,
   onToggle,
@@ -791,8 +798,12 @@ function ProjectTile({
   onToggle: () => void;
 }) {
   return (
-    <motion.div layout transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }} className="group flex flex-col">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
+    <motion.div layout transition={{ layout: GLIDE }} className="group flex flex-col">
+      <motion.div
+        layoutId={"cover-" + project.key}
+        transition={{ layout: GLIDE }}
+        className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]"
+      >
         <TileShow project={project} />
         <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/45 via-black/0 to-black/0 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
           <div className="flex flex-wrap items-center gap-2">
@@ -816,7 +827,7 @@ function ProjectTile({
             )}
           </div>
         </div>
-      </div>
+      </motion.div>
       <h2 className="mt-3 text-[15px] font-semibold leading-[1.45] text-[#111]">
         {project.title}
       </h2>
@@ -841,17 +852,24 @@ function ExpandedProject({
   return (
     <motion.div
       layout
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }, duration: 0.35 }}
+      transition={{ layout: GLIDE }}
       className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px]"
     >
-      {/* left third — the tile, shifted to the very left, with the project's card */}
+      {/* left third — the cover glides in via the shared layoutId */}
       <div className="flex flex-col">
-        <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
+        <motion.div
+          layoutId={"cover-" + project.key}
+          transition={{ layout: GLIDE }}
+          className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]"
+        >
           <TileShow project={project} />
-        </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, transition: { duration: 0.12 } }}
+          transition={{ delay: 0.4, duration: 0.5, ease: GLIDE.ease }}
+        >
         <h2 className="mt-[38px] text-[15px] font-semibold leading-[1.45] text-[#111]">
           {project.title}
         </h2>
@@ -867,10 +885,17 @@ function ExpandedProject({
         <p className="mt-9 text-[14px] leading-[1.6] text-[#777]">
           Team: {project.collaborators}
         </p>
+        </motion.div>
       </div>
 
-      {/* right two thirds — the decisions, with close and case study */}
-      <div className="flex flex-col">
+      {/* right two thirds — the decisions follow the cover in, then the button */}
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, transition: { duration: 0.12 } }}
+        transition={{ delay: 0.55, duration: 0.55, ease: GLIDE.ease }}
+        className="flex flex-col"
+      >
         <div className="flex items-start justify-between">
           <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
             {project.title} — key decisions
@@ -920,7 +945,7 @@ function ExpandedProject({
             )}
           </div>
         )}
-      </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -950,7 +975,11 @@ function ProjectGrid() {
       variants={sectionReveal}
       className="pt-2 pb-12"
     >
-      <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-[85px]">
+      <motion.div
+        animate={{ paddingTop: openIdx >= 0 ? 85 : 10 }}
+        transition={GLIDE}
+        className="grid grid-cols-3 gap-x-5 gap-y-10"
+      >
         {items.map(({ kind, project }) =>
           kind === "open" ? (
             <AnimatePresence key={"open-" + project.key} initial={false}>
@@ -973,7 +1002,7 @@ function ProjectGrid() {
             />
           )
         )}
-      </div>
+      </motion.div>
     </motion.section>
   );
 }
