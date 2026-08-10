@@ -119,7 +119,7 @@ export const projects: Project[] = [
     role: "Product designer · aesthetic system",
     title: "Vetra AI",
     description:
-      "AI studio turning screenshots into launch-ready slides and demo videos — product + landing redesign for a startup, shipped in two weeks.",
+      "AI studio for startup owners who want storytelling that impresses — screenshots in, launch-ready slides and demo videos out. Product + landing redesign, shipped in two weeks.",
     images: ["/vetra-placeholder-1.png", "/vetra-placeholder-2.png"],
     liveUrl: "https://www.vetraai.com/",
     liveLabel: "Visit Vetra",
