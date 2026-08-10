@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import {
   MotionConfig,
+  animate,
   motion,
   useScroll,
   useTransform,
@@ -866,16 +867,39 @@ function ExpandedProject({
   const reduce = useReducedMotion();
   const panelRef = useRef<HTMLDivElement | null>(null);
 
-  // Bring the panel to the middle of the viewport as it opens, so the detail
-  // lands where the user is looking instead of below the fold. The native
-  // smooth scroll runs alongside the cover's glide — two motions, one journey.
+  // Bring the panel to the middle of the viewport as it opens. Not native
+  // scrollIntoView: the browser's smooth curve is abrupt and out of our
+  // control. We drive the scroll ourselves on the SAME ease as the cover's
+  // glide, measured on the offset chain (transform-immune, so mid-animation
+  // positions can't fool it) — one curve, two motions, one journey.
   useEffect(() => {
+    const node = panelRef.current;
+    if (!node) return;
     const t = setTimeout(() => {
-      panelRef.current?.scrollIntoView({
-        behavior: reduce ? "auto" : "smooth",
-        block: "center",
+      let top = 0;
+      let el: HTMLElement | null = node;
+      while (el) {
+        top += el.offsetTop;
+        el = el.offsetParent as HTMLElement | null;
+      }
+      const target = Math.max(
+        0,
+        top + node.offsetHeight / 2 - window.innerHeight / 2,
+      );
+      if (reduce) {
+        window.scrollTo(0, target);
+        return;
+      }
+      const controls = animate(window.scrollY, target, {
+        duration: 0.7,
+        ease: GLIDE.ease,
+        onUpdate: (v) => window.scrollTo(0, v),
       });
-    }, 120);
+      // hand control back the moment the user touches the wheel
+      const cancel = () => controls.stop();
+      window.addEventListener("wheel", cancel, { once: true, passive: true });
+      window.addEventListener("touchstart", cancel, { once: true, passive: true });
+    }, 60);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
