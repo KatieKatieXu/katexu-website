@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   MotionConfig,
   animate,
@@ -794,12 +794,14 @@ const GLIDE = { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const };
 function ProjectTile({
   project,
   onToggle,
+  innerRef,
 }: {
   project: Project;
   onToggle: () => void;
+  innerRef?: (el: HTMLDivElement | null) => void;
 }) {
   return (
-    <motion.div layout transition={{ layout: GLIDE }} className="group flex flex-col">
+    <motion.div ref={innerRef} layout transition={{ layout: GLIDE }} className="group flex flex-col">
       <motion.div
         layoutId={"cover-" + project.key}
         transition={{ layout: GLIDE }}
@@ -1034,7 +1036,45 @@ function ExpandedProject({
 
 function ProjectGrid() {
   const [openKey, setOpenKey] = useState<string | null>(null);
+  const [closingKey, setClosingKey] = useState<string | null>(null);
+  const tileRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const openIdx = projects.findIndex((p) => p.key === openKey);
+
+  // On close the document gets several hundred px shorter. Left alone, the
+  // browser clamps/anchors the scroll position a frame later — the residual
+  // shake. Instead we ride the viewport DOWN to the cover's landing slot on
+  // the same curve the cover glides home on.
+  useLayoutEffect(() => {
+    if (openKey !== null || !closingKey) return;
+    const node = tileRefs.current[closingKey];
+    setClosingKey(null);
+    if (!node) return;
+    let top = 0;
+    let el: HTMLElement | null = node;
+    while (el) {
+      top += el.offsetTop;
+      el = el.offsetParent as HTMLElement | null;
+    }
+    const target = Math.max(
+      0,
+      Math.min(
+        top + node.offsetHeight / 2 - window.innerHeight / 2,
+        document.documentElement.scrollHeight - window.innerHeight - 400,
+      ),
+    );
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      window.scrollTo(0, target);
+      return;
+    }
+    const controls = animate(window.scrollY, target, {
+      duration: 0.5,
+      ease: GLIDE.ease,
+      onUpdate: (v) => window.scrollTo(0, v),
+    });
+    const cancel = () => controls.stop();
+    window.addEventListener("wheel", cancel, { once: true, passive: true });
+    window.addEventListener("touchstart", cancel, { once: true, passive: true });
+  }, [openKey, closingKey]);
 
   // Build the render order: the expanded panel replaces its project and sits
   // at the START of that project's row; everyone else reflows around it.
@@ -1055,7 +1095,7 @@ function ProjectGrid() {
       whileInView="show"
       viewport={{ once: true, amount: 0.05 }}
       variants={sectionReveal}
-      className="pt-2 pb-12"
+      className="pt-2 pb-12 [overflow-anchor:none]"
     >
       {/* The gap change is part of the LAYOUT pass, not a separately animated
           padding: animating paddingTop re-layouts every frame while the tiles'
@@ -1073,11 +1113,17 @@ function ProjectGrid() {
             <ExpandedProject
               key={"open-" + project.key}
               project={project}
-              onClose={() => setOpenKey(null)}
+              onClose={() => {
+                setClosingKey(project.key);
+                setOpenKey(null);
+              }}
             />
           ) : (
             <ProjectTile
               key={project.key}
+              innerRef={(el) => {
+                tileRefs.current[project.key] = el;
+              }}
               project={project}
               onToggle={() => {
                 track("v3_key_decisions_toggled", {
