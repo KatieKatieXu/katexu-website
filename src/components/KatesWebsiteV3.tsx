@@ -898,14 +898,14 @@ function ExpandedProject({
       </div>
 
       {/* right two thirds — the decisions follow the cover in, then the button */}
-      <motion.div
-        initial={{ opacity: 0, y: 18 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, transition: { duration: 0.12 } }}
-        transition={{ delay: 1.25, duration: 1.0, ease: GLIDE.ease }}
-        className="flex flex-col"
-      >
-        <div className="flex items-start justify-between">
+      <div className="flex flex-col">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, transition: { duration: 0.12 } }}
+          transition={{ delay: 1.1, duration: 0.8, ease: GLIDE.ease }}
+          className="flex items-start justify-between"
+        >
           <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
             {project.title} — key decisions
           </p>
@@ -916,20 +916,37 @@ function ExpandedProject({
           >
             ✕
           </button>
-        </div>
-        {/* decisions run side by side in columns, per Figma 59:2336 */}
+        </motion.div>
+        {/* decisions run side by side; the FIRST column develops first, the
+            second follows — grid items alternate columns, so delay by i % 2 */}
         <div className="mt-[30px] grid grid-cols-2 gap-x-[85px] gap-y-8">
-          {project.reflection.map((d) => (
-            <div key={d.title}>
+          {project.reflection.map((d, i) => (
+            <motion.div
+              key={d.title}
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.12 } }}
+              transition={{
+                delay: 1.3 + (i % 2) * 0.55 + Math.floor(i / 2) * 0.15,
+                duration: 0.9,
+                ease: GLIDE.ease,
+              }}
+            >
               <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1.5">
                 {d.title}
               </p>
               <p className="text-[14px] text-[#666] leading-[1.6]">{d.body}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
         {(project.caseStudyUrl || project.liveUrl) && (
-          <div className="mt-8 flex justify-end">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.12 } }}
+            transition={{ delay: 2.3, duration: 0.7, ease: GLIDE.ease }}
+            className="mt-8 flex justify-end"
+          >
             {project.caseStudyUrl ? (
               <a
                 href={project.caseStudyUrl}
@@ -952,9 +969,9 @@ function ExpandedProject({
                 {project.liveLabel ?? "Try it live"} ↗
               </a>
             )}
-          </div>
+          </motion.div>
         )}
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
