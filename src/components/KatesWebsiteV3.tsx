@@ -1057,9 +1057,15 @@ function ProjectGrid() {
       variants={sectionReveal}
       className="pt-2 pb-12"
     >
+      {/* The gap change is part of the LAYOUT pass, not a separately animated
+          padding: animating paddingTop re-layouts every frame while the tiles'
+          FLIP corrections fight it — that fight was the shake on close. As a
+          static style + layout, the whole reflow happens in one measured pass
+          on one clock. */}
       <motion.div
-        animate={{ paddingTop: openIdx >= 0 ? 85 : 10 }}
-        transition={GLIDE}
+        layout
+        transition={{ layout: GLIDE }}
+        style={{ paddingTop: openIdx >= 0 ? 85 : 10 }}
         className="grid grid-cols-3 gap-x-5 gap-y-10"
       >
         {items.map(({ kind, project }) =>
