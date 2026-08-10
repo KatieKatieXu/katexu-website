@@ -215,7 +215,7 @@ export const projects: Project[] = [
     // Both letterboxed onto a 1600x1000 white canvas so the rail keeps one
     // aspect: the board is centred with air around it, and the two low-res
     // event photos are stacked small in one column where the pixels don't show.
-    images: ["/ionboard-cover-v2.png", { src: "/ionboard-stack.jpg", bare: true }],
+    images: ["/ionboard-cover-v2.png"],
     liveUrl:
       "https://www.kickstarter.com/projects/1728725377/ionboard?ref=discovery&term=ionboard",
     liveLabel: "View Kickstarter",
