@@ -175,8 +175,19 @@ function TopBar() {
           Kate Xu
         </motion.h1>
 
-        <div className="flex shrink-0 items-stretch gap-[13px]">
-          <div className="flex flex-col items-end justify-between text-right">
+        {/* The photo spans exactly the name's INK: measured in Instrument Sans
+            at leading 1, "Kate Xu" ink height = 0.73em, with 0.195em of dead box
+            above the cap and 0.075em of empty descender below. The block offsets
+            by the top slack and sizes to the ink, so photo top = K's top and
+            photo bottom = baseline — at every clamp size. */}
+        <div
+          className="flex shrink-0 items-stretch gap-[13px]"
+          style={{
+            marginTop: "calc(var(--name-size) * 0.195)",
+            height: "calc(var(--name-size) * 0.73)",
+          }}
+        >
+          <div className="flex h-full flex-col items-end justify-between text-right">
             <p className="text-[15px] leading-[1.45] text-[#111]">
               Based in the U.S.
             </p>
@@ -191,7 +202,7 @@ function TopBar() {
             height={136}
             draggable={false}
             style={{ scale: photoScale, opacity: photoOpacity, originX: 1, originY: 1 }}
-            className="w-[136px] h-[136px] rounded-[4px] object-cover select-none"
+            className="aspect-square h-full w-auto rounded-[4px] object-cover select-none"
           />
         </div>
       </div>
