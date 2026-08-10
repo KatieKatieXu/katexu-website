@@ -846,7 +846,7 @@ function ProjectGrid() {
     >
       <motion.div
         variants={titleReveal}
-        className="flex w-full items-center justify-between mb-6 pt-8"
+        className="flex w-full items-center justify-end mb-6 pt-8"
       >
         <p className="text-[15px] leading-[1.45] text-[#777]">
           <span className="font-bold text-[#111]">Selected work</span> @ 2026
