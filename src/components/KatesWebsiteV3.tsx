@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   MotionConfig,
   motion,
@@ -701,9 +701,68 @@ function ProjectCarousel({
 // one cell. The action buttons live BEHIND the tile and surface on hover (and
 // on keyboard focus). Key decisions expand as a full-width band under the grid.
 // ───────────────────────────────────────────────────────────────────────────
-function tileMedia(project: Project): Media {
-  if (project.tile) return { src: project.tile };
-  return flattenMedia(project.images)[0];
+// The tile plays the project's whole reel: each video runs to its end, each
+// image holds ~5s with a slow push-in, and items hand off with a crossfade.
+// The baked 4:3 tile cover stands in for the first item where one exists.
+function tileReel(project: Project): Media[] {
+  const all = flattenMedia(project.images);
+  if (project.tile) return [{ src: project.tile }, ...all.slice(1)];
+  return all;
+}
+
+const isVideoSrc = (src: string) => src.endsWith(".mp4") || src.endsWith(".webm");
+
+function TileShow({ project }: { project: Project }) {
+  const reduce = useReducedMotion();
+  const reel = tileReel(project);
+  const [idx, setIdx] = useState(0);
+  const media = reel[idx % reel.length];
+  const advance = () => setIdx((i) => (i + 1) % reel.length);
+
+  // images hold 5s; videos get a 12s safety cap in case metadata lies
+  useEffect(() => {
+    if (reel.length < 2) return;
+    const ms = isVideoSrc(media.src) ? 12000 : 5000;
+    const t = setTimeout(advance, ms);
+    return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx]);
+
+  return (
+    <AnimatePresence initial={false}>
+      <motion.div
+        key={media.src + idx}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: reduce ? 0.2 : 0.7, ease: "easeInOut" }}
+        className="absolute inset-0"
+      >
+        {isVideoSrc(media.src) ? (
+          <video
+            src={media.src}
+            autoPlay
+            muted
+            playsInline
+            preload="metadata"
+            aria-label={project.title}
+            onEnded={reel.length > 1 ? advance : undefined}
+            loop={reel.length < 2}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <motion.img
+            src={media.src}
+            alt={project.title}
+            initial={{ scale: 1 }}
+            animate={{ scale: reduce ? 1 : 1.08 }}
+            transition={{ duration: 5.4, ease: "linear" }}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
+      </motion.div>
+    </AnimatePresence>
+  );
 }
 
 function ProjectTile({
@@ -715,30 +774,10 @@ function ProjectTile({
   onToggle: () => void;
   open: boolean;
 }) {
-  const media = tileMedia(project);
-  const isVideo = media.src.endsWith(".mp4") || media.src.endsWith(".webm");
   return (
     <motion.div variants={titleReveal} className="group flex flex-col">
       <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
-        {isVideo ? (
-          <video
-            src={media.src}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            aria-label={project.title}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        ) : (
-          <img
-            src={media.src}
-            alt={project.title}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        )}
+        <TileShow project={project} />
 
         {/* hover layer: scrim + the buttons that normally sit in the title row */}
         <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/45 via-black/0 to-black/0 p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
