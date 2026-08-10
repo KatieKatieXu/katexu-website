@@ -1040,12 +1040,11 @@ function ProjectGrid() {
       >
         {items.map(({ kind, project }) =>
           kind === "open" ? (
-            <AnimatePresence key={"open-" + project.key} initial={false}>
-              <ExpandedProject
-                project={project}
-                onClose={() => setOpenKey(null)}
-              />
-            </AnimatePresence>
+            <ExpandedProject
+              key={"open-" + project.key}
+              project={project}
+              onClose={() => setOpenKey(null)}
+            />
           ) : (
             <ProjectTile
               key={project.key}
