@@ -702,6 +702,7 @@ function ProjectCarousel({
 // on keyboard focus). Key decisions expand as a full-width band under the grid.
 // ───────────────────────────────────────────────────────────────────────────
 function tileMedia(project: Project): Media {
+  if (project.tile) return { src: project.tile };
   return flattenMedia(project.images)[0];
 }
 

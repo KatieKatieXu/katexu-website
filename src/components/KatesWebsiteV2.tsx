@@ -72,6 +72,7 @@ export interface Project {
   liveUrl?: string; // renders an external link button when set
   liveLabel?: string; // button text (defaults to "Try it live")
   caseStudyUrl?: string; // internal link to the full process case study
+  tile?: string; // dedicated 4:3 cover for grid layouts (falls back to images[0])
   appStore?: AppStore; // renders a download widget when set
 }
 
@@ -89,6 +90,7 @@ export const projects: Project[] = [
   {
     key: "bofa-cloud",
     caseStudyUrl: "/decks/bofa-cloud-v3.html",
+    tile: "/bofa-cloud-tile.jpg",
     title: "BofA Cloud",
     description:
       "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
@@ -108,6 +110,7 @@ export const projects: Project[] = [
   },
   {
     key: "vetra",
+    tile: "/vetra-tile.png",
     title: "Vetra",
     description:
       "AI studio turning screenshots into launch-ready slides and demo videos — product + landing redesign for a startup, shipped in two weeks.",
@@ -137,6 +140,7 @@ export const projects: Project[] = [
   {
     key: "jobpilot",
     caseStudyUrl: "/decks/jobpilot-case-study.html",
+    tile: "/jobpilot-tile.mp4",
     title: "Jobpilot",
     description:
       "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
@@ -193,6 +197,7 @@ export const projects: Project[] = [
   },
   {
     key: "ionboard",
+    tile: "/ionboard-tile.png",
     // caseStudyUrl: "/projects/ionboard", // hidden until case studies are ready
     title: "Ionboard",
     description:
@@ -244,31 +249,6 @@ export const projects: Project[] = [
     ],
     collaborators:
       "A team of three, the IT support staff whose real-time struggles shaped every iteration, and partner product managers.",
-  },
-  {
-    key: "oneco",
-    // caseStudyUrl: "/projects/oneco", // hidden until case studies are ready
-    title: "OneCo",
-    description:
-      "Builder-archetype quiz in four languages — are you built to run a one-person company?",
-    images: [{ src: "/oneco-demo.mp4", phone: true }],
-    liveUrl: "https://oneco.katexu.com/",
-    reflection: [
-      {
-        title: "Reframe the question",
-        body: "“Should I go solo?” is the wrong question — no quiz can answer it. “What kind of builder am I?” is the right one, and the whole product is built to answer that honestly so people can build in alignment with who they actually are.",
-      },
-      {
-        title: "Global from day one",
-        body: "I designed for four languages from the start rather than bolting on localization later — which forced clearer copy, fewer cultural assumptions, and more universal framing.",
-      },
-      {
-        title: "Paths, not labels",
-        body: "Most personality tools stop at a label. I connected each archetype to real paths: the kind of one-person business you're suited to build, the traps to avoid, and where your edge actually is.",
-      },
-    ],
-    collaborators:
-      "Solo build with AI as collaborator. Shipped in English, Chinese, Spanish, and French.",
   },
 ];
 
