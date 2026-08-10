@@ -677,14 +677,14 @@ function ProjectCarousel({
           <button
             onClick={() => scrollBy(-1)}
             aria-label={`Previous ${project.title} image`}
-            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ‹
           </button>
           <button
             onClick={() => scrollBy(1)}
             aria-label={`Next ${project.title} image`}
-            className="w-12 h-12 rounded-full bg-[#f5f5f7] shadow-[0_2px_8px_rgba(0,0,0,0.12)] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+            className="w-12 h-12 rounded-full bg-[#f5f5f7] flex items-center justify-center text-[22px] font-semibold leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
           >
             ›
           </button>
