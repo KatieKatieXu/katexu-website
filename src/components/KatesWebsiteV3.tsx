@@ -845,7 +845,7 @@ function ProjectTile({
           </div>
         </div>
       </motion.div>
-      <h2 className="mt-3 text-[15px] font-semibold leading-[1.45] text-[#111]">
+      <h2 className="mt-6 text-[15px] font-semibold leading-[1.45] text-[#111]">
         {project.title}
       </h2>
       <p className="mt-0.5 text-[14px] leading-[1.6] text-[#777]">
