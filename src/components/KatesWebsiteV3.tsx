@@ -788,7 +788,7 @@ function TileShow({ project }: { project: Project }) {
 // reflow on the same clock. The panel's text waits, then follows the cover in:
 // left card first, decisions next, button last — context arriving at the pace
 // the eye travels, so the user is led, not teleported.
-const GLIDE = { duration: 0.85, ease: [0.16, 1, 0.3, 1] as const };
+const GLIDE = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const };
 
 function ProjectTile({
   project,
@@ -900,7 +900,7 @@ function ExpandedProject({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, transition: { duration: 0.12 } }}
-          transition={{ delay: 1.0, duration: 0.9, ease: GLIDE.ease }}
+          transition={{ delay: 0.65, duration: 0.5, ease: GLIDE.ease }}
         >
         <h2 className="mt-[38px] text-[15px] font-semibold leading-[1.45] text-[#111]">
           {project.title}
@@ -935,7 +935,7 @@ function ExpandedProject({
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, transition: { duration: 0.12 } }}
-          transition={{ delay: 1.1, duration: 0.8, ease: GLIDE.ease }}
+          transition={{ delay: 0.7, duration: 0.5, ease: GLIDE.ease }}
           className="flex items-start justify-between"
         >
           <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
@@ -959,8 +959,8 @@ function ExpandedProject({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, transition: { duration: 0.12 } }}
               transition={{
-                delay: 1.3 + (i % 2) * 0.95 + Math.floor(i / 2) * 0.15,
-                duration: i % 2 === 1 ? 1.2 : 0.9,
+                delay: 0.8 + (i % 2) * 0.5 + Math.floor(i / 2) * 0.1,
+                duration: i % 2 === 1 ? 0.7 : 0.55,
                 ease: GLIDE.ease,
               }}
             >
@@ -976,7 +976,7 @@ function ExpandedProject({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.12 } }}
-            transition={{ delay: 3.0, duration: 0.7, ease: GLIDE.ease }}
+            transition={{ delay: 1.7, duration: 0.5, ease: GLIDE.ease }}
             className="mt-8 flex justify-end"
           >
             {project.caseStudyUrl ? (
