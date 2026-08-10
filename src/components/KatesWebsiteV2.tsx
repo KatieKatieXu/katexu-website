@@ -117,7 +117,7 @@ export const projects: Project[] = [
     tile: "/vetra-tile.png",
     timeline: "2026",
     role: "Product designer · aesthetic system",
-    title: "Vetra",
+    title: "Vetra AI",
     description:
       "AI studio turning screenshots into launch-ready slides and demo videos — product + landing redesign for a startup, shipped in two weeks.",
     images: ["/vetra-placeholder-1.png", "/vetra-placeholder-2.png"],
