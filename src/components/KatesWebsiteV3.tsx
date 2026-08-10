@@ -845,32 +845,32 @@ function ExpandedProject({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ layout: { duration: 0.5, ease: [0.16, 1, 0.3, 1] }, duration: 0.35 }}
-      className="col-span-3 grid grid-cols-3 gap-x-5"
+      className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px]"
     >
       {/* left third — the tile, shifted to the very left, with the project's card */}
       <div className="flex flex-col">
         <div className="relative aspect-[4/3] overflow-hidden rounded-[4px] bg-[#f5f5f7]">
           <TileShow project={project} />
         </div>
-        <h2 className="mt-3 text-[15px] font-semibold leading-[1.45] text-[#111]">
+        <h2 className="mt-[38px] text-[15px] font-semibold leading-[1.45] text-[#111]">
           {project.title}
         </h2>
-        <p className="mt-0.5 text-[14px] leading-[1.6] text-[#777]">
+        <p className="mt-2 text-[14px] leading-[1.6] text-[#777]">
           {project.description}
         </p>
         {(project.timeline || project.role) && (
-          <div className="mt-4 text-[14px] leading-[1.6] text-[#777]">
+          <div className="mt-9 text-[14px] leading-[1.6] text-[#777]">
             {project.timeline && <p>Timeline: {project.timeline}</p>}
             {project.role && <p>Role: {project.role}</p>}
           </div>
         )}
-        <p className="mt-4 text-[14px] leading-[1.6] text-[#777]">
+        <p className="mt-9 text-[14px] leading-[1.6] text-[#777]">
           Team: {project.collaborators}
         </p>
       </div>
 
       {/* right two thirds — the decisions, with close and case study */}
-      <div className="col-span-2 flex flex-col">
+      <div className="flex flex-col">
         <div className="flex items-start justify-between">
           <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
             {project.title} — key decisions
@@ -884,7 +884,7 @@ function ExpandedProject({
           </button>
         </div>
         {/* decisions run side by side in columns, per Figma 59:2336 */}
-        <div className="mt-5 grid grid-cols-2 gap-x-5 gap-y-6">
+        <div className="mt-[30px] grid grid-cols-2 gap-x-[85px] gap-y-8">
           {project.reflection.map((d) => (
             <div key={d.title}>
               <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1.5">
@@ -950,7 +950,7 @@ function ProjectGrid() {
       variants={sectionReveal}
       className="pt-2 pb-12"
     >
-      <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-2.5">
+      <div className="grid grid-cols-3 gap-x-5 gap-y-10 pt-[85px]">
         {items.map(({ kind, project }) =>
           kind === "open" ? (
             <AnimatePresence key={"open-" + project.key} initial={false}>
