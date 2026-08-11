@@ -149,26 +149,26 @@ function TopBar() {
       className="pt-6 pb-0"
       // --name-size drives the display type; --name-width is its measured ink
       // width, which the nav group below inherits so the two can never drift.
-      // 3.5360 = ink width per unit font-size for "Kate Xu" in Schibsted
-      // Grotesk SemiBold at zero tracking (measured from the font file with
+      // 3.4410 = ink width per unit font-size for "Kate Xu" in Schibsted
+      // Grotesk Medium at zero tracking (measured from the font file with
       // PIL/fontTools). Re-measure if the family, weight, tracking, or the
-      // name itself changes. (Instrument Sans SemiBold was 3.4955.)
+      // name itself changes. (SemiBold was 3.5360.)
       style={
         {
           "--name-size": "clamp(96px, 11.1vw, 160px)",
-          "--name-width": "calc(clamp(96px, 11.1vw, 160px) * 3.5360)",
+          "--name-width": "calc(clamp(96px, 11.1vw, 160px) * 3.4410)",
         } as React.CSSProperties
       }
     >
       {/* ── name, with identity and portrait to the right ── */}
       <div className="flex items-start justify-between gap-10">
         <motion.h1
-          className="w-fit shrink-0 font-semibold leading-[1] text-[#111] whitespace-nowrap"
-          // -0.074em cancels the K's left side bearing so the ink — not the glyph
+          className="w-fit shrink-0 font-medium leading-[1] text-[#111] whitespace-nowrap"
+          // -0.077em cancels the K's left side bearing so the ink — not the glyph
           // box — starts flush with the column edge. Scales with the clamp.
           style={{
             fontSize: "var(--name-size)",
-            marginLeft: "calc(var(--name-size) * -0.074)",
+            marginLeft: "calc(var(--name-size) * -0.077)",
           }}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
