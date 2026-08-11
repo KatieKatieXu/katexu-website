@@ -149,13 +149,14 @@ function TopBar() {
       className="pt-6 pb-0"
       // --name-size drives the display type; --name-width is its measured ink
       // width, which the nav group below inherits so the two can never drift.
-      // 3.4955 = ink width per unit font-size for "Kate Xu" in Instrument Sans
-      // SemiBold at zero tracking (measured in Figma, node 33:62). Re-measure if
-      // the family, weight, tracking, or the name itself changes.
+      // 3.5360 = ink width per unit font-size for "Kate Xu" in Schibsted
+      // Grotesk SemiBold at zero tracking (measured from the font file with
+      // PIL/fontTools). Re-measure if the family, weight, tracking, or the
+      // name itself changes. (Instrument Sans SemiBold was 3.4955.)
       style={
         {
           "--name-size": "clamp(96px, 11.1vw, 160px)",
-          "--name-width": "calc(clamp(96px, 11.1vw, 160px) * 3.4955)",
+          "--name-width": "calc(clamp(96px, 11.1vw, 160px) * 3.5360)",
         } as React.CSSProperties
       }
     >
@@ -163,11 +164,11 @@ function TopBar() {
       <div className="flex items-start justify-between gap-10">
         <motion.h1
           className="w-fit shrink-0 font-semibold leading-[1] text-[#111] whitespace-nowrap"
-          // -0.062em cancels the K's left side bearing so the ink — not the glyph
+          // -0.074em cancels the K's left side bearing so the ink — not the glyph
           // box — starts flush with the column edge. Scales with the clamp.
           style={{
             fontSize: "var(--name-size)",
-            marginLeft: "calc(var(--name-size) * -0.062)",
+            marginLeft: "calc(var(--name-size) * -0.074)",
           }}
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
@@ -176,16 +177,16 @@ function TopBar() {
           Kate Xu
         </motion.h1>
 
-        {/* The photo spans exactly the name's INK: measured in Instrument Sans
-            at leading 1, "Kate Xu" ink height = 0.73em, with 0.1425em of dead box
-            above the cap and 0.1275em of empty descender box below. The block offsets
-            by the top slack and sizes to the ink, so photo top = K's top and
-            photo bottom = baseline — at every clamp size. */}
+        {/* The photo spans exactly the name's INK: measured in Schibsted
+            Grotesk at leading 1, "Kate Xu" ink height = 0.704em, with 0.1554em
+            of dead box above the cap and 0.1406em of empty descender box below.
+            The block offsets by the top slack and sizes to the ink, so photo
+            top = K's top and photo bottom = baseline — at every clamp size. */}
         <div
           className="flex shrink-0 items-stretch gap-[13px]"
           style={{
-            marginTop: "calc(var(--name-size) * 0.1425)",
-            height: "calc(var(--name-size) * 0.73)",
+            marginTop: "calc(var(--name-size) * 0.1554)",
+            height: "calc(var(--name-size) * 0.704)",
           }}
         >
           <div className="flex h-full flex-col items-end justify-between text-right">
@@ -209,9 +210,10 @@ function TopBar() {
       </div>
 
       {/* The rule sits just under the name's baseline. "Kate Xu" has no
-          descenders, so the font's descender box overhangs the ink by ~12px —
-          hence the negative margin. It is trimming dead box, not fixing leading. */}
-      <nav className="mt-[-10px] flex items-center justify-between border-t border-[#e6e6e6] pt-5 text-[15px] leading-[1.45]">
+          descenders, so the font's descender box overhangs the ink by ~22px in
+          Schibsted Grotesk — the negative margin trims it to keep the same
+          ~10px baseline-to-rule gap as before. Dead box, not leading. */}
+      <nav className="mt-[-12px] flex items-center justify-between border-t border-[#e6e6e6] pt-5 text-[15px] leading-[1.45]">
         {/* Optical, not geometric. The group is nudged left by "Resume"'s own
             0.54-1.29px bearing and widened by "Visual Lab"'s trailing bearing, so
             the R starts and the b ends on the same verticals as the name's ink. */}
@@ -773,8 +775,11 @@ function TileShow({ project }: { project: Project }) {
           <motion.img
             src={media.src}
             alt={project.title}
+            // Ken Burns only makes sense mid-reel — a lone image would just
+            // end up parked at 1.08, cropping ~4% off every edge (the Vetra
+            // mockup's margins). Single-image tiles show the full frame.
             initial={{ scale: 1 }}
-            animate={{ scale: reduce ? 1 : 1.08 }}
+            animate={{ scale: reduce || reel.length < 2 ? 1 : 1.08 }}
             transition={{ duration: 5.4, ease: "linear" }}
             className="absolute inset-0 h-full w-full object-cover"
           />
