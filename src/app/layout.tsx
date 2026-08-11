@@ -30,13 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${geistMono.variable} ${inter.variable} ${instrument.variable}`}
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
       </head>
-      <body
-        className={`${geistMono.variable} ${inter.variable} ${instrument.variable} antialiased`}
-      >
+      <body className="antialiased">
         <PostHogProvider>
           <SmoothScroll />
           {children}

@@ -1111,7 +1111,7 @@ function ProjectGrid() {
         layout
         transition={{ layout: GLIDE }}
         style={{ paddingTop: openIdx >= 0 ? 85 : 10 }}
-        className="grid grid-cols-3 gap-x-5 gap-y-10"
+        className="grid grid-cols-3 gap-x-2.5 gap-y-5"
       >
         {items.map(({ kind, project }) =>
           kind === "open" ? (
