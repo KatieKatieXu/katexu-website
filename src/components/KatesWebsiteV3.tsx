@@ -919,7 +919,9 @@ function ExpandedProject({
       ref={panelRef}
       layout
       transition={{ layout: GLIDE }}
-      className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px] scroll-mt-24"
+      // pb doubles the panel's breathing room to the tile row below it:
+      // 40px row gap + 40px panel padding = 80px, twice the normal row gap.
+      className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px] pb-10 scroll-mt-24"
     >
       {/* left third — the cover glides in via the shared layoutId */}
       <div className="flex flex-col">
@@ -983,26 +985,35 @@ function ExpandedProject({
             ✕
           </button>
         </motion.div>
-        {/* decisions run side by side; the FIRST column develops first, the
-            second follows — grid items alternate columns, so delay by i % 2 */}
-        <div className="mt-[30px] grid grid-cols-2 gap-x-[85px] gap-y-8">
-          {project.reflection.map((d, i) => (
-            <motion.div
-              key={d.title}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, transition: { duration: 0.12 } }}
-              transition={{
-                delay: 0.55 + (i % 2) * 0.35 + Math.floor(i / 2) * 0.08,
-                duration: i % 2 === 1 ? 0.5 : 0.4,
-                ease: GLIDE.ease,
-              }}
-            >
-              <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1.5">
-                {d.title}
-              </p>
-              <p className="text-[14px] text-[#666] leading-[1.6]">{d.body}</p>
-            </motion.div>
+        {/* decisions run as two INDEPENDENT columns — items keep a steady
+            paragraph gap within their own column and are never stretched to
+            match the height of their neighbor across the gutter. Reading
+            order is preserved: item 0,2,4 fill the left, 1,3,5 the right.
+            The first column develops first, the second follows. */}
+        <div className="mt-[30px] grid grid-cols-2 items-start gap-x-[85px]">
+          {[0, 1].map((col) => (
+            <div key={col} className="flex flex-col gap-8">
+              {project.reflection
+                .filter((_, i) => i % 2 === col)
+                .map((d, row) => (
+                  <motion.div
+                    key={d.title}
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, transition: { duration: 0.12 } }}
+                    transition={{
+                      delay: 0.55 + col * 0.35 + row * 0.08,
+                      duration: col === 1 ? 0.5 : 0.4,
+                      ease: GLIDE.ease,
+                    }}
+                  >
+                    <p className="text-[15px] leading-[1.45] font-semibold text-[#111] mb-1.5">
+                      {d.title}
+                    </p>
+                    <p className="text-[14px] text-[#666] leading-[1.6]">{d.body}</p>
+                  </motion.div>
+                ))}
+            </div>
           ))}
         </div>
         {(project.caseStudyUrl || project.liveUrl) && (
@@ -1111,7 +1122,7 @@ function ProjectGrid() {
         layout
         transition={{ layout: GLIDE }}
         style={{ paddingTop: openIdx >= 0 ? 85 : 10 }}
-        className="grid grid-cols-3 gap-x-2.5 gap-y-5"
+        className="grid grid-cols-3 gap-x-2.5 gap-y-10"
       >
         {items.map(({ kind, project }) =>
           kind === "open" ? (

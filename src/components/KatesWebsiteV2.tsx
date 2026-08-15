@@ -114,6 +114,7 @@ export const projects: Project[] = [
   },
   {
     key: "vetra",
+    caseStudyUrl: "/decks/vetra-case-study.html",
     timeline: "2026",
     role: "Product designer · aesthetic system",
     title: "Vetra AI",
@@ -125,19 +126,15 @@ export const projects: Project[] = [
     reflection: [
       {
         title: "Mental model over magic",
-        body: "The old product scattered parameters everywhere — users couldn't form a mental model of where to control what, so they fell back on asking the overall AI to do everything. Research showed that wasn't the fix: prompting is great for finishing, terrible for orienting. So the redesign gives the product two explicit modes — Slides and Video — and keeps the AI as a polish pass inside each. Structure for creating, AI for finishing. Users always know where they are before they ask for magic.",
+        body: "The old product scattered parameters everywhere — users couldn't form a mental model of where to control what, so they fell back on asking the overall AI to do everything. Research showed that wasn't the fix: prompting is great for finishing, terrible for orienting. So the redesign gives the product two rooms — Slides and Video — and keeps the AI as a polish pass inside each. Modes now describe the person, not the format: Yolo, Director, and Showcase run on one universal parameter template, so switching intent never costs the familiarity of the controls. Structure for creating, AI for finishing.",
       },
       {
-        title: "One row per story, not editor timelines",
-        body: "User research kept showing the same behavior: people build multiple storylines at once. Slides mode borrows the mental model everyone already owns — a vertical page selector, like every deck tool. Video mode needed something new: parallel story rows, one row per storyline, that deliberately are not editing timelines. Elements copy-paste across rows, so building three versions of your launch video is one flow, not three projects.",
+        title: "The layout tells you where you are",
+        body: "Users' favorite capability in research was the two-way convert — typically they'd start a video, want to explore further, and turn it into slides mid-flight. Yet most never found the feature, and the most-asked question in testing was “am I in slides or video right now?” — asked by people who smiled at every result. Test users perform politeness; the questions they ask are better data than the excitement they show. Root cause: both surfaces shared one identical layout, with a vertical selector that meant pages in one room and story covers in the other. From the inside that read as convenience — one universal template, a simpler back end, instant familiarity. From the outside it erased the only signal telling users where they stood. The redesign gives each room its own layout, so the screen itself answers where-am-I; modes now categorize the person, not the format; and conversion became a visible button — a door between rooms instead of a hidden passage. The founder signed off, and we shipped it deliberately small: the next round of data, not individual conviction, decides how far the next iteration goes.",
       },
       {
         title: "Decoding taste into an algorithm",
         body: "Beyond the product surface, I design Vetra's aesthetic system — the rules that decide how every generated slide and video looks. The work is decoding human aesthetic judgment into on-screen decisions a machine can execute: what a story's mood implies for its palette, type, and pacing, and where the craft floors sit that keep output from feeling generated. Every visual this platform produces runs through rules I wrote. The rulebook itself stays proprietary; the field — teaching machines taste — is where my design practice is heading.",
-      },
-      {
-        title: "Filter the landing to what converts",
-        body: "Every candidate message went through one filter: does this convert traffic or make the brand stand out? The few that passed took the primary positions; everything else was cut or demoted. And the landing shares one design system with the product itself — so the promise and the product look like the same thing, and the first session doesn't break the spell the landing cast.",
       },
     ],
     collaborators: "For the Vetra team — product, landing, and the aesthetic algorithm behind every generated visual.",
