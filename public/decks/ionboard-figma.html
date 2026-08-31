@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ionboard — Kate Xu · Case Study 03</title>
+<style>
+  :root { --paper: #faf9f7; --ink: #111; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: var(--paper); color: var(--ink);
+    font-family: "Schibsted Grotesk", -apple-system, "Segoe UI", sans-serif; }
+  @font-face { font-family: "Schibsted Grotesk"; font-style: normal; font-weight: 500;
+    font-display: swap; src: url("../fonts/schibsted-grotesk-latin-500-normal.woff2") format("woff2"); }
+  body { display: flex; flex-direction: column; }
+  header { display: flex; justify-content: space-between; align-items: center;
+    padding: 14px 24px; font-size: 14px; }
+  header .t { font-weight: 500; }
+  header a { color: #777; text-decoration: none; }
+  header a:hover { color: var(--ink); }
+  main { flex: 1; min-height: 0; padding: 0 24px 24px; }
+  .stage { width: 100%; height: 100%; display: grid; place-items: center; }
+  iframe { width: 100%; height: 100%; max-width: 1600px; border: 1px solid rgba(0,0,0,.1);
+    border-radius: 4px; background: #fff; }
+</style>
+</head>
+<body>
+  <header>
+    <span class="t">ionboard — Kate Xu · Case Study 03</span>
+    <a href="/">← katexu.com</a>
+  </header>
+  <main>
+    <div class="stage">
+      <iframe src="https://embed.figma.com/slides/taMJWLPYTuhGUHeiHYZauO/Ionboard?node-id=1-36&embed-host=share" allowfullscreen></iframe>
+    </div>
+  </main>
+</body>
+</html>

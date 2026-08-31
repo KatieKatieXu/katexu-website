@@ -51,6 +51,11 @@ export interface WorkflowHighlight {
 
 export const workflows: WorkflowHighlight[] = [
   {
+    title: "The Intent-First Design Loop",
+    body: "Interviews and behavior-tracking data pin down who the users are, what they precisely intend, and where they'll use it. That picture shapes the landing page and the product together. Claude Design and Figma Make generate directions from hand-crafted starting layouts; my judgment gathers the options and makes the call — balancing business judgment, product thinking, design craft, and human insight.",
+    flow: "interviews + behavior data → precise intent → hand-crafted layouts → Claude Design / Figma Make → options → my call",
+  },
+  {
     title: "The AI-Verifiable Handoff",
     body: "Engineers receive a package of TSX, CSS, and design-system spec plus reference demo images — their coding agent validates the implementation against my design.",
     flow: "Figma → TSX + CSS + DS spec → reference image → agent validates → PR",
@@ -204,7 +209,9 @@ export const projects: Project[] = [
   {
     key: "ionboard",
     tile: "/ionboard-tile.png",
-    // caseStudyUrl: "/projects/ionboard", // hidden until case studies are ready
+    caseStudyUrl: "/decks/ionboard-slides.html",
+    timeline: "2017 \u2013 2018",
+    role: "Design & Marketing Lead",
     title: "Ionboard",
     description:
       "Electric skateboard brand — $57K+ Kickstarter (570% funded). End-to-end brand, design, and marketing.",

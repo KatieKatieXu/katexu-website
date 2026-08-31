@@ -254,9 +254,33 @@ function TopBar() {
         </div>
       </nav>
 
+      {/* ── positioning — the one-sentence answer to "what kind of product
+             person is this?", aimed at hiring managers. It fills the quiet
+             band between the nav and the workflow row: the first substantive
+             read after the name, before any evidence. ── */}
+      <motion.div
+        className="mt-[140px] max-w-[720px]"
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888] mb-[13px]">
+          What I do
+        </p>
+        <p className="text-[32px] leading-[1.3] font-medium text-[#111]">
+          I turn technology into products people can understand, value, and
+          love.
+        </p>
+        <p className="mt-4 max-w-[560px] text-[15px] leading-[1.6] text-[#777]">
+          I&rsquo;m Kate. I combine business judgment, product thinking, design
+          craft, and human insight to bring clarity to complex problems and
+          turn ambiguous ideas into meaningful products.
+        </p>
+      </motion.div>
+
       {/* ── workflow (left) + section label (right), bottom-aligned so the
              label sits level with the workflow's last row of text ── */}
-      <div className="mt-[250px] flex items-end justify-between">
+      <div className="mt-[120px] flex items-end justify-between">
         <div className="w-[348px]">
         <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888] mb-[13px]">
           My latest workflow
@@ -794,10 +818,10 @@ function TileShow({ project }: { project: Project }) {
 // reflow on the same clock. The panel's text waits, then follows the cover in:
 // left card first, decisions next, button last — context arriving at the pace
 // the eye travels, so the user is led, not teleported.
-const GLIDE = { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const };
+const GLIDE = { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const };
 // The cover itself travels on a slower clock than the reflow around it — the
 // hero of the transition gets the longest note; everything else stays quick.
-const COVER_GLIDE = { duration: 0.85, ease: GLIDE.ease };
+const COVER_GLIDE = { duration: 1.1, ease: GLIDE.ease };
 
 function ProjectTile({
   project,
@@ -848,6 +872,20 @@ function ProjectTile({
                 className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[14px] font-medium text-[#111] hover:bg-white transition-colors"
               >
                 {project.liveLabel ?? "Try it live"} ↗
+              </a>
+            )}
+            {project.appStore && (
+              <a
+                href={project.appStore.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  track("v3_app_store_clicked", { project: project.title });
+                }}
+                className="inline-flex items-center gap-1 rounded-full bg-white/90 px-3.5 py-1.5 text-[14px] font-medium text-[#111] hover:bg-white transition-colors"
+              >
+                App Store ↗
               </a>
             )}
           </div>
@@ -901,7 +939,7 @@ function ExpandedProject({
         return;
       }
       const controls = animate(window.scrollY, target, {
-        duration: 0.7,
+        duration: 0.9,
         ease: GLIDE.ease,
         onUpdate: (v) => window.scrollTo(0, v),
       });
@@ -919,9 +957,11 @@ function ExpandedProject({
       ref={panelRef}
       layout
       transition={{ layout: GLIDE }}
-      // pb doubles the panel's breathing room to the tile row below it:
-      // 40px row gap + 40px panel padding = 80px, twice the normal row gap.
-      className="col-span-3 grid grid-cols-[440px_1fr] gap-x-[70px] pb-10 scroll-mt-24"
+      // The decisions live ON a surface now: a very light grey panel with
+      // generous inner margins (48px), sharp-surface 4px radius per the
+      // radius rule. mb-10 keeps the doubled breathing room to the tile row
+      // below: 40px row gap + 40px margin = 80px.
+      className="relative col-span-3 grid grid-cols-[440px_1fr] gap-x-12 scroll-mt-24 mb-10 rounded-[4px] bg-[#fafafa] px-12 pb-12 pt-24"
     >
       {/* left third — the cover glides in via the shared layoutId */}
       <div className="flex flex-col">
@@ -936,7 +976,7 @@ function ExpandedProject({
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, transition: { duration: 0.12 } }}
-          transition={{ delay: 0.45, duration: 0.35, ease: GLIDE.ease }}
+          transition={{ delay: 0.65, duration: 0.45, ease: GLIDE.ease }}
         >
         <h2 className="mt-[38px] text-[15px] font-semibold leading-[1.45] text-[#111]">
           {project.title}
@@ -965,32 +1005,28 @@ function ExpandedProject({
         </motion.div>
       </div>
 
-      {/* right two thirds — the decisions follow the cover in, then the button */}
+      {/* right two thirds — the decisions follow the cover in, then the button.
+          The close control floats in the panel's top-right corner so the
+          decision columns can start level with the cover's top edge. */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0, transition: { duration: 0.12 } }}
+        transition={{ delay: 0.7, duration: 0.45, ease: GLIDE.ease }}
+        onClick={onClose}
+        aria-label="Close key decisions"
+        className="absolute right-6 top-6 flex h-8 w-8 items-center justify-center rounded-full bg-white text-[16px] leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
+      >
+        ✕
+      </motion.button>
       <div className="flex flex-col">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, transition: { duration: 0.12 } }}
-          transition={{ delay: 0.5, duration: 0.35, ease: GLIDE.ease }}
-          className="flex items-start justify-between"
-        >
-          <p className="text-[15px] font-semibold leading-[1.45] text-[#111]">
-            {project.title} — key decisions
-          </p>
-          <button
-            onClick={onClose}
-            aria-label="Close key decisions"
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-[#f5f5f7] text-[16px] leading-none text-[#3a3a3c] hover:bg-[#ebebef] hover:text-[#111] transition-colors"
-          >
-            ✕
-          </button>
-        </motion.div>
         {/* decisions run as two INDEPENDENT columns — items keep a steady
             paragraph gap within their own column and are never stretched to
             match the height of their neighbor across the gutter. Reading
             order is preserved: item 0,2,4 fill the left, 1,3,5 the right.
-            The first column develops first, the second follows. */}
-        <div className="mt-[30px] grid grid-cols-2 items-start gap-x-[85px]">
+            The first column develops first, the second follows. Top-aligned
+            with the cover: no header row above, no top margin. */}
+        <div className="grid grid-cols-2 items-start gap-x-12">
           {[0, 1].map((col) => (
             <div key={col} className="flex flex-col gap-8">
               {project.reflection
@@ -1002,7 +1038,7 @@ function ExpandedProject({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, transition: { duration: 0.12 } }}
                     transition={{
-                      delay: 0.55 + col * 0.35 + row * 0.08,
+                      delay: 0.75 + col * 0.35 + row * 0.08,
                       duration: col === 1 ? 0.5 : 0.4,
                       ease: GLIDE.ease,
                     }}
@@ -1021,7 +1057,7 @@ function ExpandedProject({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.12 } }}
-            transition={{ delay: 1.15, duration: 0.4, ease: GLIDE.ease }}
+            transition={{ delay: 1.4, duration: 0.5, ease: GLIDE.ease }}
             className="mt-8 flex justify-end"
           >
             {project.caseStudyUrl ? (
@@ -1032,7 +1068,7 @@ function ExpandedProject({
                 onClick={() =>
                   track("v3_case_study_clicked", { project: project.title })
                 }
-                className="inline-flex items-center rounded-full bg-[#f5f5f7] px-5 py-2.5 text-[15px] font-medium text-[#111] hover:bg-[#ebebef] transition-colors"
+                className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-[15px] font-medium text-[#111] hover:bg-[#ebebef] transition-colors"
               >
                 Case Study
               </a>
@@ -1041,7 +1077,7 @@ function ExpandedProject({
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center rounded-full bg-[#f5f5f7] px-5 py-2.5 text-[15px] font-medium text-[#111] hover:bg-[#ebebef] transition-colors"
+                className="inline-flex items-center rounded-full bg-white px-5 py-2.5 text-[15px] font-medium text-[#111] hover:bg-[#ebebef] transition-colors"
               >
                 {project.liveLabel ?? "Try it live"} ↗
               </a>
