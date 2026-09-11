@@ -209,7 +209,8 @@ export const projects: Project[] = [
   {
     key: "ionboard",
     tile: "/ionboard-tile.png",
-    caseStudyUrl: "/decks/ionboard-slides.html",
+    caseStudyUrl:
+      "https://www.figma.com/deck/taMJWLPYTuhGUHeiHYZauO/Ionboard?node-id=0-1&t=kXZU00tuN8yKxsZu-1",
     timeline: "2017 \u2013 2018",
     role: "Design & Marketing Lead",
     title: "Ionboard",
