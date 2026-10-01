@@ -13,6 +13,9 @@ const LINKEDIN = "https://www.linkedin.com/in/katherinexu99/";
 const TAGLINE = "I ask good questions and build things that make people more capable.";
 const AVATAR_ASTRONAUT = "/kate-avatar-astronaut.png"; // astronaut layer
 const AVATAR_BUBBLE = "/kate-avatar-bubble.png"; // "Hello!" bubble layer
+const STORYTELLING_GITHUB =
+  "https://github.com/KatieKatieXu/kate-xu-storytelling";
+const STORYTELLING_CHOICES = ["a", "b", "c", "d"] as const;
 
 // Track an event without crashing if PostHog isn't initialized.
 function track(event: string, props?: Record<string, unknown>) {
@@ -52,17 +55,17 @@ export interface WorkflowHighlight {
 export const workflows: WorkflowHighlight[] = [
   {
     title: "The Intent-First Design Loop",
-    body: "Interviews and behavior-tracking data pin down who the users are, what they precisely intend, and where they'll use it. That picture shapes the landing page and the product together. Claude Design and Figma Make generate directions from hand-crafted starting layouts; my judgment gathers the options and makes the call — balancing business judgment, product thinking, design craft, and human insight.",
+    body: "Interviews and behavior data clarify who the users are, what they need, and where they will use the product. That evidence shapes the landing page and product together. Claude Design and Figma Make generate directions from my starting layouts. I evaluate the options and make the call.",
     flow: "interviews + behavior data → precise intent → hand-crafted layouts → Claude Design / Figma Make → options → my call",
   },
   {
     title: "The AI-Verifiable Handoff",
-    body: "Engineers receive a package of TSX, CSS, and design-system spec plus reference demo images — their coding agent validates the implementation against my design.",
+    body: "Engineers receive TSX, CSS, a design system spec, and reference images. Their coding agent validates the implementation against my design.",
     flow: "Figma → TSX + CSS + DS spec → reference image → agent validates → PR",
   },
   {
     title: "The Living Screen Registry",
-    body: "A coding agent captures the key screens of every core flow into a registry table that auto-updates on each code push — documentation that can't drift from production.",
+    body: "A coding agent captures every core flow in a screen registry. It updates with each code push, so documentation stays aligned with production.",
     flow: "coding agent → key screens → registry table → auto-update on push",
   },
 ];
@@ -98,51 +101,51 @@ export const projects: Project[] = [
     key: "bofa-cloud",
     caseStudyUrl: "/decks/bofa-cloud-v3.html",
     tile: "/bofa-cloud-tile.jpg",
-    timeline: "2025 – 2026",
+    timeline: "2025 to 2026",
     role: "Design Lead (with 2 UX interns)",
     title: "BofA Cloud",
     description:
-      "Cloud infrastructure platform serving 1,000+ internal applications — design lead in a team of 35.",
+      "Cloud infrastructure platform serving 1,000+ internal applications. Design lead in a team of 35.",
     images: ["/bofa-cloud-demo.jpg", "/bofa-cloud-components.jpg"],
     reflection: [
       {
         title: "Nothing to cut → Pre-approval Tickets",
-        body: "The resource-ordering wizard was long, and my tracking showed it was driving drop-off and support tickets. Using a standing 15-minute UX slot I'd carved out in the engineering standup, I pushed to cut steps — and lost that argument: engineering and the PM were right that every field was a required technical input, and cramming them onto one screen was worse. So I kept the goal (convenience) and dropped my fix, noticing that repeat orders ask the identical setup every time. Reusing that setup for frequent orders became this feature — our monthly build-success rate rose 23% and average ordering time fell 32%, all without dropping a single necessary step.",
+        body: "The ordering wizard was driving drop-off and support tickets. I proposed cutting steps, but engineering showed that every field was required. I kept the goal and changed the solution. Reusing previous configurations increased monthly build success by 23% and reduced ordering time by 32%.",
       },
       {
         title: "Grid of tiles → Comparison View",
-        body: "This came in as a vague mandate — a PM asking, on behalf of stakeholders, to “show more details on each machine” in the ordering flow, where users pick an OS image from a grid of logos. Instead of building the relayed request, I traced it to the source and pressed on what “details” even meant — price, provisioning time, specs? “All of it,” so I contacted a few of those stakeholders together with the PM and narrowed it to what actually drives the choice: cost, availability-zone capacity, and whether DMZ is enabled. That told me the real problem wasn't the tile at all — users couldn't decide which machine to pick, and no tile could hold enough to compare. So rather than decorate the grid, I designed this comparison view — specs as rows, machines as columns — to choose side by side. It added ~3% to the flow time, but order completion rose 6%: people finished because they could finally decide with confidence instead of abandoning.",
+        body: "Stakeholders asked for more details on each machine. I traced the request to the real problem: users could not compare cost, capacity, and DMZ status. I replaced the tile grid with a comparison view. The flow became 3% longer, but completion rose 6%.",
       },
     ],
     collaborators:
-      "A 35-person platform org — product managers, cloud engineers, and the BofA design-system group.",
+      "A 35-person platform org with product managers, cloud engineers, and the BofA design system group.",
   },
   {
     key: "vetra",
     caseStudyUrl: "/decks/vetra-case-study/",
-    timeline: "2026",
-    role: "Product designer · aesthetic system",
+    timeline: "2026 · one month",
+    role: "Only designer",
     title: "Vetra AI",
     description:
-      "AI studio for startup owners who want storytelling that impresses — screenshots in, launch-ready slides and demo videos out. Product + landing redesign, shipped in two weeks.",
+      "AI studio for startup owners. I turned one complex product into three focused products and shipped all three in one month.",
     images: ["/vetra-tile.jpg"],
     liveUrl: "https://www.vetraai.com/",
     liveLabel: "Visit Vetra",
     reflection: [
       {
-        title: "Mental model over magic",
-        body: "The old product scattered parameters everywhere — users couldn't form a mental model of where to control what, so they fell back on asking the overall AI to do everything. Research showed that wasn't the fix: prompting is great for finishing, terrible for orienting. So the redesign gives the product two rooms — Slides and Video — and keeps the AI as a polish pass inside each. Modes now describe the person, not the format: Yolo, Director, and Showcase run on one universal parameter template, so switching intent never costs the familiarity of the controls. Structure for creating, AI for finishing.",
+        title: "Use confusion as evidence",
+        body: "I logged every point of friction as a first-time user, then tested the improved product with more than 30 people. Users were getting blocked before they reached the product's core value.",
       },
       {
-        title: "The layout tells you where you are",
-        body: "Users' favorite capability in research was the two-way convert — typically they'd start a video, want to explore further, and turn it into slides mid-flight. Yet most never found the feature, and the most-asked question in testing was “am I in slides or video right now?” — asked by people who smiled at every result. Test users perform politeness; the questions they ask are better data than the excitement they show. Root cause: both surfaces shared one identical layout, with a vertical selector that meant pages in one room and story covers in the other. From the inside that read as convenience — one universal template, a simpler back end, instant familiarity. From the outside it erased the only signal telling users where they stood. The redesign gives each room its own layout, so the screen itself answers where-am-I; modes now categorize the person, not the format; and conversion became a visible button — a door between rooms instead of a hidden passage. The founder signed off, and we shipped it deliberately small: the next round of data, not individual conviction, decides how far the next iteration goes.",
+        title: "Split one product into three",
+        body: "The integrated product served different users and made feedback noisy. I convinced the founder to launch three focused products so each could make one promise and produce cleaner signals.",
       },
       {
-        title: "Decoding taste into an algorithm",
-        body: "Beyond the product surface, I design Vetra's aesthetic system — the rules that decide how every generated slide and video looks. The work is decoding human aesthetic judgment into on-screen decisions a machine can execute: what a story's mood implies for its palette, type, and pacing, and where the craft floors sit that keep output from feeling generated. Every visual this platform produces runs through rules I wrote. The rulebook itself stays proprietary; the field — teaching machines taste — is where my design practice is heading.",
+        title: "Own the path to production",
+        body: "I shaped the strategy, redesigned the workspace, and built three landing pages. All three shipped within one month.",
       },
     ],
-    collaborators: "For the Vetra team — product, landing, and the aesthetic algorithm behind every generated visual.",
+    collaborators: "2 people: engineer founder + me",
   },
   {
     key: "jobpilot",
@@ -152,50 +155,50 @@ export const projects: Project[] = [
     role: "Designer · builder · founder",
     title: "Jobpilot",
     description:
-      "Your AI coach to land the next role — resume, stories, market fit, and application tracking.",
+      "An AI coach that helps job seekers understand their market position and learn from application results.",
     images: ["/jobpilot-demo-v3.mp4", "/jobpilot-screens-showcase.mp4"],
     liveUrl: "https://jobpilot.katexu.com/dashboard",
     reflection: [
       {
-        title: "Design for the nervous system, not just the tasks",
-        body: "Job hunting is a high-anxiety activity, so the v2 redesign starts from one sentence: lower cortisol before asking for effort, then deliver small dopamine hits at real moments of progress — a saved job, a finished analysis, a moved card. “Dopamine Bauhaus” is that argument as a visual language: a warm cream field with primary blue, red, and yellow, 2px ink lines, hard offset shadows, and a fixed ratio of 70% paper, 20% ink, 10% color. Calm first, then a spark.",
+        title: "Make job hunting feel lighter",
+        body: "Job hunting is stressful, so I used a moodboard to define a lighter, more playful environment. That direction shaped the warm color palette and motion system, making progress feel clearer and the experience less painful.",
       },
       {
-        title: "Motion moves like furniture, not jelly",
-        body: "Mechanical, axis-aligned, quick: buttons press 1px into their shadow, scores fill left-to-right in 400ms, and a single 1.15× overshoot is reserved for real wins so it still means something. Even the loading spinner is the logo doing physics — the yellow ball bounces with gravity and squash while red and blue hold still. Numbers are the dopamine: oversized, tabular, one color max, making progress feel physical.",
+        title: "Cut to two AI features",
+        body: "I removed job matching and resume analysis, where larger competitors already had better data. Jobpilot now uses AI to estimate your market position, then correct it with real outcomes from your application board, including interviews, rounds, and offers. The feedback loop helps you understand where you actually perform best.",
       },
       {
-        title: "Coach, not tool — and honest about the boundary",
-        body: "The original page promised “auto-apply” and “smart matching” — automation the product didn't do. I rejected the tool-that-finds-you-a-job frame for a coach-that-makes-you-prepared one, and v2 keeps that honesty structural: in onboarding, one of the four journey arches is drawn in dashed outline — “You apply — out there.” The product doesn't pretend to do the part it doesn't do, and the copy (“The job search is lonely. This one isn't.”) shipped verbatim from design to production.",
+        title: "Coach, not tool",
+        body: "The original page promised automation the product did not provide. I repositioned Jobpilot as a coach that prepares users while leaving applications in their hands. The product now makes that boundary clear.",
       },
     ],
-    collaborators: "Solo, with AI as teammate — Figma MCP, Claude Code, and the Claude API.",
+    collaborators: "Solo, using Figma MCP, Claude Code, and the Claude API.",
   },
   {
     key: "pawpaw-story",
     timeline: "2026 · four weeks",
-    role: "Solo — design and build",
+    role: "Solo designer and builder",
     // caseStudyUrl: "/projects/pawpaw-story", // hidden until case studies are ready
     title: "PawPaw Story",
     description:
-      "AI voice-cloning storytelling app for kids — solo build, zero to App Store in four weeks.",
+      "AI voice-cloning storytelling app for kids. Solo build from zero to the App Store in four weeks.",
     images: ["/pawpaw-dribbble-43.mp4", "/pawpaw-collage-hd.mp4"],
     reflection: [
       {
         title: "Why I'm making this app",
-        body: "Two scenes kept coming up. A parent home at bedtime but too drained to tell a good story — the time is there, the energy isn't. And a mom away on a work trip while her kid lies awake at home, wanting her voice, because her voice is what makes it feel safe enough to sleep. PawPaw Story serves both: it turns a parent's voice into bedtime stories, so the exhausted parent can still give quality storytime, and the parent who stayed home can press play on the one who's away. Voice cloning is usually sold as efficiency; I built it for presence.",
+        body: "Two scenes shaped the product. One parent is home but too tired to tell a story. Another is traveling while their child wants the comfort of their voice. PawPaw Story uses voice cloning to create presence, not efficiency.",
       },
       {
-        title: "The karaoke pacer — fix the cause, not the symptom",
-        body: "Users finished the voice-cloning sample in under 30 seconds, the quality minimum. I rejected lowering the minimum (hurts clone quality) and padding the script (fragile). Instead: a word-by-word highlight paced at word count ÷ 30s, so any script fills the window — and a slower, warmer read gives ElevenLabs richer prosody. One UX mechanic fixed both the duration bug and the clone quality.",
+        title: "Fix the cause, not the symptom",
+        body: "Users finished the voice sample before the 30-second quality minimum. I kept the minimum and added word-by-word pacing based on script length. One interaction fixed both recording duration and voice quality.",
       },
       {
         title: "Root-cause the crash, then fix the class of bug",
-        body: "Toggling day↔night crashed the navigator. The root cause was subtle: the theme class flipping between empty and set made NativeWind remount the subtree mid-render. The fix was minimal — always apply a theme class so element identity never changes. Same habit at the visual layer: when one back button overlapped the status bar, I audited every screen with a back button and fixed the class of bug, not the instance.",
+        body: "Switching themes crashed the navigator because NativeWind remounted the subtree. I fixed the root cause by always applying a theme class. When one back button overlapped the status bar, I audited every related screen and fixed the whole class of problem.",
       },
     ],
     collaborators:
-      "A solo build. AI collaborators: Figma and Cursor — orchestrated by Gemini — for the agentic workflow, plus voice cloning for the storytelling.",
+      "A solo build using Figma, Cursor, Gemini, and voice cloning technology.",
     appStore: {
       url: "https://apps.apple.com/us/app/pawpawstory/id6757112694",
       icon: "/pawpaw-appicon.png",
@@ -211,11 +214,11 @@ export const projects: Project[] = [
     tile: "/ionboard-tile.png",
     caseStudyUrl:
       "https://www.figma.com/deck/taMJWLPYTuhGUHeiHYZauO/Ionboard?node-id=0-1&t=kXZU00tuN8yKxsZu-1",
-    timeline: "2017 \u2013 2018",
+    timeline: "2017 to 2018",
     role: "Design & Marketing Lead",
     title: "Ionboard",
     description:
-      "Electric skateboard brand — $57K+ Kickstarter (570% funded). End-to-end brand, design, and marketing.",
+      "Electric skateboard brand. $57K+ Kickstarter at 570% funded. I led the brand, design, and marketing.",
     // Both letterboxed onto a 1600x1000 white canvas so the rail keeps one
     // aspect: the board is centred with air around it, and the two low-res
     // event photos are stacked small in one column where the pixels don't show.
@@ -226,11 +229,11 @@ export const projects: Project[] = [
     reflection: [
       {
         title: "Treat business reality as a design constraint",
-        body: "I designed with manufacturing risk, business law, and market timing as first-class constraints, not afterthoughts — because a product that can't ship or sell isn't a good design, however beautiful.",
+        body: "I treated manufacturing risk, business law, and market timing as design constraints. A product that cannot ship or sell is not good design, however beautiful.",
       },
       {
         title: "Iterate on ad data, daily",
-        body: "I analyzed ad performance with engineers every day and let it drive proactive design changes, rather than designing once and defending it — the campaign funded at 570% of goal.",
+        body: "I reviewed ad performance with engineers every day and used it to guide design changes. The campaign funded at 570% of goal.",
       },
       {
         title: "Shift from product to community",
@@ -245,16 +248,16 @@ export const projects: Project[] = [
     // caseStudyUrl: "/projects/bofa-workplace", // hidden until case studies are ready
     title: "BofA WorkIT",
     description:
-      "Unified mobile command center for IT support — solo designer in a team of 3. Reached an NPS of 36.",
+      "Unified mobile command center for IT support. Solo designer in a team of three. Reached an NPS of 36.",
     images: ["/workit-old-vs-new.mp4", "/workit-eda-demo.jpg"],
     reflection: [
       {
         title: "Build the IA around the vital 20%",
-        body: "Instead of designing for every requested feature, I immersed in users' daily workflows to find the 20% that drives 80% of the value — and structured the whole information architecture around those.",
+        body: "I studied daily workflows to find the 20% of features that created 80% of the value. That evidence shaped the information architecture.",
       },
       {
         title: "Treat complaints as the roadmap",
-        body: "I chose to read user complaints not as setbacks but as the clearest signal of where the product should go next — the most meaningful context I had for what to build.",
+        body: "I treated user complaints as the clearest signal of what to build next.",
       },
       {
         title: "Let data overrule my assumptions",
@@ -333,7 +336,7 @@ function IntroBlock() {
         )}
       </div>
       <h1 className="text-[20px] md:text-[21px] font-medium text-[#111] tracking-[-0.4px] leading-[1.35]">
-        Kate Xu — Senior Product Designer & Builder
+        Kate Xu, Senior Product Designer & Builder
       </h1>
       <p className="mt-1.5 text-[14px] md:text-[15px] text-[#555] leading-[1.5] max-w-[460px]">
         {TAGLINE}
@@ -375,7 +378,7 @@ function WorkflowHighlightBlock() {
     <section className="pt-12 md:pt-14">
       <div className="max-w-[620px] rounded-[18px] bg-white p-4 md:p-5 shadow-[2px_4px_12px_rgba(0,0,0,0.08)] hover:shadow-[2px_4px_16px_rgba(0,0,0,0.16)] hover:scale-[1.01] transition-all duration-300 ease-[cubic-bezier(0,0,0.5,1)]">
         <h3 className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#111111] mb-3">
-          How I ship with engineers — AI-native workflow
+          How I ship with engineers using an AI-native workflow
         </h3>
         <div className="divide-y divide-[#e9e9e6]">
           {workflows.map((w, i) => (
@@ -395,6 +398,60 @@ function WorkflowHighlightBlock() {
             <span aria-hidden className="translate-y-[-1px]">→</span>
           </Link>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function StorytellingSkillBlock() {
+  return (
+    <section className="pt-16">
+      <div className="rounded-[18px] bg-[#f5f5f7] p-4 md:p-5">
+        <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#777]">
+          Open-source design skill
+        </p>
+        <h2 className="mt-2 text-[20px] font-semibold tracking-[-0.35px] text-[#111]">
+          Kate Xu Storytelling
+        </h2>
+        <p className="mt-2 max-w-[520px] text-[15px] leading-[1.5] text-[#333]">
+          Turn hard-to-explain ideas into narrative illustrations for an
+          existing presentation deck.
+        </p>
+        <p className="mt-3 max-w-[560px] text-[13px] leading-[1.6] text-[#777]">
+          Find the right scenes, choose A–D, and match the visual language of
+          the existing deck.
+        </p>
+
+        <div
+          className="mt-5 grid grid-cols-2 gap-x-2.5 gap-y-4"
+          aria-label="Four illustration directions generated by Kate Xu Storytelling"
+        >
+          {STORYTELLING_CHOICES.map((choice) => (
+            <figure key={choice}>
+              <div className="aspect-[4/3] overflow-hidden rounded-[8px] bg-white">
+                <img
+                  src={`/kate-storytelling-choice-${choice}.webp`}
+                  alt={`Kate Xu Storytelling direction ${choice.toUpperCase()}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <figcaption className="mt-1.5 text-center text-[12px] font-semibold uppercase text-[#111]">
+                {choice}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <a
+          href={STORYTELLING_GITHUB}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => track("v2_storytelling_skill_clicked")}
+          className="mt-5 inline-flex items-center rounded-full bg-[#111] px-4 py-2 text-[13px] font-medium text-white hover:bg-black transition-colors"
+        >
+          View on GitHub ↗
+        </a>
       </div>
     </section>
   );
@@ -485,7 +542,7 @@ function DownloadWidget({ app, project }: { app: AppStore; project: string }) {
           <span className="text-[#111111]" aria-hidden>
             ★★★★★
           </span>{" "}
-          “{app.review}” <span className="text-[#aaa]">— App Store review</span>
+          “{app.review}” <span className="text-[#aaa]">App Store review</span>
         </p>
       )}
     </div>
@@ -645,6 +702,7 @@ export default function KatesWebsiteV2() {
       <main className="mx-auto w-full max-w-[1040px] px-6 md:px-10">
         <IntroBlock />
         <WorkflowHighlightBlock />
+        <StorytellingSkillBlock />
         {projects.map((project) => (
           <ProjectBlock key={project.key} project={project} />
         ))}
