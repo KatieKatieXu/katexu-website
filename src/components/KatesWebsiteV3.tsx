@@ -321,7 +321,7 @@ function StorytellingSkillFeature() {
       <div className="grid grid-cols-[minmax(300px,0.78fr)_minmax(0,1.22fr)] items-stretch gap-12 rounded-[4px] bg-[#f7f7f8] p-12">
         <motion.div variants={titleReveal} className="flex flex-col">
           <p className="text-[15px] leading-[1.45] font-semibold uppercase tracking-[0.9px] text-[#888]">
-            Open-source storytelling skill
+            Agent Experience · Storytelling skill
           </p>
           <h2 className="mt-4 max-w-[360px] text-[32px] leading-[1.2] font-medium tracking-[-0.7px] text-[#111]">
             KateXuStorytelling.md

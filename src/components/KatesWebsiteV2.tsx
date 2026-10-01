@@ -408,7 +408,7 @@ function StorytellingSkillBlock() {
     <section className="pt-16">
       <div className="rounded-[18px] bg-[#f5f5f7] p-4 md:p-5">
         <p className="text-[11px] font-semibold uppercase tracking-[1.5px] text-[#777]">
-          Open-source storytelling skill
+          Agent Experience · Storytelling skill
         </p>
         <h2 className="mt-2 text-[20px] font-semibold tracking-[-0.35px] text-[#111]">
           KateXuStorytelling.md
