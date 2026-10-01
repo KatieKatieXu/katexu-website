@@ -119,7 +119,7 @@ export const projects: Project[] = [
   },
   {
     key: "vetra",
-    caseStudyUrl: "/decks/vetra-case-study.html",
+    caseStudyUrl: "/decks/vetra-case-study/",
     timeline: "2026",
     role: "Product designer · aesthetic system",
     title: "Vetra AI",
