@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="JobPilot case study by Kate Xu. A two week product built to help job seekers understand their market position and learn from real outcomes." />
+  <title>JobPilot · A market position that learns from reality</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#overview" aria-label="Return to the beginning">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <b>Jobpilot</b>
+    </a>
+    <nav aria-label="Case study chapters">
+      <a href="#origin">Origin</a>
+      <a href="#atmosphere">Visual system</a>
+      <a href="#cut">The cut</a>
+      <a href="#loop">Data loop</a>
+      <a href="#ship">Ship</a>
+    </nav>
+    <a class="top-cta" href="https://jobpilot.katexu.com/dashboard" target="_blank" rel="noreferrer">Open product ↗</a>
+    <div class="progress" aria-hidden="true"><i></i></div>
+  </header>
+
+  <main>
+    <section id="overview" class="chapter hero" data-nav="overview">
+      <div class="hero-shape shape-blue" aria-hidden="true"></div>
+      <div class="hero-shape shape-red" aria-hidden="true"></div>
+      <div class="chapter-inner">
+        <p class="eyebrow reveal">JOBPILOT · INDEPENDENT PRODUCT · 2026</p>
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <h1 class="reveal">An AI job coach that learns when the market disagrees.</h1>
+            <p class="hero-lede reveal">I built JobPilot to help job seekers understand where they stand, keep the context behind every application, and use real outcomes to improve where they aim next.</p>
+            <div class="hero-actions reveal">
+              <a class="button primary" href="https://jobpilot.katexu.com/dashboard" target="_blank" rel="noreferrer">Try JobPilot ↗</a>
+              <a class="button secondary" href="#origin">Read the story ↓</a>
+            </div>
+          </div>
+          <figure class="browser-frame reveal" data-parallax="0.025">
+            <div class="browser-bar"><span></span><span></span><span></span><small>jobpilot.katexu.com</small></div>
+            <img src="assets/01-landing.png" alt="JobPilot landing page with a warm cream background and bold geometric color system" />
+          </figure>
+        </div>
+        <div class="scope-strip reveal" aria-label="Project summary">
+          <div><small>ROLE</small><b>Product designer, founder, builder</b></div>
+          <div><small>TEAM</small><b>Solo</b></div>
+          <div><small>TIME</small><b>2 weeks</b></div>
+          <div><small>DELIVERED</small><b>Strategy, product, launch</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="origin" class="chapter chapter-cream" data-nav="origin">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>01 · THE ORIGIN</p>
+          <h2>The interview arrived. The job description was gone.</h2>
+        </div>
+        <div class="origin-layout">
+          <div class="origin-sequence reveal" aria-label="The problem that led to JobPilot">
+            <article class="sequence-card blue">
+              <span>DAY 01</span>
+              <strong>Apply</strong>
+              <p>The role looks promising. The details live in a browser tab.</p>
+            </article>
+            <div class="sequence-arrow" aria-hidden="true">→</div>
+            <article class="sequence-card yellow">
+              <span>DAY 12</span>
+              <strong>Interview</strong>
+              <p>The recruiter calls. Preparation starts now.</p>
+            </article>
+            <div class="sequence-arrow" aria-hidden="true">→</div>
+            <article class="sequence-card missing">
+              <span>THE GAP</span>
+              <strong>JD missing</strong>
+              <p>Interview preparation now lacks the role context that made the application specific.</p>
+            </article>
+          </div>
+          <div class="origin-copy reveal">
+            <p class="statement">I first built the tool for myself.</p>
+            <p>Job hunting creates a long gap between applying and interviewing. I wanted one place that remembered the role, my stories, and what happened next.</p>
+            <div class="decision-note">
+              <small>STARTING QUESTION</small>
+              <b>Can the product remember the search, then help me learn from it?</b>
+            </div>
+          </div>
+        </div>
+        <figure class="screen-frame reveal">
+          <img src="assets/03-dashboard.png" alt="JobPilot dashboard showing the user's profile, market analysis, applications, and next actions" />
+          <figcaption>A dashboard that remembers the full search from application through interview.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="atmosphere" class="chapter chapter-blue-tint" data-nav="atmosphere">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>02 · THE VISUAL SYSTEM</p>
+          <h2>I designed a lighter interface for a stressful life moment.</h2>
+        </div>
+        <figure class="integrated-illustration reveal">
+          <img src="assets/moodboard-environment.png" alt="Illustration showing an anxious job seeker transformed by a playful moodboard, color palette, and motion system into a calmer JobPilot experience" />
+          <figcaption>Moodboard, palette, and motion turn a high anxiety task into a lighter space.</figcaption>
+        </figure>
+        <div class="visual-proof">
+          <div class="palette-panel reveal">
+            <p class="mini-label">DOPAMINE BAUHAUS</p>
+            <h3>Warm enough to feel human. Structured enough to feel useful.</h3>
+            <div class="swatches" aria-label="JobPilot color palette">
+              <span style="--swatch:#2743D6"><b>COBALT</b></span>
+              <span style="--swatch:#E2422C"><b>TOMATO</b></span>
+              <span style="--swatch:#F5B301"><b>SUN</b></span>
+              <span style="--swatch:#159A8C"><b>TEAL</b></span>
+            </div>
+            <ul>
+              <li>Color marks progress and status.</li>
+              <li>Hard edges make actions feel clear.</li>
+              <li>Mechanical motion gives feedback a playful, decisive rhythm.</li>
+            </ul>
+          </div>
+          <figure class="screen-frame compact reveal">
+            <img src="assets/02-onboarding.png" alt="JobPilot onboarding explaining the user's journey through four simple stages" />
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="breadth" class="chapter chapter-ink" data-nav="cut">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>03 · VERSION ONE</p>
+          <h2>The first concept gave AI four jobs.</h2>
+        </div>
+        <p class="section-intro reveal">Four AI bets diluted the product’s strongest advantage.</p>
+        <div class="four-bets">
+          <article class="bet-card reveal">
+            <span>01</span><i class="bet-icon">◎</i>
+            <h3>Market position</h3>
+            <p>Estimate the roles and level that fit the user’s profile.</p>
+          </article>
+          <article class="bet-card reveal">
+            <span>02</span><i class="bet-icon">⌕</i>
+            <h3>Job matching</h3>
+            <p>Recommend open roles that look like a match.</p>
+          </article>
+          <article class="bet-card reveal">
+            <span>03</span><i class="bet-icon">▤</i>
+            <h3>Resume analysis</h3>
+            <p>Review a resume and suggest improvements.</p>
+          </article>
+          <article class="bet-card reveal">
+            <span>04</span><i class="bet-icon">↻</i>
+            <h3>Outcome patterns</h3>
+            <p>Use application results to update the user’s target.</p>
+          </article>
+        </div>
+        <div class="breadth-line reveal"><b>Four AI bets</b><span>One product advantage worth protecting.</span></div>
+      </div>
+    </section>
+
+    <section id="cut" class="chapter chapter-yellow" data-nav="cut">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>04 · THE CUT</p>
+          <h2>I focused JobPilot on the two places where it had an advantage.</h2>
+        </div>
+        <figure class="integrated-illustration cut-art reveal">
+          <img src="assets/cut-two-ai-features.png" alt="Illustration showing four proposed AI moments reduced to market position and outcome patterns" />
+          <figcaption>I focused JobPilot on the two moments where it could earn trust.</figcaption>
+        </figure>
+        <div class="cut-logic">
+          <article class="logic-card removed reveal">
+            <small>CUT · JOB MATCHING</small>
+            <h3>Data disadvantage</h3>
+            <p>Users already discover roles on platforms with richer inventory, behavior, and matching data.</p>
+          </article>
+          <article class="logic-card removed reveal">
+            <small>CUT · RESUME ANALYSIS</small>
+            <h3>Crowded market</h3>
+            <p>JobPilot’s own context offered a stronger direction than the crowded resume analysis category.</p>
+          </article>
+          <article class="logic-card kept reveal">
+            <small>KEEP · THE PRODUCT’S OWN SIGNAL</small>
+            <h3>Context that compounds</h3>
+            <p>JobPilot knows the user’s goals and their real outcomes. That context creates a compounding feedback loop.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="lightweight" class="chapter chapter-cream" data-nav="cut">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>05 · THE LIGHTER PRODUCT</p>
+          <h2>AI supports the two moments where judgment adds value.</h2>
+        </div>
+        <div class="two-moments">
+          <article class="moment-card reveal">
+            <span>AI MOMENT 01</span>
+            <div class="moment-number">1</div>
+            <h3>Estimate where you stand</h3>
+            <p>Profile and story evidence become a first market hypothesis.</p>
+            <div class="input-output"><small>INPUT</small><b>Experience + goals</b><i>→</i><small>OUTPUT</small><b>Target role hypothesis</b></div>
+          </article>
+          <article class="moment-card reveal">
+            <span>AI MOMENT 02</span>
+            <div class="moment-number">2</div>
+            <h3>Learn from what happened</h3>
+            <p>Application outcomes correct the first estimate over time.</p>
+            <div class="input-output"><small>INPUT</small><b>Real market reactions</b><i>→</i><small>OUTPUT</small><b>Sharper next target</b></div>
+          </article>
+        </div>
+        <div class="human-tools reveal">
+          <p><b>The rest stays explicit and user controlled.</b></p>
+          <div><span>Profile</span><span>Story bank</span><span>Applications</span><span>Interview context</span></div>
+        </div>
+        <div class="screens-pair">
+          <figure class="screen-frame reveal"><img src="assets/04-applications.png" alt="JobPilot application board with saved, applied, interviewing, offer, and rejected columns" /><figcaption>Every real outcome stays visible.</figcaption></figure>
+          <figure class="screen-frame reveal"><img src="assets/05-market.png" alt="JobPilot market page that can rerun analysis as a profile and evidence change" /><figcaption>New evidence continuously updates the market view.</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="loop" class="chapter chapter-blue-tint" data-nav="loop">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>06 · THE DATA LOOP</p>
+          <h2>The market corrects the first prediction.</h2>
+        </div>
+        <p class="section-intro reveal">Real outcomes keep the first answer open to revision.</p>
+        <figure class="integrated-illustration loop-art reveal">
+          <img src="assets/reality-correction-loop.png" alt="Illustration of a profile becoming an AI hypothesis, target roles, application outcomes, and a corrected target" />
+          <figcaption>Rejections, interviews, rounds, and offers become evidence for the next decision.</figcaption>
+        </figure>
+        <div class="loop-principle reveal">
+          <span>PROFILE</span><i>+</i><span>MARKET HYPOTHESIS</span><i>+</i><span>REAL OUTCOMES</span><i>=</i><b>BETTER SELF UNDERSTANDING</b>
+        </div>
+        <blockquote class="reveal">Reality provides the strongest evidence.</blockquote>
+      </div>
+    </section>
+
+    <section id="ship" class="chapter chapter-ink" data-nav="ship">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>07 · CRAFT AND SHIP</p>
+          <h2>I took the product from idea to live in two weeks.</h2>
+        </div>
+        <div class="ship-grid">
+          <div class="build-track reveal">
+            <div><span>01</span><b>Frame the problem</b><small>My own search became the starting evidence.</small></div>
+            <div><span>02</span><b>Design the system</b><small>Low fidelity, high fidelity, visual language, motion.</small></div>
+            <div><span>03</span><b>Build the product</b><small>Figma MCP, AI coding tools, and direct implementation.</small></div>
+            <div><span>04</span><b>Test and ship</b><small>Real flows, responsive QA, live deployment.</small></div>
+          </div>
+          <div class="ship-stat reveal">
+            <strong>14</strong><span>DAYS</span>
+            <p>Strategy, product design, implementation, and launch by one person.</p>
+          </div>
+        </div>
+        <figure class="demo-frame reveal">
+          <video src="assets/product-demo.mp4" autoplay muted loop playsinline preload="metadata" poster="assets/01-landing.png"></video>
+          <figcaption>From a personal friction to a working product people can use.</figcaption>
+        </figure>
+        <a class="launch-button reveal" href="https://jobpilot.katexu.com/dashboard" target="_blank" rel="noreferrer">Visit the live product <span>↗</span></a>
+      </div>
+    </section>
+
+    <section id="reflection" class="chapter reflection" data-nav="ship">
+      <div class="chapter-inner">
+        <div class="section-heading reveal">
+          <p>08 · REFLECTION</p>
+          <h2>AI should update its opinion when reality disagrees.</h2>
+        </div>
+        <div class="reflection-grid">
+          <article class="reveal"><span>01</span><h3>Start with a real problem</h3><p>The missing job description was small, specific, and worth solving.</p></article>
+          <article class="reveal"><span>02</span><h3>Focus where your data compounds</h3><p>JobPilot creates value through the context it gathers across the user’s search.</p></article>
+          <article class="reveal"><span>03</span><h3>Let behavior challenge the model</h3><p>A useful coach becomes more honest as evidence accumulates.</p></article>
+        </div>
+        <div class="closing reveal">
+          <p>Focus made JobPilot stronger.</p>
+          <a href="#overview">Return to the beginning ↑</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
